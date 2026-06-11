@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Watercourse Way — An Interactive Deep Dive into Taoism and the Tao Te Ching</title>
+<meta name="description" content="An interactive study site covering the Tao Te Ching's 81 chapters, core Taoist concepts, Zhuangzi, history, practice, and a quiz.">
+<style>
+:root{
+  --paper:#f6f0e3; --paper-2:#efe6d2; --ink:#2b2620; --ink-soft:#5a5247;
+  --vermilion:#bf3b25; --vermilion-soft:#d96a4a; --gold:#a87f2e;
+  --card:#fbf7ed; --card-border:#d9cdb4; --shadow:rgba(60,48,30,.12);
+  --tag-bg:#ece2cc; --code:#e9dec6;
+}
+html[data-theme="dark"]{
+  --paper:#16140f; --paper-2:#1d1a13; --ink:#e9e1cf; --ink-soft:#b3a88f;
+  --vermilion:#e05a3a; --vermilion-soft:#e98263; --gold:#cfa44d;
+  --card:#211d15; --card-border:#3a3426; --shadow:rgba(0,0,0,.45);
+  --tag-bg:#2c2719; --code:#2c2719;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  font-family:Georgia,"Iowan Old Style","Times New Roman","Songti SC","Noto Serif CJK SC",serif;
+  background:
+    radial-gradient(1200px 600px at 10% -5%, rgba(191,59,37,.05), transparent 60%),
+    radial-gradient(900px 500px at 95% 8%, rgba(168,127,46,.06), transparent 55%),
+    var(--paper);
+  color:var(--ink); line-height:1.65; transition:background .4s,color .4s;
+}
+.zh{font-family:"Songti SC","Noto Serif CJK SC","SimSun","MS Mincho",serif}
+a{color:var(--vermilion);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* ---------- nav ---------- */
+nav{
+  position:sticky;top:0;z-index:60;background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--card-border);
+}
+nav .bar{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;padding:10px 16px}
+nav .brand{display:flex;align-items:center;gap:8px;font-weight:bold;white-space:nowrap;font-size:.95rem}
+nav .seal{width:28px;height:28px;background:var(--vermilion);color:#fff;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 auto}
+nav .links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
+nav .links::-webkit-scrollbar{display:none}
+nav .links a{color:var(--ink-soft);padding:6px 10px;border-radius:6px;font-size:.85rem;white-space:nowrap}
+nav .links a:hover{color:var(--vermilion);background:var(--tag-bg);text-decoration:none}
+#themeToggle{
+  border:1px solid var(--card-border);background:var(--card);color:var(--ink);
+  border-radius:20px;padding:5px 12px;font-size:.8rem;white-space:nowrap;flex:0 0 auto;
+}
+#themeToggle:hover{border-color:var(--vermilion)}
+
+/* ---------- hero ---------- */
+header.hero{text-align:center;padding:72px 20px 56px;position:relative}
+.hero .bigzh{font-size:clamp(84px,16vw,150px);line-height:1;color:var(--vermilion);opacity:.92}
+.hero h1{font-size:clamp(1.7rem,4.5vw,2.8rem);margin:14px 0 6px;letter-spacing:.5px}
+.hero p.sub{color:var(--ink-soft);max-width:620px;margin:0 auto;font-style:italic}
+.hero .pinyin{color:var(--ink-soft);letter-spacing:4px;font-size:.95rem;margin-top:4px}
+
+/* ---------- sections ---------- */
+section{padding:56px 0;}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.sec-head .zh-big{font-size:2.4rem;color:var(--vermilion);line-height:1}
+.sec-head h2{font-size:clamp(1.35rem,3vw,1.9rem)}
+.sec-sub{color:var(--ink-soft);font-style:italic;margin-bottom:24px;max-width:720px}
+.brush{height:14px;margin:0 0 26px;background:
+  linear-gradient(90deg, transparent, var(--ink) 8%, var(--ink) 55%, transparent 96%);
+  opacity:.16;border-radius:50% 40% 60% 50%/80% 90% 70% 90%;max-width:340px}
+.prose{max-width:760px}
+.prose p{margin-bottom:14px}
+.prose strong{color:var(--vermilion)}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- generic cards ---------- */
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;
+  box-shadow:0 2px 10px var(--shadow);padding:18px 20px}
+.grid{display:grid;gap:16px}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+
+/* ---------- chapter explorer ---------- */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+#chSearch{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--card-border);
+  border-radius:8px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.95rem}
+#chSearch:focus{outline:2px solid var(--vermilion-soft)}
+.btn{background:var(--vermilion);color:#fff;border:none;border-radius:8px;padding:10px 16px;
+  font-size:.9rem;transition:transform .15s,opacity .2s}
+.btn:hover{opacity:.9;transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--vermilion);border:1px solid var(--vermilion)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{border:1px solid var(--card-border);background:var(--tag-bg);color:var(--ink-soft);
+  border-radius:20px;padding:5px 13px;font-size:.8rem;transition:all .15s}
+.chip:hover{border-color:var(--vermilion)}
+.chip.on{background:var(--vermilion);border-color:var(--vermilion);color:#fff}
+#chMeta{color:var(--ink-soft);font-size:.85rem;margin-bottom:14px}
+#chMeta .prog{color:var(--vermilion);font-weight:bold}
+#chList{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.ch-card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;
+  padding:14px 16px;cursor:pointer;transition:border-color .2s, box-shadow .2s;position:relative}
+.ch-card:hover{border-color:var(--vermilion-soft);box-shadow:0 3px 14px var(--shadow)}
+.ch-card .num{font-size:.75rem;color:var(--vermilion);letter-spacing:2px;text-transform:uppercase}
+.ch-card h4{font-size:1.05rem;margin:2px 0 8px}
+.ch-card .tags{display:flex;flex-wrap:wrap;gap:5px}
+.ch-card .tag{font-size:.68rem;background:var(--tag-bg);color:var(--ink-soft);
+  border-radius:10px;padding:2px 8px;letter-spacing:.5px}
+.ch-card .readmark{position:absolute;top:12px;right:14px;font-size:.85rem;color:var(--gold)}
+.ch-card.open{grid-column:1/-1;cursor:default}
+.ch-body{margin-top:12px;border-top:1px dashed var(--card-border);padding-top:12px;
+  display:grid;gap:14px}
+@media(min-width:760px){.ch-body{grid-template-columns:1fr 1fr}}
+.ch-body h5{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--vermilion);margin-bottom:6px}
+.ch-body .verse{white-space:pre-line;font-style:italic;color:var(--ink)}
+.ch-body .full{grid-column:1/-1}
+.ch-actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
+.smallbtn{border:1px solid var(--card-border);background:transparent;color:var(--ink-soft);
+  border-radius:8px;padding:6px 12px;font-size:.8rem}
+.smallbtn:hover{border-color:var(--vermilion);color:var(--vermilion)}
+.smallbtn.done{border-color:var(--gold);color:var(--gold)}
+
+/* ---------- concepts ---------- */
+.concept{cursor:pointer;transition:border-color .2s}
+.concept:hover{border-color:var(--vermilion-soft)}
+.concept .top{display:flex;gap:16px;align-items:center}
+.concept .hanzi{font-size:2.6rem;color:var(--vermilion);line-height:1.1;min-width:64px;text-align:center}
+.concept .pinyin{color:var(--ink-soft);font-size:.85rem;letter-spacing:1px}
+.concept .lit{font-size:.85rem;color:var(--gold);font-style:italic}
+.concept .more{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.concept.open .more{max-height:600px}
+.concept .more-inner{padding-top:12px;border-top:1px dashed var(--card-border);margin-top:12px;font-size:.93rem}
+.concept .chrefs{margin-top:8px;font-size:.8rem;color:var(--ink-soft)}
+.concept .hint{font-size:.75rem;color:var(--ink-soft);margin-top:8px;font-style:italic}
+
+/* concept map */
+#mapWrap{margin-top:34px}
+#conceptMap{width:100%;height:auto;display:block}
+#conceptMap text{fill:var(--ink);font-family:inherit}
+#conceptMap .node circle{fill:var(--card);stroke:var(--card-border);stroke-width:1.5;transition:stroke .2s}
+#conceptMap .node:hover circle{stroke:var(--vermilion)}
+#conceptMap .center circle{fill:var(--vermilion);stroke:var(--vermilion)}
+#conceptMap .center text{fill:#fff}
+#conceptMap line{stroke:var(--ink);opacity:.22;stroke-width:1.2}
+#conceptMap .edge-label{font-size:9px;fill:var(--ink-soft);opacity:.85}
+
+/* ---------- timeline ---------- */
+.timeline{position:relative;margin-left:8px;padding-left:26px;border-left:2px solid var(--card-border);max-width:780px}
+.tl-item{position:relative;margin-bottom:26px}
+.tl-item::before{content:"";position:absolute;left:-33px;top:7px;width:12px;height:12px;
+  border-radius:50%;background:var(--vermilion);box-shadow:0 0 0 4px var(--paper)}
+.tl-item .when{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--vermilion);font-weight:bold}
+.tl-item h4{margin:2px 0 4px}
+.tl-item p{color:var(--ink-soft);font-size:.92rem;max-width:640px}
+
+/* ---------- zhuangzi ---------- */
+.parable .zh-title{color:var(--vermilion);font-size:1.3rem}
+.parable h4{margin:4px 0 10px}
+.parable .story{font-size:.95rem;margin-bottom:10px}
+.parable .reflect{font-size:.88rem;color:var(--ink-soft);border-left:3px solid var(--vermilion);
+  padding-left:12px;font-style:italic}
+
+/* ---------- comparison ---------- */
+.compare{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--card-border);
+  border-radius:12px;overflow:hidden;font-size:.92rem}
+.compare th,.compare td{padding:12px 14px;border-bottom:1px solid var(--card-border);
+  text-align:left;vertical-align:top}
+.compare th{background:var(--tag-bg);font-size:.95rem}
+.compare th .zh{color:var(--vermilion);margin-right:6px}
+.compare td:first-child{font-weight:bold;width:130px;color:var(--ink-soft);font-size:.8rem;
+  text-transform:uppercase;letter-spacing:1px}
+.compare-wrap{overflow-x:auto}
+
+/* ---------- practice ---------- */
+.reflection{margin-top:28px}
+#reflBox{margin-top:14px;display:none}
+#reflBox.show{display:block}
+#reflBox .verse{white-space:pre-line;font-style:italic;margin:10px 0}
+#reflBox .q{color:var(--vermilion);font-weight:bold;margin:12px 0 8px}
+#reflJournal{width:100%;min-height:110px;margin-top:8px;padding:12px;border:1px solid var(--card-border);
+  border-radius:8px;background:var(--paper-2);color:var(--ink);font-family:inherit;font-size:.92rem;resize:vertical}
+.note{font-size:.78rem;color:var(--ink-soft);font-style:italic;margin-top:6px}
+
+/* ---------- glossary ---------- */
+.gloss{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.gloss .card{display:flex;gap:14px;align-items:flex-start}
+.gloss .hanzi{font-size:1.9rem;color:var(--vermilion);min-width:56px;text-align:center;line-height:1.2}
+.gloss .py{font-size:.82rem;color:var(--ink-soft)}
+.gloss .pron{font-size:.78rem;color:var(--gold);font-style:italic}
+.gloss .def{font-size:.88rem;margin-top:4px}
+
+/* ---------- quiz ---------- */
+#quizBox{max-width:700px}
+#quizQ{font-size:1.1rem;margin-bottom:16px}
+.q-meta{display:flex;justify-content:space-between;color:var(--ink-soft);font-size:.82rem;margin-bottom:12px}
+.q-meta .score{color:var(--vermilion);font-weight:bold}
+.opts{display:grid;gap:10px}
+.opt{background:var(--paper-2);border:1px solid var(--card-border);border-radius:8px;
+  padding:11px 14px;text-align:left;font-size:.93rem;color:var(--ink);transition:border-color .15s}
+.opt:hover{border-color:var(--vermilion)}
+.opt.correct{border-color:#3c8a4e;background:color-mix(in srgb,#3c8a4e 14%,var(--paper-2))}
+.opt.wrong{border-color:var(--vermilion);background:color-mix(in srgb,var(--vermilion) 12%,var(--paper-2))}
+.opt:disabled{cursor:default}
+#quizExplain{display:none;margin-top:14px;border-left:3px solid var(--gold);padding:6px 12px;
+  font-size:.9rem;color:var(--ink-soft)}
+#quizExplain.show{display:block}
+#quizDone{text-align:center;padding:20px 0}
+#quizDone .final{font-size:2.4rem;color:var(--vermilion);font-weight:bold}
+.qbar{height:6px;background:var(--tag-bg);border-radius:3px;overflow:hidden;margin-bottom:18px}
+.qbar i{display:block;height:100%;background:var(--vermilion);transition:width .3s;width:0}
+
+footer{border-top:1px solid var(--card-border);padding:34px 20px;text-align:center;
+  color:var(--ink-soft);font-size:.85rem}
+footer .zh{color:var(--vermilion);font-size:1.4rem;display:block;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="bar">
+    <span class="brand"><span class="seal zh">道</span> The Watercourse Way</span>
+    <div class="links">
+      <a href="#orientation">Orientation</a>
+      <a href="#chapters">81 Chapters</a>
+      <a href="#concepts">Concepts</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#zhuangzi">Zhuangzi</a>
+      <a href="#paths">Two Paths</a>
+      <a href="#practice">Practice</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#quiz">Quiz</a>
+    </div>
+    <button id="themeToggle">🌙 Ink Night</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="bigzh zh">道</div>
+  <div class="pinyin">dào · the way</div>
+  <h1>The Watercourse Way</h1>
+  <p class="sub">An interactive deep dive into Taoism and the Tao Te Ching — the legend, the text, the ideas, and the practice of moving with the grain of things.</p>
+</header>
+
+<main class="wrap">
+
+<!-- 1. ORIENTATION -->
+<section id="orientation" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">源</span><h2>Orientation: The Old Master and the Way</h2></div>
+  <p class="sec-sub">What Taoism is, who Lao Tzu was (and wasn't), and how the book actually reached us.</p>
+  <div class="brush"></div>
+  <div class="prose">
+    <p><strong>Taoism</strong> is the Chinese tradition of thought and practice oriented around the <em>Tao</em> (道, dào) — "the Way": the unnameable source and pattern behind all things. Where Confucianism asks how to perfect society through ritual, role, and cultivated virtue, Taoism asks how to live by aligning with the spontaneous order of nature — yielding rather than forcing, emptying rather than accumulating, returning rather than advancing.</p>
+    <p><strong>The legend.</strong> Lao Tzu (老子, Lǎozǐ — literally "Old Master") is traditionally placed in the 6th century BCE as an older contemporary of Confucius. The classic account comes from Sima Qian's <em>Records of the Grand Historian</em> (c. 94 BCE): his name was Li Er (李耳), also called Lao Dan, and he served as an <strong>archivist at the Zhou royal court</strong>. Watching the dynasty decay, he grew disillusioned and rode west on a <strong>water buffalo</strong>, intending to vanish into the frontier. At the <strong>Hangu Pass</strong>, the gatekeeper <strong>Yin Xi</strong> recognized the sage and refused to let him pass until he wrote down his wisdom. Lao Tzu produced a text of roughly <strong>5,000 characters</strong> — the <em>Tao Te Ching</em> — handed it over, and disappeared. No one knows where he ended.</p>
+    <p><strong>The scholarship.</strong> Modern scholars treat Lao Tzu as semi-legendary. The text reads less like one person's book and more like a <strong>compilation of oral wisdom</strong> that settled into its received form around the <strong>4th to 3rd century BCE</strong>, during the Warring States period. The oldest physical witnesses are the <strong>Guodian bamboo slips</strong> (c. 300 BCE), a partial early version excavated in 1993, and the <strong>Mawangdui silk manuscripts</strong> (c. 168 BCE), found in a Han tomb in 1973 — which, intriguingly, reverse the two halves, placing the <em>Te</em> book before the <em>Tao</em> book.</p>
+    <p><strong>The text.</strong> Eighty-one short chapters in two books — the <em>Tao Ching</em> (chapters 1–37, on the Way) and the <em>Te Ching</em> (chapters 38–81, on virtue or potency). It is terse, poetic, and deliberately paradoxical: built for rereading rather than reading. It has become one of the most translated books in human history. Notable English versions include James Legge (1891, public domain — the basis for the renderings on this site), D.C. Lau (precise), Red Pine (with classical commentaries), Ursula K. Le Guin (poetic), Ames &amp; Hall (philosophical), and Stephen Mitchell (loose but popular).</p>
+  </div>
+</section>
+
+<!-- 2. CHAPTER EXPLORER -->
+<section id="chapters" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">經</span><h2>The 81 Chapters Explorer</h2></div>
+  <p class="sec-sub">Every chapter of the Tao Te Ching: a rendering after the public-domain 1891 Legge translation, a plain modern paraphrase, and brief commentary. Filter by theme, search by keyword, or let chance choose for you.</p>
+  <div class="brush"></div>
+  <div class="toolbar">
+    <input id="chSearch" type="search" placeholder="Search the 81 chapters… (e.g. water, sage, empty)">
+    <button class="btn" id="drawBtn">🎴 Draw a chapter</button>
+  </div>
+  <div class="chips" id="tagChips"></div>
+  <div id="chMeta"></div>
+  <div id="chList"></div>
+</section>
+
+<!-- 3. CORE CONCEPTS -->
+<section id="concepts" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">德</span><h2>Core Concepts</h2></div>
+  <p class="sec-sub">The load-bearing ideas of the tradition. Click a card to unfold it.</p>
+  <div class="brush"></div>
+  <div class="grid c2" id="conceptGrid"></div>
+  <div id="mapWrap" class="card">
+    <h3 style="margin-bottom:4px">How the ideas interconnect</h3>
+    <p class="note" style="margin-bottom:10px">The Tao at the center; everything else is a way of describing how to align with it.</p>
+    <svg id="conceptMap" viewBox="0 0 700 430" role="img" aria-label="Concept map of core Taoist ideas"></svg>
+  </div>
+</section>
+
+<!-- 4. TIMELINE -->
+<section id="timeline" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">史</span><h2>Timeline</h2></div>
+  <p class="sec-sub">From the decay of Zhou to Zen and the modern world.</p>
+  <div class="brush"></div>
+  <div class="timeline" id="tlList"></div>
+</section>
+
+<!-- 5. ZHUANGZI -->
+<section id="zhuangzi" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">莊</span><h2>Zhuangzi: The Other Pillar</h2></div>
+  <p class="sec-sub">Zhuangzi (4th century BCE) is Taoism's second great voice — funnier, wilder, more skeptical than the Tao Te Ching. He teaches less by aphorism than by story. Six of his most famous parables, retold.</p>
+  <div class="brush"></div>
+  <div class="grid c2" id="parableGrid"></div>
+</section>
+
+<!-- 6. PHILOSOPHY VS RELIGION -->
+<section id="paths" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">教</span><h2>Two Paths: Daojia and Daojiao</h2></div>
+  <p class="sec-sub">Later tradition split into philosophical Taoism (daojia) and religious Taoism (daojiao), which arose in the Han era, deified Laozi, and built alchemy, qi cultivation, and priesthoods.</p>
+  <div class="brush"></div>
+  <div class="compare-wrap">
+  <table class="compare">
+    <thead><tr>
+      <th></th>
+      <th><span class="zh">道家</span>Daojia — Philosophical Taoism</th>
+      <th><span class="zh">道教</span>Daojiao — Religious Taoism</th>
+    </tr></thead>
+    <tbody id="compareBody"></tbody>
+  </table>
+  </div>
+</section>
+
+<!-- 7. PRACTICE -->
+<section id="practice" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">行</span><h2>Practice: Wu Wei in the World</h2></div>
+  <p class="sec-sub">The Tao Te Ching is a manual, not a museum piece. Three modern applications, plus a daily reflection.</p>
+  <div class="brush"></div>
+  <div class="grid c3" id="practiceGrid"></div>
+  <div class="card reflection">
+    <h3>Daily Reflection <span class="zh" style="color:var(--vermilion)">省</span></h3>
+    <p class="note">Pair a randomly drawn chapter with a journaling question. Your notes live only in this session.</p>
+    <button class="btn" id="reflBtn" style="margin-top:12px">Draw today's reflection</button>
+    <div id="reflBox">
+      <div class="num" style="color:var(--vermilion);letter-spacing:2px;font-size:.8rem;margin-top:14px" id="reflNum"></div>
+      <h4 id="reflTitle"></h4>
+      <p class="verse" id="reflVerse"></p>
+      <p class="q" id="reflQ"></p>
+      <textarea id="reflJournal" placeholder="Write freely…"></textarea>
+    </div>
+  </div>
+</section>
+
+<!-- 8. GLOSSARY -->
+<section id="glossary" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">字</span><h2>Glossary</h2></div>
+  <p class="sec-sub">Key terms with characters, pinyin, and rough pronunciation hints.</p>
+  <div class="brush"></div>
+  <div class="gloss" id="glossGrid"></div>
+</section>
+
+<!-- 9. QUIZ -->
+<section id="quiz" class="reveal">
+  <div class="sec-head"><span class="zh-big zh">試</span><h2>Quiz Mode</h2></div>
+  <p class="sec-sub">Test what has settled. Each answer comes with an explanation.</p>
+  <div class="brush"></div>
+  <div class="card" id="quizBox">
+    <div id="quizStart">
+      <p>Twenty-plus questions on the legend, the text, the concepts, and the tradition. Wrong answers teach as much as right ones.</p>
+      <button class="btn" id="quizStartBtn" style="margin-top:14px">Begin the quiz</button>
+    </div>
+    <div id="quizPlay" style="display:none">
+      <div class="q-meta"><span id="quizProgress"></span><span class="score" id="quizScore"></span></div>
+      <div class="qbar"><i id="quizBar"></i></div>
+      <div id="quizQ"></div>
+      <div class="opts" id="quizOpts"></div>
+      <div id="quizExplain"></div>
+      <button class="btn" id="quizNext" style="display:none;margin-top:16px">Next question →</button>
+    </div>
+    <div id="quizDone" style="display:none">
+      <p>Final score</p>
+      <div class="final" id="quizFinal"></div>
+      <p id="quizVerdict" style="margin:10px 0 18px;font-style:italic;color:var(--ink-soft)"></p>
+      <button class="btn ghost" id="quizRestart">Take it again</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span class="zh">上善若水</span>
+  "The highest good is like water." — Tao Te Ching, chapter 8<br>
+  Chapter renderings are original paraphrases informed by the public-domain 1891 James Legge translation.
+</footer>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   DATA — 81 chapters
+   r: rendering (after Legge, public domain), p: modern paraphrase,
+   c: commentary, tags: themes
+===================================================================== */
+const TAGS = ["wu wei","water","emptiness","reversal","leadership","simplicity","self-knowledge","war","paradox"];
+
+const CHAPTERS = [
+{n:1,t:"The Nameless Way",tags:["paradox","emptiness"],
+ r:"The Tao that can be trodden is not the enduring Tao.\nThe name that can be named is not the enduring name.\nNameless, it is the origin of heaven and earth;\nnamed, it is the mother of the ten thousand things.\nFree of desire, you see the mystery;\nfull of desire, you see only the surface.\nThese two arise together and differ only in name.\nDarkness within darkness — the gateway of all wonder.",
+ p:"Whatever you can define, label, or capture in words is not the ultimate reality. The real source of everything is prior to language. Drop your agendas and you glimpse the depth; cling to them and you see only outcomes.",
+ c:"The book opens by undermining itself: it is about to spend eighty-one chapters discussing something it declares undiscussable. This is not false modesty but method — every formula is a finger pointing, and the reader is warned never to mistake fingers for moons."},
+{n:2,t:"Opposites Give Birth to Each Other",tags:["reversal","wu wei","paradox"],
+ r:"When all the world knows beauty as beauty, ugliness appears.\nWhen all know good as good, the not-good appears.\nBeing and non-being give birth to each other;\nhard and easy complete each other;\nlong and short shape each other;\nhigh and low lean on each other.\nSo the sage manages affairs without doing,\nand teaches without words.\nThings arise and he does not refuse them;\nhe works but does not possess,\nachieves but does not dwell on it —\nand because he does not dwell on it, it does not leave him.",
+ p:"Every category creates its opposite the moment you name it. Knowing this, the wise person stops pushing labels and outcomes, lets things develop, contributes without claiming credit — and paradoxically keeps what was never grasped.",
+ c:"Here is the polarity logic later formalized as yin-yang: opposites are not enemies but co-creators. The chapter then makes its first ethical move — since every assertion summons its contrary, the sage acts without asserting."},
+{n:3,t:"Not Exalting the Clever",tags:["leadership","simplicity","wu wei"],
+ r:"Do not exalt the worthy, and people will not compete.\nDo not prize rare goods, and people will not steal.\nDo not display the desirable, and hearts stay calm.\nThe sage governs by emptying minds and filling bellies,\nweakening ambitions and strengthening bones.\nHe keeps the people without cunning and without craving,\nso the clever do not dare to interfere.\nAct by not forcing, and nothing is beyond governing.",
+ p:"Societies manufacture their own dysfunction by advertising status and scarcity. A wise leader stops feeding the competition machine, meets real needs (food, health, peace), and doesn't ignite artificial ones.",
+ c:"Easily misread as anti-intellectual manipulation, the chapter is better heard as a critique of engineered desire — the ancient version of the attention economy. The 'emptiness' urged on minds is freedom from manufactured craving, not ignorance."},
+{n:4,t:"The Empty Vessel",tags:["emptiness","paradox"],
+ r:"The Tao is empty, yet use will not drain it.\nDeep — like the ancestor of the ten thousand things.\nIt blunts the sharp, unties the tangled,\nsoftens the glare, settles with the dust.\nClear and still, as if barely existing.\nI do not know whose child it is;\nit seems older than God.",
+ p:"The source of everything works like an inexhaustible hollow: it never runs out precisely because it holds nothing. It takes the edge off extremes and sits quietly under all things, older than any deity we've named.",
+ c:"The shocking final line places the Tao before di, the high god of early Chinese religion — ultimacy belongs to the impersonal process, not to any personality. 'Blunting the sharp, settling with the dust' becomes a recurring formula for the sage's own style."},
+{n:5,t:"Straw Dogs and the Bellows",tags:["emptiness","paradox","leadership"],
+ r:"Heaven and earth are not humane:\nthey treat the ten thousand things as straw dogs.\nThe sage is not humane:\nhe treats the people as straw dogs.\nThe space between heaven and earth — is it not like a bellows?\nEmpty, yet never exhausted;\nthe more it moves, the more it yields.\nMany words lead quickly to exhaustion;\nbetter to hold to the center.",
+ p:"Nature plays no favorites — ritual straw dogs were honored during ceremony and discarded after, without sentiment. The wise don't take the universe personally. Like a bellows, emptiness is productive; like a chatterbox, over-explanation is not.",
+ c:"'Not humane' (bu ren) deliberately rejects the central Confucian virtue: the cosmos doesn't run on favoritism, and neither should a ruler. The bellows image rescues the chapter from coldness — impartial emptiness is exactly what makes endless generosity possible."},
+{n:6,t:"The Valley Spirit",tags:["emptiness","water"],
+ r:"The valley spirit never dies;\nit is called the mysterious female.\nThe gate of the mysterious female\nis called the root of heaven and earth.\nIt lingers like an unbroken thread;\ndraw on it, and it never runs dry.",
+ p:"The lowest, most receptive place — the valley, the womb, the hollow — is the most inexhaustible. The source of the world is not a thundering peak but a quiet opening that gives endlessly.",
+ c:"In six lines the text genders ultimacy female, an extraordinary move in a patriarchal age. Valley, water, mother, hollow: the book consistently locates power in what receives rather than what dominates."},
+{n:7,t:"Lasting by Selflessness",tags:["leadership","paradox","self-knowledge"],
+ r:"Heaven is long-lasting, earth endures.\nThey last because they do not live for themselves.\nTherefore the sage puts himself last and finds himself first,\ntreats his person as outside and it is preserved.\nIs it not because he is selfless\nthat his self is fulfilled?",
+ p:"The things that endure aren't busy securing themselves. Leaders who stop maneuvering for position tend to be the ones pushed forward; the surest path to self-fulfillment runs straight through self-forgetting.",
+ c:"This is not altruism as sacrifice but as strategy-free strategy: grasping triggers resistance, while yielding draws support. The paradox is real and observable — the colleague who hoards credit loses it; the one who gives it away accumulates it."},
+{n:8,t:"The Highest Good Is Like Water",tags:["water","wu wei","leadership"],
+ r:"The highest good is like water.\nWater benefits the ten thousand things without contending,\nand dwells in places everyone disdains —\nso it is near to the Tao.\nIn dwelling, value the ground;\nin thinking, value depth;\nin giving, value kindness;\nin speaking, value sincerity;\nin governing, value order;\nin work, value ability;\nin action, value timing.\nBecause it does not contend, it is beyond reproach.",
+ p:"Be like water: helpful to everything, in competition with nothing, comfortable taking the low position others scramble to avoid. Do each thing — living, thinking, speaking, leading — with quality, and skip the contest entirely.",
+ c:"The master metaphor of the book. Water wins by not fighting: it nourishes, adapts to any container, flows around obstacles, and gravitates downward — the position of humility that turns out to be the position of power. 'Beyond reproach' is literal: nothing un-contended can be blamed."},
+{n:9,t:"Knowing When to Stop",tags:["reversal","simplicity"],
+ r:"Holding a vessel to the brim — better to stop pouring.\nHammer a blade to its sharpest, and the edge will not last.\nFill your hall with gold and jade, and no one can guard it.\nWealth and rank joined to arrogance bring their own ruin.\nWithdraw when the work is done:\nthis is the way of heaven.",
+ p:"Everything overfilled spills; everything over-sharpened dulls; everything over-accumulated attracts loss. Finish the work, take no bow, and leave — the exit, done well, is part of the masterpiece.",
+ c:"The first sustained application of reversal: each image shows an optimum that lies before the maximum. 'Withdraw when the work is done' became proverbial advice for officials, founders, and artists — knowing when a thing is finished is itself the rarest skill."},
+{n:10,t:"The Mysterious Virtue",tags:["wu wei","emptiness","leadership","self-knowledge"],
+ r:"Carrying body and soul, embracing the One — can you keep them from parting?\nGathering your vital breath until it is supple — can you be like a newborn?\nPolishing the dark mirror of the mind — can you leave it without a flaw?\nLoving the people and ruling the state — can you do it without cleverness?\nOpening and closing the gates of heaven — can you play the female part?\nUnderstanding all within the four reaches — can you do it without knowing?\nGive birth and nourish; give birth without possessing,\nact without presuming, lead without dominating.\nThis is called the mysterious virtue.",
+ p:"A series of impossible-sounding questions: can you stay whole, soft, clear, and unforced — even while governing, even while understanding? Can you create things and then not own them? That capacity is the deepest kind of power.",
+ c:"The earliest glimpse of Taoist self-cultivation: breath, suppleness, and the mind as a mirror to be polished — imagery Zen would later inherit. The closing formula ('give birth without possessing') defines te: generativity with the fingerprints wiped off."},
+{n:11,t:"The Usefulness of What Is Not",tags:["emptiness","paradox"],
+ r:"Thirty spokes share one hub;\nit is the hole that makes the wheel useful.\nClay is shaped into a vessel;\nit is the hollow that makes it useful.\nDoors and windows are cut for a room;\nit is the openings that make it useful.\nTherefore profit comes from what is there;\nusefulness from what is not.",
+ p:"Wheel, cup, room: in each case the solid part is only the frame, and the empty part does the work. Value comes from what's present; function comes from what's absent.",
+ c:"Perhaps the most quoted chapter after 1 and 8, and the clearest statement of emptiness as utility. Its applications are endless: white space in design, silence in music, margin in a schedule, openness in a mind. We obsess over the spokes and forget to protect the hole."},
+{n:12,t:"The Five Colors Blind",tags:["simplicity","self-knowledge"],
+ r:"The five colors blind the eye;\nthe five tones deafen the ear;\nthe five flavors dull the mouth.\nRacing and hunting madden the heart;\nrare goods hobble a man's progress.\nTherefore the sage provides for the belly, not for the eye.\nHe rejects the one and takes the other.",
+ p:"Overstimulation doesn't sharpen the senses, it wrecks them. Chasing spectacle and acquisitions makes people frantic. The wise tend to real needs ('the belly') instead of bottomless appetites ('the eye').",
+ c:"An uncannily modern chapter: sensory overload, dopamine chasing, luxury as obstacle. 'For the belly, not the eye' is the whole minimalist program in seven words — satisfy what can be satisfied, and starve what can't."},
+{n:13,t:"Favor and Disgrace",tags:["self-knowledge","paradox","leadership"],
+ r:"Favor and disgrace alike bring fear.\nHonor and great calamity both attach to the self.\nWhy do favor and disgrace bring fear?\nFavor puts you in a lower place:\ngaining it you tremble, losing it you tremble.\nWhy do honor and calamity attach to the self?\nThe reason I suffer calamity is that I have a self;\nif I had no self, what calamity could I suffer?\nTherefore: one who values the world as his own body\nmay be entrusted with the world;\none who loves the world as his own body\nmay be given charge of it.",
+ p:"Praise enslaves you as much as blame — both make your peace depend on someone else's verdict. Suffering clings to the defended self. The person fit to lead is the one who treats the whole world with the care others reserve for their own skin.",
+ c:"A subtle diagnosis: favor is a leash, and the anxiety of keeping it equals the pain of losing it. The remedy isn't self-erasure but expanded identity — when 'self' includes everything you're responsible for, self-care and good governance converge."},
+{n:14,t:"The Formless Form",tags:["emptiness","paradox"],
+ r:"Look at it and see nothing: it is called the invisible.\nListen and hear nothing: it is called the inaudible.\nGrasp and hold nothing: it is called the intangible.\nThese three cannot be unraveled, so they blur into one.\nIts rising brings no light; its setting no darkness.\nUnending, unnameable, it returns to no-thing —\nthe form of the formless, the image of nothing,\nthe dim and the elusive.\nMeet it and you see no front; follow it and you see no back.\nHold the ancient Tao to steer the present:\nto know the ancient beginning is the thread of the Tao.",
+ p:"The Tao can't be seen, heard, or grasped — not because it's far away but because it isn't an object at all. Yet this elusive non-thing is the most practical instrument there is: the ancient pattern by which you can navigate today.",
+ c:"Apophatic theology centuries before the term: defining ultimacy by what it is not. The final turn is the surprise — all this mysticism lands on something usable, 'the thread' (ji), a guideline running through the present that you can actually steer by."},
+{n:15,t:"The Ancient Masters",tags:["water","simplicity","self-knowledge"],
+ r:"The masters of old were subtle, mysterious, profound, penetrating —\ntoo deep to be known. Since they cannot be known,\none can only describe their appearance:\ncautious, like crossing a stream in winter;\nalert, like one fearing neighbors on all sides;\ncourteous, like a guest;\nyielding, like ice about to melt;\nplain, like an uncarved block;\nopen, like a valley;\nopaque, like muddy water.\nWho can sit still while muddy water clears?\nWho can stay at rest until the moment of action?\nThose who keep this Tao do not desire fullness,\nand because they are not full,\nthey can be worn out and yet renewed.",
+ p:"The old sages weren't flashy; they were careful, courteous, plain, and patient. Their signature skill: waiting without fidgeting while a cloudy situation settles itself clear, then moving exactly when movement is called for.",
+ c:"The muddy-water line may be the most practical sentence in the book: most situations clarify themselves if you can endure not stirring them. Note that every image is provisional and humble — thawing ice, uncut wood — sketches of a power that never needs to look like power."},
+{n:16,t:"Returning to the Root",tags:["emptiness","self-knowledge","reversal"],
+ r:"Attain the utmost emptiness; hold fast to stillness.\nThe ten thousand things rise together,\nand I watch them return.\nThings flourish, and each returns to its root.\nReturning to the root is called stillness;\nstillness is called returning to life;\nreturning to life is called the constant;\nknowing the constant is called insight.\nNot knowing the constant, one acts blindly and invites disaster.\nKnowing the constant, one is all-embracing;\nall-embracing, therefore impartial;\nimpartial, therefore kingly;\nkingly, therefore of heaven;\nof heaven, therefore of the Tao;\nof the Tao, therefore enduring —\nfree from danger to the end of life.",
+ p:"Get quiet enough and you can watch the universal rhythm: everything that rises, returns. Seeing that pattern is real insight; missing it makes your actions reckless. Accepting it makes you spacious, fair, and unshakeable.",
+ c:"A meditation manual compressed into one chapter: empty, still, observe, return. The chain from insight to impartiality to endurance argues that serenity isn't withdrawal from effectiveness — it's the precondition for it."},
+{n:17,t:"The Invisible Leader",tags:["leadership","wu wei","simplicity"],
+ r:"The highest rulers — the people barely know they exist.\nThe next, they love and praise.\nThe next, they fear.\nThe next, they despise.\nWhen trust is insufficient, there is no trust in return.\nHow reluctant the best ruler is with words!\nWhen the work is done and affairs go well,\nthe people all say: 'We did it ourselves.'",
+ p:"A ranking of leadership from best to worst: invisible, loved, feared, despised. The best leaders talk little, force nothing, and arrange things so well that the team genuinely believes the success was entirely their own.",
+ c:"Possibly the most quoted management text from the ancient world. Its insight is precise: praise of a leader is already a symptom of dependence, and fear is a symptom of failure. The supreme achievement is engineering conditions where credit becomes unnecessary."},
+{n:18,t:"When the Great Way Declines",tags:["reversal","paradox","simplicity"],
+ r:"When the great Tao declined,\nbenevolence and righteousness appeared.\nWhen cleverness and wisdom emerged,\nthe great hypocrisy began.\nWhen the six family relations lost their harmony,\nfilial piety and parental affection appeared.\nWhen the state fell into darkness and disorder,\nloyal ministers appeared.",
+ p:"Celebrated virtues are symptoms, not cures. Nobody praises 'loyalty' until betrayal is everywhere; nobody preaches family values until families are breaking. Codified morality appears exactly where natural harmony has already died.",
+ c:"A direct shot at Confucianism, whose prized virtues are read here as evidence of decay — the moral billboard goes up only after the thing it advertises is gone. The diagnostic principle generalizes brilliantly: whatever a culture loudly celebrates, it lacks."},
+{n:19,t:"Return to Simplicity",tags:["simplicity","paradox"],
+ r:"Abandon sageliness, discard wisdom,\nand the people benefit a hundredfold.\nAbandon benevolence, discard righteousness,\nand the people return to natural affection.\nAbandon cleverness, discard profit,\nand thieves and robbers disappear.\nThese three are ornament, and not enough.\nLet people have something to hold to:\nshow plainness, embrace the uncarved block,\nlessen self-interest, make few the desires.",
+ p:"Drop the performance of virtue, the cult of cleverness, and the worship of profit, and people revert to decency on their own. What's needed isn't more moral technology but less: plainness, simplicity, modest wants.",
+ c:"The companion to chapter 18: if celebrated virtues are symptoms of decay, then dismantling the celebration is the cure. 'Embrace the uncarved block' (pu) makes its signature appearance — the unworked state that needs no improvement campaign."},
+{n:20,t:"The Sage Alone",tags:["self-knowledge","paradox","simplicity"],
+ r:"Give up learning, and be free of worry.\nBetween 'yes' and 'yeah' — how much difference?\nBetween good and evil — how great the distance?\nWhat others fear, I too must fear? How absurd!\nThe crowd is beaming, as if at a feast, as if mounting a spring terrace.\nI alone am still, giving no sign — like an infant who has not yet smiled,\nweary, like one with no home to return to.\nEveryone has more than enough; I alone seem left out.\nMine is the mind of a fool — muddled and dim!\nOrdinary people are bright; I alone am dark.\nOrdinary people are sharp; I alone am dull.\nDrifting like the sea, blown about without rest.\nEveryone has a purpose; I alone am stubborn and uncouth.\nI differ from others:\nI am nourished by the mother.",
+ p:"The most personal chapter: the speaker confesses to feeling like an outsider — dim where everyone is bright, aimless where everyone is busy, empty-handed at the world's party. But the loneliness has a secret: he draws his nourishment from the source itself.",
+ c:"A startling first-person poem inside a book of impersonal aphorisms — melancholy, ironic, almost modern. It legitimizes the cost of the path: alignment with the Tao can look, from outside and sometimes from inside, like failure. The last line is the quiet reversal that redeems all the rest."},
+{n:21,t:"The Substance of the Way",tags:["emptiness","paradox"],
+ r:"The greatest virtue follows the Tao and the Tao alone.\nThe Tao as a thing is elusive, evasive.\nEvasive, elusive — yet within it are images.\nElusive, evasive — yet within it are things.\nDim and dark — yet within it is essence.\nIts essence is utterly real; within it is trust.\nFrom of old until now its name has never departed.\nThrough it we see the beginning of all things.\nHow do I know the beginning of all things is so?\nThrough this.",
+ p:"The Tao is vague the way fog is vague — but inside the vagueness is everything real: images, things, vital essence. It is not a blur over reality; it is what reality is made of. And the proof is direct experience, not argument.",
+ c:"The metaphysical heart of the book: indeterminacy is not absence but pregnancy — the formless holds the seeds of all forms. The cheeky ending ('How do I know? Through this.') refuses to offer evidence beyond the seeing itself."},
+{n:22,t:"Yielding Stays Whole",tags:["reversal","paradox","self-knowledge"],
+ r:"The yielding stays whole; the bent becomes straight.\nThe hollow is filled; the worn-out is renewed.\nHaving little, one gains; having much, one is confused.\nTherefore the sage embraces the One and is a model for the world.\nNot displaying himself, he shines;\nnot asserting himself, he is distinguished;\nnot boasting, he is given credit;\nnot bragging, he endures.\nBecause he does not contend,\nno one in the world can contend with him.\nThe ancient saying 'the yielding stays whole' —\nare these empty words?\nStay truly whole, and all things come home to you.",
+ p:"Bend and you survive; insist and you snap. The person who doesn't perform, push, or boast ends up visible, credited, and lasting — and being out of the contest entirely, can't be beaten in it.",
+ c:"'Because he does not contend, no one can contend with him' is the book's signature judo: you cannot lose a game you decline to play. The chapter cites an already-ancient proverb, reminding us the Tao Te Ching itself is curating older wisdom."},
+{n:23,t:"The Whirlwind Does Not Last All Morning",tags:["wu wei","simplicity"],
+ r:"To be sparing of speech is natural.\nA whirlwind does not last all morning;\na downpour does not last all day.\nWho makes them? Heaven and earth.\nIf heaven and earth cannot keep up a fury,\nhow much less can man?\nTherefore: one who follows the Tao becomes one with the Tao;\none who follows virtue becomes one with virtue;\none who follows loss becomes one with loss.\nAnd the Tao gladly receives those who become one with it.\nWhen trust is insufficient, there is no trust in return.",
+ p:"Even nature can't sustain a tantrum — storms exhaust themselves by lunchtime. So will your fury, your hype, your forced pace. Whatever you practice, you become; what you align with, receives you.",
+ c:"A physics of intensity: all violent states are self-limiting, so a strategy built on force has an expiration time stamped on it. The second half adds the quieter point that alignment is self-fulfilling — you become what you habitually follow."},
+{n:24,t:"On Tiptoe No One Stands Long",tags:["reversal","simplicity","self-knowledge"],
+ r:"On tiptoe, one does not stand firm;\nstraddling, one cannot walk.\nThe self-displaying do not shine;\nthe self-asserting are not distinguished;\nthe boastful get no credit;\nthe self-important do not endure.\nTo the Tao these are like leftover food and wens on the body —\nthings all beings despise.\nTherefore one who has the Tao does not dwell in them.",
+ p:"Straining for height makes you wobble; striding for speed makes you stumble. Self-promotion backfires with the same mechanics. To the Way, showing off is table scraps and tumors — waste the healthy organism sheds.",
+ c:"The mirror image of chapter 22: where yielding earned everything, self-assertion forfeits it. The tiptoe image is perfect — the very effort to be taller than you are is what makes you unstable."},
+{n:25,t:"Something Undefined and Complete",tags:["emptiness","water","paradox"],
+ r:"There was something undefined and complete,\nborn before heaven and earth.\nSilent, vast, standing alone, unchanging,\nmoving everywhere, never exhausted —\nit may be called the mother of the world.\nI do not know its name; I style it 'Tao.'\nForced to name it further, I call it 'Great.'\nGreat, it flows on; flowing, it goes far;\ngoing far, it returns.\nTherefore the Tao is great, heaven is great,\nearth is great, and the king is also great.\nMan takes his law from earth;\nearth from heaven;\nheaven from the Tao;\nand the Tao from what is so of itself.",
+ p:"Before anything existed there was a silent completeness, mother of all. 'Tao' is just a courtesy label for it. Its movement is a circuit — outward, far, and back again. And the chain of authority ends not in a god but in spontaneity itself: the Tao follows its own nature.",
+ c:"The closest the book comes to a creation account, and the source of the crucial term ziran — 'so of itself.' The final ladder is quietly radical: even the ultimate doesn't obey an external law. At the bottom of everything is not command but naturalness."},
+{n:26,t:"The Heavy Is the Root of the Light",tags:["leadership","simplicity"],
+ r:"The heavy is the root of the light;\nstillness is the lord of restlessness.\nTherefore the sage travels all day\nwithout leaving his baggage cart.\nThough there are splendid sights, he remains at ease, aloof.\nWhy should the lord of ten thousand chariots\ncarry himself lightly before the world?\nLight, he loses his root;\nrestless, he loses his lordship.",
+ p:"Gravity anchors levity; calm governs agitation. A serious traveler doesn't abandon his supply wagon to chase scenery, and a serious leader doesn't trade composure for excitement. Lose your weight and you lose your root; lose your stillness and you lose command.",
+ c:"Advice to rulers that applies to anyone with responsibility: your steadiness is infrastructure, not personality. The baggage cart is whatever sustains you — sleep, routine, principles — and the splendid sights are every shiny thing that tempts you to leave it behind."},
+{n:27,t:"Leaving No Tracks",tags:["wu wei","self-knowledge","leadership"],
+ r:"A good traveler leaves no wheel tracks;\na good speaker leaves no flaws to censure;\na good reckoner needs no counting rods;\na good closer needs no bolts, yet what he shuts cannot be opened;\na good binder uses no rope, yet what he ties cannot be loosed.\nSo the sage is always good at saving people, and abandons no one;\nalways good at saving things, and wastes nothing.\nThis is called following the inner light.\nThe good man is the teacher of the not-good;\nthe not-good man is the material of the good.\nNot to honor one's teacher, not to cherish one's material —\nclever as one may be, this is great blindness.\nThis is the essential mystery.",
+ p:"Real skill is frictionless and leaves no residue — no tracks, no knots, no locks. The same effortless skill applied to people means writing nobody off: the struggling are the wise person's curriculum, and the wise are the struggling's teachers.",
+ c:"Wu wei as craftsmanship: mastery so fitted to the grain that it needs no apparatus and leaves no scar. The ethical turn is the chapter's glory — a sage 'good at saving people' wastes no person, the social equivalent of zero-waste craft."},
+{n:28,t:"Knowing the Male, Keeping to the Female",tags:["reversal","simplicity","emptiness"],
+ r:"Know the male, yet keep to the female:\nbecome the ravine of the world.\nAs the ravine of the world, constant virtue never leaves you,\nand you return to the state of the infant.\nKnow the white, yet keep to the black:\nbecome the pattern of the world.\nKnow honor, yet keep to humility:\nbecome the valley of the world.\nAs the valley of the world, constant virtue is sufficient,\nand you return to the uncarved block.\nWhen the block is cut, it becomes vessels;\nthe sage uses it and becomes lord of the officials.\nThe greatest carving cuts nothing away.",
+ p:"Have access to strength but live from receptivity; understand brilliance but stand in obscurity; deserve honor but choose the low place. That's how you become the valley everything flows into. Yes, raw potential must be 'carved' into useful roles — but the supreme craftsman shapes without mutilating.",
+ c:"The fullest statement of the book's yin-preference: knowing both poles, deliberately occupying the unfashionable one. The final paradox — 'the greatest carving cuts nothing away' — is a complete philosophy of education and management in one line: develop people and things without violating what they are."},
+{n:29,t:"The World Is a Sacred Vessel",tags:["wu wei","leadership","reversal"],
+ r:"Those who would take the world and shape it —\nI see they will not succeed.\nThe world is a sacred vessel that cannot be made.\nWhoever makes it, mars it; whoever grasps it, loses it.\nFor among things, some lead and some follow,\nsome breathe hot and some breathe cold,\nsome are strong and some are weak,\nsome rise and some fall.\nTherefore the sage discards the extreme,\nthe extravagant, the excessive.",
+ p:"You cannot engineer the world into your preferred shape; it is a living vessel, not raw material. Push and it breaks; grab and it slips. Things naturally vary — so the wise person abandons grand schemes and simply trims away excess.",
+c:"The Tao Te Ching's argument against utopian engineering, twenty-three centuries before the great planned catastrophes of the modern era. Note the modesty of the alternative: not a counter-scheme, just the steady subtraction of extremes."},
+{n:30,t:"Where Armies Camp, Thorns Grow",tags:["war","reversal","leadership"],
+ r:"One who assists a ruler with the Tao\ndoes not dominate the world by force of arms.\nSuch things tend to recoil.\nWhere armies camp, thorns and brambles grow;\nafter great wars come years of famine.\nThe skillful achieve their result, and stop —\nnot daring to take it by domination.\nAchieve without boasting, achieve without arrogance,\nachieve because there is no choice,\nachieve without forcing.\nThings in their prime grow old:\nthis is called 'not the Tao,'\nand what is not the Tao soon ends.",
+ p:"Military force boomerangs: battlefields become bramble fields, victories become famines. If force is truly unavoidable, accomplish the necessary minimum and stop — never parade it. Anything that peaks by force has already started dying.",
+ c:"Realism, not pacifism: the text concedes force is sometimes unavoidable but treats it like a dangerous medicine — minimum dose, no celebration. 'Things in their prime grow old' applies the reversal principle to power itself: a maximum is always an inflection point."},
+{n:31,t:"Weapons Are Instruments of Ill Omen",tags:["war","simplicity"],
+ r:"Fine weapons are instruments of ill omen;\nall beings seem to hate them.\nTherefore one who has the Tao does not dwell with them.\nThe noble person at home honors the left;\nin war, honors the right.\nWeapons, instruments of ill omen, are not the noble person's instruments;\nhe uses them only when he cannot do otherwise,\nand peace and quiet are what he prizes.\nVictorious, he does not glory in it;\nto glory in it is to delight in the slaughter of men,\nand one who delights in slaughter\nwill never get his will in the world.\nA host of slain is mourned with grief and weeping;\na victory is observed with funeral rites.",
+ p:"Weapons are bad-luck tools that even the things of the world seem to recoil from. Use them only when there is no other way, without relish — and treat every victory as the funeral it actually is.",
+ c:"The chapter's last line is one of the most humane sentences of the ancient world: celebrate triumph with funeral rites. The left/right protocol detail makes the point ritually — in war, the army adopts the seating of mourning, an admission built into the ceremony itself."},
+{n:32,t:"Knowing When to Stop Naming",tags:["simplicity","water","leadership"],
+ r:"The Tao, eternal, has no name.\nThe uncarved block, though small,\nnothing under heaven can subordinate it.\nIf princes and kings could keep it,\nthe ten thousand things would submit of themselves,\nheaven and earth would unite to drop sweet dew,\nand the people, with no one commanding them, would find fairness on their own.\nWhen carving begins, names appear;\nonce there are names, know that it is time to stop.\nKnowing when to stop averts danger.\nThe Tao is to the world\nas streams and valleys are to rivers and seas.",
+ p:"Uncut simplicity looks small but obeys nothing. Categories and titles are necessary tools — but every act of naming is a cut, and wisdom is knowing when to put the knife down. All things flow toward the Way like valley streams toward the sea.",
+ c:"A philosophy of language in miniature: names are useful incisions in reality that multiply until they bleed it dry, unless one 'knows when to stop.' The closing water image inverts hierarchy as usual — the sea rules the streams by being below them."},
+{n:33,t:"Knowing Yourself",tags:["self-knowledge","paradox"],
+ r:"Knowing others is intelligence;\nknowing yourself is enlightenment.\nConquering others is strength;\nconquering yourself is true power.\nKnowing contentment is wealth;\npersevering is willpower.\nNot losing your place is endurance;\ndying without perishing is long life.",
+ p:"Reading people is cleverness; reading yourself is wisdom. Overpowering others takes muscle; overpowering your own habits takes real strength. Contentment is the only wealth that can't be stolen — and a life that leaves something living behind it doesn't really end.",
+ c:"Eight lines, each a complete teaching, structured as a ladder from outward skill to inward mastery. 'Dying without perishing' has been read as legacy, as influence, and (by religious Taoists) as literal immortality — the ambiguity is surely intentional."},
+{n:34,t:"The Great Tao Flows Everywhere",tags:["water","emptiness","leadership"],
+ r:"The great Tao floods in every direction —\nit can go left, it can go right.\nThe ten thousand things depend on it for life,\nand it refuses none of them.\nIts work done, it claims no fame.\nIt clothes and feeds all things,\nyet does not act the master.\nAlways without desire, it may be called small;\nall things return to it, yet it does not act the master —\nit may be called great.\nBecause it never makes itself great,\nit is able to achieve greatness.",
+ p:"The Way is like a flood plain: everything depends on it, and it claims nothing, owns nothing, masters nothing. Call it small (no ego) or call it great (everything returns to it) — both are true, and the second is true because of the first.",
+ c:"The Tao as anti-emperor: universal provision with zero self-aggrandizement. The closing formula — great because it never claims greatness — restates the engine of the entire book, here applied to ultimacy itself rather than the sage."},
+{n:35,t:"The Great Image",tags:["simplicity","emptiness"],
+ r:"Hold fast the great image,\nand all the world comes to you —\ncomes, and is not harmed,\nbut finds rest, peace, and security.\nMusic and dainties make the passing traveler stop;\nbut the Tao, as it issues from the mouth,\nis bland — it has no flavor.\nLooked at, it is not worth seeing;\nlistened to, it is not worth hearing;\nyet used, it can never be exhausted.",
+ p:"Spectacle attracts crowds; the Way attracts nobody — it tastes like water, looks like nothing, sounds like silence. But spectacle wears out in an evening, and the flavorless thing turns out to be the only inexhaustible one.",
+ c:"An aesthetics of blandness that became central to Chinese art: the subtle outlasts the striking. The chapter is also a wry warning to anyone marketing wisdom — the genuine article will always lose the demo to the dazzling fake."},
+{n:36,t:"The Subtle Light",tags:["reversal","war","paradox"],
+ r:"What is to be shrunk must first be stretched;\nwhat is to be weakened must first be strengthened;\nwhat is to be toppled must first be raised;\nwhat is to be taken must first be given.\nThis is called the subtle light.\nThe soft and weak overcome the hard and strong.\nFish should not leave the deep pool;\nthe sharp instruments of a state\nshould not be shown to anyone.",
+ p:"Expansion precedes contraction; every overextension is the setup for a fall. Understanding this rhythm is 'the subtle light.' Like a fish safe only in deep water, real power survives by staying out of sight.",
+ c:"The chapter strategists love and moralists worry about — it reads equally as warning (don't be the one puffed up before the fall) and as technique (let the opponent overextend). Either way the physics holds: whatever is stretched to its limit is about to reverse."},
+{n:37,t:"The Tao Does Nothing",tags:["wu wei","simplicity","leadership"],
+ r:"The Tao in its constancy does nothing,\nyet nothing is left undone.\nIf princes and kings could keep to it,\nthe ten thousand things would transform themselves.\nIf, transformed, desire should rise in them,\nI would still it with the nameless uncarved block.\nThe nameless uncarved block is freedom from desire;\nwithout desire there is stillness,\nand the world settles itself.",
+ p:"The Way never strains, and nothing gets missed. A leader who could imitate that would watch the system organize itself — and when restlessness creeps back in, the remedy isn't a new program but a return to nameless simplicity.",
+ c:"The closing chapter of the Tao book, summarizing its politics: wu wei at the top releases self-organization below. 'The world settles itself' (literally 'rights itself') is the recurring promise — order is what happens when interference stops."},
+{n:38,t:"The Highest Virtue",tags:["simplicity","paradox","reversal"],
+ r:"The highest virtue does not show its virtue,\nand therefore has virtue.\nThe lowest virtue never lets go of virtue,\nand therefore has none.\nThe highest virtue does nothing and has no motive;\nthe highest benevolence acts, but without motive;\nthe highest righteousness acts, and with motive;\nthe highest propriety acts — and when none respond,\nbares its arm and forces them.\nThus when the Tao is lost, virtue appears;\nwhen virtue is lost, benevolence;\nwhen benevolence is lost, righteousness;\nwhen righteousness is lost, ritual.\nRitual is the husk of loyalty and trust, and the beginning of disorder.\nTherefore the great person dwells in the thick, not the thin;\nin the fruit, not the flower.\nHe rejects the one and takes the other.",
+ p:"Real goodness doesn't know it's being good; self-conscious goodness is already compromised. Trace the decay: spontaneous alignment hardens into virtue, virtue into kindness, kindness into duty, duty into etiquette — and etiquette enforced by the rolled-up sleeve. Live in the substance, not the wrapper.",
+ c:"The opening chapter of the Te book and the most systematic anti-Confucian argument in the text: ritual propriety, the crown of Confucian culture, is here the last husk left when everything real has evaporated. 'The fruit, not the flower' gives the test — substance over display, always."},
+{n:39,t:"Obtaining the One",tags:["emptiness","leadership","simplicity"],
+ r:"Of old, these obtained the One:\nheaven obtained the One and became clear;\nearth obtained the One and became steady;\nspirits obtained the One and became potent;\nvalleys obtained the One and became full;\nthe ten thousand things obtained the One and lived;\nprinces and kings obtained the One and set the world right.\nWithout what makes it clear, heaven would crack;\nwithout what makes it steady, earth would shake;\nwithout what makes them full, valleys would run dry;\nwithout what exalts them, princes and kings would fall.\nThus the exalted is rooted in the humble;\nthe high has the low for foundation.\nTherefore princes and kings call themselves\n'the orphan,' 'the lonely one,' 'the unworthy.'\nIs this not taking the humble as the root?\nThe utmost renown is to be without renown:\nnot to glitter like jade,\nbut to be rough like common stone.",
+ p:"Everything works by participating in one underlying wholeness — sky, earth, valleys, kings. And everything high is held up by something low: even ancient kings titled themselves 'the orphan' and 'the unworthy.' The deepest distinction is to need none — rather plain stone than polished jade.",
+ c:"A cosmological argument for humility: elevation is structurally dependent on what's beneath it, so wisdom honors the foundation. The royal self-deprecations were real Zhou court conventions — the text reads an entire metaphysics out of a piece of protocol."},
+{n:40,t:"Reversal Is the Movement",tags:["reversal","emptiness","paradox"],
+ r:"Reversal is the movement of the Tao;\nweakness is the means the Tao employs.\nThe ten thousand things under heaven are born of being;\nbeing is born of non-being.",
+ p:"The shortest chapter and the deepest: everything moves by turning back — growth into decay, fullness into emptiness, and around again. The Way operates through yielding, not strength. And existence itself emerges from the fertile nothing.",
+ c:"Twenty-five characters containing the book's whole physics. 'Reversal' (fan) means both return-to-origin and flip-into-opposite — the text wants both readings. If you remember one chapter as a lens for all the others, it should be this one."},
+{n:41,t:"The Bright Way Seems Dim",tags:["paradox","self-knowledge"],
+ r:"When the best student hears of the Tao,\nhe practices it diligently.\nWhen the average student hears of it,\nhe half keeps it, half loses it.\nWhen the worst student hears of it,\nhe laughs out loud —\nif he did not laugh, it would not be the Tao.\nTherefore the proverb says:\nthe bright way seems dim;\nthe advancing way seems to retreat;\nthe level way seems rough;\nthe highest virtue seems an empty valley;\nthe greatest purity seems sullied;\nthe most ample virtue seems insufficient;\nthe sturdiest virtue seems frail;\nthe most genuine seems changeable.\nThe great square has no corners;\nthe great vessel is late in completing;\nthe great sound is barely heard;\nthe great image has no form.\nThe Tao is hidden and nameless,\nyet it alone is good at lending and completing all things.",
+ p:"Genuine wisdom looks wrong at first glance — dim, backward, rough, unfinished. If shallow people didn't laugh at it, that would prove it was shallow too. The biggest things outgrow their own categories: the truly great vessel takes longest to finish; the deepest sound is nearly silence.",
+ c:"A field guide to recognizing the real thing precisely by its unimpressive surface. 'The great vessel is late in completing' has consoled late bloomers for two millennia, and 'if he did not laugh, it would not be the Tao' is the book's defense mechanism built into the book."},
+{n:42,t:"One, Two, Three, Ten Thousand",tags:["reversal","paradox","war"],
+ r:"The Tao gave birth to one;\none gave birth to two;\ntwo gave birth to three;\nthree gave birth to the ten thousand things.\nThe ten thousand things carry yin on their backs\nand embrace yang in their arms,\nblending the vital breaths into harmony.\nWhat people hate — to be 'orphaned,' 'lonely,' 'unworthy' —\nkings and lords take as their titles.\nThings are sometimes increased by being diminished,\nand diminished by being increased.\nWhat others teach, I also teach:\nthe violent do not die a natural death.\nI take this as the father of my teaching.",
+ p:"From unity, polarity; from polarity, the blended third; from blending, everything — each thing a balance of shadow and light. Loss can enrich and gain can impoverish, which is why kings adopt humble titles. And the oldest lesson of all: those who live by force die by it.",
+ c:"The famous cosmogony in the first four lines became the backbone of Chinese cosmology, with yin-yang harmony written into every existing thing. The abrupt landing on 'the violent do not die a natural death' isn't a non sequitur — violence is the refusal of harmony, and it self-destructs."},
+{n:43,t:"The Softest Thing in the World",tags:["water","wu wei","emptiness"],
+ r:"The softest thing in the world\ngallops over the hardest.\nThat which has no substance\nenters where there is no opening.\nFrom this I know the benefit of non-action.\nThe teaching without words,\nthe benefit of doing nothing —\nfew in the world attain to them.",
+ p:"Water erodes rock; air passes through walls' invisible pores; the intangible penetrates the impenetrable. From this, learn the advantage of not forcing — and of the kind of teaching that needs no lecture.",
+ c:"A four-line proof of wu wei from observation: softness wins all the long games. 'Teaching without words' points at what every parent and leader knows — what you are instructs louder than what you say."},
+{n:44,t:"Fame or Your Life",tags:["simplicity","self-knowledge"],
+ r:"Fame or your person — which is dearer?\nYour person or your property — which is worth more?\nGain or loss — which is the greater ill?\nExcessive love must cost dearly;\nhoarded wealth invites heavy loss.\nKnow contentment, and suffer no disgrace;\nknow when to stop, and meet no danger —\nthus you may endure long.",
+ p:"Three questions to ask before any ambition: is the prize worth the person paying for it? Obsession overpays and hoarding attracts loss. Knowing what is enough — and when to stop — is the complete insurance policy.",
+ c:"The interrogative opening is the technique: the text doesn't lecture, it makes you audit yourself. 'Knowing what is enough' (zhi zu) became one of the most cited phrases in Chinese culture — the recognition that sufficiency is a form of wealth no market can repossess."},
+{n:45,t:"Great Completion Seems Incomplete",tags:["paradox","emptiness","simplicity"],
+ r:"Great completion seems incomplete,\nyet its use is never worn out.\nGreat fullness seems empty,\nyet its use is never exhausted.\nGreat straightness seems bent;\ngreat skill seems clumsy;\ngreat eloquence seems to stammer.\nMovement overcomes cold;\nstillness overcomes heat.\nPurity and stillness set the world right.",
+ p:"The best work never looks finished or flashy; the deepest competence reads as awkwardness; the truest eloquence hesitates. Activity can warm you, but only stillness cools a fever — and the world's fever is cooled the same way.",
+ c:"A continuation of chapter 41's aesthetics of the unimpressive, ending in a political prescription: an overheated age isn't cured by more motion. 'Great skill seems clumsy' became a touchstone of Chinese art criticism — polish is what mediocrity does instead of depth."},
+{n:46,t:"Horses and Manure",tags:["war","simplicity"],
+ r:"When the Tao prevails in the world,\nswift horses are retired to haul manure.\nWhen the Tao is absent from the world,\nwar horses are bred in the suburbs.\nThere is no greater crime than giving rein to desire,\nno greater misery than not knowing contentment,\nno greater fault than the craving to get.\nTherefore the contentment of knowing contentment\nis contentment that endures.",
+ p:"You can diagnose an age by its horses: fertilizer carts in good times, cavalry in the pastures when things go wrong. The root sickness is always the same — unbounded wanting. The only contentment that lasts is being content with contentment itself.",
+ c:"War is traced past politics to psychology: armies are organized craving. The closing tautology is deliberate and profound — contentment that depends on conditions is just postponed discontent; the real thing is satisfied with being satisfied."},
+{n:47,t:"Knowing Without Going",tags:["self-knowledge","emptiness","wu wei"],
+ r:"Without going out the door,\nknow the world.\nWithout looking out the window,\nsee the way of heaven.\nThe farther you travel,\nthe less you know.\nTherefore the sage knows without traveling,\nnames things without seeing them,\naccomplishes without striving.",
+ p:"The pattern of things is available right here — in this room, in this mind — because the pattern is everywhere the same. Endless travel and input can become a substitute for understanding rather than a source of it.",
+ c:"Not a ban on travel but a claim about where insight lives: in depth of attention, not breadth of stimulus. In an age of infinite scrolling, 'the farther you go, the less you know' reads less like mysticism and more like diagnosis."},
+{n:48,t:"Subtracting Every Day",tags:["wu wei","emptiness","simplicity"],
+ r:"In pursuit of learning, something is added every day.\nIn pursuit of the Tao, something is dropped every day.\nLess and less, until you arrive at non-action:\ndo nothing, and nothing is left undone.\nThe world is won by letting things take their course;\nmeddle, and you are not equal to winning the world.",
+ p:"Education accumulates; wisdom subtracts. Strip away the unnecessary daily — habits, opinions, interventions — until action flows without forcing, and everything that needs doing gets done. You gain the world by not grabbing at it.",
+ c:"The definitive wu wei chapter: 'the sage does nothing, yet nothing is left undone.' Note that subtraction is a practice ('every day'), not a mood — wu wei is arrived at by training, like the cook whose blade never dulls because every needless movement has been removed."},
+{n:49,t:"The Sage Has No Fixed Mind",tags:["leadership","self-knowledge","water"],
+ r:"The sage has no fixed mind of his own;\nhe takes the mind of the people as his mind.\nTo the good, I am good;\nto the not-good, I am also good —\nand goodness is attained.\nWith the sincere, I am sincere;\nwith the insincere, I am also sincere —\nand sincerity is attained.\nThe sage lives in the world cautiously, merged with it,\nhis mind made one with all minds.\nThe people fix their eyes and ears upon him,\nand he treats them all as his children.",
+ p:"The wise leader holds no rigid agenda; he listens his way into the shared mind of the people. He doesn't ration goodness by what people deserve — by staying good to the ungood and honest with the dishonest, he creates the goodness and honesty that weren't there.",
+ c:"Unconditional regard as social technology: reciprocity caps you at the other person's level, while unconditional goodness raises the level. 'No fixed mind' is leadership as receptivity — the opposite of governing by ideology."},
+{n:50,t:"No Death-Spot",tags:["self-knowledge","paradox"],
+ r:"Coming out into life, going back into death:\nthree in ten are companions of life;\nthree in ten are companions of death;\nthree in ten love life yet move toward the place of death.\nWhy? Because they live life too intensely.\nBut I have heard that one who is good at holding on to life\nwalks the hills without meeting rhinoceros or tiger,\nenters battle without armor or weapon.\nThe rhinoceros finds nowhere to thrust its horn;\nthe tiger nowhere to fasten its claws;\nthe weapon nowhere to admit its blade.\nWhy? Because he has no death-spot in him.",
+ p:"Most people are killed by their own grip on life — overreaching, overdefending, overliving. The one who has stopped clutching offers no target: nothing in him sticks out for horn, claw, or blade to catch.",
+ c:"The 'death-spot' is wherever rigidity, fear, or craving gives the world a handle on you. Read naturalistically: the un-anxious person walks out of situations that devour the desperate. Religious Taoism later read it literally, as invulnerability — the chapter sits happily between."},
+{n:51,t:"The Tao Gives Birth to Them",tags:["wu wei","emptiness"],
+ r:"The Tao gives birth to them; virtue rears them;\nmatter shapes them; circumstance completes them.\nTherefore the ten thousand things without exception\nhonor the Tao and exalt virtue —\nyet no one decreed this honor: it is simply natural.\nThe Tao gives birth to them, rears them,\ngrows them, nurses them, completes them, ripens them,\nfeeds them, shelters them.\nIt gives birth without possessing,\nacts without presuming,\nraises without controlling.\nThis is called the mysterious virtue.",
+ p:"Everything is born from the Way and raised by its power — and the reverence all things have for it was never commanded; it's spontaneous, like a plant's turn toward light. The model of all care: create without owning, help without hovering, raise without ruling.",
+ c:"The book's theology of parenting, teaching, and creation in one formula: birth without possession. Authority that must be decreed is already failing; the real kind is conferred spontaneously on whatever genuinely nourishes."},
+{n:52,t:"Return to the Mother",tags:["self-knowledge","simplicity","emptiness"],
+ r:"The world had a beginning,\nwhich may be called the mother of the world.\nKnow the mother, and you know the children;\nknow the children, yet hold fast to the mother,\nand to the end of life you will be free from danger.\nBlock the openings, shut the doors,\nand to the end of life you will not be worn out.\nOpen the passages, multiply your affairs,\nand to the end of life you will be beyond rescue.\nTo see the small is called clarity;\nto keep to the soft is called strength.\nUse the light, but return to its source —\nthen you will not lose your life to calamity.\nThis is called practicing the constant.",
+ p:"Trace every particular back to its source, and keep one hand on the source while handling the particulars. Guard your inputs — the senses can be doors you close as well as open. Notice things while they're small; that's clarity. Stay soft; that's strength.",
+ c:"'Seeing the small is clarity' is both contemplative and ruthlessly practical: every catastrophe was once a detail. The 'openings' to be blocked are not life itself but the leaks — the thousand small drains of attention that leave a person beyond rescue by increments."},
+{n:53,t:"The Great Way Is Easy",tags:["leadership","simplicity","war"],
+ r:"If I had the least scrap of wisdom,\nI would walk the great Way,\nand my only fear would be straying from it.\nThe great Way is smooth and easy,\nbut people love the bypaths.\nThe courts are swept and garnished,\nwhile the fields are full of weeds\nand the granaries stand empty.\nYet some wear elegant embroidered robes,\ncarry sharp swords, gorge themselves on food and drink,\nand have wealth beyond use.\nThis is the boasting of robbers —\nit is not the Way.",
+ p:"The right road is broad and obvious; we just prefer shortcuts. Look at any age where palaces glitter while farmland goes to weed and storehouses sit empty — luxury floating on neglect isn't success. It's robbery in good clothes.",
+ c:"The most direct social criticism in the book, naming elite extraction for what it is. The opening confession ('my only fear would be straying') concedes how magnetic the bypaths are — corruption is rarely chosen; it's drifted into, one plausible shortcut at a time."},
+{n:54,t:"Well Planted, Not Uprooted",tags:["self-knowledge","leadership","simplicity"],
+ r:"What is well planted is not uprooted;\nwhat is well embraced does not slip away;\nand sons and grandsons keep the sacrifice unbroken.\nCultivate it in yourself, and virtue becomes real;\ncultivate it in the family, and virtue overflows;\ncultivate it in the village, and virtue endures;\ncultivate it in the state, and virtue abounds;\ncultivate it in the world, and virtue is everywhere.\nTherefore observe persons by the person,\nfamilies by the family,\nvillages by the village,\nstates by the state,\nthe world by the world.\nHow do I know the world is so?\nBy this.",
+ p:"Whatever is genuinely rooted can't be torn out by trends or storms. Real change radiates outward in rings — self, household, community, nation, world — and each level must be judged on its own terms, not through borrowed theory.",
+ c:"The Taoist answer to the Confucian 'Great Learning' program of self-to-world cultivation — same concentric rings, but grown rather than enforced. 'Observe states by the state' is a quiet methodology lesson: measure each thing against its own nature, not your framework."},
+{n:55,t:"The Infant's Power",tags:["simplicity","reversal","self-knowledge"],
+ r:"One who holds virtue in fullness\nis like a newborn child.\nWasps and scorpions do not sting it;\nfierce beasts do not seize it;\nbirds of prey do not strike it.\nIts bones are weak, its sinews soft,\nyet its grip is firm.\nIt knows nothing of the union of male and female,\nyet it is whole, its vitality at the utmost.\nIt cries all day without growing hoarse —\nits harmony is at the utmost.\nTo know harmony is called the constant;\nto know the constant is called clarity.\nForcing the growth of life is called ill omen;\nthe mind driving the breath is called violence.\nThings in their prime grow old:\nthis is called 'not the Tao,'\nand what is not the Tao soon ends.",
+ p:"A baby is the picture of unforced power: soft but firm-gripped, loud all day without strain, whole without trying. That effortless harmony is the natural state. Forcing growth — in a body, a company, a life — is the move of decay, not vitality.",
+ c:"The infant is the book's favorite sage: maximum vitality with zero agenda. 'The mind driving the breath is violence' is a precise warning to all self-improvers — when willpower bullies nature, what you build is tension, and tension is pre-paid collapse."},
+{n:56,t:"Those Who Know Do Not Speak",tags:["self-knowledge","paradox","simplicity"],
+ r:"Those who know do not speak;\nthose who speak do not know.\nBlock the openings, shut the doors;\nblunt the sharpness, untie the tangles;\nsoften the glare, settle with the dust.\nThis is called the mysterious sameness.\nSuch a one cannot be courted, cannot be spurned,\ncannot be profited, cannot be harmed,\ncannot be honored, cannot be humbled.\nTherefore he is the most honored under heaven.",
+ p:"What's deepest can't be paraded in talk. Quiet the edges, loosen the knots, dim the spotlight, mix with the ordinary dust. Whoever lives in that 'mysterious sameness' can't be bought, snubbed, or flattered — which is exactly why everyone honors them.",
+ c:"The opening couplet is the most famous self-undermining sentence in world literature — written in a book of 5,000 words. The chapter's real payload is the list of immunities: a person without buttons to press is beyond manipulation, and therefore beyond price."},
+{n:57,t:"Govern by Not Meddling",tags:["leadership","wu wei","simplicity"],
+ r:"Govern a state by being straightforward;\nwage war by surprise;\nbut win the world by not meddling.\nHow do I know it is so? By this:\nthe more prohibitions in the world, the poorer the people;\nthe more sharp weapons the people have, the more the state is in chaos;\nthe more clever skills, the more strange contrivances appear;\nthe more laws are proclaimed, the more thieves there are.\nTherefore the sage says:\nI do nothing, and the people transform themselves;\nI love stillness, and the people correct themselves;\nI do not meddle, and the people prosper by themselves;\nI am free of desire, and the people of themselves return to the uncarved block.",
+ p:"Every added prohibition, weapon, gadget, and statute generates its own new disorder. The sage-ruler's confession flips the whole formula: stop doing, and people straighten out; stop wanting, and they simplify — all by themselves.",
+ c:"The clearest political economy in the text: regulation breeds evasion, which breeds regulation. The fourfold 'of themselves' (zi) hammers home the thesis — order is a property of unmolested systems, not an achievement of administrators."},
+{n:58,t:"Disaster Leans on Fortune",tags:["reversal","leadership","paradox"],
+ r:"When the government is dull and listless,\nthe people are honest and content.\nWhen the government is sharp and prying,\nthe people are cunning and discontented.\nDisaster — fortune leans on it;\nfortune — disaster crouches within it.\nWho knows where it will end? There is no fixed norm:\nthe normal turns strange, the good turns monstrous.\nLong indeed have the people been perplexed.\nTherefore the sage is square but does not cut,\nsharp-cornered but does not wound,\nstraight but not overreaching,\nbright but not blinding.",
+ p:"Lax-looking government breeds honest people; sharp surveillance breeds cunning ones. Every fortune incubates a disaster and vice versa, so quit extrapolating. Be principled without being cutting; be brilliant without making others squint.",
+ c:"The luck-flip principle here is the seed of the famous farmer parable ('maybe, maybe not'). The closing portrait is the ethics of it: holding firm shape — square, sharp, straight, bright — while declining to weaponize any of it."},
+{n:59,t:"Frugality and Deep Roots",tags:["simplicity","leadership"],
+ r:"In governing people and serving heaven,\nnothing compares with frugality.\nFrugality means early submission to the Way;\nearly submission means a heavy store of virtue;\nwith a heavy store of virtue, nothing is insurmountable;\nwhen nothing is insurmountable, no one knows your limits;\nwhen no one knows your limits, you can possess the state;\nand he who possesses the mother of the state can long endure.\nThis is called the deep root and the firm stalk,\nthe way of long life and enduring vision.",
+ p:"The master skill of leadership and life is economy — of words, resources, force, self. Spend less than you have at every level and you accumulate reserves no one can measure, with roots no storm can pull.",
+ c:"Frugality (se — the farmer's thrift that stores seed) is here a spiritual discipline, not stinginess: keeping margin. The chain argument is worth following slowly — durability flows from reserves, reserves from restraint, and restraint from submitting early, before crisis forces it."},
+{n:60,t:"Cooking a Small Fish",tags:["leadership","wu wei"],
+ r:"Govern a great state\nas you would cook a small fish.\nApproach the world with the Tao,\nand its ghosts will have no spiritual power —\nor rather, their spirits will do no harm to men;\nnor does the sage harm them.\nSince these two do no harm,\nvirtue flows back and forth between them.",
+ p:"Small fish fall apart if you keep flipping them — so do countries, teams, and families. Govern with a light hand and even the demons of the age lose their grip; when no one is harming anyone, good circulates on its own.",
+ c:"Nine characters made this chapter immortal; the fish needs heat and patience, not poking. The ghost-talk that follows says the supernatural terrors of an era are functions of its governance — calm the state, and the demons are unemployed."},
+{n:61,t:"The Great State Lies Low",tags:["leadership","water","war"],
+ r:"A great state is like a low-lying delta:\nthe meeting point of the world,\nthe female of the world.\nThe female always overcomes the male by stillness;\nin stillness, she takes the lower position.\nThus a great state, by lowering itself before a small state, wins it;\nand a small state, by lowering itself before a great state, is won by it.\nOne lies low to take; one lies low and is taken.\nThe great state wants no more than to gather and feed people;\nthe small state wants no more than to enter the service of another.\nBoth get what they want —\nbut it is fitting for the great one to lie low.",
+ p:"Power that postures upward repels; power that settles downward attracts, like a river delta gathering streams. In any relationship between strong and weak, both can win — but only if the stronger party bows first.",
+ c:"Foreign policy by watershed: hegemony through humility. The closing line carries the whole weight — deference costs the small state nothing, so it is precisely the great power whose lowering changes everything. Rare ancient advice that reads like modern alliance theory."},
+{n:62,t:"The Sanctuary of All Things",tags:["leadership","self-knowledge"],
+ r:"The Tao is the sanctuary of the ten thousand things:\nthe treasure of the good man,\nthe refuge of the man who is not good.\nFine words can buy honor;\nfine deeds can raise a man above others —\nbut why should the not-good be cast away?\nTherefore, when the Son of Heaven is enthroned\nand the three ministers installed,\nbetter than presenting jade discs and teams of horses\nis to sit still and offer this Tao.\nWhy did the ancients prize this Tao?\nDid they not say: seek, and you find;\nbe guilty, and you are forgiven?\nTherefore it is the most precious thing under heaven.",
+ p:"The Way shelters everyone — it's the good person's treasure and the failing person's refuge. Why write anyone off? At the world's most solemn occasions, the best gift isn't jade or horses but this: the Way in which seekers find and the guilty are released.",
+ c:"The most grace-filled chapter in the book, startlingly close to religious language: refuge, forgiveness, the unconditional shelter of the not-good. Where moral systems sort people, the Tao keeps them all — which chapter 27 already called 'abandoning no one.'"},
+{n:63,t:"Great Things From Small",tags:["wu wei","simplicity","paradox"],
+ r:"Act without acting;\nwork without working;\ntaste without tasting.\nTreat the great as small and the many as few;\nrepay injury with virtue.\nPlan the difficult while it is easy;\ndo the great while it is small.\nThe hardest things in the world begin while easy;\nthe greatest things in the world begin while small.\nTherefore the sage never does anything great —\nand so accomplishes greatness.\nLight promises mean little trust;\ntreating much as easy brings much hardship.\nThe sage treats even the easy as hard —\nand therefore finds nothing hard in the end.",
+ p:"Handle everything at the size it currently is: difficulties while they're easy, great projects while they're small. Skip the heroics — people who 'never do anything big' finish big things, because they did them one small step at a time. Respect easy tasks and hard ones never arrive.",
+ c:"Wu wei translated into project management. 'Repay injury with virtue' drew a famous rebuttal from Confucius ('then what do you repay virtue with?') — the Taoist answer is that virtue isn't a currency at all. The final paradox is airtight: take everything seriously early, and nothing is ever serious late."},
+{n:64,t:"A Journey of a Thousand Li",tags:["wu wei","simplicity","reversal"],
+ r:"What is at rest is easy to hold;\nwhat has not yet appeared is easy to plan for;\nwhat is brittle is easy to shatter;\nwhat is minute is easy to scatter.\nDeal with things before they exist;\nset them in order before there is disorder.\nA tree you can barely embrace grows from a downy shoot;\na nine-story tower rises from a basket of earth;\na journey of a thousand li begins beneath your feet.\nWhoever forces, fails; whoever grasps, loses.\nThe sage does not force, and so does not fail;\ndoes not grasp, and so does not lose.\nPeople ruin their affairs on the very eve of success:\nbe as careful at the end as at the beginning,\nand nothing will be ruined.\nTherefore the sage desires to be without desire,\ndoes not prize hard-won goods,\nlearns to unlearn,\nand returns to what the multitude has passed by.",
+ p:"Problems are cheapest before they're problems; everything enormous was once tiny and tractable. But beware the other end too — most failures happen within sight of the finish line, when care relaxes. Stay as attentive at step nine hundred as at step one.",
+ c:"Home of the most famous line in the book — and the line is about beginnings, while the chapter's sting is about endings: 'people ruin their affairs on the eve of success.' 'Learning to unlearn' compresses chapter 48's daily subtraction into two words."},
+{n:65,t:"Simplicity in Governing",tags:["leadership","simplicity","paradox"],
+ r:"The ancients who practiced the Tao\ndid not use it to enlighten the people,\nbut to keep them simple.\nPeople are hard to govern\nwhen they are full of cleverness.\nTo govern a state by cleverness is to plunder it;\nto govern without cleverness is to bless it.\nKnow these two, and know the ancient standard;\nto keep the standard always in mind\nis called the mysterious virtue.\nThe mysterious virtue is deep, far-reaching,\nmoving with things back to the great current —\nand then comes the great flowing-together.",
+ p:"Governing through cleverness — spin, scheming, manipulation — trains the governed to be clever right back, and the spiral plunders everyone. Rule plainly and you bless the system. Honest simplicity at the top propagates down; so does its opposite.",
+ c:"The hardest chapter for modern readers, easily mistaken for keep-them-ignorant cynicism. Its better reading is symmetrical: the critique targets cleverness in rulers first — a state run on manipulation manufactures a manipulative populace, and calling that 'plunder' assigns the blame upward."},
+{n:66,t:"Why the Sea Is King of the Valleys",tags:["water","leadership"],
+ r:"Rivers and seas rule the hundred valleys\nbecause they are good at staying below them —\nthat is how they are kings of the hundred valleys.\nTherefore the sage, wishing to be above the people,\nmust in his words be below them;\nwishing to be ahead of the people,\nmust in his person stay behind them.\nThus he dwells above and the people feel no weight;\nhe stands in front and the people suffer no harm.\nThe whole world delights in pushing him forward\nand never tires of him.\nBecause he does not contend,\nno one in the world can contend with him.",
+ p:"The ocean outranks every river by lying lower than all of them. Want to lead? Speak as a servant and stand at the back — then your weight is never felt, your presence never resented, and people promote you themselves, gladly.",
+ c:"The complete physics of legitimate authority in one water image: influence flows downhill, to whoever positions themselves below. 'The people feel no weight' is the test of healthy power — and 'never tires of him' the test of its durability."},
+{n:67,t:"The Three Treasures",tags:["simplicity","war","leadership"],
+ r:"All the world says my Tao is great —\ngreat, yet seemingly unlike anything else.\nIt is precisely because it is unlike anything\nthat it is great; resemble something long enough,\nand you become small.\nI have three treasures that I hold and guard:\nthe first is compassion;\nthe second is frugality;\nthe third is not presuming to be first in the world.\nCompassionate, therefore able to be brave;\nfrugal, therefore able to be generous;\nnot presuming to be first, therefore able to lead all that is complete.\nNow: courage without compassion,\ngenerosity without frugality,\nleading without staying behind —\nthese are death.\nCompassion wins every battle and holds every defense:\nwhat heaven would save, it protects with compassion.",
+ p:"Three possessions worth guarding: care for others, economy of means, and the refusal to shove yourself to the front. Each generates its apparent opposite — compassion makes you genuinely brave, thrift makes you generous, staying back puts you in front. Grab the results without the roots, and the results kill you.",
+ c:"The book's most explicit ethics. The derivations matter: courage detached from compassion is mere aggression, and giving detached from reserves is performance heading for bankruptcy. The treasures are roots, not ornaments — cut flowers die."},
+{n:68,t:"The Virtue of Not Contending",tags:["war","wu wei","leadership"],
+ r:"The best soldier is not warlike;\nthe best fighter is not angry;\nthe best conqueror does not engage the enemy;\nthe best employer of men puts himself below them.\nThis is called the virtue of not contending;\nthis is called using the strength of others;\nthis is called matching heaven —\nthe utmost limit of the ancients.",
+ p:"Real martial excellence is cool, not furious; the supreme victory never requires the battle; and the best use of people starts by serving them. Non-contention isn't a retreat from strength — it's strength refined past the need to collide.",
+ c:"Four professions, one principle: heat is amateurism. The angry fighter has already handed control of his actions to his opponent. 'Using the strength of others' completes the thought — what the contentious burn against, the uncontentious harness."},
+{n:69,t:"The Reluctant Warrior",tags:["war","paradox"],
+ r:"The strategists have a saying:\n'I dare not act the host, but play the guest;\nI dare not advance an inch, but retreat a foot.'\nThis is called marching without moving,\nrolling up the sleeve without baring an arm,\ngrasping without a weapon,\nadvancing against no enemy.\nThere is no disaster greater than underestimating the enemy;\nunderestimate the enemy, and you come close to losing your treasures.\nTherefore, when opposing armies meet,\nthe side that grieves is the side that wins.",
+ p:"Even war manuals knew it: take the responsive role, not the aggressive one; give ground rather than seize it. The deadliest mistake is treating an opponent lightly. And when two armies are evenly matched, victory goes to the one that mourns what it is doing.",
+ c:"The astonishing final line — the grieving side wins — fuses chapter 31's funeral ethic with hard strategy: the army that feels the weight of war makes none of the mistakes of swagger. Reluctance, here, is a force multiplier."},
+{n:70,t:"Coarse Cloth, Hidden Jade",tags:["self-knowledge","paradox"],
+ r:"My words are very easy to understand\nand very easy to practice;\nyet no one under heaven can understand them,\nno one can practice them.\nWords have an ancestor; deeds have a lord.\nIt is because people do not know these\nthat they do not know me.\nThose who know me are few;\nthose who follow me are precious.\nTherefore the sage wears coarse cloth\nand carries jade in his bosom.",
+ p:"Nothing in this teaching is complicated — that's exactly why it's so hard. People want intricate systems, not 'yield, simplify, stop forcing.' So the wise walk around in rough clothes with the treasure hidden inside, unrecognized and unbothered.",
+ c:"A wry meta-chapter on the book's own reception, true for twenty-five centuries: everyone quotes it, few live it. Coarse cloth over hidden jade is the sage's whole public relations strategy — the inverse of a brand."},
+{n:71,t:"The Disease of Knowing",tags:["self-knowledge","paradox"],
+ r:"To know that you do not know is best.\nNot to know, yet to think you know — this is disease.\nOnly one who recognizes the disease as disease\nis free of disease.\nThe sage is free of the disease\nbecause he recognizes the disease as disease;\ntherefore he is not diseased.",
+ p:"The summit of knowledge is a clear view of your own ignorance. Confident error is a sickness — and like many sicknesses, its danger lies in going unnoticed. The only immunity is diagnosing it in yourself, over and over.",
+ c:"Socrates' 'I know that I know nothing,' a continent away and possibly earlier, compressed into a tongue-twister. The repetitive wordplay is the medicine working: by the end, 'know' has been handled so many times you no longer trust your grip on it — which is the point."},
+{n:72,t:"When Awe Is Lost",tags:["leadership","self-knowledge"],
+ r:"When the people no longer fear authority,\nthen great dread descends.\nDo not crowd them out of their homes;\ndo not press down on their livelihoods.\nIt is only because you do not press them\nthat they will not be weary of you.\nTherefore the sage knows himself\nbut does not display himself;\nloves himself\nbut does not exalt himself.\nHe rejects the one and takes the other.",
+ p:"Push people past the point where threats work, and what comes next is far worse than disobedience. Don't squeeze homes and livelihoods — rulers are tolerated exactly as long as they don't press. The sage's version: self-knowledge without self-display, self-respect without self-importance.",
+ c:"A theory of revolution in two lines: terror works until the day it doesn't, and that day arrives precisely when people have nothing left to lose. The pivot to the sage's humility isn't a topic change — not pressing others begins with not inflating yourself."},
+{n:73,t:"Heaven's Net",tags:["wu wei","paradox","war"],
+ r:"Courage in daring kills;\ncourage in not daring keeps alive.\nOf these two, one benefits and one harms.\nWho knows why heaven hates what it hates?\nEven the sage finds it hard.\nThe way of heaven does not contend, yet skillfully wins;\ndoes not speak, yet skillfully responds;\nis not summoned, yet comes of itself;\nis unhurried, yet excels at planning.\nHeaven's net is vast —\nwide-meshed, yet it loses nothing.",
+ p:"There is bravado-courage, which gets people killed, and restraint-courage, which preserves them. Nature never argues, never hurries, never shows up on demand — and never misses. Consequences are a wide-meshed net: slow, loose-looking, and inescapable.",
+ c:"'Heaven's net' became proverbial in Chinese for the long arm of consequence — justice that looks lazy and isn't. The honest middle of the chapter ('even the sage finds it hard') is worth treasuring: the text admits its own cosmos doesn't explain itself."},
+{n:74,t:"The Master Carpenter",tags:["leadership","war"],
+ r:"If the people do not fear death,\nwhat good is threatening them with death?\nAnd if you could keep them ever fearful of death,\nand I were to seize and kill the deviant —\nwho would dare?\nThere is always the executioner whose charge it is to kill.\nTo kill in his stead\nis to hack wood in place of the master carpenter —\nand whoever hacks wood for the master carpenter\nrarely escapes cutting his own hand.",
+ p:"Capital punishment presumes a fear the desperate no longer have. And when rulers appoint themselves executioners — taking over death from the natural order that already handles it — they're amateurs swinging the master's axe, and the blade finds their own hands.",
+ c:"An argument against state killing from the 4th century BCE: terror fails on the fearless, and usurping 'the executioner' (heaven, the way things fall) wounds the usurper. History's tyrants supply the footnotes — those who govern by death tend to die by their government."},
+{n:75,t:"Why the People Starve",tags:["leadership","simplicity"],
+ r:"The people starve\nbecause those above devour too much in taxes —\nthat is why they starve.\nThe people are hard to govern\nbecause those above keep interfering —\nthat is why they are hard to govern.\nThe people take death lightly\nbecause those above strive too fiercely for life —\nthat is why they take death lightly.\nOnly one who does not strive after life\nis worthier than those who prize it.",
+ p:"Three social diseases, one diagnosis, and the diagnosis is always upstream: hunger comes from extraction, unruliness from meddling, and recklessness among the people from greed among the powerful. The lightest hand belongs to those not clutching at their own advantage.",
+ c:"The bluntest chapter in the book — a drumbeat of 'because those above.' Its analytic move still cuts: where rulers see a problem population, the text sees a population accurately mirroring its rulers."},
+{n:76,t:"The Stiff and the Supple",tags:["reversal","war","simplicity"],
+ r:"A man at birth is soft and weak;\nat death he is hard and stiff.\nGrass and trees in life are tender and pliant;\nin death they are dry and brittle.\nThus the hard and strong are companions of death;\nthe soft and weak are companions of life.\nTherefore an army grown rigid will not win;\na tree grown rigid is ready for the axe.\nThe strong and great dwell below;\nthe soft and weak dwell above.",
+ p:"Check any living thing: suppleness is the signature of life, rigidity the signature of death. The same holds for armies, institutions, and minds — whatever can no longer bend is already in line for the axe.",
+ c:"The book's biology lesson: flexibility isn't a virtue layered onto life, it is life. Note where the chapter aims — not at individuals first but at armies and trees grown proud and inflexible, the strong things that have forgotten they are mortal."},
+{n:77,t:"Bending the Bow",tags:["reversal","leadership","water"],
+ r:"The way of heaven is like the bending of a bow:\nthe high end is pressed down,\nthe low end is raised up;\nexcess is drawn off, deficiency is filled.\nThe way of heaven takes from what has too much\nand gives to what has too little.\nThe way of man is otherwise:\nit takes from those who have too little\nto offer to those who have too much.\nWho can have more than enough and offer it to the world?\nOnly the one who has the Tao.\nTherefore the sage acts without claiming,\nachieves without dwelling on it,\nand has no desire to display his worth.",
+ p:"Nature equalizes — pressing down peaks, filling hollows, like an archer leveling a bow. Human systems run the opposite direction, taxing the poor to garland the rich. The rare person aligned with heaven reverses the human pattern: surplus flows outward, quietly.",
+ c:"The sharpest economic observation in the classic: regression to the mean in nature, accumulation toward extremes in society. The closing question — who can give their excess to the world? — is left open on purpose, as an application form."},
+{n:78,t:"Water Against Stone",tags:["water","reversal","paradox","leadership"],
+ r:"Nothing in the world is softer or weaker than water,\nyet for attacking the hard and strong\nnothing surpasses it,\nand nothing can take its place.\nThe weak overcomes the strong;\nthe soft overcomes the hard.\nNo one under heaven fails to know this;\nno one is able to practice it.\nTherefore the sage says:\nhe who takes upon himself the filth of the state\nis called lord of the altars of soil and grain;\nhe who bears the calamities of the state\nis called king of the world.\nStraight words seem to reverse themselves.",
+ p:"Everyone has watched water beat stone; no one acts on it. The closing reversal applies it: true leadership means absorbing the disgrace and disasters of your community — the one willing to take on the mess is the one fit to be called sovereign.",
+ c:"The water teaching at maximum strength, with its most demanding consequence: authority is earned by absorption, not projection — the leader as the lowest point, where all the runoff collects. 'Straight words seem to reverse themselves' is the book describing its own grammar."},
+{n:79,t:"The Left Tally",tags:["simplicity","self-knowledge"],
+ r:"When a great grievance is reconciled,\nsome grievance is sure to remain.\nHow can this be called good?\nTherefore the sage holds the left half of the tally\nbut does not press the claim on the other.\nThe one with virtue attends to the tally;\nthe one without virtue attends to the collecting.\nThe way of heaven has no favorites:\nit is always on the side of the good man.",
+ p:"Settle a bitter dispute and resentment still smolders in the seams — winning a quarrel is not the same as ending it. The wise hold the creditor's receipt without enforcing it; small-minded people chase every debt to the last coin. The pattern of things favors those who can let claims go.",
+ c:"The tally was a split contract: the creditor kept the left half. Holding it without pressing it means retaining your claim and choosing not to extract — the only way grievances actually die. The final couplet holds its tension: no favorites, yet the good are favored — by how things work, not by decree."},
+{n:80,t:"The Small Utopia",tags:["simplicity","war"],
+ r:"A small state, few people.\nLet there be tools of tenfold and hundredfold power, unused;\nlet the people take death seriously and not travel far.\nThough they have boats and carriages, no one rides them;\nthough they have armor and weapons, no one parades them.\nLet the people return to knotted cords for their records,\nrelish their food, find their clothes beautiful,\nbe content with their homes, delight in their customs.\nThe neighboring state is so near\nthat the crowing of its cocks and the barking of its dogs are heard —\nyet the people grow old and die\nwithout ever having gone to visit.",
+ p:"A deliberately scandalous utopia: a community with advanced tools it doesn't bother using, weapons it never shows, and lives so locally satisfying that the village next door — close enough to hear its roosters — holds no temptation.",
+ c:"Not a policy proposal but a thought experiment with a needle in it: how much of your striving is appetite, and how much is restlessness? The unused boats and shelved weapons are the sharpest detail — capability without compulsion, the whole book in one image."},
+{n:81,t:"Sincere Words Are Not Fine",tags:["simplicity","paradox","self-knowledge"],
+ r:"Sincere words are not fine;\nfine words are not sincere.\nThe good do not argue;\nthose who argue are not good.\nThe wise are not learned;\nthe learned are not wise.\nThe sage does not hoard:\nthe more he does for others, the more he has;\nthe more he gives to others, the greater his abundance.\nThe way of heaven benefits and does not harm;\nthe way of the sage acts and does not contend.",
+ p:"Distrust polish: truth tends to arrive plain. The final arithmetic of the book is generosity's paradox — giving as the only investment that pays the giver in the same currency. Heaven's whole way: benefit without harm. The sage's whole way: act without contending.",
+ c:"The book signs off by warning you about books — including itself: fine words, it says, are suspect. Then it leaves you with two working principles small enough to carry anywhere: help without harming, do without contending. As last words go, they have aged well."},
+];
+
+/* =====================================================================
+   DATA — core concepts
+===================================================================== */
+const CONCEPTS = [
+{hanzi:"道",pinyin:"dào",name:"Tao — The Way",lit:"way, path, road; to speak",
+ deep:"The unnameable source and pattern behind all things — prior to heaven and earth, empty yet inexhaustible. Chapter 1 opens by warning that any Tao you can name is not the eternal Tao: the word is a finger pointing, never the moon. The Tao does nothing, yet through it everything is done. You cannot define it; you can only align with it, the way a swimmer aligns with a current.",
+ chs:"Chapters 1, 4, 14, 21, 25, 34, 42"},
+{hanzi:"德",pinyin:"dé",name:"Te — Potency",lit:"virtue, power, inner potency",
+ deep:"Not Confucian moral virtue, but the quiet potency that flows from alignment with the Tao — the charisma of the uncontrived. A thing's te is its integrity working effortlessly: the te of water is to flow downward and nourish. The highest te doesn't strive to be virtuous, and so actually has virtue; the lowest clings to virtue, and so has none (ch. 38).",
+ chs:"Chapters 10, 21, 38, 51, 54, 55"},
+{hanzi:"無為",pinyin:"wú wéi",name:"Wu Wei — Effortless Action",lit:"non-doing, non-forcing",
+ deep:"Not passivity, but acting with the grain of a situation instead of against it — the difference between forcing an outcome and removing what obstructs it. Chapter 48: the sage does nothing, yet nothing is left undone. Think of a sailor who cannot command the wind but trims the sail; of a conversation that succeeds because you stopped pushing it.",
+ chs:"Chapters 2, 3, 37, 43, 48, 63, 64"},
+{hanzi:"自然",pinyin:"zì rán",name:"Ziran — Naturalness",lit:"self-so, so-of-itself",
+ deep:"Spontaneity; the way things are when nothing interferes with them. Humanity follows earth, earth follows heaven, heaven follows the Tao, and the Tao follows ziran — its own self-so-ness (ch. 25). The ideal isn't imitating nature outside you but recovering the nature already in you.",
+ chs:"Chapters 17, 23, 25, 51, 64"},
+{hanzi:"樸",pinyin:"pǔ",name:"Pu — The Uncarved Block",lit:"unworked wood, simplicity",
+ deep:"Things in their original simplicity, before we slice them into categories, names, and uses. Once the block is carved it becomes vessels — useful, but partial. The sage stays close to the uncarved state: plain, undefined, full of potential. Names and distinctions have their place, but knowing when to stop is what keeps you from danger (ch. 32).",
+ chs:"Chapters 15, 19, 28, 32, 37, 57"},
+{hanzi:"陰陽",pinyin:"yīn yáng",name:"Yin–Yang — Polarity",lit:"shaded slope / sunlit slope",
+ deep:"The logic of complementary opposites: dark and light, soft and hard, female and male, valley and ridge. Each defines, contains, and becomes the other. Chapter 42: all things carry yin on their backs and embrace yang, blending the two vital breaths into harmony. The Tao Te Ching consistently sides with the yin — the soft, the low, the receptive — as the gateway to power.",
+ chs:"Chapters 2, 28, 42, 61, 76, 78"},
+{hanzi:"反",pinyin:"fǎn",name:"Reversal — The Return",lit:"to reverse, return, turn back",
+ deep:"\"Reversal is the movement of the Tao\" (ch. 40). Push anything to its extreme and it flips into its opposite: the full empties, the strong stiffens and snaps, the empire that conquers everything begins to crumble. Being and non-being, hard and soft, high and low generate each other (ch. 2). This polarity logic was later formalized as yin–yang theory.",
+ chs:"Chapters 2, 22, 36, 40, 58, 77"},
+{hanzi:"三寶",pinyin:"sān bǎo",name:"The Three Treasures",lit:"three jewels",
+ deep:"Chapter 67 names the sage's three treasures: compassion (cí), frugality (jiǎn), and not presuming to be first in the world. From compassion comes courage; from frugality comes abundance; from staying behind comes true leadership. Abandon the treasures and grasp at their results — courage without compassion, reach without restraint, front rank without humility — and you die.",
+ chs:"Chapter 67; echoed in 7, 8, 66, 68"}
+];
+
+/* =====================================================================
+   DATA — timeline
+===================================================================== */
+const TIMELINE = [
+{when:"c. 1046–771 BCE",title:"Western Zhou at its height",body:"The Zhou dynasty rules through ritual, kinship, and the Mandate of Heaven. Its later decay is the wound both Confucius and Lao Tzu try to heal — in opposite ways."},
+{when:"770 BCE onward",title:"Eastern Zhou decline",body:"The royal house weakens into a figurehead; states war among themselves. Courts fill with strategists and moralists. Taoism emerges as the counter-voice: the more laws and cleverness, the worse things get."},
+{when:"6th century BCE",title:"The legendary Lao Tzu",body:"Tradition makes Laozi (Li Er, 'Old Dan') a Zhou archivist and elder contemporary of Confucius (551–479 BCE), who is said to have visited him and come away awed, comparing him to a dragon. Disillusioned, Laozi rides west on a water buffalo; the gatekeeper Yin Xi at the Hangu Pass extracts the 5,000-character text before letting him vanish."},
+{when:"4th century BCE",title:"Zhuangzi",body:"The tradition's second pillar writes his sprawling, hilarious, skeptical masterpiece — the butterfly dream, Cook Ding, the useless tree. Where Laozi advises rulers, Zhuangzi mostly advises getting free of rulers."},
+{when:"4th–3rd century BCE",title:"The text settles into form",body:"Modern scholarship sees the Tao Te Ching as a compilation of oral wisdom that consolidates during the Warring States period rather than a single-author book from the 6th century."},
+{when:"c. 300 BCE",title:"Guodian bamboo slips",body:"The oldest surviving witness — bamboo strips from a tomb at Guodian (excavated 1993), containing about a third of the received text, with chapters in different order and wording."},
+{when:"c. 168 BCE",title:"Mawangdui silk manuscripts",body:"Two nearly complete silk copies sealed in a Han tomb (excavated 1973). Famously they reverse the halves — Te before Tao — so some scholars call that version the 'Te Tao Ching.'"},
+{when:"2nd century BCE",title:"Huang-Lao Taoism at the Han court",body:"Early Han emperors govern under 'Huang-Lao' doctrine — the Yellow Emperor plus Laozi — applying wu wei as statecraft: light taxes, few wars, minimal meddling."},
+{when:"142 CE",title:"Celestial Masters: religious Taoism begins",body:"Zhang Daoling reports a revelation from the deified Laozi (Taishang Laojun, 'Most High Lord Lao') and founds the Way of the Celestial Masters — the first organized Taoist church, with priests, parishes, and liturgy. Daojiao is born."},
+{when:"2nd–6th century CE",title:"Alchemy, qi, and immortality",body:"Religious Taoism develops external and internal alchemy, qi cultivation, breathwork, and the pursuit of immortality, absorbing and systematizing older longevity practices."},
+{when:"6th–9th century CE",title:"Fusion with Buddhism → Chan/Zen",body:"Buddhist emptiness meets Taoist naturalness and wu wei in China; the result is Chan — later Zen in Japan. Taoism also shapes Chinese medicine, feng shui, landscape painting, tai chi, and qigong. Tang emperors, surnamed Li, claim descent from Laozi and patronize the faith."},
+{when:"12th century CE",title:"Quanzhen and Zhengyi",body:"The two lineages that survive today take shape: Quanzhen ('Complete Perfection'), monastic and meditative, and Zhengyi ('Orthodox Unity'), the married priesthood descending from the Celestial Masters."},
+{when:"1891 CE",title:"James Legge's translation",body:"The Oxford scholar's public-domain version brings the full text to English readers, opening a flood: the Tao Te Ching becomes one of the most translated books in history."},
+{when:"20th–21st century",title:"Modern reception",body:"D.C. Lau, Red Pine, Le Guin, Ames & Hall, Mitchell and hundreds more translate it; physicists, therapists, CEOs, and poets quote it. Alan Watts names the Taoist sensibility 'the watercourse way.'"}
+];
+
+/* =====================================================================
+   DATA — Zhuangzi parables (retold in original wording)
+===================================================================== */
+const PARABLES = [
+{zh:"蝶夢",title:"The Butterfly Dream",
+ story:"One night Zhuangzi dreamed he was a butterfly — a butterfly utterly absorbed in being a butterfly, flitting wherever it pleased, with no memory of any man named Zhuangzi. Then he woke, and there he lay: unmistakably Zhuangzi. But now he could not say which was true. Was he a man who had dreamed he was a butterfly, or a butterfly now dreaming it was a man? Between a man and a butterfly there is surely some distinction, he said — and this is what we call the transformation of things.",
+ reflect:"The parable doesn't deny that you're real; it loosens your grip on the frame you see from. Every certainty rests on a perspective, and perspectives can change while feeling absolute from inside."},
+{zh:"庖丁",title:"Cook Ding and the Ox",
+ story:"Cook Ding was carving an ox for Lord Wenhui, and his blade moved in perfect rhythm, as if he were dancing. The lord marveled at his skill. 'What I love is the Way — it goes beyond skill,' said the cook. 'When I began, I saw the whole ox. After three years, I no longer saw the ox at all. Now I meet it with spirit, not with eyes. I follow the natural seams, slide through the great hollows, guide the blade where the joints already open. A good cook changes his knife yearly, because he cuts. An ordinary cook changes it monthly, because he hacks. My knife is nineteen years old and its edge is as if fresh from the whetstone — for there are spaces in the joints, and the blade has no thickness. When I come to a knot, I slow down, attend completely, and the part falls away like earth crumbling to the ground.' 'Excellent!' said the lord. 'I have heard the words of a cook and learned how to care for life.'",
+ reflect:"This is wu wei embodied: mastery as finding the openings that are already there rather than overpowering resistance. The blade stays sharp because it never fights."},
+{zh:"散木",title:"The Useless Tree",
+ story:"A carpenter and his apprentice passed an enormous gnarled oak by the village shrine — broad enough to shade a thousand oxen. The apprentice gaped, but the carpenter walked on without a glance. 'Worthless wood,' he said. 'Make a boat and it sinks; a coffin and it rots; a tool and it splits. That's why it has lived so long.' That night the tree appeared to him in a dream: 'What are you comparing me to — those useful trees, the cherry, the pear, the catalpa? The moment their fruit ripens they are stripped and torn; their big limbs are broken, their small ones yanked away. Their usefulness makes their lives miserable, and so they die before their time. I have spent a long time learning to be useless, and it has been of great use to me. If I had been useful, would I ever have grown this large?'",
+ reflect:"Usefulness is always usefulness to someone else's agenda. The tree's 'uselessness' is freedom from being consumed — a warning about optimizing yourself into an instrument."},
+{zh:"虛舟",title:"The Empty Boat",
+ story:"If a man is crossing a river and an empty boat drifts into his skiff, even a hot-tempered man will not lose his temper. But if there is someone in that boat, he will shout at him to steer clear — and if his shouts go unheard, he will shout again, and then a third time, with curses following. Before he raged; now he doesn't. Before he saw a person; now he sees an empty boat. If a man could make himself empty and drift like that through the world, who could harm him?",
+ reflect:"Almost all the heat of conflict comes from the self we imagine on the other side — and the self we are defending. Empty the boat, and the same collision becomes mere weather."},
+{zh:"魚樂",title:"The Happy Fish Debate",
+ story:"Zhuangzi and the logician Huizi were strolling on the bridge over the Hao river. 'See how the minnows dart out and play,' said Zhuangzi. 'That is the happiness of fish.' 'You are not a fish,' said Huizi. 'How do you know what fish enjoy?' 'You are not me,' said Zhuangzi. 'How do you know I don't know what fish enjoy?' 'I am not you, so I certainly don't know what you know. But you are certainly not a fish — that completes the proof.' 'Let us go back to the beginning,' said Zhuangzi. 'You asked me how I know what fish enjoy — so you already knew that I knew it when you asked. I know it by standing here, above the Hao.'",
+ reflect:"Huizi argues from the impossibility of other minds; Zhuangzi answers from immediacy — knowing by participation rather than proof. The joke in his final move hides a serious claim: we are not sealed off from the world we belong to."},
+{zh:"泥龜",title:"The Turtle in the Mud",
+ story:"Zhuangzi was fishing in the Pu river when two officials arrived from the king of Chu: 'His Majesty wishes to trouble you with the administration of his realm.' Zhuangzi kept his eyes on his line. 'I have heard Chu keeps a sacred turtle, dead now three thousand years, wrapped in silk and stored in a bamboo chest in the ancestral temple. Tell me — would that turtle rather be dead and have its bones venerated, or alive and dragging its tail in the mud?' 'Alive in the mud,' the officials admitted. 'Then go,' said Zhuangzi. 'I'll keep dragging my tail in the mud.'",
+ reflect:"Status is the silk-wrapped box. The parable asks what you'd actually trade your aliveness for — and notes, dryly, that most honors are conferred on the dead."}
+];
+
+/* =====================================================================
+   DATA — daojia vs daojiao comparison
+===================================================================== */
+const COMPARE = [
+["What it is","A philosophical current: a way of seeing and living drawn from the Laozi and Zhuangzi.","An organized religion arising in the Han era, with revelation, clergy, ritual, and scripture canons."],
+["Emerges","Warring States period (4th–3rd c. BCE) texts and thinkers.","142 CE, when Zhang Daoling founds the Way of the Celestial Masters after a revelation from the deified Laozi."],
+["Laozi is…","A (semi-legendary) sage and author figure.","A god: Taishang Laojun, 'Most High Lord Lao,' an eternal deity who incarnates to reveal the Way."],
+["Core texts","Tao Te Ching, Zhuangzi, Liezi.","The vast Daozang (Taoist Canon, over a thousand texts) — liturgies, alchemical manuals, precepts, revelations — alongside the classics."],
+["Goal","Alignment with the Tao in this life: equanimity, spontaneity, skillful non-forcing.","Salvation, longevity, and ultimately immortality (xian) — refinement of body and spirit into a transcendent state."],
+["Practices","Reflection, simplicity, meditation, statecraft by wu wei.","Internal and external alchemy, qi cultivation, breathwork, visualization, talismans, communal ritual, festivals, priestly ordination."],
+["Institutions","None — texts, teachers, commentaries.","Parishes, temples, monasteries; lineages such as Quanzhen (monastic) and Zhengyi (hereditary priesthood), both alive today."],
+["View of death","Accepted as one more transformation of things — Zhuangzi sang at his wife's funeral.","Death is to be transcended or transformed; elaborate cosmologies of spirits, registers, and afterlife bureaucracy."],
+["Legacy","World philosophy: ethics of spontaneity, ecology, anarchist and minimalist thought, Chan/Zen.","Chinese medicine, feng shui, tai chi and qigong, temple culture, festivals, and living religious communities across East Asia."]
+];
+
+/* =====================================================================
+   DATA — practice cards & reflection questions
+===================================================================== */
+const PRACTICE = [
+{title:"Leadership",zh:"君",
+ body:"Chapter 17 ranks leaders: the worst are despised, the next feared, the next praised — and the best are barely known to exist; when the work is done the people say 'we did it ourselves.' Govern a great state as you'd cook a small fish (ch. 60): stop poking it. Practically: hire well, set direction, remove obstacles, then get out of the way. Rivers and seas rule the hundred valleys because they sit below them (ch. 66) — authority flows to leaders who position themselves under their teams, not above them. Credit is a current: push it outward and it returns as trust."},
+{title:"Negotiation",zh:"和",
+ body:"Nothing in the world is softer than water, yet nothing is better at wearing down the hard (ch. 78). In negotiation, wu wei means winning without contending (ch. 68): don't meet force with force — yield, reframe, and let the other side's momentum reveal what they actually need. 'Reversal is the movement of the Tao' (ch. 40): the harder a position is pushed, the closer it is to flipping. Knowing what is enough (ch. 44) is the strongest position at any table — the person who can walk away calmly, without drama, rarely has to."},
+{title:"Creative Work",zh:"藝",
+ body:"Cook Ding's blade stays sharp for nineteen years because he carves along the seams that are already there. Creative wu wei: stop forcing the draft and find where the material wants to go. Chapter 11 reminds you that the usefulness of the vessel is its hollow — build emptiness into your process: white space, silence, unscheduled hours. The uncarved block (pu) is the state before premature critique slices the idea into categories. And chapter 9's warning — when the work is done, withdraw — is the artist's discipline of knowing when a piece is finished."}
+];
+
+const REFLECT_QS = [
+"Where in your life are you pushing against the grain instead of finding the seam?",
+"What would 'doing less, accomplishing more' look like in the problem you're carrying today?",
+"What are you holding so full that it's ready to spill (ch. 9)? What could you pour off?",
+"Where could you take the lower position today — and what might flow to you there?",
+"What 'useless' part of your life is quietly keeping you alive?",
+"What do you know about yourself that you've been calling knowledge of others?",
+"What would be different today if you trusted the situation to unfold without your interference?",
+"What is the 'small fish' you keep poking? What would leaving it alone require of you?",
+"Which of the three treasures — compassion, frugality, not presuming to be first — is hardest for you right now, and why?",
+"What name or label are you gripping that the unnamed reality has already outgrown?",
+"What is full in your life that may be about to reverse? What is empty that may be about to fill?",
+"If your boat were empty — no reputation to defend — what conflict would dissolve today?"
+];
+
+/* =====================================================================
+   DATA — glossary
+===================================================================== */
+const GLOSSARY = [
+{h:"道",py:"dào",pron:"'dow' (rhymes with how)",def:"The Way: the unnameable source, pattern, and process of all things."},
+{h:"德",py:"dé",pron:"'duh' (rising tone)",def:"Potency or virtue — the power that flows from alignment with the Tao."},
+{h:"無為",py:"wú wéi",pron:"'woo-way'",def:"Effortless action; non-forcing. Acting with the grain of things."},
+{h:"自然",py:"zì rán",pron:"'dzuh-rahn'",def:"Naturalness, 'self-so-ness'; what things do when nothing interferes."},
+{h:"樸",py:"pǔ",pron:"'poo' (falling-rising)",def:"The uncarved block: original simplicity before names and categories."},
+{h:"陰",py:"yīn",pron:"'een'",def:"The shaded, soft, receptive, yielding pole of any polarity."},
+{h:"陽",py:"yáng",pron:"'yahng'",def:"The sunlit, hard, active, assertive pole of any polarity."},
+{h:"氣",py:"qì",pron:"'chee'",def:"Vital breath or energy; the stuff of life that religious Taoism cultivates."},
+{h:"反",py:"fǎn",pron:"'fahn'",def:"Reversal, return — the movement of the Tao; extremes flip into opposites."},
+{h:"萬物",py:"wàn wù",pron:"'wahn-woo'",def:"'The ten thousand things': everything that exists; all phenomena."},
+{h:"聖人",py:"shèng rén",pron:"'shung-ren'",def:"The sage: the text's ideal human, who leads by yielding and teaches without words."},
+{h:"玄",py:"xuán",pron:"'shwen'",def:"The dark, the mysterious: 'mystery upon mystery, gateway of all wonder' (ch. 1)."},
+{h:"三寶",py:"sān bǎo",pron:"'sahn-bow'",def:"The three treasures of ch. 67: compassion, frugality, not presuming to be first."},
+{h:"道家",py:"dào jiā",pron:"'dow-jyah'",def:"Philosophical Taoism: the current of thought from Laozi and Zhuangzi."},
+{h:"道教",py:"dào jiào",pron:"'dow-jyow'",def:"Religious Taoism: the organized religion from the Han era onward."},
+{h:"仙",py:"xiān",pron:"'shyen'",def:"An immortal or transcendent — the goal of religious Taoist cultivation."},
+{h:"老子",py:"Lǎozǐ",pron:"'lao-dzuh'",def:"'Old Master': the semi-legendary author of the Tao Te Ching; later deified."},
+{h:"莊子",py:"Zhuāngzǐ",pron:"'jwahng-dzuh'",def:"Master Zhuang (4th c. BCE), Taoism's second pillar, and his book of the same name."}
+];
+
+/* =====================================================================
+   DATA — quiz
+===================================================================== */
+const QUIZ = [
+{q:"What does the name 'Lao Tzu' (Laozi) literally mean?",
+ opts:["Wise King","Old Master","River Sage","First Teacher"],a:1,
+ x:"Lǎozǐ (老子) means 'Old Master.' It is an honorific, not a personal name — tradition gives his actual name as Li Er, also called Lao Dan."},
+{q:"According to Sima Qian's classic account, what was Lao Tzu's profession?",
+ opts:["General of the Zhou armies","Court physician","Archivist at the Zhou royal court","Wandering merchant"],a:2,
+ x:"Sima Qian's Records of the Grand Historian describes him as keeper of the archives at the Zhou court — a librarian-historian who grew disillusioned with the dynasty's decay."},
+{q:"In the legend, who refused to let Lao Tzu leave through the Hangu Pass until he wrote down his wisdom?",
+ opts:["Confucius","Zhang Daoling","The Yellow Emperor","Yin Xi, the gatekeeper"],a:3,
+ x:"The gatekeeper Yin Xi recognized the departing sage and demanded a book as the toll. The result, says the legend, was the roughly 5,000-character Tao Te Ching."},
+{q:"What animal does Lao Tzu famously ride west in the legend?",
+ opts:["A water buffalo","A white horse","A crane","A dragon"],a:0,
+ x:"The image of the old master riding west on a water buffalo became one of the most beloved subjects of Chinese painting."},
+{q:"What are the Guodian bamboo slips?",
+ opts:["The oldest surviving copy of material from the Tao Te Ching (c. 300 BCE)","Zhuangzi's personal notebooks","A Han dynasty tax record","The first translation into Sanskrit"],a:0,
+ x:"Excavated in 1993 from a tomb at Guodian, the bamboo slips (c. 300 BCE) contain about a third of the received text and are its oldest physical witness."},
+{q:"What is distinctive about the Mawangdui silk manuscripts (c. 168 BCE)?",
+ opts:["They are written in Sanskrit","They contain 100 chapters","They reverse the two halves, placing Te before Tao","They omit all references to water"],a:2,
+ x:"The two silk copies found at Mawangdui in 1973 put the Te book (chapters 38–81) before the Tao book — which is why scholars sometimes call that version the 'Te Tao Ching.'"},
+{q:"How many chapters does the received Tao Te Ching contain?",
+ opts:["64","72","81","100"],a:2,
+ x:"Eighty-one short chapters, divided into the Tao Ching (1–37) and the Te Ching (38–81). The number 81 is 9×9, a perfect yang number — likely a deliberate later arrangement."},
+{q:"What does wu wei mean?",
+ opts:["Total inactivity and withdrawal from the world","Effortless action — acting with the grain of things rather than forcing","Military strategy through deception","Ritual purification before ceremonies"],a:1,
+ x:"Wu wei is non-forcing, not passivity: removing what obstructs rather than imposing outcomes. Chapter 48: 'do nothing, and nothing is left undone.'"},
+{q:"Chapter 8 says the highest good is like water. Why?",
+ opts:["Because water is the strongest element","Because water benefits all things without contending and dwells in the low places others disdain","Because water is pure and never becomes dirty","Because water always travels in straight lines"],a:1,
+ x:"Water nourishes everything, competes with nothing, and willingly occupies the lowest position — which is why chapter 8 calls it 'near to the Tao.'"},
+{q:"In chapter 11, what makes the wheel, the vessel, and the room useful?",
+ opts:["Their craftsmanship","Their material strength","Their decoration","Their emptiness — the hole, the hollow, the openings"],a:3,
+ x:"Thirty spokes share a hub, but the hole takes the axle; clay forms the vessel, but the hollow holds the water. Profit comes from what is there; usefulness from what is not."},
+{q:"Chapter 40 states the fundamental movement of the Tao. What is it?",
+ opts:["Expansion","Ascent","Reversal — turning back","Acceleration"],a:2,
+ x:"'Reversal is the movement of the Tao; weakness is its means.' Push anything to its extreme and it flips into its opposite — the polarity logic later formalized as yin-yang."},
+{q:"What are the Three Treasures of chapter 67?",
+ opts:["Wisdom, courage, and strength","Compassion, frugality, and not presuming to be first in the world","Gold, jade, and silk","Heaven, earth, and humanity"],a:1,
+ x:"From compassion comes real courage; from frugality, generosity; from not pushing to the front, true leadership. Chasing the results without the roots, the chapter warns, is death."},
+{q:"According to chapter 17, the best ruler is one whom the people…",
+ opts:["love and praise","fear and obey","barely know exists","see constantly in public"],a:2,
+ x:"Chapter 17 ranks rulers: despised, feared, praised — and best of all, barely noticed. When the work is done, the people say, 'We did it ourselves.'"},
+{q:"'Govern a great state as you would cook a small fish' (ch. 60) means…",
+ opts:["act quickly before things spoil","handle it delicately and stop poking at it","delegate cooking to experts","keep the people well-fed"],a:1,
+ x:"A small fish disintegrates if you keep flipping and prodding it. Constant intervention breaks what a light, patient hand would have kept whole."},
+{q:"What does pu (樸), 'the uncarved block,' represent?",
+ opts:["Original simplicity before things are cut into names and categories","The hardness of a trained mind","Raw material awaiting improvement","A type of ritual altar"],a:0,
+ x:"Pu is unworked wood: wholeness before categorization. Carving makes useful vessels but loses the whole — and chapter 28 adds that 'the greatest carving cuts nothing away.'"},
+{q:"What does ziran (自然) mean?",
+ opts:["Sacred duty","Naturalness — 'self-so-ness,' what things are when nothing interferes","Emptiness of mind","The cycle of seasons"],a:1,
+ x:"Ziran is spontaneity, being 'so of itself.' Chapter 25 makes it ultimate: humanity follows earth, earth follows heaven, heaven follows the Tao — and the Tao follows ziran."},
+{q:"Chapter 33: 'Knowing others is intelligence; knowing yourself is ______.'",
+ opts:["power","danger","enlightenment","weakness"],a:2,
+ x:"The chapter's ladder runs inward: knowing others is intelligence, knowing yourself is enlightenment; conquering others is strength, conquering yourself is true power."},
+{q:"How does chapter 31 say a victory in war should be observed?",
+ opts:["With a triumphal parade","With funeral rites","With a great feast","With the building of monuments"],a:1,
+ x:"Weapons are 'instruments of ill omen.' Since victory means slaughter, chapter 31 prescribes mourning: 'a victory is observed with funeral rites.'"},
+{q:"In Zhuangzi's most famous parable, what does he dream of being?",
+ opts:["A fish","A dragon","An emperor","A butterfly"],a:3,
+ x:"Waking, Zhuangzi cannot say whether he is a man who dreamed he was a butterfly, or a butterfly now dreaming it is a man — 'the transformation of things.'"},
+{q:"Why does Cook Ding's blade stay sharp for nineteen years?",
+ opts:["He sharpens it after every ox","It is made of celestial metal","He follows the natural seams and openings of the ox, never hacking","He only carves soft meat"],a:2,
+ x:"Cook Ding 'meets the ox with spirit, not with eyes,' guiding the blade through the spaces already in the joints. He is the living image of wu wei: skill that never fights resistance."},
+{q:"What is the difference between daojia and daojiao?",
+ opts:["Daojia is philosophical Taoism; daojiao is religious Taoism with deities, ritual, and priesthood","They are two names for the same thing","Daojia is the northern school; daojiao the southern","Daojia follows Zhuangzi only; daojiao follows Laozi only"],a:0,
+ x:"Daojia (道家) names the philosophical current of the Laozi and Zhuangzi; daojiao (道教) is the organized religion arising in the Han era, which deified Laozi and developed alchemy, qi cultivation, and clergy."},
+{q:"What happened in 142 CE that marks the birth of religious Taoism?",
+ opts:["The Tao Te Ching was first printed","The Mawangdui tombs were sealed","Buddhism arrived in China","Zhang Daoling founded the Way of the Celestial Masters after a revelation from the deified Laozi"],a:3,
+ x:"Zhang Daoling's revelation from Taishang Laojun ('Most High Lord Lao') founded the Celestial Masters — the first organized Taoist church, ancestor of today's Zhengyi lineage."},
+{q:"Which East Asian Buddhist school emerged from the fusion of Buddhism with Taoist ideas like wu wei and naturalness?",
+ opts:["Pure Land","Chan (Zen)","Tendai","Theravada"],a:1,
+ x:"When Buddhist emptiness met Taoist spontaneity in China, the result was Chan — 'Zen' in its Japanese form — with its distrust of words, love of paradox, and aesthetics of naturalness."},
+{q:"Which English translation of the Tao Te Ching is in the public domain?",
+ opts:["Stephen Mitchell (1988)","Ursula K. Le Guin (1997)","James Legge (1891)","D.C. Lau (1963)"],a:2,
+ x:"James Legge's 1891 translation for the Sacred Books of the East series is long out of copyright — the renderings on this site are original paraphrases informed by it."},
+{q:"Chapter 56: 'Those who know do not speak; those who speak…'",
+ opts:["…speak wisely","…must be heard","…shall be honored","…do not know"],a:3,
+ x:"The famous paradox — found in a book of five thousand words. The tradition was aware of the joke; the point is that the deepest knowing outruns what words can carry."},
+{q:"According to chapter 64, how does a journey of a thousand li begin?",
+ opts:["With a map","With a prayer to heaven","Beneath your feet — with a single step","With a strong horse"],a:2,
+ x:"'A tree you can barely embrace grows from a downy shoot; a nine-story tower rises from a basket of earth; a journey of a thousand li begins beneath your feet.' The same chapter warns: be as careful at the end as at the beginning."}
+];
+
+/* =====================================================================
+   APP STATE (component state only — no localStorage)
+===================================================================== */
+const state = {
+  readChapters: new Set(),
+  activeTag: "all",
+  search: "",
+  openChapter: null,
+  quiz: { i:0, score:0, answered:false, active:false }
+};
+
+const $ = (s)=>document.querySelector(s);
+const esc = (s)=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+/* ---------- theme ---------- */
+$("#themeToggle").addEventListener("click",()=>{
+  const root=document.documentElement;
+  const dark=root.getAttribute("data-theme")==="dark";
+  root.setAttribute("data-theme",dark?"light":"dark");
+  $("#themeToggle").textContent=dark?"🌙 Ink Night":"☀️ Paper Day";
+});
+
+/* ---------- reveal on scroll ---------- */
+if(typeof IntersectionObserver!=="undefined"){
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}
+  }),{threshold:.08});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+}else{
+  document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));
+}
+
+/* ---------- chapter explorer ---------- */
+function chipRow(){
+  const el=$("#tagChips");
+  const mk=(t,label)=>`<button class="chip ${state.activeTag===t?'on':''}" data-tag="${t}">${label}</button>`;
+  el.innerHTML=mk("all","all themes")+TAGS.map(t=>mk(t,t)).join("");
+  el.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
+    state.activeTag=b.dataset.tag; state.openChapter=null; chipRow(); renderChapters();
+  }));
+}
+
+function visibleChapters(){
+  const q=state.search.trim().toLowerCase();
+  return CHAPTERS.filter(ch=>{
+    if(state.activeTag!=="all" && !ch.tags.includes(state.activeTag)) return false;
+    if(!q) return true;
+    return (ch.n+" "+ch.t+" "+ch.r+" "+ch.p+" "+ch.c+" "+ch.tags.join(" ")).toLowerCase().includes(q);
+  });
+}
+
+function renderChapters(){
+  const list=$("#chList"); const vis=visibleChapters();
+  $("#chMeta").innerHTML=`Showing ${vis.length} of 81 chapters · <span class="prog">${state.readChapters.size} / 81 read</span>`;
+  list.innerHTML=vis.map(ch=>{
+    const open=state.openChapter===ch.n;
+    const read=state.readChapters.has(ch.n);
+    let body="";
+    if(open){
+      body=`<div class="ch-body">
+        <div><h5>Rendering (after Legge, 1891)</h5><p class="verse">${esc(ch.r)}</p></div>
+        <div><h5>Plain paraphrase</h5><p>${esc(ch.p)}</p></div>
+        <div class="full"><h5>Commentary</h5><p>${esc(ch.c)}</p></div>
+        <div class="ch-actions">
+          <button class="smallbtn ${read?'done':''}" data-read="${ch.n}">${read?"✓ Marked as read":"Mark as read"}</button>
+          <button class="smallbtn" data-close="${ch.n}">Close</button>
+        </div>
+      </div>`;
+    }
+    return `<article class="ch-card ${open?'open':''}" data-ch="${ch.n}" id="ch-${ch.n}">
+      ${read?'<span class="readmark">✓</span>':''}
+      <div class="num">Chapter ${ch.n}</div>
+      <h4>${esc(ch.t)}</h4>
+      <div class="tags">${ch.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+      ${body}
+    </article>`;
+  }).join("") || `<p style="color:var(--ink-soft);font-style:italic">No chapters match — the Tao that can be searched is not the eternal Tao. Try another term.</p>`;
+
+  list.querySelectorAll(".ch-card").forEach(card=>card.addEventListener("click",(ev)=>{
+    if(ev.target.closest("[data-read],[data-close]")) return;
+    const n=+card.dataset.ch;
+    state.openChapter = state.openChapter===n ? null : n;
+    renderChapters();
+  }));
+  list.querySelectorAll("[data-read]").forEach(b=>b.addEventListener("click",()=>{
+    const n=+b.dataset.read;
+    state.readChapters.has(n)?state.readChapters.delete(n):state.readChapters.add(n);
+    renderChapters();
+  }));
+  list.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>{
+    state.openChapter=null; renderChapters();
+  }));
+}
+
+$("#chSearch").addEventListener("input",(e)=>{
+  state.search=e.target.value; state.openChapter=null; renderChapters();
+});
+
+$("#drawBtn").addEventListener("click",()=>{
+  const ch=CHAPTERS[Math.floor(Math.random()*CHAPTERS.length)];
+  state.activeTag="all"; state.search=""; $("#chSearch").value="";
+  state.openChapter=ch.n; chipRow(); renderChapters();
+  const el=document.getElementById("ch-"+ch.n);
+  if(el&&el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+/* ---------- concepts ---------- */
+function renderConcepts(){
+  $("#conceptGrid").innerHTML=CONCEPTS.map((c,i)=>`
+    <div class="card concept" data-i="${i}">
+      <div class="top">
+        <div><div class="hanzi zh">${c.hanzi}</div><div class="pinyin" style="text-align:center">${c.pinyin}</div></div>
+        <div><h3>${c.name}</h3><div class="lit">lit. ${c.lit}</div></div>
+      </div>
+      <div class="more"><div class="more-inner"><p>${c.deep}</p><p class="chrefs">Expressed in: ${c.chs}</p></div></div>
+      <div class="hint">click to unfold ▾</div>
+    </div>`).join("");
+  document.querySelectorAll(".concept").forEach(el=>el.addEventListener("click",()=>{
+    el.classList.toggle("open");
+    el.querySelector(".hint").textContent=el.classList.contains("open")?"click to fold ▴":"click to unfold ▾";
+  }));
+}
+
+/* ---------- concept map (SVG) ---------- */
+function renderMap(){
+  const cx=350,cy=215,R=150;
+  const nodes=[
+    {l:"Wu Wei",zh:"無為",e:"acting from"},
+    {l:"Te",zh:"德",e:"potency of"},
+    {l:"Ziran",zh:"自然",e:"nature of"},
+    {l:"Water",zh:"水",e:"image of"},
+    {l:"Emptiness",zh:"虛",e:"usefulness of"},
+    {l:"Reversal",zh:"反",e:"movement of"},
+    {l:"Pu",zh:"樸",e:"simplicity of"},
+    {l:"Yin–Yang",zh:"陰陽",e:"polarity of"}
+  ];
+  let svg="";
+  nodes.forEach((n,i)=>{
+    const a=-Math.PI/2 + i*(2*Math.PI/nodes.length);
+    const x=cx+R*Math.cos(a), y=cy+R*Math.sin(a)*0.85;
+    const mx=(cx+x)/2, my=(cy+y)/2;
+    svg+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"></line>
+      <text class="edge-label" x="${mx}" y="${my-4}" text-anchor="middle">${n.e}</text>
+      <g class="node">
+        <circle cx="${x}" cy="${y}" r="36"></circle>
+        <text x="${x}" y="${y-3}" text-anchor="middle" class="zh" style="font-size:16px;fill:var(--vermilion)">${n.zh}</text>
+        <text x="${x}" y="${y+14}" text-anchor="middle" style="font-size:10px">${n.l}</text>
+      </g>`;
+  });
+  svg+=`<g class="center"><circle cx="${cx}" cy="${cy}" r="44"></circle>
+    <text x="${cx}" y="${cy-2}" text-anchor="middle" class="zh" style="font-size:24px">道</text>
+    <text x="${cx}" y="${cy+18}" text-anchor="middle" style="font-size:11px">Tao</text></g>`;
+  $("#conceptMap").innerHTML=svg;
+}
+
+/* ---------- timeline ---------- */
+function renderTimeline(){
+  $("#tlList").innerHTML=TIMELINE.map(t=>`
+    <div class="tl-item"><div class="when">${t.when}</div><h4>${t.title}</h4><p>${t.body}</p></div>`).join("");
+}
+
+/* ---------- parables ---------- */
+function renderParables(){
+  $("#parableGrid").innerHTML=PARABLES.map(p=>`
+    <div class="card parable">
+      <span class="zh zh-title">${p.zh}</span>
+      <h4>${p.title}</h4>
+      <p class="story">${p.story}</p>
+      <p class="reflect">${p.reflect}</p>
+    </div>`).join("");
+}
+
+/* ---------- comparison ---------- */
+function renderCompare(){
+  $("#compareBody").innerHTML=COMPARE.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("");
+}
+
+/* ---------- practice & reflection ---------- */
+function renderPractice(){
+  $("#practiceGrid").innerHTML=PRACTICE.map(p=>`
+    <div class="card"><h3><span class="zh" style="color:var(--vermilion);margin-right:8px">${p.zh}</span>${p.title}</h3>
+    <p style="font-size:.92rem;margin-top:8px">${p.body}</p></div>`).join("");
+}
+$("#reflBtn").addEventListener("click",()=>{
+  const ch=CHAPTERS[Math.floor(Math.random()*CHAPTERS.length)];
+  const q=REFLECT_QS[Math.floor(Math.random()*REFLECT_QS.length)];
+  $("#reflNum").textContent="Chapter "+ch.n;
+  $("#reflTitle").textContent=ch.t;
+  $("#reflVerse").textContent=ch.r;
+  $("#reflQ").textContent=q;
+  $("#reflBox").classList.add("show");
+});
+
+/* ---------- glossary ---------- */
+function renderGlossary(){
+  $("#glossGrid").innerHTML=GLOSSARY.map(g=>`
+    <div class="card"><div class="hanzi zh">${g.h}</div>
+      <div><strong>${g.py}</strong> <span class="pron">${g.pron}</span><div class="def">${g.def}</div></div>
+    </div>`).join("");
+}
+
+/* ---------- quiz ---------- */
+function quizStart(){
+  state.quiz={i:0,score:0,answered:false,active:true};
+  $("#quizStart").style.display="none"; $("#quizDone").style.display="none";
+  $("#quizPlay").style.display="block";
+  quizRender();
+}
+function quizRender(){
+  const q=QUIZ[state.quiz.i];
+  $("#quizProgress").textContent=`Question ${state.quiz.i+1} of ${QUIZ.length}`;
+  $("#quizScore").textContent=`Score: ${state.quiz.score}`;
+  $("#quizBar").style.width=(state.quiz.i/QUIZ.length*100)+"%";
+  $("#quizQ").textContent=q.q;
+  $("#quizExplain").className=""; $("#quizExplain").id="quizExplain";
+  $("#quizExplain").classList.remove("show"); $("#quizNext").style.display="none";
+  state.quiz.answered=false;
+  $("#quizOpts").innerHTML=q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("");
+  document.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    if(state.quiz.answered) return;
+    state.quiz.answered=true;
+    const pick=+b.dataset.i;
+    document.querySelectorAll(".opt").forEach((o,i)=>{
+      o.disabled=true;
+      if(i===q.a) o.classList.add("correct");
+      else if(i===pick) o.classList.add("wrong");
+    });
+    if(pick===q.a) state.quiz.score++;
+    $("#quizScore").textContent=`Score: ${state.quiz.score}`;
+    $("#quizExplain").textContent=q.x;
+    $("#quizExplain").classList.add("show");
+    $("#quizNext").style.display="inline-block";
+    $("#quizNext").textContent = state.quiz.i===QUIZ.length-1 ? "See final score →" : "Next question →";
+  }));
+}
+$("#quizStartBtn").addEventListener("click",quizStart);
+$("#quizRestart").addEventListener("click",quizStart);
+$("#quizNext").addEventListener("click",()=>{
+  if(state.quiz.i===QUIZ.length-1){
+    $("#quizPlay").style.display="none"; $("#quizDone").style.display="block";
+    $("#quizFinal").textContent=`${state.quiz.score} / ${QUIZ.length}`;
+    const r=state.quiz.score/QUIZ.length;
+    $("#quizVerdict").textContent =
+      r===1 ? "Those who know do not speak — and yet you answered everything. A sage with a pencil." :
+      r>=.8 ? "The student is becoming the valley into which knowledge flows." :
+      r>=.6 ? "A good traveler has no fixed plans — but might reread a few chapters." :
+      r>=.4 ? "The journey of a thousand li starts beneath your feet. Keep walking." :
+      "Perfect emptiness! Chapter 11 says the hollow is what makes the vessel useful. Now fill it: scroll back up.";
+  } else {
+    state.quiz.i++; quizRender();
+  }
+});
+
+/* ---------- boot ---------- */
+chipRow(); renderChapters(); renderConcepts(); renderMap();
+renderTimeline(); renderParables(); renderCompare(); renderPractice(); renderGlossary();
+</script>
+</body>
+</html>
