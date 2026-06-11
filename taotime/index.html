@@ -4,280 +4,523 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Watercourse Way — An Interactive Deep Dive into Taoism and the Tao Te Ching</title>
-<meta name="description" content="An interactive study site covering the Tao Te Ching's 81 chapters, core Taoist concepts, Zhuangzi, history, practice, and a quiz.">
+<meta name="description" content="An interactive study site covering the Tao Te Ching's 81 chapters, core Taoist concepts, bridges to Plato and Sufism, Zhuangzi, history, practice, and a quiz.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23b03a21'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23f4edda' font-family='serif'%3E道%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Ma+Shan+Zheng&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
 <style>
+/* =====================================================================
+   THE WATERCOURSE WAY — "Scholar's Studio"
+   rice paper · ink wash · vermilion seals · brush calligraphy
+===================================================================== */
 :root{
-  --paper:#f6f0e3; --paper-2:#efe6d2; --ink:#2b2620; --ink-soft:#5a5247;
-  --vermilion:#bf3b25; --vermilion-soft:#d96a4a; --gold:#a87f2e;
-  --card:#fbf7ed; --card-border:#d9cdb4; --shadow:rgba(60,48,30,.12);
-  --tag-bg:#ece2cc; --code:#e9dec6;
+  --paper:#f2ebd9; --paper-2:#e9dfc6; --ink:#272117; --ink-soft:#6f6450; --ink-faint:#998c72;
+  --vermilion:#b03a21; --vermilion-soft:#cf5a36; --gold:#9d7b30;
+  --card:#f9f3e2; --card-border:#d9cca6; --shadow:rgba(74,58,30,.10);
+  --tag-bg:#e9dfc4; --code:#e9dec6; --wash:rgba(67,82,89,.07);
+  --sidebar-w:264px;
 }
 html[data-theme="dark"]{
-  --paper:#16140f; --paper-2:#1d1a13; --ink:#e9e1cf; --ink-soft:#b3a88f;
-  --vermilion:#e05a3a; --vermilion-soft:#e98263; --gold:#cfa44d;
-  --card:#211d15; --card-border:#3a3426; --shadow:rgba(0,0,0,.45);
-  --tag-bg:#2c2719; --code:#2c2719;
+  --paper:#14110c; --paper-2:#1c1810; --ink:#e9dfc6; --ink-soft:#ab9f81; --ink-faint:#7a6f56;
+  --vermilion:#d6502c; --vermilion-soft:#e57a50; --gold:#c79d45;
+  --card:#1d1912; --card-border:#3a3322; --shadow:rgba(0,0,0,.5);
+  --tag-bg:#2b2517; --code:#2b2517; --wash:rgba(160,180,190,.05);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
 body{
-  font-family:Georgia,"Iowan Old Style","Times New Roman","Songti SC","Noto Serif CJK SC",serif;
+  font-family:"EB Garamond",Georgia,"Iowan Old Style",serif;
+  font-size:20px;line-height:1.85;
   background:
-    radial-gradient(1200px 600px at 10% -5%, rgba(191,59,37,.05), transparent 60%),
-    radial-gradient(900px 500px at 95% 8%, rgba(168,127,46,.06), transparent 55%),
+    radial-gradient(1100px 700px at 85% -10%, rgba(157,123,48,.07), transparent 60%),
+    radial-gradient(900px 600px at -10% 30%, rgba(176,58,33,.05), transparent 55%),
     var(--paper);
-  color:var(--ink); line-height:1.65; transition:background .4s,color .4s;
+  color:var(--ink);
+  transition:background .4s,color .4s;
+  -webkit-font-smoothing:antialiased;
 }
-.zh{font-family:"Songti SC","Noto Serif CJK SC","SimSun","MS Mincho",serif}
+/* rice-paper grain over everything */
+body::before{
+  content:"";position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:.6;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.055'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html[data-theme="dark"] body::before{opacity:.35}
+::selection{background:var(--vermilion);color:#f4edda}
+.zh{font-family:"Noto Serif TC","Songti SC","Noto Serif CJK SC","SimSun",serif}
+.brush-zh{font-family:"Ma Shan Zheng","Noto Serif TC","Songti SC",serif;font-weight:400}
 a{color:var(--vermilion);text-decoration:none}
 a:hover{text-decoration:underline}
 button{font-family:inherit;cursor:pointer}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.25}
 
-/* ---------- nav ---------- */
-nav{
-  position:sticky;top:0;z-index:60;background:color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--card-border);
+/* =================== SIDEBAR =================== */
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);z-index:90;
+  display:flex;flex-direction:column;gap:0;
+  padding:30px 22px 22px;overflow-y:auto;scrollbar-width:thin;
+  background:linear-gradient(180deg, color-mix(in srgb,var(--paper-2) 60%,var(--paper)), var(--paper));
+  border-right:1px solid var(--card-border);
 }
-nav .bar{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;padding:10px 16px}
-nav .brand{display:flex;align-items:center;gap:8px;font-weight:bold;white-space:nowrap;font-size:.95rem}
-nav .seal{width:28px;height:28px;background:var(--vermilion);color:#fff;border-radius:5px;
-  display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 auto}
-nav .links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
-nav .links::-webkit-scrollbar{display:none}
-nav .links a{color:var(--ink-soft);padding:6px 10px;border-radius:6px;font-size:.85rem;white-space:nowrap}
-nav .links a:hover{color:var(--vermilion);background:var(--tag-bg);text-decoration:none}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.brand .seal{
+  width:46px;height:46px;flex:0 0 auto;background:var(--vermilion);color:#f4edda;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  box-shadow:2px 3px 0 rgba(74,58,30,.18);transform:rotate(-2deg);
+}
+.brand b{font-family:"Cormorant Garamond",serif;font-size:1.12rem;font-weight:700;line-height:1.2;display:block}
+.brand i{font-size:.78rem;color:var(--ink-soft);font-style:italic}
+.snav-group{font-size:.66rem;letter-spacing:3px;text-transform:uppercase;color:var(--ink-faint);
+  margin:18px 0 6px;padding-left:4px}
+.snav{display:flex;align-items:center;gap:12px;padding:7px 10px;border-radius:8px;
+  color:var(--ink-soft);font-size:.95rem;position:relative;transition:background .15s,color .15s}
+.snav .nzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:1.35rem;line-height:1;
+  width:26px;text-align:center;color:var(--ink-faint);transition:color .15s}
+.snav:hover{background:var(--tag-bg);color:var(--ink);text-decoration:none}
+.snav.on{color:var(--vermilion);background:color-mix(in srgb,var(--vermilion) 9%, transparent)}
+.snav.on .nzh{color:var(--vermilion)}
+.snav.on::before{content:"";position:absolute;left:-22px;top:8px;bottom:8px;width:3px;background:var(--vermilion);border-radius:2px}
+.side-foot{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:10px}
+.side-prog{font-size:.8rem;color:var(--ink-soft)}
+.side-prog b{color:var(--gold);font-weight:600}
 #themeToggle{
   border:1px solid var(--card-border);background:var(--card);color:var(--ink);
-  border-radius:20px;padding:5px 12px;font-size:.8rem;white-space:nowrap;flex:0 0 auto;
+  border-radius:999px;padding:7px 14px;font-size:.82rem;
 }
 #themeToggle:hover{border-color:var(--vermilion)}
 
-/* ---------- hero ---------- */
-header.hero{text-align:center;padding:72px 20px 56px;position:relative}
-.hero .bigzh{font-size:clamp(84px,16vw,150px);line-height:1;color:var(--vermilion);opacity:.92}
-.hero h1{font-size:clamp(1.7rem,4.5vw,2.8rem);margin:14px 0 6px;letter-spacing:.5px}
-.hero p.sub{color:var(--ink-soft);max-width:620px;margin:0 auto;font-style:italic}
-.hero .pinyin{color:var(--ink-soft);letter-spacing:4px;font-size:.95rem;margin-top:4px}
+/* =================== MOBILE TOP BAR =================== */
+.topbar{display:none;position:sticky;top:0;z-index:95;align-items:center;gap:12px;
+  padding:10px 16px;border-bottom:1px solid var(--card-border);
+  background:color-mix(in srgb,var(--paper) 90%, transparent);backdrop-filter:blur(10px)}
+.topbar .seal{width:32px;height:32px;background:var(--vermilion);color:#f4edda;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:20px}
+.topbar b{font-family:"Cormorant Garamond",serif;font-size:1.05rem;flex:1}
+#menuBtn{border:1px solid var(--card-border);background:var(--card);color:var(--ink);
+  border-radius:8px;padding:6px 12px;font-size:.85rem}
+.backdrop{display:none;position:fixed;inset:0;background:rgba(20,15,8,.45);z-index:85}
+body.nav-open .backdrop{display:block}
 
-/* ---------- sections ---------- */
-section{padding:56px 0;}
-.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
-.sec-head .zh-big{font-size:2.4rem;color:var(--vermilion);line-height:1}
-.sec-head h2{font-size:clamp(1.35rem,3vw,1.9rem)}
-.sec-sub{color:var(--ink-soft);font-style:italic;margin-bottom:24px;max-width:720px}
-.brush{height:14px;margin:0 0 26px;background:
-  linear-gradient(90deg, transparent, var(--ink) 8%, var(--ink) 55%, transparent 96%);
-  opacity:.16;border-radius:50% 40% 60% 50%/80% 90% 70% 90%;max-width:340px}
-.prose{max-width:760px}
-.prose p{margin-bottom:14px}
-.prose strong{color:var(--vermilion)}
+/* =================== MAIN COLUMN =================== */
+main{margin-left:var(--sidebar-w)}
+.col{max-width:880px;margin:0 auto;padding:0 48px}
+section{padding:72px 0 36px}
+.prose{max-width:60ch}
+.prose p{margin-bottom:1.25em}
+.prose strong{color:var(--vermilion);font-weight:600}
 
-/* reveal animation */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+/* vertical side quote on wide screens */
+.sidequote{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:5;
+  writing-mode:vertical-rl;font-size:1.5rem;letter-spacing:14px;color:var(--ink);opacity:.10;
+  pointer-events:none;user-select:none}
+@media(max-width:1480px){.sidequote{display:none}}
+
+/* =================== HERO =================== */
+.hero{position:relative;overflow:hidden;padding:96px 48px 150px;text-align:center}
+.hero .mtns{position:absolute;left:0;right:0;bottom:0;width:100%;height:340px;color:var(--ink);z-index:0;pointer-events:none}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;z-index:1;
+  background:linear-gradient(transparent,var(--paper))}
+.hero-inner{position:relative;z-index:2;max-width:720px;margin:0 auto}
+.hero .bigzh{font-size:clamp(120px,17vw,196px);line-height:1;color:var(--vermilion);
+  text-shadow:3px 5px 0 rgba(74,58,30,.10);animation:fadeup 1s ease both}
+.hero .pinyin{letter-spacing:7px;font-size:.85rem;text-transform:uppercase;color:var(--ink-soft);
+  margin-top:10px;animation:fadeup 1s .15s ease both}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);margin:14px 0 12px;animation:fadeup 1s .25s ease both}
+.hero p.sub{color:var(--ink-soft);font-style:italic;font-size:1.08rem;max-width:540px;margin:0 auto;
+  animation:fadeup 1s .35s ease both}
+.seal-stamp{
+  display:inline-grid;grid-template-rows:repeat(2,1fr);grid-auto-flow:column;direction:rtl;
+  gap:2px;margin-top:30px;padding:10px;background:var(--vermilion);color:#f4edda;border-radius:4px;
+  font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:1.5rem;line-height:1;
+  transform:rotate(-3deg);box-shadow:2px 3px 0 rgba(74,58,30,.18);
+  animation:fadeup 1s .5s ease both}
+@keyframes fadeup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* =================== SECTION HEADS =================== */
+.sec-head{display:flex;align-items:flex-start;gap:22px;margin-bottom:10px}
+.sec-zh{
+  font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:3.6rem;line-height:1;color:var(--vermilion);
+  flex:0 0 auto;width:86px;height:86px;display:flex;align-items:center;justify-content:center;position:relative}
+.sec-zh::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 38% 35%, var(--wash), transparent 70%);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 10%, transparent)}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.3rem);font-weight:700}
+.sec-eyebrow{font-size:.68rem;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.sec-sub{color:var(--ink-soft);font-style:italic;max-width:58ch;margin-top:4px}
+.brushline{height:12px;max-width:380px;margin:22px 0 38px;opacity:.55;background-size:contain;background-repeat:no-repeat;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 380 12'%3E%3Cpath d='M3 7 C70 2 150 10 230 5 S350 8 377 4' stroke='%23272117' stroke-width='3.4' fill='none' stroke-linecap='round' opacity='.55'/%3E%3Cpath d='M3 8 C90 6 200 9 377 5' stroke='%23272117' stroke-width='1.1' fill='none' opacity='.4'/%3E%3C/svg%3E")}
+html[data-theme="dark"] .brushline{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 380 12'%3E%3Cpath d='M3 7 C70 2 150 10 230 5 S350 8 377 4' stroke='%23e9dfc6' stroke-width='3.4' fill='none' stroke-linecap='round' opacity='.55'/%3E%3Cpath d='M3 8 C90 6 200 9 377 5' stroke='%23e9dfc6' stroke-width='1.1' fill='none' opacity='.4'/%3E%3C/svg%3E")}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
 .reveal.in{opacity:1;transform:none}
 
-/* ---------- generic cards ---------- */
-.card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;
-  box-shadow:0 2px 10px var(--shadow);padding:18px 20px}
-.grid{display:grid;gap:16px}
-.grid.c2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.grid.c3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+/* =================== CARDS / BUTTONS / CHIPS =================== */
+.card{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,#fff0) , var(--card));
+  border:1px solid var(--card-border);border-radius:12px;
+  box-shadow:0 1px 2px var(--shadow),0 10px 28px -18px var(--shadow);padding:24px 26px}
+.grid{display:grid;gap:18px}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.btn{background:var(--vermilion);color:#f4edda;border:none;border-radius:999px;padding:11px 22px;
+  font-size:.95rem;font-family:inherit;letter-spacing:.3px;transition:transform .15s,opacity .2s,box-shadow .2s;
+  box-shadow:0 2px 0 rgba(74,58,30,.2)}
+.btn:hover{opacity:.92;transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--vermilion);border:1px solid var(--vermilion);box-shadow:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 14px}
+.chip{border:1px solid var(--card-border);background:transparent;color:var(--ink-soft);
+  border-radius:999px;padding:6px 15px;font-size:.83rem;transition:all .15s}
+.chip:hover{border-color:var(--vermilion);color:var(--vermilion)}
+.chip.on{background:var(--vermilion);border-color:var(--vermilion);color:#f4edda}
+.note{font-size:.82rem;color:var(--ink-soft);font-style:italic;margin-top:8px}
+.tag{font-size:.7rem;background:var(--tag-bg);color:var(--ink-soft);
+  border-radius:999px;padding:3px 10px;letter-spacing:.5px}
 
-/* ---------- chapter explorer ---------- */
-.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
-#chSearch{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--card-border);
-  border-radius:8px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.95rem}
-#chSearch:focus{outline:2px solid var(--vermilion-soft)}
-.btn{background:var(--vermilion);color:#fff;border:none;border-radius:8px;padding:10px 16px;
-  font-size:.9rem;transition:transform .15s,opacity .2s}
-.btn:hover{opacity:.9;transform:translateY(-1px)}
-.btn.ghost{background:transparent;color:var(--vermilion);border:1px solid var(--vermilion)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.chip{border:1px solid var(--card-border);background:var(--tag-bg);color:var(--ink-soft);
-  border-radius:20px;padding:5px 13px;font-size:.8rem;transition:all .15s}
-.chip:hover{border-color:var(--vermilion)}
-.chip.on{background:var(--vermilion);border-color:var(--vermilion);color:#fff}
-#chMeta{color:var(--ink-soft);font-size:.85rem;margin-bottom:14px}
-#chMeta .prog{color:var(--vermilion);font-weight:bold}
-#chList{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
-.ch-card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;
-  padding:14px 16px;cursor:pointer;transition:border-color .2s, box-shadow .2s;position:relative}
-.ch-card:hover{border-color:var(--vermilion-soft);box-shadow:0 3px 14px var(--shadow)}
-.ch-card .num{font-size:.75rem;color:var(--vermilion);letter-spacing:2px;text-transform:uppercase}
-.ch-card h4{font-size:1.05rem;margin:2px 0 8px}
-.ch-card .tags{display:flex;flex-wrap:wrap;gap:5px}
-.ch-card .tag{font-size:.68rem;background:var(--tag-bg);color:var(--ink-soft);
-  border-radius:10px;padding:2px 8px;letter-spacing:.5px}
-.ch-card .readmark{position:absolute;top:12px;right:14px;font-size:.85rem;color:var(--gold)}
-.ch-card.open{grid-column:1/-1;cursor:default}
-.ch-body{margin-top:12px;border-top:1px dashed var(--card-border);padding-top:12px;
-  display:grid;gap:14px}
-@media(min-width:760px){.ch-body{grid-template-columns:1fr 1fr}}
-.ch-body h5{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--vermilion);margin-bottom:6px}
-.ch-body .verse{white-space:pre-line;font-style:italic;color:var(--ink)}
-.ch-body .full{grid-column:1/-1}
-.ch-actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
-.smallbtn{border:1px solid var(--card-border);background:transparent;color:var(--ink-soft);
-  border-radius:8px;padding:6px 12px;font-size:.8rem}
-.smallbtn:hover{border-color:var(--vermilion);color:var(--vermilion)}
-.smallbtn.done{border-color:var(--gold);color:var(--gold)}
+/* =================== DEEP DIVE (One Verse, Deeply) =================== */
+.dive-bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:22px}
+#diveWhich{font-style:italic;color:var(--ink-soft);font-size:.95rem}
+.dive{display:grid;gap:18px}
+.dive-verse{padding:34px 38px;position:relative;overflow:hidden}
+.dive-verse .vmark{position:absolute;right:14px;top:-12px;font-size:9rem;line-height:1;opacity:.06;pointer-events:none}
+.dive-verse .deyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.dive-verse h3{font-size:1.8rem;margin-bottom:18px}
+.dive-verse .verse{white-space:pre-line;font-family:"Cormorant Garamond",serif;font-style:italic;
+  font-size:1.45rem;line-height:1.95;max-width:54ch}
+.voice-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.vtab{border:1px solid var(--card-border);background:transparent;color:var(--ink-soft);
+  border-radius:999px;padding:7px 16px;font-size:.85rem;transition:all .15s}
+.vtab:hover{border-color:var(--vermilion);color:var(--vermilion)}
+.vtab.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+html[data-theme="dark"] .vtab.on{background:var(--ink);color:#14110c}
+.voice-body{font-size:1.06rem;max-width:60ch}
+.voice-body .verse{white-space:pre-line;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.18rem;line-height:1.9;margin-bottom:14px}
+.voice-body .who{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.lines{display:grid;gap:14px;counter-reset:mv}
+.line-item{display:flex;gap:16px;align-items:flex-start}
+.line-item::before{counter-increment:mv;content:counter(mv,cjk-ideographic);
+  font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:1.5rem;color:var(--vermilion);
+  flex:0 0 34px;text-align:center;line-height:1.4}
+.line-item .lq{font-style:italic;color:var(--ink);font-family:"Cormorant Garamond",serif;font-size:1.12rem}
+.line-item p{font-size:.98rem;color:var(--ink-soft);margin-top:3px}
+.dive-echoes{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.echo{border-left:3px solid var(--gold);padding:4px 0 4px 16px}
+.echo b{font-family:"Cormorant Garamond",serif;font-size:1.06rem;display:block;margin-bottom:4px}
+.echo p{font-size:.92rem;color:var(--ink-soft)}
+.listen{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
+.listen a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--card-border);
+  border-radius:999px;padding:8px 16px;font-size:.88rem;background:var(--card);color:var(--ink)}
+.listen a:hover{border-color:var(--vermilion);color:var(--vermilion);text-decoration:none}
 
-/* ---------- concepts ---------- */
-.concept{cursor:pointer;transition:border-color .2s}
-.concept:hover{border-color:var(--vermilion-soft)}
-.concept .top{display:flex;gap:16px;align-items:center}
-.concept .hanzi{font-size:2.6rem;color:var(--vermilion);line-height:1.1;min-width:64px;text-align:center}
+/* =================== CHAPTER EXPLORER =================== */
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+#chSearch{flex:1;min-width:220px;padding:12px 18px;border:1px solid var(--card-border);
+  border-radius:999px;background:var(--card);color:var(--ink);font-family:inherit;font-size:1rem}
+#chSearch:focus{outline:2px solid var(--vermilion-soft);outline-offset:1px}
+#chMeta{color:var(--ink-soft);font-size:.88rem;margin:6px 0 14px}
+#chMeta .prog{color:var(--gold);font-weight:600}
+#chGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:7px;margin-bottom:14px}
+.tile{aspect-ratio:1;border:1px solid var(--card-border);background:var(--card);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;position:relative;
+  font-family:"Cormorant Garamond",serif;font-size:1.06rem;font-weight:500;color:var(--ink-soft);
+  transition:all .14s}
+.tile:hover{border-color:var(--vermilion);color:var(--vermilion);transform:translateY(-1px)}
+.tile.read{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 55%,var(--card-border))}
+.tile.read::after{content:"·";position:absolute;top:-2px;right:5px;color:var(--gold);font-size:1.2rem}
+.tile.cur{background:var(--vermilion);border-color:var(--vermilion);color:#f4edda;
+  box-shadow:0 3px 10px -2px color-mix(in srgb,var(--vermilion) 60%,transparent)}
+.tile.dim{opacity:.18;pointer-events:none}
+#chMatches{display:none;flex-direction:column;gap:4px;margin-bottom:16px;max-height:240px;overflow-y:auto;
+  border:1px dashed var(--card-border);border-radius:12px;padding:10px}
+.match{display:flex;gap:12px;align-items:baseline;text-align:left;background:transparent;border:none;
+  padding:6px 10px;border-radius:8px;color:var(--ink);font-family:inherit;font-size:.95rem}
+.match span{color:var(--vermilion);font-family:"Cormorant Garamond",serif;min-width:26px;font-weight:600}
+.match:hover{background:var(--tag-bg)}
+.match.on{background:color-mix(in srgb,var(--vermilion) 10%,transparent)}
+.nomatch{color:var(--ink-soft);font-style:italic;padding:6px 10px;font-size:.92rem}
+
+/* the reader */
+.reader{padding:36px 42px;position:relative}
+.reader-eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.reader-eyebrow .readflag{color:var(--gold);margin-left:10px}
+.reader h3{font-size:2rem;margin-bottom:10px}
+.reader .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.reader .verse{white-space:pre-line;font-family:"Cormorant Garamond",serif;font-style:italic;
+  font-size:1.32rem;line-height:1.95;max-width:54ch;margin-bottom:26px;
+  padding-left:20px;border-left:3px solid var(--vermilion)}
+.reader-block{max-width:60ch;margin-bottom:20px}
+.reader-block h5{font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--vermilion);margin-bottom:6px}
+.reader-block p{font-size:1.02rem;color:var(--ink)}
+.reader-block.soft p{color:var(--ink-soft)}
+.deeplink{font-size:.9rem;font-style:italic}
+.reader-nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:26px;
+  padding-top:20px;border-top:1px dashed var(--card-border)}
+.navbtn{border:1px solid var(--card-border);background:var(--card);color:var(--ink);
+  border-radius:999px;padding:9px 18px;font-size:.9rem;font-family:inherit;transition:all .15s}
+.navbtn:hover:not(:disabled){border-color:var(--vermilion);color:var(--vermilion)}
+.navbtn:disabled{opacity:.35;cursor:default}
+.readtoggle{border:1px solid var(--card-border);background:transparent;color:var(--ink-soft);
+  border-radius:999px;padding:9px 18px;font-size:.9rem;font-family:inherit;margin:0 auto}
+.readtoggle:hover{border-color:var(--gold);color:var(--gold)}
+.readtoggle.done{border-color:var(--gold);color:var(--gold)}
+.kbd-hint{font-size:.78rem;color:var(--ink-faint);text-align:center;margin-top:12px}
+kbd{border:1px solid var(--card-border);border-bottom-width:2px;border-radius:5px;padding:1px 7px;
+  font-family:inherit;font-size:.78rem;background:var(--card)}
+
+/* =================== BRIDGES =================== */
+.bridge{padding:0;overflow:hidden}
+.bridge-head{display:flex;align-items:center;gap:16px;padding:22px 26px;border-bottom:1px solid var(--card-border)}
+.bridge-glyph{width:52px;height:52px;flex:0 0 auto;background:var(--ink);color:var(--paper);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;
+  font-size:1.7rem;font-weight:700;transform:rotate(-2deg);box-shadow:2px 3px 0 var(--shadow)}
+.bridge-head h3{font-size:1.4rem}
+.bridge-head .pair{font-size:.85rem;color:var(--ink-soft);font-style:italic}
+.bridge-body{padding:20px 26px 26px}
+.lvl-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.lvl{border:1px solid var(--card-border);background:transparent;color:var(--ink-soft);border-radius:999px;
+  padding:6px 14px;font-size:.8rem;letter-spacing:.5px;transition:all .15s}
+.lvl:hover{border-color:var(--gold);color:var(--gold)}
+.lvl.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.bridge-text{font-size:1rem;max-width:58ch}
+.bridge-text .big{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.3rem;line-height:1.7;color:var(--ink)}
+.bridge-text p{margin-bottom:.9em}
+.bridge-text p:last-child{margin-bottom:0}
+
+/* =================== CONCEPTS =================== */
+.concept{cursor:pointer;transition:border-color .2s,transform .2s}
+.concept:hover{border-color:var(--vermilion-soft);transform:translateY(-2px)}
+.concept .top{display:flex;gap:18px;align-items:center}
+.concept .hanzi{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:3.2rem;color:var(--vermilion);
+  line-height:1.1;min-width:72px;text-align:center}
 .concept .pinyin{color:var(--ink-soft);font-size:.85rem;letter-spacing:1px}
-.concept .lit{font-size:.85rem;color:var(--gold);font-style:italic}
+.concept .lit{font-size:.88rem;color:var(--gold);font-style:italic}
 .concept .more{max-height:0;overflow:hidden;transition:max-height .45s ease}
-.concept.open .more{max-height:600px}
-.concept .more-inner{padding-top:12px;border-top:1px dashed var(--card-border);margin-top:12px;font-size:.93rem}
-.concept .chrefs{margin-top:8px;font-size:.8rem;color:var(--ink-soft)}
-.concept .hint{font-size:.75rem;color:var(--ink-soft);margin-top:8px;font-style:italic}
-
-/* concept map */
-#mapWrap{margin-top:34px}
+.concept.open .more{max-height:640px}
+.concept .more-inner{padding-top:14px;border-top:1px dashed var(--card-border);margin-top:14px;font-size:.97rem}
+.concept .chrefs{margin-top:10px;font-size:.82rem;color:var(--ink-soft)}
+.concept .hint{font-size:.76rem;color:var(--ink-faint);margin-top:10px;font-style:italic}
+#mapWrap{margin-top:38px}
 #conceptMap{width:100%;height:auto;display:block}
-#conceptMap text{fill:var(--ink);font-family:inherit}
+#conceptMap text{fill:var(--ink);font-family:"EB Garamond",serif}
 #conceptMap .node circle{fill:var(--card);stroke:var(--card-border);stroke-width:1.5;transition:stroke .2s}
 #conceptMap .node:hover circle{stroke:var(--vermilion)}
 #conceptMap .center circle{fill:var(--vermilion);stroke:var(--vermilion)}
-#conceptMap .center text{fill:#fff}
-#conceptMap line{stroke:var(--ink);opacity:.22;stroke-width:1.2}
+#conceptMap .center text{fill:#f4edda}
+#conceptMap line{stroke:var(--ink);opacity:.2;stroke-width:1.2}
 #conceptMap .edge-label{font-size:9px;fill:var(--ink-soft);opacity:.85}
 
-/* ---------- timeline ---------- */
-.timeline{position:relative;margin-left:8px;padding-left:26px;border-left:2px solid var(--card-border);max-width:780px}
-.tl-item{position:relative;margin-bottom:26px}
-.tl-item::before{content:"";position:absolute;left:-33px;top:7px;width:12px;height:12px;
+/* =================== TIMELINE =================== */
+.timeline{position:relative;margin-left:10px;padding-left:30px;border-left:2px solid var(--card-border);max-width:720px}
+.tl-item{position:relative;margin-bottom:30px}
+.tl-item::before{content:"";position:absolute;left:-37px;top:9px;width:12px;height:12px;
   border-radius:50%;background:var(--vermilion);box-shadow:0 0 0 4px var(--paper)}
-.tl-item .when{font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--vermilion);font-weight:bold}
-.tl-item h4{margin:2px 0 4px}
-.tl-item p{color:var(--ink-soft);font-size:.92rem;max-width:640px}
+.tl-item .when{font-size:.74rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--vermilion);font-weight:600}
+.tl-item h4{font-size:1.2rem;margin:3px 0 4px}
+.tl-item p{color:var(--ink-soft);font-size:.96rem;max-width:58ch}
 
-/* ---------- zhuangzi ---------- */
-.parable .zh-title{color:var(--vermilion);font-size:1.3rem}
-.parable h4{margin:4px 0 10px}
-.parable .story{font-size:.95rem;margin-bottom:10px}
-.parable .reflect{font-size:.88rem;color:var(--ink-soft);border-left:3px solid var(--vermilion);
-  padding-left:12px;font-style:italic}
+/* =================== ZHUANGZI =================== */
+.parable{position:relative;overflow:hidden}
+.parable .pmark{position:absolute;right:-6px;bottom:-26px;font-family:"Ma Shan Zheng","Noto Serif TC",serif;
+  font-size:7rem;line-height:1;opacity:.07;pointer-events:none}
+.parable .zh-title{color:var(--vermilion);font-size:1.35rem;font-family:"Ma Shan Zheng","Noto Serif TC",serif}
+.parable h4{margin:4px 0 12px;font-size:1.25rem}
+.parable .story{font-size:.99rem;margin-bottom:12px}
+.parable .reflect{font-size:.92rem;color:var(--ink-soft);border-left:3px solid var(--vermilion);
+  padding-left:14px;font-style:italic}
 
-/* ---------- comparison ---------- */
+/* =================== COMPARISON =================== */
 .compare{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--card-border);
-  border-radius:12px;overflow:hidden;font-size:.92rem}
-.compare th,.compare td{padding:12px 14px;border-bottom:1px solid var(--card-border);
-  text-align:left;vertical-align:top}
-.compare th{background:var(--tag-bg);font-size:.95rem}
-.compare th .zh{color:var(--vermilion);margin-right:6px}
-.compare td:first-child{font-weight:bold;width:130px;color:var(--ink-soft);font-size:.8rem;
-  text-transform:uppercase;letter-spacing:1px}
-.compare-wrap{overflow-x:auto}
+  border-radius:12px;overflow:hidden;font-size:.95rem}
+.compare th,.compare td{padding:14px 16px;border-bottom:1px solid var(--card-border);text-align:left;vertical-align:top}
+.compare th{background:var(--tag-bg);font-size:1rem;font-family:"Cormorant Garamond",serif}
+.compare th .zh{color:var(--vermilion);margin-right:8px}
+.compare td:first-child{font-weight:600;width:140px;color:var(--ink-soft);font-size:.76rem;
+  text-transform:uppercase;letter-spacing:1.5px}
+.compare-wrap{overflow-x:auto;border-radius:12px}
 
-/* ---------- practice ---------- */
-.reflection{margin-top:28px}
-#reflBox{margin-top:14px;display:none}
+/* =================== PRACTICE =================== */
+.reflection{margin-top:30px}
+#reflBox{margin-top:16px;display:none}
 #reflBox.show{display:block}
-#reflBox .verse{white-space:pre-line;font-style:italic;margin:10px 0}
-#reflBox .q{color:var(--vermilion);font-weight:bold;margin:12px 0 8px}
-#reflJournal{width:100%;min-height:110px;margin-top:8px;padding:12px;border:1px solid var(--card-border);
-  border-radius:8px;background:var(--paper-2);color:var(--ink);font-family:inherit;font-size:.92rem;resize:vertical}
-.note{font-size:.78rem;color:var(--ink-soft);font-style:italic;margin-top:6px}
+#reflBox .verse{white-space:pre-line;font-family:"Cormorant Garamond",serif;font-style:italic;
+  font-size:1.12rem;line-height:1.9;margin:12px 0}
+#reflBox .q{color:var(--vermilion);font-weight:600;margin:14px 0 8px}
+#reflJournal{width:100%;min-height:120px;margin-top:8px;padding:14px;border:1px solid var(--card-border);
+  border-radius:10px;background:var(--paper-2);color:var(--ink);font-family:inherit;font-size:.97rem;resize:vertical}
 
-/* ---------- glossary ---------- */
-.gloss{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
-.gloss .card{display:flex;gap:14px;align-items:flex-start}
-.gloss .hanzi{font-size:1.9rem;color:var(--vermilion);min-width:56px;text-align:center;line-height:1.2}
-.gloss .py{font-size:.82rem;color:var(--ink-soft)}
-.gloss .pron{font-size:.78rem;color:var(--gold);font-style:italic}
-.gloss .def{font-size:.88rem;margin-top:4px}
+/* =================== GLOSSARY =================== */
+.gloss{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.gloss .card{display:flex;gap:16px;align-items:flex-start;padding:18px 20px}
+.gloss .hanzi{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:2.2rem;color:var(--vermilion);
+  min-width:60px;text-align:center;line-height:1.2}
+.gloss .py{font-size:.85rem;color:var(--ink-soft)}
+.gloss .pron{font-size:.8rem;color:var(--gold);font-style:italic}
+.gloss .def{font-size:.92rem;margin-top:4px}
 
-/* ---------- quiz ---------- */
-#quizBox{max-width:700px}
-#quizQ{font-size:1.1rem;margin-bottom:16px}
-.q-meta{display:flex;justify-content:space-between;color:var(--ink-soft);font-size:.82rem;margin-bottom:12px}
-.q-meta .score{color:var(--vermilion);font-weight:bold}
+/* =================== QUIZ =================== */
+#quizBox{max-width:680px}
+#quizQ{font-size:1.18rem;margin-bottom:18px;font-family:"Cormorant Garamond",serif;font-weight:600}
+.q-meta{display:flex;justify-content:space-between;color:var(--ink-soft);font-size:.84rem;margin-bottom:12px}
+.q-meta .score{color:var(--vermilion);font-weight:600}
 .opts{display:grid;gap:10px}
-.opt{background:var(--paper-2);border:1px solid var(--card-border);border-radius:8px;
-  padding:11px 14px;text-align:left;font-size:.93rem;color:var(--ink);transition:border-color .15s}
+.opt{background:var(--paper-2);border:1px solid var(--card-border);border-radius:10px;
+  padding:13px 16px;text-align:left;font-size:.97rem;color:var(--ink);font-family:inherit;transition:border-color .15s}
 .opt:hover{border-color:var(--vermilion)}
 .opt.correct{border-color:#3c8a4e;background:color-mix(in srgb,#3c8a4e 14%,var(--paper-2))}
 .opt.wrong{border-color:var(--vermilion);background:color-mix(in srgb,var(--vermilion) 12%,var(--paper-2))}
 .opt:disabled{cursor:default}
-#quizExplain{display:none;margin-top:14px;border-left:3px solid var(--gold);padding:6px 12px;
-  font-size:.9rem;color:var(--ink-soft)}
+#quizExplain{display:none;margin-top:16px;border-left:3px solid var(--gold);padding:6px 14px;
+  font-size:.93rem;color:var(--ink-soft)}
 #quizExplain.show{display:block}
-#quizDone{text-align:center;padding:20px 0}
-#quizDone .final{font-size:2.4rem;color:var(--vermilion);font-weight:bold}
-.qbar{height:6px;background:var(--tag-bg);border-radius:3px;overflow:hidden;margin-bottom:18px}
+#quizDone{text-align:center;padding:22px 0}
+#quizDone .final{font-size:2.6rem;color:var(--vermilion);font-weight:700;font-family:"Cormorant Garamond",serif}
+.qbar{height:6px;background:var(--tag-bg);border-radius:3px;overflow:hidden;margin-bottom:20px}
 .qbar i{display:block;height:100%;background:var(--vermilion);transition:width .3s;width:0}
 
-footer{border-top:1px solid var(--card-border);padding:34px 20px;text-align:center;
-  color:var(--ink-soft);font-size:.85rem}
-footer .zh{color:var(--vermilion);font-size:1.4rem;display:block;margin-bottom:8px}
+/* =================== FOOTER =================== */
+footer{border-top:1px solid var(--card-border);padding:54px 48px 64px;text-align:center;
+  color:var(--ink-soft);font-size:.88rem;position:relative}
+footer .enso{width:84px;height:84px;margin:0 auto 14px;display:block;color:var(--ink);opacity:.7}
+footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermilion);font-size:1.7rem;display:block;margin-bottom:10px}
+
+/* =================== RESPONSIVE =================== */
+@media(max-width:960px){
+  .sidebar{transform:translateX(-100%);transition:transform .28s ease;box-shadow:8px 0 30px rgba(20,15,8,.2)}
+  body.nav-open .sidebar{transform:none}
+  .topbar{display:flex}
+  main{margin-left:0}
+  .col{padding:0 22px}
+  .hero{padding:64px 22px 130px}
+  .reader{padding:26px 22px}
+  .dive-verse{padding:26px 22px}
+  body{font-size:18px}
+  .sec-head{gap:14px}
+  .sec-zh{width:60px;height:60px;font-size:2.4rem}
+  .sec-head h2{overflow-wrap:anywhere}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="bar">
-    <span class="brand"><span class="seal zh">道</span> The Watercourse Way</span>
-    <div class="links">
-      <a href="#orientation">Orientation</a>
-      <a href="#chapters">81 Chapters</a>
-      <a href="#concepts">Concepts</a>
-      <a href="#timeline">Timeline</a>
-      <a href="#zhuangzi">Zhuangzi</a>
-      <a href="#paths">Two Paths</a>
-      <a href="#practice">Practice</a>
-      <a href="#glossary">Glossary</a>
-      <a href="#quiz">Quiz</a>
-    </div>
-    <button id="themeToggle">🌙 Ink Night</button>
-  </div>
-</nav>
+<div class="backdrop" id="backdrop"></div>
 
-<header class="hero">
-  <div class="bigzh zh">道</div>
-  <div class="pinyin">dào · the way</div>
-  <h1>The Watercourse Way</h1>
-  <p class="sub">An interactive deep dive into Taoism and the Tao Te Ching — the legend, the text, the ideas, and the practice of moving with the grain of things.</p>
+<header class="topbar">
+  <span class="seal brush-zh">道</span><b>The Watercourse Way</b>
+  <button id="menuBtn">☰ Contents</button>
 </header>
 
-<main class="wrap">
+<aside class="sidebar">
+  <div class="brand">
+    <span class="seal brush-zh">道</span>
+    <span><b>The Watercourse Way</b><i>a Tao Te Ching study</i></span>
+  </div>
+  <nav id="sideNav">
+    <div class="snav-group">Begin</div>
+    <a class="snav" href="#orientation"><span class="nzh">源</span>Orientation</a>
+    <a class="snav" href="#depths"><span class="nzh">味</span>One Verse, Deeply</a>
+    <div class="snav-group">Study</div>
+    <a class="snav" href="#chapters"><span class="nzh">经</span>The 81 Chapters</a>
+    <a class="snav" href="#concepts"><span class="nzh">德</span>Core Concepts</a>
+    <a class="snav" href="#glossary"><span class="nzh">字</span>Glossary</a>
+    <div class="snav-group">Connect</div>
+    <a class="snav" href="#bridges"><span class="nzh">桥</span>Bridges: Plato &amp; the Sufis</a>
+    <a class="snav" href="#timeline"><span class="nzh">史</span>Timeline</a>
+    <a class="snav" href="#zhuangzi"><span class="nzh">庄</span>Zhuangzi</a>
+    <a class="snav" href="#paths"><span class="nzh">教</span>Two Paths</a>
+    <div class="snav-group">Live</div>
+    <a class="snav" href="#practice"><span class="nzh">行</span>Practice</a>
+    <a class="snav" href="#quiz"><span class="nzh">试</span>Quiz</a>
+  </nav>
+  <div class="side-foot">
+    <span class="side-prog">Chapters read: <b id="sideProg">0 / 81</b></span>
+    <button id="themeToggle">🌙 Ink Night</button>
+  </div>
+</aside>
+
+<div class="sidequote zh" aria-hidden="true">上善若水 · 水善利萬物而不爭</div>
+
+<main>
+
+<header class="hero" id="top">
+  <svg class="mtns" viewBox="0 0 1440 340" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <path fill="currentColor" opacity=".06" d="M0,250 C160,210 260,235 420,185 C560,142 660,210 820,180 C980,152 1080,205 1240,170 C1330,151 1390,175 1440,160 L1440,340 0,340 Z"/>
+    <path fill="currentColor" opacity=".10" d="M0,290 C120,260 240,275 380,235 C540,190 640,255 800,235 C960,215 1060,260 1200,230 C1320,205 1390,235 1440,225 L1440,340 0,340 Z"/>
+    <path fill="currentColor" opacity=".15" d="M0,330 C140,300 300,318 460,285 C620,252 760,305 920,288 C1080,271 1200,310 1340,290 L1440,278 1440,340 0,340 Z"/>
+    <g stroke="currentColor" opacity=".25" stroke-width="1.4" stroke-linecap="round" fill="none">
+      <path d="M120,322 q60,-6 130,0"/><path d="M340,330 q80,-7 170,0"/>
+      <path d="M700,324 q70,-6 150,0"/><path d="M1050,331 q80,-7 160,0"/>
+    </g>
+  </svg>
+  <div class="hero-inner">
+    <div class="bigzh brush-zh">道</div>
+    <div class="pinyin">dào — the way</div>
+    <h1>The Watercourse Way</h1>
+    <p class="sub">An interactive deep dive into Taoism and the Tao Te Ching — the legend, the text, the ideas, and the practice of moving with the grain of things.</p>
+    <div><span class="seal-stamp" aria-label="The highest good is like water"><span>上</span><span>善</span><span>若</span><span>水</span></span></div>
+  </div>
+</header>
+
+<div class="col">
 
 <!-- 1. ORIENTATION -->
 <section id="orientation" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">源</span><h2>Orientation: The Old Master and the Way</h2></div>
-  <p class="sec-sub">What Taoism is, who Lao Tzu was (and wasn't), and how the book actually reached us.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">源</span>
+    <div><div class="sec-eyebrow">Begin · The Door</div><h2>The Old Master and the Way</h2>
+    <p class="sec-sub">What Taoism is, who Lao Tzu was (and wasn't), and how the book actually reached us.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="prose">
     <p><strong>Taoism</strong> is the Chinese tradition of thought and practice oriented around the <em>Tao</em> (道, dào) — "the Way": the unnameable source and pattern behind all things. Where Confucianism asks how to perfect society through ritual, role, and cultivated virtue, Taoism asks how to live by aligning with the spontaneous order of nature — yielding rather than forcing, emptying rather than accumulating, returning rather than advancing.</p>
     <p><strong>The legend.</strong> Lao Tzu (老子, Lǎozǐ — literally "Old Master") is traditionally placed in the 6th century BCE as an older contemporary of Confucius. The classic account comes from Sima Qian's <em>Records of the Grand Historian</em> (c. 94 BCE): his name was Li Er (李耳), also called Lao Dan, and he served as an <strong>archivist at the Zhou royal court</strong>. Watching the dynasty decay, he grew disillusioned and rode west on a <strong>water buffalo</strong>, intending to vanish into the frontier. At the <strong>Hangu Pass</strong>, the gatekeeper <strong>Yin Xi</strong> recognized the sage and refused to let him pass until he wrote down his wisdom. Lao Tzu produced a text of roughly <strong>5,000 characters</strong> — the <em>Tao Te Ching</em> — handed it over, and disappeared. No one knows where he ended.</p>
     <p><strong>The scholarship.</strong> Modern scholars treat Lao Tzu as semi-legendary. The text reads less like one person's book and more like a <strong>compilation of oral wisdom</strong> that settled into its received form around the <strong>4th to 3rd century BCE</strong>, during the Warring States period. The oldest physical witnesses are the <strong>Guodian bamboo slips</strong> (c. 300 BCE), a partial early version excavated in 1993, and the <strong>Mawangdui silk manuscripts</strong> (c. 168 BCE), found in a Han tomb in 1973 — which, intriguingly, reverse the two halves, placing the <em>Te</em> book before the <em>Tao</em> book.</p>
     <p><strong>The text.</strong> Eighty-one short chapters in two books — the <em>Tao Ching</em> (chapters 1–37, on the Way) and the <em>Te Ching</em> (chapters 38–81, on virtue or potency). It is terse, poetic, and deliberately paradoxical: built for rereading rather than reading. It has become one of the most translated books in human history. Notable English versions include James Legge (1891, public domain — the basis for the renderings on this site), D.C. Lau (precise), Red Pine (with classical commentaries), Ursula K. Le Guin (poetic), Ames &amp; Hall (philosophical), and Stephen Mitchell (loose but popular).</p>
+    <p><strong>A modern companion.</strong> Many readers first meet the book through <strong>Wayne Dyer</strong>'s <em>Change Your Thoughts, Change Your Life: Living the Wisdom of the Tao</em> — not a translation but a year-long meditation on the 81 verses, woven chiefly from the Gia-fu Feng and Stephen Mitchell versions, with an essay on living each one. His recorded readings are a gentle way in; you'll find links in the <a href="#depths">One Verse, Deeply</a> section below.</p>
   </div>
 </section>
 
-<!-- 2. CHAPTER EXPLORER -->
+<!-- 2. ONE VERSE, DEEPLY -->
+<section id="depths" class="reveal">
+  <div class="sec-head">
+    <span class="sec-zh">味</span>
+    <div><div class="sec-eyebrow">Begin · Taste, Don't Gulp</div><h2>One Verse, Deeply</h2>
+    <p class="sec-sub">The Tao Te Ching is not meant to be read; it is meant to be steeped, like leaves. Take a single chapter and turn it in the light: hear it in different voices, line by line, and notice how the meaning shifts.</p></div>
+  </div>
+  <div class="brushline"></div>
+  <div class="dive-bar">
+    <button class="btn" id="luckyBtn">☯ I'm feeling lucky</button>
+    <span id="diveWhich"></span>
+  </div>
+  <div class="dive" id="diveBox"></div>
+</section>
+
+<!-- 3. CHAPTER EXPLORER -->
 <section id="chapters" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">經</span><h2>The 81 Chapters Explorer</h2></div>
-  <p class="sec-sub">Every chapter of the Tao Te Ching: a rendering after the public-domain 1891 Legge translation, a plain modern paraphrase, and brief commentary. Filter by theme, search by keyword, or let chance choose for you.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">经</span>
+    <div><div class="sec-eyebrow">Study · The Text</div><h2>The 81 Chapters</h2>
+    <p class="sec-sub">Every chapter: a rendering after the public-domain 1891 Legge translation, a plain modern paraphrase, and brief commentary. Pick a tile, follow a theme, search a word — or let chance choose.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="toolbar">
     <input id="chSearch" type="search" placeholder="Search the 81 chapters… (e.g. water, sage, empty)">
-    <button class="btn" id="drawBtn">🎴 Draw a chapter</button>
+    <button class="btn ghost" id="drawBtn">🎴 Draw a chapter</button>
   </div>
   <div class="chips" id="tagChips"></div>
   <div id="chMeta"></div>
-  <div id="chList"></div>
+  <div id="chGrid"></div>
+  <div id="chMatches"></div>
+  <article class="card reader" id="chReader"></article>
+  <p class="kbd-hint">Browse with <kbd>←</kbd> and <kbd>→</kbd> — gold tiles are chapters you've read.</p>
 </section>
 
-<!-- 3. CORE CONCEPTS -->
+<!-- 4. CORE CONCEPTS -->
 <section id="concepts" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">德</span><h2>Core Concepts</h2></div>
-  <p class="sec-sub">The load-bearing ideas of the tradition. Click a card to unfold it.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">德</span>
+    <div><div class="sec-eyebrow">Study · The Ideas</div><h2>Core Concepts</h2>
+    <p class="sec-sub">The load-bearing ideas of the tradition. Click a card to unfold it.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="grid c2" id="conceptGrid"></div>
   <div id="mapWrap" class="card">
     <h3 style="margin-bottom:4px">How the ideas interconnect</h3>
@@ -286,27 +529,48 @@ footer .zh{color:var(--vermilion);font-size:1.4rem;display:block;margin-bottom:8
   </div>
 </section>
 
-<!-- 4. TIMELINE -->
+<!-- 5. BRIDGES -->
+<section id="bridges" class="reveal">
+  <div class="sec-head">
+    <span class="sec-zh">桥</span>
+    <div><div class="sec-eyebrow">Connect · Other Shores</div><h2>Bridges: Plato, the Sufis, Heraclitus</h2>
+    <p class="sec-sub">The Tao is easier to grasp when you can see it from a shore you already know. Each bridge has three depths — start at level one and wade in.</p></div>
+  </div>
+  <div class="brushline"></div>
+  <div class="grid" id="bridgeGrid"></div>
+  <p class="note">Further echoes worth chasing: the Stoics' <em>amor fati</em> and ziran; Christian <em>kenosis</em> (self-emptying) and wu wei; Zen, which is what happened when Buddhism drank from this same well; Spinoza's God-or-Nature and the impersonal Tao.</p>
+</section>
+
+<!-- 6. TIMELINE -->
 <section id="timeline" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">史</span><h2>Timeline</h2></div>
-  <p class="sec-sub">From the decay of Zhou to Zen and the modern world.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">史</span>
+    <div><div class="sec-eyebrow">Connect · The Long River</div><h2>Timeline</h2>
+    <p class="sec-sub">From the decay of Zhou to Zen and the modern world.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="timeline" id="tlList"></div>
 </section>
 
-<!-- 5. ZHUANGZI -->
+<!-- 7. ZHUANGZI -->
 <section id="zhuangzi" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">莊</span><h2>Zhuangzi: The Other Pillar</h2></div>
-  <p class="sec-sub">Zhuangzi (4th century BCE) is Taoism's second great voice — funnier, wilder, more skeptical than the Tao Te Ching. He teaches less by aphorism than by story. Six of his most famous parables, retold.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">庄</span>
+    <div><div class="sec-eyebrow">Connect · The Other Pillar</div><h2>Zhuangzi</h2>
+    <p class="sec-sub">Zhuangzi (4th century BCE) is Taoism's second great voice — funnier, wilder, more skeptical than the Tao Te Ching. He teaches less by aphorism than by story. Six of his most famous parables, retold.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="grid c2" id="parableGrid"></div>
 </section>
 
-<!-- 6. PHILOSOPHY VS RELIGION -->
+<!-- 8. PHILOSOPHY VS RELIGION -->
 <section id="paths" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">教</span><h2>Two Paths: Daojia and Daojiao</h2></div>
-  <p class="sec-sub">Later tradition split into philosophical Taoism (daojia) and religious Taoism (daojiao), which arose in the Han era, deified Laozi, and built alchemy, qi cultivation, and priesthoods.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">教</span>
+    <div><div class="sec-eyebrow">Connect · The Fork</div><h2>Two Paths: Daojia and Daojiao</h2>
+    <p class="sec-sub">Later tradition split into philosophical Taoism (daojia) and religious Taoism (daojiao), which arose in the Han era, deified Laozi, and built alchemy, qi cultivation, and priesthoods.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="compare-wrap">
   <table class="compare">
     <thead><tr>
@@ -319,19 +583,22 @@ footer .zh{color:var(--vermilion);font-size:1.4rem;display:block;margin-bottom:8
   </div>
 </section>
 
-<!-- 7. PRACTICE -->
+<!-- 9. PRACTICE -->
 <section id="practice" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">行</span><h2>Practice: Wu Wei in the World</h2></div>
-  <p class="sec-sub">The Tao Te Ching is a manual, not a museum piece. Three modern applications, plus a daily reflection.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">行</span>
+    <div><div class="sec-eyebrow">Live · The Manual</div><h2>Practice: Wu Wei in the World</h2>
+    <p class="sec-sub">The Tao Te Ching is a manual, not a museum piece. Three modern applications, plus a daily reflection.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="grid c3" id="practiceGrid"></div>
   <div class="card reflection">
-    <h3>Daily Reflection <span class="zh" style="color:var(--vermilion)">省</span></h3>
+    <h3>Daily Reflection <span class="brush-zh" style="color:var(--vermilion)">省</span></h3>
     <p class="note">Pair a randomly drawn chapter with a journaling question. Your notes live only in this session.</p>
-    <button class="btn" id="reflBtn" style="margin-top:12px">Draw today's reflection</button>
+    <button class="btn" id="reflBtn" style="margin-top:14px">Draw today's reflection</button>
     <div id="reflBox">
-      <div class="num" style="color:var(--vermilion);letter-spacing:2px;font-size:.8rem;margin-top:14px" id="reflNum"></div>
-      <h4 id="reflTitle"></h4>
+      <div style="color:var(--gold);letter-spacing:2.5px;font-size:.75rem;text-transform:uppercase;margin-top:16px" id="reflNum"></div>
+      <h4 id="reflTitle" style="font-size:1.3rem"></h4>
       <p class="verse" id="reflVerse"></p>
       <p class="q" id="reflQ"></p>
       <textarea id="reflJournal" placeholder="Write freely…"></textarea>
@@ -339,23 +606,29 @@ footer .zh{color:var(--vermilion);font-size:1.4rem;display:block;margin-bottom:8
   </div>
 </section>
 
-<!-- 8. GLOSSARY -->
+<!-- 10. GLOSSARY -->
 <section id="glossary" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">字</span><h2>Glossary</h2></div>
-  <p class="sec-sub">Key terms with characters, pinyin, and rough pronunciation hints.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">字</span>
+    <div><div class="sec-eyebrow">Study · The Words</div><h2>Glossary</h2>
+    <p class="sec-sub">Key terms with characters, pinyin, and rough pronunciation hints.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="gloss" id="glossGrid"></div>
 </section>
 
-<!-- 9. QUIZ -->
+<!-- 11. QUIZ -->
 <section id="quiz" class="reveal">
-  <div class="sec-head"><span class="zh-big zh">試</span><h2>Quiz Mode</h2></div>
-  <p class="sec-sub">Test what has settled. Each answer comes with an explanation.</p>
-  <div class="brush"></div>
+  <div class="sec-head">
+    <span class="sec-zh">试</span>
+    <div><div class="sec-eyebrow">Live · The Test</div><h2>Quiz Mode</h2>
+    <p class="sec-sub">Test what has settled. Each answer comes with an explanation.</p></div>
+  </div>
+  <div class="brushline"></div>
   <div class="card" id="quizBox">
     <div id="quizStart">
       <p>Twenty-plus questions on the legend, the text, the concepts, and the tradition. Wrong answers teach as much as right ones.</p>
-      <button class="btn" id="quizStartBtn" style="margin-top:14px">Begin the quiz</button>
+      <button class="btn" id="quizStartBtn" style="margin-top:16px">Begin the quiz</button>
     </div>
     <div id="quizPlay" style="display:none">
       <div class="q-meta"><span id="quizProgress"></span><span class="score" id="quizScore"></span></div>
@@ -363,24 +636,30 @@ footer .zh{color:var(--vermilion);font-size:1.4rem;display:block;margin-bottom:8
       <div id="quizQ"></div>
       <div class="opts" id="quizOpts"></div>
       <div id="quizExplain"></div>
-      <button class="btn" id="quizNext" style="display:none;margin-top:16px">Next question →</button>
+      <button class="btn" id="quizNext" style="display:none;margin-top:18px">Next question →</button>
     </div>
     <div id="quizDone" style="display:none">
       <p>Final score</p>
       <div class="final" id="quizFinal"></div>
-      <p id="quizVerdict" style="margin:10px 0 18px;font-style:italic;color:var(--ink-soft)"></p>
+      <p id="quizVerdict" style="margin:10px 0 20px;font-style:italic;color:var(--ink-soft)"></p>
       <button class="btn ghost" id="quizRestart">Take it again</button>
     </div>
   </div>
 </section>
 
-</main>
+</div><!-- /.col -->
 
 <footer>
-  <span class="zh">上善若水</span>
+  <svg class="enso" viewBox="0 0 100 100" aria-hidden="true">
+    <path d="M62 12 A 41 41 0 1 0 88 46" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" opacity=".75"/>
+  </svg>
+  <span class="fzh">上善若水</span>
   "The highest good is like water." — Tao Te Ching, chapter 8<br>
-  Chapter renderings are original paraphrases informed by the public-domain 1891 James Legge translation.
+  Chapter renderings are original paraphrases informed by the public-domain 1891 James Legge translation.<br>
+  Modern "living voice" readings are original, written in the spirit of Wayne Dyer's <em>Change Your Thoughts, Change Your Life</em>.
 </footer>
+
+</main>
 
 <script>
 "use strict";
@@ -944,13 +1223,147 @@ const QUIZ = [
 ];
 
 /* =====================================================================
+   DATA — DEEP DIVES (One Verse, Deeply)
+   Original readings. "Living voice" texts are original essays written
+   in the spirit of Wayne Dyer's Change Your Thoughts, Change Your Life.
+===================================================================== */
+const DIVE_ORDER = [17, 8, 11, 33];
+
+const DIVES = {
+17:{
+ mark:"信",
+ voices:[
+  {tab:"The living voice", who:"An original reading, in the spirit of Wayne Dyer",
+   text:"Notice what you do when you help someone. Do you linger in the doorway, waiting to be thanked? The seventeenth verse invites you to practice invisible virtue: to give your children, your colleagues, your students what they need so quietly that they experience their growth as their own. The ego wants a receipt for every kindness. The Tao asks you to tear up the receipts. When you trust people, they become trustworthy; when you surveil them, they become exactly what you feared. Lead from one step behind. Speak only the words that are needed, and let the silence do the heavier lifting. At the end of your finest work, the highest compliment is that nobody mentions you at all — they simply say, amazed at themselves: we did it ourselves."},
+  {tab:"For the leader", who:"Read as a leadership manual",
+   text:"This verse ranks four management styles from best to worst: the leader people barely notice, the one they love, the one they fear, the one they mock. Notice that being loved is only second place — affection still centers the leader. The diagnostic is trust: a leader who doesn't trust the team manufactures the very unreliability that justifies the distrust. The method is economy of speech: scarce words carry weight; constant words become weather. And the metric of success is ownership — if your team describes the win with you nowhere in the story, you did it exactly right."},
+  {tab:"In one line", who:"The essence",
+   text:"The best help leaves no fingerprints."}
+ ],
+ lines:[
+  {q:"In the highest antiquity, the people did not know that there were their rulers.",
+   note:"Four grades of leader, descending: invisible, loved, feared, despised. The shock is that 'loved' is not the summit. Even adoration keeps the spotlight on the helper rather than the helped."},
+  {q:"Thus it was that when faith in the Tao was deficient, a want of faith ensued.",
+   note:"Trust is a mirror with a delay. Suspicion teaches people to behave suspiciously; confidence teaches them to be worthy of it. Whatever you extend comes back, compounded."},
+  {q:"How irresolute did those earliest rulers appear, showing the importance of their words!",
+   note:"The great ones seemed hesitant — not from weakness but from reverence for speech. Words were spent like silver, not scattered like sand. Compare chapter 5: 'many words lead quickly to exhaustion.'"},
+  {q:"Their work was done and their undertakings were successful, while the people all said, 'We are as we are, of ourselves!'",
+   note:"The most quoted line in the chapter, and the whole teaching in miniature: success so frictionless that those helped experience it as their own nature unfolding. Help that needs to be noticed is only half help."}
+ ],
+ echoes:[
+  {who:"Plato — the visible king", text:"The <em>Republic</em> dreams of a philosopher-king whose wisdom is conspicuous — dragged back into the cave to govern by the brightness of what he has seen. Chapter 17 inverts the image: the perfected ruler is not the most visible mind in the city but the least, governing the way gravity does — everywhere effective, nowhere seen."},
+  {who:"The Sufis — hidden saints", text:"The Malāmatiyya, the 'people of blame,' hid their piety and even courted disrepute so that no act of devotion could curdle into self-display. The Sufi ideal of <em>khidma</em> — service without announcement — is chapter 17 in another tongue: the friend of God whom the village never suspects."},
+  {who:"Modern echo — scaffolding", text:"Robert Greenleaf's 'servant leadership,' the coach who asks rather than tells, the parent who holds the bicycle seat one second less each day: every craft of growing people converges on the same move — build the scaffold, then vanish before the ribbon is cut."}
+ ]},
+8:{
+ mark:"水",
+ voices:[
+  {tab:"The living voice", who:"An original reading, in the spirit of Wayne Dyer",
+   text:"Spend one day this week being water. When someone blocks you, do not push — widen. When the low task appears, the one everybody avoids, go to it cheerfully the way water goes downhill, and notice how the low place turns out to be where everything gathers. You were taught to climb; this verse teaches you to settle — and settling, to nourish. Water never argues with the shape of the container, and yet nothing is softer and nothing is stronger. Ask yourself in each encounter: am I contending, or am I flowing? The moment you stop competing, says Lao Tzu, you become impossible to compete with — beyond reproach, beyond defeat, because you were never playing that game."},
+  {tab:"For daily work", who:"Read as a craft manual",
+   text:"The verse ends with seven quiet standards: live close to the ground, think deeply, give kindly, speak honestly, govern fairly, work competently, act at the right moment. No heroics — just each ordinary thing done with quality, minus the contest. The career advice hidden inside: excellence plus non-contention is unbeatable, because quality cannot be argued with and non-contention gives critics nothing to grip."},
+  {tab:"In one line", who:"The essence",
+   text:"Flow to the low place; nourish everything; compete with nothing."}
+ ],
+ lines:[
+  {q:"The highest good is like water.",
+   note:"Not like fire, not like a mountain, not like the sun — the tradition's master image is the weakest-seeming element, chosen precisely because it wins without fighting."},
+  {q:"Water benefits the ten thousand things without contending, and dwells in places everyone disdains.",
+   note:"Two moves in one breath: universal helpfulness, and voluntary lowliness. The low place — the position nobody wants — is where water collects its power. Valleys, not peaks, are where rivers run."},
+  {q:"In dwelling, value the ground; in thinking, value depth; in giving, value kindness…",
+   note:"The abstract image suddenly becomes a checklist for an ordinary Tuesday: home, thought, generosity, speech, leadership, work, timing. Taoism is mysticism that does errands."},
+  {q:"Because it does not contend, it is beyond reproach.",
+   note:"The logical lock: whatever never enters the contest can never lose it. Blamelessness here is not moral purity but strategic absence — there is nothing to push against."}
+ ],
+ echoes:[
+  {who:"Heraclitus — the river", text:"At almost the same hour, half a world away, Heraclitus was saying <em>panta rhei</em> — everything flows — and that you cannot step into the same river twice. Both men chose moving water as the truest picture of reality; the Greek read strife in the current, the Chinese read kindness."},
+  {who:"The Sufis — generosity", text:"Sufi teaching tells the murid to be 'like running water in generosity' — giving as a property of nature rather than a decision. And the dervish's deliberate poverty, taking the seat by the shoes at the door, is water's habit of dwelling in the despised low place."},
+  {who:"Modern echo — soft power", text:"Negotiators who concede the room and win the deal, aikido's blending with the attack, 'soft power' in statecraft: the chapter is quietly cited everywhere force turns out to be the expensive option."}
+ ]},
+11:{
+ mark:"空",
+ voices:[
+  {tab:"The living voice", who:"An original reading, in the spirit of Wayne Dyer",
+   text:"Look around the room you are in. Everything useful is useful because of a hollow: the doorway you walked through, the cup holding your tea, the window, the room itself — walls and roof arranged around nothing, and the nothing is what you live in. Now look at your calendar. Where is the emptiness that makes it work? A life packed solid is a wheel with no hole for the axle: impressive, and it cannot turn. This verse asks you to stop apologizing for your empty hours and start designing them, the way an architect designs the spaces between walls. Your availability — your unscheduled, undefended openness — is not the absence of a life. It is the part that makes the rest of it usable."},
+  {tab:"For the maker", who:"Read as a design manual",
+   text:"Thirty spokes, one hub; clay walls, one hollow; four walls, one room — three artifacts whose function lives entirely in their negative space. Every designer knows this: the rest in the music, the white space on the page, the feature you refuse to add. The discipline is to treat what-is-not as a material — to build the pause as deliberately as the beam."},
+  {tab:"In one line", who:"The essence",
+   text:"What is missing is what works."}
+ ],
+ lines:[
+  {q:"Thirty spokes unite in one hub; it is the empty space that makes the wheel useful.",
+   note:"The engineering is literal: without the hole, no axle; without the axle, no cart. The strongest part of the wheel is the part that isn't there."},
+  {q:"Clay is shaped into a vessel; it is the hollow that makes it useful.",
+   note:"The potter's paradox: every gram of clay exists to enclose a space the potter never touches. We pay for the cup and use the emptiness."},
+  {q:"Therefore profit comes from what is there; usefulness from what is not.",
+   note:"The closing distinction — 有 (presence) gives advantage, 無 (absence) gives function. Being and non-being from chapter 2 return here as a workshop lesson."}
+ ],
+ echoes:[
+  {who:"Rumi — the reed flute", text:"The <em>Masnavi</em> opens with a reed cut from the reed-bed, crying with longing — and it can sing only because it has been hollowed. The Sufi soul, emptied of self, becomes an instrument for the Beloved's breath: chapter 11 set to music."},
+  {who:"Plato — the receptacle", text:"In the <em>Timaeus</em>, Plato needs a mysterious third thing besides Forms and copies: the <em>chōra</em>, the formless receptacle in which all becoming occurs — itself no shape, so that it can receive every shape. Greek metaphysics, too, found it needed an emptiness at the bottom."},
+  {who:"Modern echo — negative space", text:"The silence between notes that makes the rhythm, the margin that makes the page readable, the buffer in the schedule that makes the plan survivable — every mature craft eventually discovers it is mostly arranging hollows."}
+ ]},
+33:{
+ mark:"明",
+ voices:[
+  {tab:"The living voice", who:"An original reading, in the spirit of Wayne Dyer",
+   text:"You can read this verse as four trades. Trade the project of figuring everyone else out for the harder one of being honest about yourself. Trade the thrill of overpowering others for the quieter victory over your own habits — the snooze button, the sharp reply, the third scroll through the feed. Trade the hunger for more for the startling discovery that contentment is not a consolation prize; it is the only wealth that cannot be confiscated. And trade the fear of being forgotten for a kind of presence so aligned with the Way that it keeps working after you've left the room. Enlightenment here is not a lightning bolt on a mountaintop. It is the small dawn of seeing yourself clearly — and finding, to your relief, that the war you were funding against yourself can simply end."},
+  {tab:"For the striver", who:"Read as a training manual",
+   text:"Four ascending disciplines: intelligence about others is useful; honesty about yourself is rare. Force moves bodies; self-command moves your whole life. Ambition chases wealth; contentment already owns it. Willpower persists for a season; alignment persists by itself. Every pair keeps the outer skill and adds the inner one — Lao Tzu isn't against knowing others or having strength; he's against stopping there."},
+  {tab:"In one line", who:"The essence",
+   text:"Cleverness reads others; wisdom reads yourself by daylight."}
+ ],
+ lines:[
+  {q:"He who knows others is wise; he who knows himself is enlightened.",
+   note:"知人者智，自知者明 — the second verb is 明, 'bright, illumined': knowing others is intelligence, knowing yourself is light. Other-knowledge is a skill; self-knowledge is a sunrise."},
+  {q:"He who overcomes others has force; he who overcomes himself is strong.",
+   note:"Conquest ranked below self-command — in the middle of the Warring States period, when conquest was the entire curriculum of princes."},
+  {q:"He who is satisfied with his lot is rich.",
+   note:"知足者富 — 'who knows sufficiency is wealthy.' Not a hymn to poverty: a redefinition of the asset class. The contented person holds the one position that cannot be devalued."},
+  {q:"He who dies and yet does not perish has longevity.",
+   note:"The cryptic close: what is aligned with the Way outlasts the body that practiced it. The tradition read this as influence, as legacy, later as literal immortality — the verse leaves the door open, in character."}
+ ],
+ echoes:[
+  {who:"Socrates — the Delphic twin", text:"'Know thyself' stood carved at Delphi while this verse circulated in China, and Socrates built a life on the claim that the unexamined life is not worth living. The Greek examines the self with cross-examination; the Taoist with stillness — interrogation versus clear water settling."},
+  {who:"The Sufis — the inner Lord", text:"'Whoever knows himself knows his Lord' — the saying beloved of Ibn 'Arabi makes self-knowledge the doorway to the divine, exactly the move of 自知者明: the lamp you finally turn on yourself turns out to light everything else."},
+  {who:"The Stoics — self-command", text:"Marcus Aurelius commanded legions and journaled nightly about commanding himself; Epictetus owned nothing and counted himself free. 'He who overcomes himself is strong' is the entire Stoic curriculum in seven words."}
+ ]}
+};
+
+/* =====================================================================
+   DATA — BRIDGES (Plato · Sufism · Heraclitus), three depths each
+===================================================================== */
+const BRIDGES = [
+{glyph:"Φ", name:"Plato & the Cave", pair:"the Form of the Good ↔ the nameless Tao",
+ levels:[
+ {t:"A sentence",body:`<p class="big">Plato and Lao Tzu agree that one ultimate reality stands behind appearances — they disagree about whether you can say it. Plato climbs toward the light armed with definitions; Lao Tzu bows toward the dark and lets the words go.</p>`},
+ {t:"The conversation",body:`<p>In Plato's cave, prisoners mistake shadows for the world until one climbs out and sees the sun — the Form of the Good, source of all being and knowing. Chapter 1 opens the same gap between appearance and source: named things are the shadows; the nameless is the sun. Both traditions call for a conversion, not just new information — Plato's <em>periagoge</em>, the turning-around of the whole soul, is close kin to the Tao Te Ching's <em>fan</em> (反), the return to the root (ch. 16).</p><p>Even the politics rhyme at first: both books are advice to rulers, written in dark times, convinced that the one who has touched the source governs best.</p>`},
+ {t:"Where they part",body:`<p>Then the bridge forks. Plato trusts language: dialectic, definition, and reason can in principle reach the Forms, and philosophy is the discipline of saying ever more precisely. Lao Tzu opens his book by firing the dictionary — "the name that can be named is not the enduring name" — and chapter 56 adds: those who know do not speak.</p><p>Their sages move in opposite directions. Plato's philosopher ascends, is illuminated, and must be <em>dragged back down</em> to rule — conspicuously wise, a king with a syllabus. The Taoist sage was never on the mountain: he settles low like water (ch. 8) and governs invisibly (ch. 17). Eros strains upward; wu wei settles into place.</p><p>And yet at the very summit Plato blinks first: the Good, he admits, is "beyond being" (<em>Republic</em> 509b) — graspable only by a long discipline and then barely. At its highest point, the most talkative philosophy in Greece goes quiet in an almost Taoist way.</p>`}
+]},
+{glyph:"هو", name:"The Sufis & the Emptied Self", pair:"fanā (passing away in the Beloved) ↔ wu wei and the hollow vessel",
+ levels:[
+ {t:"A sentence",body:`<p class="big">Both paths teach that the self is the obstacle: the Sufi burns it away in love of the Beloved, the Taoist lets it dissolve in the watercourse — different solvents, same dissolving.</p>`},
+ {t:"The conversation",body:`<p>Rumi's <em>Masnavi</em> opens with a reed flute, cut from the reed-bed, that can sing only because it is hollow — chapter 11's empty vessel, set to music. Sufi <em>fanā</em>, the passing-away of the ego in God, answers the Taoist emptying (虛, xū) that makes the sage useful; <em>tawakkul</em>, radical trust in how things unfold, is wu wei wearing devotional dress; and <em>dhikr</em> — remembrance, the constant returning of attention to its source — moves like chapter 16: all things flourish, and each returns to the root.</p><p>Both traditions love the low place. The dervish takes the seat by the shoes; the Malāmatiyya hid their sanctity under shabby reputations, like the sage of chapter 70 who wears coarse cloth and carries jade in his breast.</p>`},
+ {t:"Where they part",body:`<p>The difference is the face. The Sufi dissolves into a <em>Beloved</em> — a personal God courted in the language of lovers, with longing, intoxication, music, and tears. The Tao has no face to love: heaven and earth "are not humane" and treat the ten thousand things as straw dogs (ch. 5). Where Sufism burns, Taoism cools; ecstasy versus equanimity, the moth and the candle versus water finding its level.</p><p>Their socialities differ too: Sufism grew orders, lodges, litanies, the whirling sama — emptying the self <em>together</em>. The Tao Te Ching imagines villages so quiet you only hear the neighbors' roosters (ch. 80), and a sage most himself alone. One path is a shared fire; the other, a hermit's stream — though both end where the reed and the vessel agree: hollow first, then the music.</p>`}
+]},
+{glyph:"≈", name:"Heraclitus & the River", pair:"the Logos and panta rhei ↔ the Tao and the watercourse",
+ levels:[
+ {t:"A sentence",body:`<p class="big">Half a world from Lao Tzu and at almost the same hour, Heraclitus also taught that everything flows, that opposites create each other, and that beneath it all runs a hidden order most people sleep through.</p>`},
+ {t:"The conversation",body:`<p>Heraclitus' <em>Logos</em> is the uncanniest twin the Tao ever had: an ordering principle that runs through all things, which "men fail to comprehend, both before hearing it and once they have heard." Swap one word and it is chapter 1. His river — never the same twice — is the master image of flux, as water is the Tao Te Ching's master image of the Way; his "the road up and the road down are one and the same" is chapter 2's co-arising of opposites, long before either culture could have read the other.</p><p>Scholars find no thread of contact — this is convergence, the same truths surfacing in Ephesus and the Zhou archives within a century: the period Karl Jaspers called the Axial Age.</p>`},
+ {t:"Where they part",body:`<p>Their tempers differ like their elements. Heraclitus is fire: "war is father of all," strife is justice, and the harmony he loves is a bow's — tension pulling against itself. Lao Tzu is water: the soft overcomes the hard, weapons are instruments of ill omen (ch. 31), and contention is precisely what the sage unlearns.</p><p>So the same insight — opposites need each other — yields opposite ethics: the Greek says <em>join the productive struggle</em>; the Chinese says <em>step out of the struggle and let the polarity work unattended</em>. Read them together and you hold both banks of one river: the current is real, and you may either ride its collisions or its flow.</p>`}
+]}
+];
+
+/* =====================================================================
    APP STATE (component state only — no localStorage)
 ===================================================================== */
 const state = {
   readChapters: new Set(),
   activeTag: "all",
   search: "",
-  openChapter: null,
+  cur: 1,
+  dive: 17,
+  voice: 0,
   quiz: { i:0, score:0, answered:false, active:false }
 };
 
@@ -965,23 +1378,114 @@ $("#themeToggle").addEventListener("click",()=>{
   $("#themeToggle").textContent=dark?"🌙 Ink Night":"☀️ Paper Day";
 });
 
+/* ---------- mobile drawer ---------- */
+$("#menuBtn").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
+$("#backdrop").addEventListener("click",()=>document.body.classList.remove("nav-open"));
+document.querySelectorAll("#sideNav a").forEach(a=>a.addEventListener("click",()=>document.body.classList.remove("nav-open")));
+
+/* ---------- scroll spy ---------- */
+const spyLinks=[...document.querySelectorAll("#sideNav a")];
+if(typeof IntersectionObserver!=="undefined"){
+  const spy=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        spyLinks.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id));
+      }
+    });
+  },{rootMargin:"-25% 0px -65% 0px"});
+  document.querySelectorAll("main section[id]").forEach(s=>spy.observe(s));
+}
+
 /* ---------- reveal on scroll ---------- */
 if(typeof IntersectionObserver!=="undefined"){
   const io=new IntersectionObserver((es)=>es.forEach(e=>{
     if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}
-  }),{threshold:.08});
+  }),{threshold:.06});
   document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 }else{
   document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));
 }
 
-/* ---------- chapter explorer ---------- */
+/* =====================================================================
+   ONE VERSE, DEEPLY
+===================================================================== */
+function diveVoices(n){
+  const ch=CHAPTERS[n-1];
+  return [{tab:"In plain words",who:"A plain paraphrase",text:ch.p}].concat(DIVES[n].voices);
+}
+function renderDive(){
+  const n=state.dive, d=DIVES[n], ch=CHAPTERS[n-1];
+  const voices=diveVoices(n);
+  if(state.voice>=voices.length) state.voice=0;
+  const v=voices[state.voice];
+  $("#diveWhich").innerHTML=`Now steeping: <b>Chapter ${n} — ${esc(ch.t)}</b>`;
+  $("#diveBox").innerHTML=`
+  <article class="card dive-verse">
+    <span class="vmark brush-zh zh" aria-hidden="true">${d.mark}</span>
+    <div class="deyebrow">第${n}章 · Chapter ${n} — after Legge, 1891</div>
+    <h3>${esc(ch.t)}</h3>
+    <p class="verse">${esc(ch.r)}</p>
+  </article>
+  <article class="card">
+    <div class="voice-tabs">${voices.map((vv,i)=>`<button class="vtab ${i===state.voice?'on':''}" data-v="${i}">${vv.tab}</button>`).join("")}</div>
+    <div class="voice-body"><div class="who">${v.who}</div><p>${esc(v.text)}</p></div>
+  </article>
+  <article class="card">
+    <h4 style="margin-bottom:16px">Line by line</h4>
+    <div class="lines">${d.lines.map(l=>`<div class="line-item"><div><div class="lq">“${esc(l.q)}”</div><p>${esc(l.note)}</p></div></div>`).join("")}</div>
+  </article>
+  <article class="card">
+    <h4 style="margin-bottom:16px">Echoes from other shores</h4>
+    <div class="dive-echoes">${d.echoes.map(e=>`<div class="echo"><b>${e.who}</b><p>${e.text}</p></div>`).join("")}</div>
+    <div class="listen">
+      <a href="https://www.youtube.com/results?search_query=tao+te+ching+read+by+wayne+dyer" target="_blank" rel="noopener">▶ Wayne Dyer's readings — YouTube</a>
+      <a href="https://www.youtube.com/results?search_query=tao+te+ching+wayne+dyer+music+nature" target="_blank" rel="noopener">♫ With music &amp; nature — YouTube</a>
+      <a href="https://www.audible.co.uk/search?keywords=Change+Your+Thoughts+Change+Your+Life+Wayne+Dyer" target="_blank" rel="noopener">🎧 The audiobook — Audible UK</a>
+    </div>
+    <p class="note">The "living voice" above is an original reading written in the spirit of Dyer's <em>Change Your Thoughts, Change Your Life</em> — for his own words, go to the recordings.</p>
+  </article>`;
+  $("#diveBox").querySelectorAll(".vtab").forEach(b=>b.addEventListener("click",()=>{
+    state.voice=+b.dataset.v; renderDive();
+  }));
+}
+$("#luckyBtn").addEventListener("click",()=>{
+  const others=DIVE_ORDER.filter(n=>n!==state.dive);
+  state.dive=others[Math.floor(Math.random()*others.length)];
+  state.voice=0; renderDive();
+});
+
+/* =====================================================================
+   BRIDGES
+===================================================================== */
+function renderBridges(){
+  $("#bridgeGrid").innerHTML=BRIDGES.map((b,i)=>`
+  <article class="card bridge">
+    <div class="bridge-head"><span class="bridge-glyph">${b.glyph}</span>
+      <div><h3>${b.name}</h3><div class="pair">${b.pair}</div></div></div>
+    <div class="bridge-body">
+      <div class="lvl-tabs">${b.levels.map((l,j)=>`<button class="lvl ${j===0?'on':''}" data-b="${i}" data-l="${j}">${["Ⅰ","Ⅱ","Ⅲ"][j]} · ${l.t}</button>`).join("")}</div>
+      <div class="bridge-text" id="btext-${i}">${b.levels[0].body}</div>
+    </div>
+  </article>`).join("");
+  document.querySelectorAll(".lvl").forEach(btn=>btn.addEventListener("click",()=>{
+    const bi=+btn.dataset.b, li=+btn.dataset.l;
+    document.querySelectorAll(`.lvl[data-b="${bi}"]`).forEach(x=>x.classList.toggle("on",x===btn));
+    document.getElementById("btext-"+bi).innerHTML=BRIDGES[bi].levels[li].body;
+  }));
+}
+
+/* =====================================================================
+   CHAPTER EXPLORER — seal grid + reader
+===================================================================== */
 function chipRow(){
   const el=$("#tagChips");
   const mk=(t,label)=>`<button class="chip ${state.activeTag===t?'on':''}" data-tag="${t}">${label}</button>`;
   el.innerHTML=mk("all","all themes")+TAGS.map(t=>mk(t,t)).join("");
   el.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
-    state.activeTag=b.dataset.tag; state.openChapter=null; chipRow(); renderChapters();
+    state.activeTag=b.dataset.tag;
+    const vis=visibleChapters();
+    if(vis.length && !vis.some(c=>c.n===state.cur)) state.cur=vis[0].n;
+    chipRow(); renderChapters();
   }));
 }
 
@@ -993,63 +1497,103 @@ function visibleChapters(){
     return (ch.n+" "+ch.t+" "+ch.r+" "+ch.p+" "+ch.c+" "+ch.tags.join(" ")).toLowerCase().includes(q);
   });
 }
+function chapterNavList(){
+  const vis=visibleChapters();
+  return vis.some(c=>c.n===state.cur)?vis:CHAPTERS;
+}
 
 function renderChapters(){
-  const list=$("#chList"); const vis=visibleChapters();
-  $("#chMeta").innerHTML=`Showing ${vis.length} of 81 chapters · <span class="prog">${state.readChapters.size} / 81 read</span>`;
-  list.innerHTML=vis.map(ch=>{
-    const open=state.openChapter===ch.n;
-    const read=state.readChapters.has(ch.n);
-    let body="";
-    if(open){
-      body=`<div class="ch-body">
-        <div><h5>Rendering (after Legge, 1891)</h5><p class="verse">${esc(ch.r)}</p></div>
-        <div><h5>Plain paraphrase</h5><p>${esc(ch.p)}</p></div>
-        <div class="full"><h5>Commentary</h5><p>${esc(ch.c)}</p></div>
-        <div class="ch-actions">
-          <button class="smallbtn ${read?'done':''}" data-read="${ch.n}">${read?"✓ Marked as read":"Mark as read"}</button>
-          <button class="smallbtn" data-close="${ch.n}">Close</button>
-        </div>
-      </div>`;
-    }
-    return `<article class="ch-card ${open?'open':''}" data-ch="${ch.n}" id="ch-${ch.n}">
-      ${read?'<span class="readmark">✓</span>':''}
-      <div class="num">Chapter ${ch.n}</div>
-      <h4>${esc(ch.t)}</h4>
-      <div class="tags">${ch.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
-      ${body}
-    </article>`;
-  }).join("") || `<p style="color:var(--ink-soft);font-style:italic">No chapters match — the Tao that can be searched is not the eternal Tao. Try another term.</p>`;
+  const vis=visibleChapters(); const inVis=new Set(vis.map(c=>c.n));
+  const filtering = state.activeTag!=="all" || state.search.trim()!=="";
+  $("#chMeta").innerHTML=`${filtering?`Showing <b>${vis.length}</b> of 81 chapters`:"All 81 chapters"} · <span class="prog">${state.readChapters.size} / 81 read</span>`;
+  const sp=$("#sideProg"); if(sp) sp.textContent=`${state.readChapters.size} / 81`;
 
-  list.querySelectorAll(".ch-card").forEach(card=>card.addEventListener("click",(ev)=>{
-    if(ev.target.closest("[data-read],[data-close]")) return;
-    const n=+card.dataset.ch;
-    state.openChapter = state.openChapter===n ? null : n;
-    renderChapters();
+  $("#chGrid").innerHTML=CHAPTERS.map(ch=>{
+    const cls=["tile"];
+    if(ch.n===state.cur)cls.push("cur");
+    if(state.readChapters.has(ch.n))cls.push("read");
+    if(filtering&&!inVis.has(ch.n))cls.push("dim");
+    return `<button class="${cls.join(' ')}" data-n="${ch.n}" title="Ch. ${ch.n} — ${esc(ch.t)}">${ch.n}</button>`;
+  }).join("");
+
+  const mt=$("#chMatches");
+  if(filtering && vis.length && vis.length<81){
+    mt.innerHTML=vis.map(ch=>`<button class="match ${ch.n===state.cur?'on':''}" data-n="${ch.n}"><span>${ch.n}</span>${esc(ch.t)}</button>`).join("");
+    mt.style.display="flex";
+  }else if(filtering && !vis.length){
+    mt.innerHTML=`<p class="nomatch">No chapters match — the Tao that can be searched is not the eternal Tao. Try another term.</p>`;
+    mt.style.display="flex";
+  }else{ mt.innerHTML=""; mt.style.display="none"; }
+
+  renderReader();
+
+  $("#chGrid").querySelectorAll(".tile:not(.dim)").forEach(b=>b.addEventListener("click",()=>{
+    state.cur=+b.dataset.n; renderChapters();
   }));
-  list.querySelectorAll("[data-read]").forEach(b=>b.addEventListener("click",()=>{
-    const n=+b.dataset.read;
-    state.readChapters.has(n)?state.readChapters.delete(n):state.readChapters.add(n);
-    renderChapters();
-  }));
-  list.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>{
-    state.openChapter=null; renderChapters();
+  mt.querySelectorAll(".match").forEach(b=>b.addEventListener("click",()=>{
+    state.cur=+b.dataset.n; renderChapters();
+    $("#chReader").scrollIntoView({behavior:"smooth",block:"nearest"});
   }));
 }
 
+function renderReader(){
+  const ch=CHAPTERS[state.cur-1];
+  const read=state.readChapters.has(ch.n);
+  const list=chapterNavList();
+  const idx=list.findIndex(c=>c.n===state.cur);
+  const prev=idx>0?list[idx-1]:null, next=(idx>-1&&idx<list.length-1)?list[idx+1]:null;
+  const hasDive=!!DIVES[ch.n];
+  $("#chReader").innerHTML=`
+    <div class="reader-eyebrow">第${ch.n}章 · Chapter ${ch.n} of 81${read?'<span class="readflag">✓ read</span>':""}</div>
+    <h3>${esc(ch.t)}</h3>
+    <div class="tags">${ch.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+    <p class="verse">${esc(ch.r)}</p>
+    <div class="reader-block"><h5>In plain words</h5><p>${esc(ch.p)}</p></div>
+    <div class="reader-block soft"><h5>Commentary</h5><p>${esc(ch.c)}</p></div>
+    ${hasDive?`<p class="deeplink">☯ This chapter is steeped slowly in <a href="#depths" data-dive="${ch.n}">One Verse, Deeply</a>.</p>`:""}
+    <div class="reader-nav">
+      <button class="navbtn" id="chPrev" ${prev?"":"disabled"}>← ${prev?"Ch. "+prev.n:"Start"}</button>
+      <button class="readtoggle ${read?'done':''}" id="chReadBtn">${read?"✓ Read — tap to unmark":"Mark as read"}</button>
+      <button class="navbtn" id="chNext" ${next?"":"disabled"}>${next?"Ch. "+next.n:"End"} →</button>
+    </div>`;
+  if(prev)$("#chPrev").addEventListener("click",()=>{state.cur=prev.n;renderChapters();});
+  if(next)$("#chNext").addEventListener("click",()=>{state.cur=next.n;renderChapters();});
+  $("#chReadBtn").addEventListener("click",()=>{
+    read?state.readChapters.delete(ch.n):state.readChapters.add(ch.n);
+    renderChapters();
+  });
+  const dl=$("#chReader .deeplink a");
+  if(dl)dl.addEventListener("click",()=>{state.dive=+dl.dataset.dive;state.voice=0;renderDive();});
+}
+
 $("#chSearch").addEventListener("input",(e)=>{
-  state.search=e.target.value; state.openChapter=null; renderChapters();
+  state.search=e.target.value;
+  const vis=visibleChapters();
+  if(vis.length && !vis.some(c=>c.n===state.cur)) state.cur=vis[0].n;
+  renderChapters();
 });
 
 $("#drawBtn").addEventListener("click",()=>{
-  const ch=CHAPTERS[Math.floor(Math.random()*CHAPTERS.length)];
   state.activeTag="all"; state.search=""; $("#chSearch").value="";
-  state.openChapter=ch.n; chipRow(); renderChapters();
-  const el=document.getElementById("ch-"+ch.n);
-  if(el&&el.scrollIntoView) el.scrollIntoView({behavior:"smooth",block:"center"});
+  state.cur=1+Math.floor(Math.random()*CHAPTERS.length);
+  chipRow(); renderChapters();
+  $("#chReader").scrollIntoView({behavior:"smooth",block:"center"});
 });
 
-/* ---------- concepts ---------- */
+/* keyboard paging */
+document.addEventListener("keydown",(e)=>{
+  if(e.key!=="ArrowLeft"&&e.key!=="ArrowRight")return;
+  const t=e.target;
+  if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
+  if(state.quiz.active)return;
+  const list=chapterNavList(); const idx=list.findIndex(c=>c.n===state.cur);
+  if(e.key==="ArrowLeft"&&idx>0){state.cur=list[idx-1].n;renderChapters();}
+  if(e.key==="ArrowRight"&&idx>-1&&idx<list.length-1){state.cur=list[idx+1].n;renderChapters();}
+});
+
+/* =====================================================================
+   CONCEPTS
+===================================================================== */
 function renderConcepts(){
   $("#conceptGrid").innerHTML=CONCEPTS.map((c,i)=>`
     <div class="card concept" data-i="${i}">
@@ -1108,6 +1652,7 @@ function renderTimeline(){
 function renderParables(){
   $("#parableGrid").innerHTML=PARABLES.map(p=>`
     <div class="card parable">
+      <span class="pmark zh" aria-hidden="true">${p.zh.charAt(0)}</span>
       <span class="zh zh-title">${p.zh}</span>
       <h4>${p.title}</h4>
       <p class="story">${p.story}</p>
@@ -1123,8 +1668,8 @@ function renderCompare(){
 /* ---------- practice & reflection ---------- */
 function renderPractice(){
   $("#practiceGrid").innerHTML=PRACTICE.map(p=>`
-    <div class="card"><h3><span class="zh" style="color:var(--vermilion);margin-right:8px">${p.zh}</span>${p.title}</h3>
-    <p style="font-size:.92rem;margin-top:8px">${p.body}</p></div>`).join("");
+    <div class="card"><h3><span class="brush-zh zh" style="color:var(--vermilion);margin-right:8px">${p.zh}</span>${p.title}</h3>
+    <p style="font-size:.95rem;margin-top:10px">${p.body}</p></div>`).join("");
 }
 $("#reflBtn").addEventListener("click",()=>{
   const ch=CHAPTERS[Math.floor(Math.random()*CHAPTERS.length)];
@@ -1157,7 +1702,6 @@ function quizRender(){
   $("#quizScore").textContent=`Score: ${state.quiz.score}`;
   $("#quizBar").style.width=(state.quiz.i/QUIZ.length*100)+"%";
   $("#quizQ").textContent=q.q;
-  $("#quizExplain").className=""; $("#quizExplain").id="quizExplain";
   $("#quizExplain").classList.remove("show"); $("#quizNext").style.display="none";
   state.quiz.answered=false;
   $("#quizOpts").innerHTML=q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("");
@@ -1182,6 +1726,7 @@ $("#quizStartBtn").addEventListener("click",quizStart);
 $("#quizRestart").addEventListener("click",quizStart);
 $("#quizNext").addEventListener("click",()=>{
   if(state.quiz.i===QUIZ.length-1){
+    state.quiz.active=false;
     $("#quizPlay").style.display="none"; $("#quizDone").style.display="block";
     $("#quizFinal").textContent=`${state.quiz.score} / ${QUIZ.length}`;
     const r=state.quiz.score/QUIZ.length;
@@ -1197,8 +1742,9 @@ $("#quizNext").addEventListener("click",()=>{
 });
 
 /* ---------- boot ---------- */
-chipRow(); renderChapters(); renderConcepts(); renderMap();
-renderTimeline(); renderParables(); renderCompare(); renderPractice(); renderGlossary();
+chipRow(); renderChapters(); renderDive(); renderBridges();
+renderConcepts(); renderMap(); renderTimeline(); renderParables();
+renderCompare(); renderPractice(); renderGlossary();
 </script>
 </body>
 </html>
