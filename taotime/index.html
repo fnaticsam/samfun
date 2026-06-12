@@ -56,7 +56,8 @@ h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-
 
 /* =================== SIDEBAR =================== */
 .sidebar{
-  position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);z-index:90;
+  position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);z-index:93;
+  transform:translateX(-100%);transition:transform .3s ease;
   display:flex;flex-direction:column;gap:0;
   padding:30px 22px 22px;overflow-y:auto;scrollbar-width:thin;
   background:linear-gradient(180deg, color-mix(in srgb,var(--paper-2) 60%,var(--paper)), var(--paper));
@@ -89,6 +90,19 @@ h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-
 }
 #themeToggle:hover{border-color:var(--vermilion)}
 
+/* ---------- edge hint (desktop) ---------- */
+.edge-hint{display:none;position:fixed;left:0;top:0;bottom:0;width:26px;z-index:92;align-items:center;cursor:pointer;background:transparent;border:none;padding:0}
+.edge-hint .ea{display:flex;align-items:center;justify-content:center;width:25px;height:64px;
+  background:var(--card);border:1px solid var(--card-border);border-left:none;border-radius:0 12px 12px 0;
+  color:var(--vermilion);font-size:.95rem;box-shadow:2px 2px 10px var(--shadow);
+  animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0);opacity:.7}50%{transform:translateX(5px);opacity:1}}
+@media(min-width:961px){
+  .edge-hint{display:flex}
+  .edge-hint:hover ~ .sidebar,.sidebar:hover{transform:none;box-shadow:10px 0 36px rgba(20,15,8,.16)}
+}
+body.nav-open .sidebar{transform:none}
+
 /* =================== MOBILE TOP BAR =================== */
 .topbar{display:none;position:sticky;top:0;z-index:95;align-items:center;gap:12px;
   padding:10px 16px;border-bottom:1px solid var(--card-border);
@@ -102,7 +116,7 @@ h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-
 body.nav-open .backdrop{display:block}
 
 /* =================== MAIN COLUMN =================== */
-main{margin-left:var(--sidebar-w)}
+main{margin-left:0}
 .col{max-width:880px;margin:0 auto;padding:0 48px}
 section{padding:72px 0 36px}
 .prose{max-width:60ch}
@@ -116,27 +130,52 @@ section{padding:72px 0 36px}
 @media(max-width:1480px){.sidequote{display:none}}
 
 /* =================== HERO =================== */
-.hero{position:relative;overflow:hidden;padding:96px 48px 150px;text-align:center}
+.hero{position:relative;overflow:hidden;padding:52px 48px 140px;text-align:center}
 .hero .mtns{position:absolute;left:0;right:0;bottom:0;width:100%;height:340px;color:var(--ink);z-index:0;pointer-events:none}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;z-index:1;
   background:linear-gradient(transparent,var(--paper))}
 .hero-inner{position:relative;z-index:2;max-width:720px;margin:0 auto}
-.hero .bigzh{font-size:clamp(120px,17vw,196px);line-height:1;color:var(--vermilion);
+.hero .bigzh{font-size:clamp(80px,11vw,128px);line-height:1;color:var(--vermilion);
   text-shadow:3px 5px 0 rgba(74,58,30,.10);animation:fadeup 1s ease both}
 .hero .pinyin{letter-spacing:7px;font-size:.85rem;text-transform:uppercase;color:var(--ink-soft);
   margin-top:10px;animation:fadeup 1s .15s ease both}
-.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);margin:14px 0 12px;animation:fadeup 1s .25s ease both}
+.hero h1{font-size:clamp(1.9rem,4vw,2.6rem);margin:10px 0 10px;animation:fadeup 1s .25s ease both}
 .hero p.sub{color:var(--ink-soft);font-style:italic;font-size:1.08rem;max-width:540px;margin:0 auto;
   animation:fadeup 1s .35s ease both}
 .seal-stamp{
   display:inline-grid;grid-template-rows:repeat(2,1fr);grid-auto-flow:column;direction:rtl;
-  gap:2px;margin-top:30px;padding:10px;background:var(--vermilion);color:#f4edda;border-radius:4px;
-  font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:1.5rem;line-height:1;
+  gap:2px;margin-top:24px;padding:9px;background:var(--vermilion);color:#f4edda;border-radius:4px;
+  font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:1.2rem;line-height:1;
   transform:rotate(-3deg);box-shadow:2px 3px 0 rgba(74,58,30,.18);
   animation:fadeup 1s .5s ease both}
-.hero-cta{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeup 1s .55s ease both}
-a.btn{display:inline-block}
-a.btn:hover{text-decoration:none}
+/* ---------- the reveal ritual ---------- */
+.reveal-stage{display:flex;flex-direction:column;align-items:center;gap:16px;padding:30px 0 22px;
+  transition:opacity .45s ease,transform .45s ease}
+.reveal-stage.gone{opacity:0;transform:scale(.96);pointer-events:none}
+.reveal-btn{position:relative;width:208px;height:208px;border-radius:50%;border:1.5px solid var(--vermilion);
+  background:var(--card);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;box-shadow:0 6px 26px -10px var(--shadow);transition:transform .25s ease,box-shadow .25s ease;
+  -webkit-user-select:none;user-select:none;touch-action:none}
+.reveal-btn:hover{transform:translateY(-3px) scale(1.02);
+  box-shadow:0 16px 40px -14px color-mix(in srgb,var(--vermilion) 45%,transparent)}
+.rb-ring{position:absolute;inset:8px;border:1.5px dashed color-mix(in srgb,var(--vermilion) 50%,transparent);
+  border-radius:50%;animation:spin 30s linear infinite}
+.reveal-btn:hover .rb-ring{animation-duration:6s}
+.rb-ink{position:absolute;left:0;right:0;bottom:0;height:0;z-index:0;
+  background:linear-gradient(180deg,var(--vermilion-soft),var(--vermilion));
+  border-radius:40% 40% 0 0/14px 14px 0 0;transition:height .35s ease}
+.reveal-btn:hover .rb-ink{height:12%}
+.reveal-btn.charging .rb-ink{height:104%;transition:height .8s cubic-bezier(.35,.1,.35,1)}
+.rb-zh{font-size:3.6rem;color:var(--vermilion);line-height:1;z-index:1;transition:color .35s;
+  animation:breathe 4.5s ease-in-out infinite}
+.rb-label{z-index:1;font-size:.95rem;font-style:italic;color:var(--ink-soft);transition:color .35s}
+.reveal-btn.charging .rb-zh,.reveal-btn.charging .rb-label{color:#f4edda}
+.reveal-hint{font-size:.84rem;color:var(--ink-faint);font-style:italic}
+#divePost.shown{animation:fadeup .7s ease both}
+.chapters-gate{padding:4px 0 10px}
+#chWrap.shown{animation:fadeup .6s ease both}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 .bridge-glyph.zh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-weight:400}
 @keyframes fadeup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
@@ -393,7 +432,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
   .topbar{display:flex}
   main{margin-left:0}
   .col{padding:0 22px}
-  .hero{padding:64px 22px 130px}
+  .hero{padding:44px 22px 120px}
   .reader{padding:26px 22px}
   .dive-verse{padding:26px 22px}
   body{font-size:18px}
@@ -411,6 +450,8 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
   <span class="seal brush-zh">道</span><b>The Watercourse Way</b>
   <button id="menuBtn">☰ Contents</button>
 </header>
+
+<button class="edge-hint" id="edgeHint" aria-label="Open contents menu"><span class="ea">❯</span></button>
 
 <aside class="sidebar">
   <div class="brand">
@@ -459,12 +500,8 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
     <div class="bigzh brush-zh">道</div>
     <div class="pinyin">dào — the way</div>
     <h1>The Watercourse Way</h1>
-    <p class="sub">An interactive deep dive into Taoism and the Tao Te Ching — the legend, the text, the ideas, and the practice of moving with the grain of things.</p>
+    <p class="sub">A slow companion to the Tao Te Ching — one verse at a time.</p>
     <div><span class="seal-stamp" aria-label="The highest good is like water"><span>上</span><span>善</span><span>若</span><span>水</span></span></div>
-    <div class="hero-cta">
-      <a class="btn" href="#depths">☯ I'm feeling lucky — one verse, deeply</a>
-      <a class="btn ghost" href="#chapters">Browse all 81 chapters</a>
-    </div>
   </div>
 </header>
 
@@ -474,15 +511,25 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 <section id="depths" class="reveal">
   <div class="sec-head">
     <span class="sec-zh">味</span>
-    <div><div class="sec-eyebrow">Start Here · Taste, Don't Gulp</div><h2>One Verse, Deeply</h2>
-    <p class="sec-sub">The Tao Te Ching is not meant to be read; it is meant to be steeped, like leaves. Take a single chapter and turn it in the light: hear it in different voices, line by line, and notice how the meaning shifts.</p></div>
+    <div><div class="sec-eyebrow">Start Here · Taste, Don't Gulp</div><h2>One Verse, Deeply</h2></div>
   </div>
   <div class="brushline"></div>
-  <div class="dive-bar">
-    <button class="btn" id="luckyBtn">☯ I'm feeling lucky</button>
-    <span id="diveWhich"></span>
+  <div class="reveal-stage" id="revealStage">
+    <button class="reveal-btn" id="revealBtn">
+      <span class="rb-ring" aria-hidden="true"></span>
+      <span class="rb-ink" aria-hidden="true"></span>
+      <span class="rb-zh brush-zh" aria-hidden="true">開</span>
+      <span class="rb-label">Reveal your verse</span>
+    </button>
+    <p class="reveal-hint">A chapter is already steeping for you — press and hold.</p>
   </div>
-  <div class="dive" id="diveBox"></div>
+  <div id="divePost" hidden>
+    <div class="dive-bar">
+      <button class="btn" id="luckyBtn">☯ I'm feeling lucky</button>
+      <span id="diveWhich"></span>
+    </div>
+    <div class="dive" id="diveBox"></div>
+  </div>
 </section>
 
 <!-- 3. CHAPTER EXPLORER -->
@@ -493,6 +540,10 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
     <p class="sec-sub">Every chapter: a rendering after the public-domain 1891 Legge translation, a plain modern paraphrase, and brief commentary. Pick a tile, follow a theme, search a word — or let chance choose.</p></div>
   </div>
   <div class="brushline"></div>
+  <div class="chapters-gate" id="chGate">
+    <button class="btn ghost" id="chShowBtn">📖 Browse all 81 chapters ▾</button>
+  </div>
+  <div id="chWrap" hidden>
   <div class="toolbar">
     <input id="chSearch" type="search" placeholder="Search the 81 chapters… (e.g. water, sage, empty)">
     <button class="btn ghost" id="drawBtn">🎴 Draw a chapter</button>
@@ -503,6 +554,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
   <div id="chMatches"></div>
   <article class="card reader" id="chReader"></article>
   <p class="kbd-hint">Browse with <kbd>←</kbd> and <kbd>→</kbd> — gold tiles are chapters you've read.</p>
+  </div>
 </section>
 
 <!-- 4. CORE CONCEPTS -->
@@ -1416,6 +1468,7 @@ $("#themeToggle").addEventListener("click",()=>{
 /* ---------- mobile drawer ---------- */
 $("#menuBtn").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
 $("#backdrop").addEventListener("click",()=>document.body.classList.remove("nav-open"));
+$("#edgeHint").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
 document.querySelectorAll("#sideNav a").forEach(a=>a.addEventListener("click",()=>document.body.classList.remove("nav-open")));
 
 /* ---------- scroll spy ---------- */
@@ -1483,6 +1536,24 @@ function renderDive(){
     state.voice=+b.dataset.v; renderDive();
   }));
 }
+/* ---------- the reveal ritual ---------- */
+let revealed=false, revealTimer=null;
+function revealVerse(){
+  if(revealed) return; revealed=true;
+  clearTimeout(revealTimer);
+  const stage=$("#revealStage"), post=$("#divePost");
+  stage.classList.add("gone");
+  post.hidden=false; post.classList.add("shown");
+  setTimeout(()=>{ stage.style.display="none";
+    if(post.scrollIntoView) post.scrollIntoView({behavior:"smooth",block:"start"}); },420);
+}
+const rbtn=$("#revealBtn");
+rbtn.addEventListener("pointerdown",()=>{ rbtn.classList.add("charging"); revealTimer=setTimeout(revealVerse,800); });
+["pointerup","pointerleave","pointercancel"].forEach(ev=>rbtn.addEventListener(ev,()=>{
+  if(!revealed){ rbtn.classList.remove("charging"); clearTimeout(revealTimer); }
+}));
+rbtn.addEventListener("click",revealVerse);
+
 $("#luckyBtn").addEventListener("click",()=>{
   const others=DIVE_ORDER.filter(n=>n!==state.dive);
   state.dive=others[Math.floor(Math.random()*others.length)];
@@ -1608,6 +1679,15 @@ $("#chSearch").addEventListener("input",(e)=>{
   renderChapters();
 });
 
+/* ---------- chapters gate ---------- */
+function expandChapters(){
+  const w=$("#chWrap"); if(!w.hidden) return;
+  w.hidden=false; w.classList.add("shown");
+  $("#chGate").style.display="none";
+}
+$("#chShowBtn").addEventListener("click",expandChapters);
+document.querySelectorAll('a[href="#chapters"]').forEach(a=>a.addEventListener("click",expandChapters));
+
 $("#drawBtn").addEventListener("click",()=>{
   state.activeTag="all"; state.search=""; $("#chSearch").value="";
   state.cur=1+Math.floor(Math.random()*CHAPTERS.length);
@@ -1621,6 +1701,7 @@ document.addEventListener("keydown",(e)=>{
   const t=e.target;
   if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
   if(state.quiz.active)return;
+  if($("#chWrap").hidden)return;
   const list=chapterNavList(); const idx=list.findIndex(c=>c.n===state.cur);
   if(e.key==="ArrowLeft"&&idx>0){state.cur=list[idx-1].n;renderChapters();}
   if(e.key==="ArrowRight"&&idx>-1&&idx<list.length-1){state.cur=list[idx+1].n;renderChapters();}
