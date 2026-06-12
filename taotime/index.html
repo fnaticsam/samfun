@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Watercourse Way — An Interactive Deep Dive into Taoism and the Tao Te Ching</title>
-<meta name="description" content="An interactive study site covering the Tao Te Ching's 81 chapters, core Taoist concepts, bridges to Plato and Sufism, Zhuangzi, history, practice, and a quiz.">
+<meta name="description" content="An interactive study of the Tao Te Ching: verse deep-dives in many voices, all 81 chapters, core concepts, and bridges to the Upanishads, Plato, Zen, the Sufis, the Stoics, the Christian mystics, and Heraclitus.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23b03a21'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23f4edda' font-family='serif'%3E道%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,6 +134,10 @@ section{padding:72px 0 36px}
   font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:1.5rem;line-height:1;
   transform:rotate(-3deg);box-shadow:2px 3px 0 rgba(74,58,30,.18);
   animation:fadeup 1s .5s ease both}
+.hero-cta{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeup 1s .55s ease both}
+a.btn{display:inline-block}
+a.btn:hover{text-decoration:none}
+.bridge-glyph.zh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-weight:400}
 @keyframes fadeup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
 /* =================== SECTION HEADS =================== */
@@ -414,21 +418,22 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
     <span><b>The Watercourse Way</b><i>a Tao Te Ching study</i></span>
   </div>
   <nav id="sideNav">
-    <div class="snav-group">Begin</div>
-    <a class="snav" href="#orientation"><span class="nzh">源</span>Orientation</a>
+    <div class="snav-group">Start Here</div>
     <a class="snav" href="#depths"><span class="nzh">味</span>One Verse, Deeply</a>
     <div class="snav-group">Study</div>
     <a class="snav" href="#chapters"><span class="nzh">经</span>The 81 Chapters</a>
     <a class="snav" href="#concepts"><span class="nzh">德</span>Core Concepts</a>
     <a class="snav" href="#glossary"><span class="nzh">字</span>Glossary</a>
     <div class="snav-group">Connect</div>
-    <a class="snav" href="#bridges"><span class="nzh">桥</span>Bridges: Plato &amp; the Sufis</a>
+    <a class="snav" href="#bridges"><span class="nzh">桥</span>Bridges: Other Shores</a>
     <a class="snav" href="#timeline"><span class="nzh">史</span>Timeline</a>
     <a class="snav" href="#zhuangzi"><span class="nzh">庄</span>Zhuangzi</a>
     <a class="snav" href="#paths"><span class="nzh">教</span>Two Paths</a>
     <div class="snav-group">Live</div>
     <a class="snav" href="#practice"><span class="nzh">行</span>Practice</a>
     <a class="snav" href="#quiz"><span class="nzh">试</span>Quiz</a>
+    <div class="snav-group">About</div>
+    <a class="snav" href="#orientation"><span class="nzh">源</span>The Old Master</a>
   </nav>
   <div class="side-foot">
     <span class="side-prog">Chapters read: <b id="sideProg">0 / 81</b></span>
@@ -456,33 +461,20 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
     <h1>The Watercourse Way</h1>
     <p class="sub">An interactive deep dive into Taoism and the Tao Te Ching — the legend, the text, the ideas, and the practice of moving with the grain of things.</p>
     <div><span class="seal-stamp" aria-label="The highest good is like water"><span>上</span><span>善</span><span>若</span><span>水</span></span></div>
+    <div class="hero-cta">
+      <a class="btn" href="#depths">☯ I'm feeling lucky — one verse, deeply</a>
+      <a class="btn ghost" href="#chapters">Browse all 81 chapters</a>
+    </div>
   </div>
 </header>
 
 <div class="col">
 
-<!-- 1. ORIENTATION -->
-<section id="orientation" class="reveal">
-  <div class="sec-head">
-    <span class="sec-zh">源</span>
-    <div><div class="sec-eyebrow">Begin · The Door</div><h2>The Old Master and the Way</h2>
-    <p class="sec-sub">What Taoism is, who Lao Tzu was (and wasn't), and how the book actually reached us.</p></div>
-  </div>
-  <div class="brushline"></div>
-  <div class="prose">
-    <p><strong>Taoism</strong> is the Chinese tradition of thought and practice oriented around the <em>Tao</em> (道, dào) — "the Way": the unnameable source and pattern behind all things. Where Confucianism asks how to perfect society through ritual, role, and cultivated virtue, Taoism asks how to live by aligning with the spontaneous order of nature — yielding rather than forcing, emptying rather than accumulating, returning rather than advancing.</p>
-    <p><strong>The legend.</strong> Lao Tzu (老子, Lǎozǐ — literally "Old Master") is traditionally placed in the 6th century BCE as an older contemporary of Confucius. The classic account comes from Sima Qian's <em>Records of the Grand Historian</em> (c. 94 BCE): his name was Li Er (李耳), also called Lao Dan, and he served as an <strong>archivist at the Zhou royal court</strong>. Watching the dynasty decay, he grew disillusioned and rode west on a <strong>water buffalo</strong>, intending to vanish into the frontier. At the <strong>Hangu Pass</strong>, the gatekeeper <strong>Yin Xi</strong> recognized the sage and refused to let him pass until he wrote down his wisdom. Lao Tzu produced a text of roughly <strong>5,000 characters</strong> — the <em>Tao Te Ching</em> — handed it over, and disappeared. No one knows where he ended.</p>
-    <p><strong>The scholarship.</strong> Modern scholars treat Lao Tzu as semi-legendary. The text reads less like one person's book and more like a <strong>compilation of oral wisdom</strong> that settled into its received form around the <strong>4th to 3rd century BCE</strong>, during the Warring States period. The oldest physical witnesses are the <strong>Guodian bamboo slips</strong> (c. 300 BCE), a partial early version excavated in 1993, and the <strong>Mawangdui silk manuscripts</strong> (c. 168 BCE), found in a Han tomb in 1973 — which, intriguingly, reverse the two halves, placing the <em>Te</em> book before the <em>Tao</em> book.</p>
-    <p><strong>The text.</strong> Eighty-one short chapters in two books — the <em>Tao Ching</em> (chapters 1–37, on the Way) and the <em>Te Ching</em> (chapters 38–81, on virtue or potency). It is terse, poetic, and deliberately paradoxical: built for rereading rather than reading. It has become one of the most translated books in human history. Notable English versions include James Legge (1891, public domain — the basis for the renderings on this site), D.C. Lau (precise), Red Pine (with classical commentaries), Ursula K. Le Guin (poetic), Ames &amp; Hall (philosophical), and Stephen Mitchell (loose but popular).</p>
-    <p><strong>A modern companion.</strong> Many readers first meet the book through <strong>Wayne Dyer</strong>'s <em>Change Your Thoughts, Change Your Life: Living the Wisdom of the Tao</em> — not a translation but a year-long meditation on the 81 verses, woven chiefly from the Gia-fu Feng and Stephen Mitchell versions, with an essay on living each one. His recorded readings are a gentle way in; you'll find links in the <a href="#depths">One Verse, Deeply</a> section below.</p>
-  </div>
-</section>
-
 <!-- 2. ONE VERSE, DEEPLY -->
 <section id="depths" class="reveal">
   <div class="sec-head">
     <span class="sec-zh">味</span>
-    <div><div class="sec-eyebrow">Begin · Taste, Don't Gulp</div><h2>One Verse, Deeply</h2>
+    <div><div class="sec-eyebrow">Start Here · Taste, Don't Gulp</div><h2>One Verse, Deeply</h2>
     <p class="sec-sub">The Tao Te Ching is not meant to be read; it is meant to be steeped, like leaves. Take a single chapter and turn it in the light: hear it in different voices, line by line, and notice how the meaning shifts.</p></div>
   </div>
   <div class="brushline"></div>
@@ -533,12 +525,12 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 <section id="bridges" class="reveal">
   <div class="sec-head">
     <span class="sec-zh">桥</span>
-    <div><div class="sec-eyebrow">Connect · Other Shores</div><h2>Bridges: Plato, the Sufis, Heraclitus</h2>
-    <p class="sec-sub">The Tao is easier to grasp when you can see it from a shore you already know. Each bridge has three depths — start at level one and wade in.</p></div>
+    <div><div class="sec-eyebrow">Connect · Other Shores</div><h2>Bridges: The Perennial Conversation</h2>
+    <p class="sec-sub">The same water, seen from seven shores — India, Greece, Rome, the monasteries, the Sufi lodges. Each bridge has three depths: a sentence, the conversation, and where the paths part. Wade in.</p></div>
   </div>
   <div class="brushline"></div>
   <div class="grid" id="bridgeGrid"></div>
-  <p class="note">Further echoes worth chasing: the Stoics' <em>amor fati</em> and ziran; Christian <em>kenosis</em> (self-emptying) and wu wei; Zen, which is what happened when Buddhism drank from this same well; Spinoza's God-or-Nature and the impersonal Tao.</p>
+  <p class="note">Further echoes worth chasing: Spinoza's God-or-Nature; Emerson and Thoreau, who read the Gita beside Walden Pond; Aldous Huxley's <em>The Perennial Philosophy</em>, the classic field-guide to these convergences; and Thomas Merton, the Trappist monk who made his own Zhuangzi.</p>
 </section>
 
 <!-- 6. TIMELINE -->
@@ -644,6 +636,23 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
       <p id="quizVerdict" style="margin:10px 0 20px;font-style:italic;color:var(--ink-soft)"></p>
       <button class="btn ghost" id="quizRestart">Take it again</button>
     </div>
+  </div>
+</section>
+
+<!-- 1. ORIENTATION -->
+<section id="orientation" class="reveal">
+  <div class="sec-head">
+    <span class="sec-zh">源</span>
+    <div><div class="sec-eyebrow">About · The Door</div><h2>About: The Old Master and the Way</h2>
+    <p class="sec-sub">What Taoism is, who Lao Tzu was (and wasn't), and how the book actually reached us.</p></div>
+  </div>
+  <div class="brushline"></div>
+  <div class="prose">
+    <p><strong>Taoism</strong> is the Chinese tradition of thought and practice oriented around the <em>Tao</em> (道, dào) — "the Way": the unnameable source and pattern behind all things. Where Confucianism asks how to perfect society through ritual, role, and cultivated virtue, Taoism asks how to live by aligning with the spontaneous order of nature — yielding rather than forcing, emptying rather than accumulating, returning rather than advancing.</p>
+    <p><strong>The legend.</strong> Lao Tzu (老子, Lǎozǐ — literally "Old Master") is traditionally placed in the 6th century BCE as an older contemporary of Confucius. The classic account comes from Sima Qian's <em>Records of the Grand Historian</em> (c. 94 BCE): his name was Li Er (李耳), also called Lao Dan, and he served as an <strong>archivist at the Zhou royal court</strong>. Watching the dynasty decay, he grew disillusioned and rode west on a <strong>water buffalo</strong>, intending to vanish into the frontier. At the <strong>Hangu Pass</strong>, the gatekeeper <strong>Yin Xi</strong> recognized the sage and refused to let him pass until he wrote down his wisdom. Lao Tzu produced a text of roughly <strong>5,000 characters</strong> — the <em>Tao Te Ching</em> — handed it over, and disappeared. No one knows where he ended.</p>
+    <p><strong>The scholarship.</strong> Modern scholars treat Lao Tzu as semi-legendary. The text reads less like one person's book and more like a <strong>compilation of oral wisdom</strong> that settled into its received form around the <strong>4th to 3rd century BCE</strong>, during the Warring States period. The oldest physical witnesses are the <strong>Guodian bamboo slips</strong> (c. 300 BCE), a partial early version excavated in 1993, and the <strong>Mawangdui silk manuscripts</strong> (c. 168 BCE), found in a Han tomb in 1973 — which, intriguingly, reverse the two halves, placing the <em>Te</em> book before the <em>Tao</em> book.</p>
+    <p><strong>The text.</strong> Eighty-one short chapters in two books — the <em>Tao Ching</em> (chapters 1–37, on the Way) and the <em>Te Ching</em> (chapters 38–81, on virtue or potency). It is terse, poetic, and deliberately paradoxical: built for rereading rather than reading. It has become one of the most translated books in human history. Notable English versions include James Legge (1891, public domain — the basis for the renderings on this site), D.C. Lau (precise), Red Pine (with classical commentaries), Ursula K. Le Guin (poetic), Ames &amp; Hall (philosophical), and Stephen Mitchell (loose but popular).</p>
+    <p><strong>A modern companion.</strong> Many readers first meet the book through <strong>Wayne Dyer</strong>'s <em>Change Your Thoughts, Change Your Life: Living the Wisdom of the Tao</em> — not a translation but a year-long meditation on the 81 verses, woven chiefly from the Gia-fu Feng and Stephen Mitchell versions, with an essay on living each one. His recorded readings are a gentle way in; you'll find links in the <a href="#depths">One Verse, Deeply</a> section below.</p>
   </div>
 </section>
 
@@ -1253,7 +1262,8 @@ const DIVES = {
  echoes:[
   {who:"Plato — the visible king", text:"The <em>Republic</em> dreams of a philosopher-king whose wisdom is conspicuous — dragged back into the cave to govern by the brightness of what he has seen. Chapter 17 inverts the image: the perfected ruler is not the most visible mind in the city but the least, governing the way gravity does — everywhere effective, nowhere seen."},
   {who:"The Sufis — hidden saints", text:"The Malāmatiyya, the 'people of blame,' hid their piety and even courted disrepute so that no act of devotion could curdle into self-display. The Sufi ideal of <em>khidma</em> — service without announcement — is chapter 17 in another tongue: the friend of God whom the village never suspects."},
-  {who:"Modern echo — scaffolding", text:"Robert Greenleaf's 'servant leadership,' the coach who asks rather than tells, the parent who holds the bicycle seat one second less each day: every craft of growing people converges on the same move — build the scaffold, then vanish before the ribbon is cut."}
+  {who:"Modern echo — scaffolding", text:"Robert Greenleaf's 'servant leadership,' the coach who asks rather than tells, the parent who holds the bicycle seat one second less each day: every craft of growing people converges on the same move — build the scaffold, then vanish before the ribbon is cut."},
+  {who:"The Gita — actionless action", text:"Krishna's counsel to Arjuna — act, but renounce the fruits of action, <em>niṣkāma karma</em> — is this chapter with a chariot: the work done fully, the doer dissolved, the credit surrendered before it can curdle into ego."}
  ]},
 8:{
  mark:"水",
@@ -1301,7 +1311,8 @@ const DIVES = {
  echoes:[
   {who:"Rumi — the reed flute", text:"The <em>Masnavi</em> opens with a reed cut from the reed-bed, crying with longing — and it can sing only because it has been hollowed. The Sufi soul, emptied of self, becomes an instrument for the Beloved's breath: chapter 11 set to music."},
   {who:"Plato — the receptacle", text:"In the <em>Timaeus</em>, Plato needs a mysterious third thing besides Forms and copies: the <em>chōra</em>, the formless receptacle in which all becoming occurs — itself no shape, so that it can receive every shape. Greek metaphysics, too, found it needed an emptiness at the bottom."},
-  {who:"Modern echo — negative space", text:"The silence between notes that makes the rhythm, the margin that makes the page readable, the buffer in the schedule that makes the plan survivable — every mature craft eventually discovers it is mostly arranging hollows."}
+  {who:"Modern echo — negative space", text:"The silence between notes that makes the rhythm, the margin that makes the page readable, the buffer in the schedule that makes the plan survivable — every mature craft eventually discovers it is mostly arranging hollows."},
+  {who:"The Upanishads — the space within", text:"The Chandogya Upanishad points to the small space within the heart and says: what is inside it is as vast as the universe. In India as in China, the hollow at the center is not the absence of the sacred — it is the address."}
  ]},
 33:{
  mark:"明",
@@ -1334,23 +1345,47 @@ const DIVES = {
    DATA — BRIDGES (Plato · Sufism · Heraclitus), three depths each
 ===================================================================== */
 const BRIDGES = [
-{glyph:"Φ", name:"Plato & the Cave", pair:"the Form of the Good ↔ the nameless Tao",
+{glyph:"ॐ", name:"The Upanishads & the One", pair:"Brahman, known by \u2018not this, not this\u2019 ↔ the Tao that cannot be named",
  levels:[
- {t:"A sentence",body:`<p class="big">Plato and Lao Tzu agree that one ultimate reality stands behind appearances — they disagree about whether you can say it. Plato climbs toward the light armed with definitions; Lao Tzu bows toward the dark and lets the words go.</p>`},
- {t:"The conversation",body:`<p>In Plato's cave, prisoners mistake shadows for the world until one climbs out and sees the sun — the Form of the Good, source of all being and knowing. Chapter 1 opens the same gap between appearance and source: named things are the shadows; the nameless is the sun. Both traditions call for a conversion, not just new information — Plato's <em>periagoge</em>, the turning-around of the whole soul, is close kin to the Tao Te Ching's <em>fan</em> (反), the return to the root (ch. 16).</p><p>Even the politics rhyme at first: both books are advice to rulers, written in dark times, convinced that the one who has touched the source governs best.</p>`},
- {t:"Where they part",body:`<p>Then the bridge forks. Plato trusts language: dialectic, definition, and reason can in principle reach the Forms, and philosophy is the discipline of saying ever more precisely. Lao Tzu opens his book by firing the dictionary — "the name that can be named is not the enduring name" — and chapter 56 adds: those who know do not speak.</p><p>Their sages move in opposite directions. Plato's philosopher ascends, is illuminated, and must be <em>dragged back down</em> to rule — conspicuously wise, a king with a syllabus. The Taoist sage was never on the mountain: he settles low like water (ch. 8) and governs invisibly (ch. 17). Eros strains upward; wu wei settles into place.</p><p>And yet at the very summit Plato blinks first: the Good, he admits, is "beyond being" (<em>Republic</em> 509b) — graspable only by a long discipline and then barely. At its highest point, the most talkative philosophy in Greece goes quiet in an almost Taoist way.</p>`}
-]},
-{glyph:"هو", name:"The Sufis & the Emptied Self", pair:"fanā (passing away in the Beloved) ↔ wu wei and the hollow vessel",
- levels:[
- {t:"A sentence",body:`<p class="big">Both paths teach that the self is the obstacle: the Sufi burns it away in love of the Beloved, the Taoist lets it dissolve in the watercourse — different solvents, same dissolving.</p>`},
- {t:"The conversation",body:`<p>Rumi's <em>Masnavi</em> opens with a reed flute, cut from the reed-bed, that can sing only because it is hollow — chapter 11's empty vessel, set to music. Sufi <em>fanā</em>, the passing-away of the ego in God, answers the Taoist emptying (虛, xū) that makes the sage useful; <em>tawakkul</em>, radical trust in how things unfold, is wu wei wearing devotional dress; and <em>dhikr</em> — remembrance, the constant returning of attention to its source — moves like chapter 16: all things flourish, and each returns to the root.</p><p>Both traditions love the low place. The dervish takes the seat by the shoes; the Malāmatiyya hid their sanctity under shabby reputations, like the sage of chapter 70 who wears coarse cloth and carries jade in his breast.</p>`},
- {t:"Where they part",body:`<p>The difference is the face. The Sufi dissolves into a <em>Beloved</em> — a personal God courted in the language of lovers, with longing, intoxication, music, and tears. The Tao has no face to love: heaven and earth "are not humane" and treat the ten thousand things as straw dogs (ch. 5). Where Sufism burns, Taoism cools; ecstasy versus equanimity, the moth and the candle versus water finding its level.</p><p>Their socialities differ too: Sufism grew orders, lodges, litanies, the whirling sama — emptying the self <em>together</em>. The Tao Te Ching imagines villages so quiet you only hear the neighbors' roosters (ch. 80), and a sage most himself alone. One path is a shared fire; the other, a hermit's stream — though both end where the reed and the vessel agree: hollow first, then the music.</p>`}
+ {t:"A sentence",body:`<p class="big">Centuries before Lao Tzu, the forest sages of India reached the same cliff-edge: ultimate reality is one, it is nearer to you than your own name — and every word for it fails. Their method was <em>neti neti</em>, "not this, not this." Chapter 1 is the same gesture in Chinese.</p>`},
+ {t:"The conversation",body:`<p>The Brihadaranyaka Upanishad refuses every description of Brahman — <em>neti neti</em> — exactly as the Tao Te Ching opens by un-naming its own subject. The Kena Upanishad points at "that by which the eye sees, which the eye cannot see": chapter 14's Way that is looked for but not seen, listened for but not heard. Both traditions make the source maternal — Brahman the womb of beings, the Tao "the mother of the ten thousand things."</p><p>And both collapse the distance. The Chandogya's <em>tat tvam asi</em> — "you are that" — tells the student the gap between himself and the absolute was a misunderstanding; the sage of chapter 22 simply "embraces the One." When the Bhagavad Gita teaches <em>niṣkāma karma</em> — act, but surrender the fruits of action — it is teaching wu wei from a chariot.</p>`},
+ {t:"Where they part",body:`<p>Vedanta finally names the absolute: Brahman is <em>sat-chit-ananda</em> — being, consciousness, bliss — and your deepest self, the Atman, <em>is</em> it. The Tao Te Ching never says the Tao is mind, self, or bliss; it stays resolutely impersonal — a way things flow, not a witness behind them.</p><p>The exits differ too. Moksha is release from the wheel of rebirth — the world as a school to graduate from. The Taoist has no wheel and no exit visa; he wants to live longer, lighter, lower — <em>inside</em> the world, like water. And where the Upanishads sit atop the Vedas, guarded by gurus and lineage, the old archivist torches the curriculum: "banish learning, and there will be no more grieving."</p>`}
 ]},
 {glyph:"≈", name:"Heraclitus & the River", pair:"the Logos and panta rhei ↔ the Tao and the watercourse",
  levels:[
  {t:"A sentence",body:`<p class="big">Half a world from Lao Tzu and at almost the same hour, Heraclitus also taught that everything flows, that opposites create each other, and that beneath it all runs a hidden order most people sleep through.</p>`},
  {t:"The conversation",body:`<p>Heraclitus' <em>Logos</em> is the uncanniest twin the Tao ever had: an ordering principle that runs through all things, which "men fail to comprehend, both before hearing it and once they have heard." Swap one word and it is chapter 1. His river — never the same twice — is the master image of flux, as water is the Tao Te Ching's master image of the Way; his "the road up and the road down are one and the same" is chapter 2's co-arising of opposites, long before either culture could have read the other.</p><p>Scholars find no thread of contact — this is convergence, the same truths surfacing in Ephesus and the Zhou archives within a century: the period Karl Jaspers called the Axial Age.</p>`},
  {t:"Where they part",body:`<p>Their tempers differ like their elements. Heraclitus is fire: "war is father of all," strife is justice, and the harmony he loves is a bow's — tension pulling against itself. Lao Tzu is water: the soft overcomes the hard, weapons are instruments of ill omen (ch. 31), and contention is precisely what the sage unlearns.</p><p>So the same insight — opposites need each other — yields opposite ethics: the Greek says <em>join the productive struggle</em>; the Chinese says <em>step out of the struggle and let the polarity work unattended</em>. Read them together and you hold both banks of one river: the current is real, and you may either ride its collisions or its flow.</p>`}
+]},
+{glyph:"Φ", name:"Plato & the Cave", pair:"the Form of the Good ↔ the nameless Tao",
+ levels:[
+ {t:"A sentence",body:`<p class="big">Plato and Lao Tzu agree that one ultimate reality stands behind appearances — they disagree about whether you can say it. Plato climbs toward the light armed with definitions; Lao Tzu bows toward the dark and lets the words go.</p>`},
+ {t:"The conversation",body:`<p>In Plato's cave, prisoners mistake shadows for the world until one climbs out and sees the sun — the Form of the Good, source of all being and knowing. Chapter 1 opens the same gap between appearance and source: named things are the shadows; the nameless is the sun. Both traditions call for a conversion, not just new information — Plato's <em>periagoge</em>, the turning-around of the whole soul, is close kin to the Tao Te Ching's <em>fan</em> (反), the return to the root (ch. 16).</p><p>Even the politics rhyme at first: both books are advice to rulers, written in dark times, convinced that the one who has touched the source governs best.</p>`},
+ {t:"Where they part",body:`<p>Then the bridge forks. Plato trusts language: dialectic, definition, and reason can in principle reach the Forms, and philosophy is the discipline of saying ever more precisely. Lao Tzu opens his book by firing the dictionary — "the name that can be named is not the enduring name" — and chapter 56 adds: those who know do not speak.</p><p>Their sages move in opposite directions. Plato's philosopher ascends, is illuminated, and must be <em>dragged back down</em> to rule — conspicuously wise, a king with a syllabus. The Taoist sage was never on the mountain: he settles low like water (ch. 8) and governs invisibly (ch. 17). Eros strains upward; wu wei settles into place.</p><p>And yet at the very summit Plato blinks first: the Good, he admits, is "beyond being" (<em>Republic</em> 509b) — graspable only by a long discipline and then barely. At its highest point, the most talkative philosophy in Greece goes quiet in an almost Taoist way.</p>`}
+]},
+{glyph:"Σ", name:"The Stoics & the Inner Citadel", pair:"amor fati and the dichotomy of control ↔ ziran and wu wei",
+ levels:[
+ {t:"A sentence",body:`<p class="big">A Greek slave and a Roman emperor taught the same exercise as the Chinese archivist: there is a way things go — stop fighting it, and your strength comes back. The Stoic says love your fate; the Taoist asks why you ever stood apart from it.</p>`},
+ {t:"The conversation",body:`<p>The Stoics, too, called the order of things <em>Logos</em> and made one rule of life: live according to nature — <em>ziran</em> in a toga. Epictetus' dichotomy of control — attend only to what is up to you — is the operational core of wu wei: drop the rope that was never in your hands. Chapter 29 could be a page of the <em>Enchiridion</em>: "the world is a sacred vessel that cannot be improved by forcing."</p><p>Marcus Aurelius' "view from above," shrinking his empire to an anthill to cure self-importance, is chapter 5 taken as medicine: heaven and earth play no favorites, and the sage doesn't take the universe personally.</p>`},
+ {t:"Where they part",body:`<p>Temper, again. Stoicism is granite: a fortified will, virtue as the only good, duty pressed conspicuously into public life — Marcus governed in full view, where chapter 17 would have advised him to disappear. Taoism distrusts the citadel itself: the hard and rigid are companions of death, the soft and supple of life (ch. 76); better to be water than a wall.</p><p>The Stoic cosmos is providential — steered by reason toward the good — so loving fate is loving a rational author. The Tao is "not humane" (ch. 5); it steers nothing and needs no love back. And the Stoics argued — logic was a third of their school — while the book closes: "true words are not fine-sounding; fine-sounding words are not true" (ch. 81).</p>`}
+]},
+{glyph:"禅", gzh:true, name:"Buddhism, Zen & the Empty Mirror", pair:"śūnyatā and the unborn ↔ the empty vessel and the uncarved block",
+ levels:[
+ {t:"A sentence",body:`<p class="big">When Buddhism walked into China, the translators reached for Taoist words — emptiness met emptiness — and three centuries later the two traditions had a child: Chan, which Japan pronounces Zen.</p>`},
+ {t:"The conversation",body:`<p>The first translators worked by <em>geyi</em>, "concept-matching": nirvana was rendered with <em>wu wei</em>, emptiness (<em>śūnyatā</em>) with <em>wu</em>, meditation (<em>dhyāna</em>) became Chan. Zen's masters sound like Zhuangzi because they learned paradox from him — Mazu's "ordinary mind is the Way" is a Taoist sentence with Buddhist citizenship.</p><p>Zhuangzi's advice to "use the mind like a mirror — reflecting, not storing" became the Zen mirror-mind; and the ox-herding pictures end not on a mountaintop but back in the marketplace, helping, unnoticed — chapter 17's leader drawn in ink and laughter.</p>`},
+ {t:"Where they part",body:`<p>Buddhism is a medicine with a diagnosis: existence as ordinarily lived is <em>dukkha</em>, the cause is craving, and there is an eightfold prescription. The Tao Te Ching diagnoses un-naturalness rather than craving, and prescribes subtraction rather than a path — "every day something is dropped" (ch. 48).</p><p>The emptinesses differ too. Śūnyatā is an ontological verdict — nothing, you included, possesses self-nature. Taoist emptiness is functional — the hollow that makes the wheel turn and the vessel hold (ch. 11). And Buddhism carries karma and rebirth, a moral ledger across lifetimes, where the old archivist is silent: one life, lived low, soft, and long.</p>`}
+]},
+{glyph:"†", name:"The Christian Mystics & the Cloud", pair:"the via negativa and kenosis ↔ the nameless Tao and self-emptying",
+ levels:[
+ {t:"A sentence",body:`<p class="big">In the monasteries, a quieter Christianity kept saying of God exactly what Lao Tzu said of the Tao: whatever you can say, it is not that. They called it the via negativa — the way of saying-away.</p>`},
+ {t:"The conversation",body:`<p>Pseudo-Dionysius taught that God is known "by unknowing," beyond every name — chapter 1 in liturgical dress. The anonymous <em>Cloud of Unknowing</em> adds: "by love he may be gotten and holden; by thought, never" — kin to chapter 56's "those who know do not speak." Meister Eckhart preached <em>Gelassenheit</em> — releasement, letting-be — and insisted God is found by subtracting, not adding: chapter 48, almost word for word.</p><p>And at the center of the tradition sits <em>kenosis</em> — Paul's hymn of Christ who "emptied himself," power arriving through descent. That is water's path (ch. 8): down to the low place everyone disdains, which turns out to be where everything gathers.</p>`},
+ {t:"Where they part",body:`<p>The face, once more. The mystic empties toward a Person, and grace answers; love is the engine and union the goal. The Tao does not love back — it nourishes the ten thousand things and lets them go. Christianity carries a story of fall and redemption, a broken relation repaired in history; Taoism has no fall — only a forgetting of how to be natural, undone by practice rather than rescue.</p><p>Their institutions treated paradox differently: the church watched its apophatic children nervously — Eckhart died mid-heresy-trial — while in China the paradox <em>was</em> the orthodoxy. A footnote of friendship: Thomas Merton, Trappist monk, made his own beloved version of Zhuangzi and saw in chapter 17's vanishing leader something he called hidden, Christ-like work.</p>`}
+]},
+{glyph:"هو", name:"The Sufis & the Emptied Self", pair:"fanā (passing away in the Beloved) ↔ wu wei and the hollow vessel",
+ levels:[
+ {t:"A sentence",body:`<p class="big">Both paths teach that the self is the obstacle: the Sufi burns it away in love of the Beloved, the Taoist lets it dissolve in the watercourse — different solvents, same dissolving.</p>`},
+ {t:"The conversation",body:`<p>Rumi's <em>Masnavi</em> opens with a reed flute, cut from the reed-bed, that can sing only because it is hollow — chapter 11's empty vessel, set to music. Sufi <em>fanā</em>, the passing-away of the ego in God, answers the Taoist emptying (虛, xū) that makes the sage useful; <em>tawakkul</em>, radical trust in how things unfold, is wu wei wearing devotional dress; and <em>dhikr</em> — remembrance, the constant returning of attention to its source — moves like chapter 16: all things flourish, and each returns to the root.</p><p>Both traditions love the low place. The dervish takes the seat by the shoes; the Malāmatiyya hid their sanctity under shabby reputations, like the sage of chapter 70 who wears coarse cloth and carries jade in his breast.</p>`},
+ {t:"Where they part",body:`<p>The difference is the face. The Sufi dissolves into a <em>Beloved</em> — a personal God courted in the language of lovers, with longing, intoxication, music, and tears. The Tao has no face to love: heaven and earth "are not humane" and treat the ten thousand things as straw dogs (ch. 5). Where Sufism burns, Taoism cools; ecstasy versus equanimity, the moth and the candle versus water finding its level.</p><p>Their socialities differ too: Sufism grew orders, lodges, litanies, the whirling sama — emptying the self <em>together</em>. The Tao Te Ching imagines villages so quiet you only hear the neighbors' roosters (ch. 80), and a sage most himself alone. One path is a shared fire; the other, a hermit's stream — though both end where the reed and the vessel agree: hollow first, then the music.</p>`}
 ]}
 ];
 
@@ -1460,7 +1495,7 @@ $("#luckyBtn").addEventListener("click",()=>{
 function renderBridges(){
   $("#bridgeGrid").innerHTML=BRIDGES.map((b,i)=>`
   <article class="card bridge">
-    <div class="bridge-head"><span class="bridge-glyph">${b.glyph}</span>
+    <div class="bridge-head"><span class="bridge-glyph${b.gzh?" zh":""}">${b.glyph}</span>
       <div><h3>${b.name}</h3><div class="pair">${b.pair}</div></div></div>
     <div class="bridge-body">
       <div class="lvl-tabs">${b.levels.map((l,j)=>`<button class="lvl ${j===0?'on':''}" data-b="${i}" data-l="${j}">${["Ⅰ","Ⅱ","Ⅲ"][j]} · ${l.t}</button>`).join("")}</div>
@@ -1742,6 +1777,7 @@ $("#quizNext").addEventListener("click",()=>{
 });
 
 /* ---------- boot ---------- */
+state.dive = DIVE_ORDER[Math.floor(Math.random()*DIVE_ORDER.length)];
 chipRow(); renderChapters(); renderDive(); renderBridges();
 renderConcepts(); renderMap(); renderTimeline(); renderParables();
 renderCompare(); renderPractice(); renderGlossary();
