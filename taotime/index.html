@@ -187,6 +187,25 @@ section{padding:72px 0 36px}
 .rb-label{z-index:3;font-size:.9rem;font-style:italic;color:var(--ink-soft);transition:color .6s ease}
 .reveal-btn.charging .rb-zh{color:#f6efdc;transition:color .7s ease 1.05s}
 .reveal-btn.charging .rb-label{color:#f6efdc;transition:color .7s ease 1.45s}
+/* ---------- the water die (home "first verse") — a square vessel, two taps ---------- */
+.reveal-btn.dice{border-radius:27px 31px 24px 33px/31px 24px 33px 27px;transform:none}
+.reveal-btn.dice:hover{transform:translateY(-3px) scale(1.02)}
+.reveal-btn.dice.charging{transform:scale(.99)}
+.reveal-btn.dice .rb-inner{inset:0;transform:none;gap:14px}
+.reveal-btn.dice .rb-water{transition-duration:.9s}
+.reveal-btn.dice.charging .rb-water{transform:translateY(0);transition:transform 1.3s cubic-bezier(.32,.15,.22,1)}
+.dice-pips{position:relative;z-index:3;width:96px;height:96px;display:grid;
+  grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr)}
+.dice-pips i{width:15px;height:15px;border-radius:50%;background:var(--vermilion);
+  align-self:center;justify-self:center;transition:background .5s ease,box-shadow .5s ease}
+.dice-pips i:nth-child(1){grid-area:1/1}
+.dice-pips i:nth-child(2){grid-area:1/3}
+.dice-pips i:nth-child(3){grid-area:2/2}
+.dice-pips i:nth-child(4){grid-area:3/1}
+.dice-pips i:nth-child(5){grid-area:3/3}
+.reveal-btn.dice.charging .dice-pips i{background:#f6efdc;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--vermilion) 35%,transparent)}
+.reveal-btn.dice.full{animation:dieready .7s ease}
+@keyframes dieready{0%{transform:scale(.99)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
 .reveal-hint{font-size:.84rem;color:var(--ink-faint);font-style:italic;margin-top:48px}
 #divePost.shown{animation:fadeup .8s ease both}
 /* the dive flowing out and back in when a new verse is drawn */
@@ -699,15 +718,15 @@ footer .fnotes{font-size:.86rem;max-width:580px;margin:0 auto;line-height:1.75}
 <!-- 2. ONE VERSE, DEEPLY -->
 <section id="depths" class="reveal">
   <div class="reveal-stage" id="revealStage">
-    <button class="reveal-btn" id="revealBtn" aria-label="Reveal your verse">
+    <button class="reveal-btn dice" id="revealBtn" aria-label="Fill the water die, then reveal your verse">
       <span class="rb-ring" aria-hidden="true"></span>
       <span class="rb-inner">
         <span class="rb-water" aria-hidden="true"><i class="wv wv1"></i><i class="wv wv2"></i></span>
-        <span class="rb-zh brush-zh" aria-hidden="true">開</span>
-        <span class="rb-label">Reveal your verse</span>
+        <span class="dice-pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="rb-label">Tap to fill</span>
       </span>
     </button>
-    <p class="reveal-hint">A chapter is already steeping — press, and let it pour.</p>
+    <p class="reveal-hint">A water die. Tap once to fill it — tap again to reveal your verse.</p>
   </div>
   <div id="divePost" hidden>
     <div class="dive-bar">
@@ -1833,23 +1852,27 @@ function renderDive(){
     state.voice=+b.dataset.v; renderDive();
   }));
 }
-/* ---------- the reveal ritual: a committed, slow pour ---------- */
+/* ---------- the water die: tap once to fill, tap again to reveal ---------- */
 const rbtn=$("#revealBtn");
 const REDUCED=typeof matchMedia!=="undefined"&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-const FILL_MS=REDUCED?550:2550;
-let revealed=false, revealTimer=null, flowTimer=null;
-function beginReveal(e){
-  if(revealed||rbtn.classList.contains("charging"))return;
-  if(e&&e.pointerType==="mouse"&&e.button!==0)return;
-  rbtn.classList.add("charging");
-  rbtn.querySelector(".rb-label").textContent="steeping…";
-  revealTimer=setTimeout(finishReveal,FILL_MS);
-}
-function cancelReveal(){
-  if(revealed)return;
-  clearTimeout(revealTimer);
-  rbtn.classList.remove("charging");
-  rbtn.querySelector(".rb-label").textContent="Reveal your verse";
+let revealed=false, flowTimer=null;
+let dieState=0; /* 0 empty · 1 filling · 2 full(ready) */
+function tapDie(){
+  if(revealed) return;
+  if(dieState===0){
+    dieState=1;
+    rbtn.classList.add("charging");
+    rbtn.querySelector(".rb-label").textContent="filling…";
+    setTimeout(()=>{
+      if(revealed) return;
+      dieState=2;
+      rbtn.classList.add("full");
+      rbtn.querySelector(".rb-label").textContent="Tap to reveal";
+    }, REDUCED?420:1320);
+  } else if(dieState===2){
+    finishReveal();
+  }
+  /* dieState===1 (mid-fill): ignore taps until full */
 }
 function finishReveal(){
   if(revealed)return; revealed=true;
@@ -1862,10 +1885,7 @@ function finishReveal(){
   setTimeout(()=>{ stage.style.display="none";
     if(post.scrollIntoView) post.scrollIntoView({behavior:"smooth",block:"start"}); },560);
 }
-rbtn.addEventListener("pointerdown",beginReveal);
-rbtn.addEventListener("pointercancel",cancelReveal);
-rbtn.addEventListener("contextmenu",(e)=>{ if(rbtn.classList.contains("charging")) e.preventDefault(); });
-rbtn.addEventListener("click",beginReveal);
+rbtn.addEventListener("click",tapDie);
 
 /* ---------- reveal another verse: pill fills, verses flow out and back in ---------- */
 let swapping=false;
