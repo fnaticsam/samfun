@@ -692,6 +692,32 @@ footer .fnotes{font-size:.86rem;max-width:580px;margin:0 auto;line-height:1.75}
   .sec-head{gap:14px}
   .sec-zh{width:60px;height:60px;font-size:2.4rem}
   .sec-head h2{overflow-wrap:anywhere}
+  /* --- mobile audit fixes --- */
+  /* modal: was overflowing the viewport, clipping every line of prose */
+  .ic-modal{padding:14px}
+  .ic-modal-card{max-width:100%;padding:26px 22px}
+  .ic-modal-card .bagua{width:130px;height:130px}
+  /* reclaim reading width in the I Ching reading cards */
+  .cr-card{padding:22px 18px}
+  .cr-becomes{padding:18px 18px;gap:16px}
+  .cr-hexcard{gap:18px}
+  /* bigger, easier touch targets for the filter + submenu chips */
+  .chip{padding:10px 16px;font-size:.9rem}
+  .bsub{gap:10px}
+  .bsub-chip{min-height:42px;padding:9px 16px;font-size:.92rem}
+  /* stack the reader prev / read / next controls into full-width rows */
+  .reader-nav{flex-direction:column;align-items:stretch}
+  .reader-nav .navbtn,.reader-nav .readtoggle{width:100%;text-align:center}
+  .reader-nav .readtoggle{margin:0}
+  /* the Two Paths comparison table: stack into labelled blocks instead of a clipped 3-col table */
+  .compare,.compare thead,.compare tbody,.compare tr,.compare th,.compare td{display:block;width:auto}
+  .compare thead{display:none}
+  .compare tr{border-bottom:1px solid var(--card-border)}
+  .compare tr:last-child{border-bottom:none}
+  .compare td{border-bottom:none;padding:6px 16px}
+  .compare td:first-child{width:auto;padding-top:14px;text-transform:uppercase;letter-spacing:1.5px}
+  .compare td:nth-child(2)::before{content:"道家 Philosophical — ";color:var(--vermilion);font-weight:600}
+  .compare td:nth-child(3)::before{content:"道教 Religious — ";color:var(--vermilion);font-weight:600}
 }
 </style>
 </head>
