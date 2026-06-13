@@ -220,12 +220,26 @@ section{padding:72px 0 36px}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 /* ink-wash mountains: layers drifting softly out of phase, like mist */
-.hero .mtns .drift{animation:mdrift 26s ease-in-out infinite alternate}
-.hero .mtns .d2{animation-duration:40s;animation-direction:alternate-reverse}
-.hero .mtns .d3{animation-duration:54s;animation-delay:-18s}
+.drift{animation:mdrift 26s ease-in-out infinite alternate}
+.drift.d2{animation-duration:40s;animation-direction:alternate-reverse}
+.drift.d3{animation-duration:54s;animation-delay:-18s}
 @keyframes mdrift{from{transform:translateX(-28px)}to{transform:translateX(28px)}}
+.back-home{display:inline-flex;align-items:center;gap:8px;margin:30px 0 -26px;font-size:.95rem;
+  font-style:italic;color:var(--vermilion)}
+.back-home[hidden]{display:none}
+section.page{padding-top:56px}
+/* ---------- finale: the painted ending ---------- */
+.finale{position:relative;overflow:hidden;margin-top:22px;border:1px solid var(--card-border);
+  border-radius:16px;background:linear-gradient(180deg,var(--card),var(--paper-2));
+  padding:56px 26px 118px;text-align:center;
+  box-shadow:0 1px 2px var(--shadow),0 10px 28px -18px var(--shadow)}
+.f-mtns{position:absolute;left:0;right:0;bottom:0;width:100%;height:160px;color:var(--ink);pointer-events:none}
+.f-inner{position:relative;z-index:1}
+.f-enso{width:62px;height:62px;margin:0 auto 6px;display:block;color:var(--ink);opacity:.65}
+.f-line{font-style:italic;color:var(--ink-soft);margin-bottom:26px}
+.f-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 @media(prefers-reduced-motion:reduce){
-  .wv,.wv-p,.rb-ring,.rb-zh,.mtns .drift{animation:none!important}
+  .wv,.wv-p,.rb-ring,.rb-zh,.drift{animation:none!important}
   #diveBox.flow-out>article,#diveBox.flow-in>article,#divePost.shown{animation:none!important}
   .rb-water,.bw-liq{transition-duration:.4s!important}
 }
@@ -560,6 +574,8 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 
 <div class="col">
 
+<a class="back-home" id="backHome" href="#" hidden>← Back to the verse</a>
+
 <!-- 2. ONE VERSE, DEEPLY -->
 <section id="depths" class="reveal">
   <div class="reveal-stage" id="revealStage">
@@ -582,11 +598,29 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
       </button>
     </div>
     <div class="dive" id="diveBox"></div>
+    <div class="finale">
+      <svg class="f-mtns" viewBox="0 0 880 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <g class="drift d1"><path fill="currentColor" opacity=".06" d="M-60,142 C100,118 190,134 300,104 C400,78 480,122 590,104 C690,88 760,118 850,98 L940,88 940,200 -60,200 Z"/></g>
+        <g class="drift d2"><path fill="currentColor" opacity=".10" d="M-60,166 C80,148 180,158 290,134 C400,110 480,148 590,136 C700,124 770,150 850,134 L940,126 940,200 -60,200 Z"/></g>
+        <g class="drift d3"><path fill="currentColor" opacity=".15" d="M-60,190 C100,172 220,182 340,164 C460,146 560,178 670,168 L940,148 940,200 -60,200 Z"/></g>
+      </svg>
+      <div class="f-inner">
+        <span class="brush-zh" style="font-size:2rem;color:var(--vermilion);display:block;margin-bottom:6px" aria-hidden="true">流</span>
+        <p class="f-line">The river goes on.</p>
+        <div class="f-actions">
+          <button class="btn-water" id="finaleAnother">
+            <span class="bw-liq" aria-hidden="true"><i class="wv-p wp1"></i><i class="wv-p wp2"></i></span>
+            <span class="bw-label">☯ Reveal a new verse</span>
+          </button>
+          <button class="btn ghost" id="finaleMenu">☰ Open the side menu</button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- 3. CHAPTER EXPLORER -->
-<section id="chapters" class="reveal">
+<section id="chapters" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">经</span>
     <div><div class="sec-eyebrow">Study · The Text</div><h2>The 81 Chapters</h2>
@@ -611,7 +645,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 4. CORE CONCEPTS -->
-<section id="concepts" class="reveal">
+<section id="concepts" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">德</span>
     <div><div class="sec-eyebrow">Study · The Ideas</div><h2>Core Concepts</h2>
@@ -627,7 +661,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 5. BRIDGES -->
-<section id="bridges" class="reveal">
+<section id="bridges" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">桥</span>
     <div><div class="sec-eyebrow">Connect · Other Shores</div><h2>Bridges: The Perennial Conversation</h2>
@@ -639,7 +673,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 6. TIMELINE -->
-<section id="timeline" class="reveal">
+<section id="timeline" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">史</span>
     <div><div class="sec-eyebrow">Connect · The Long River</div><h2>Timeline</h2>
@@ -650,7 +684,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 7. ZHUANGZI -->
-<section id="zhuangzi" class="reveal">
+<section id="zhuangzi" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">庄</span>
     <div><div class="sec-eyebrow">Connect · The Other Pillar</div><h2>Zhuangzi</h2>
@@ -661,7 +695,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 8. PHILOSOPHY VS RELIGION -->
-<section id="paths" class="reveal">
+<section id="paths" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">教</span>
     <div><div class="sec-eyebrow">Connect · The Fork</div><h2>Two Paths: Daojia and Daojiao</h2>
@@ -681,7 +715,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 9. PRACTICE -->
-<section id="practice" class="reveal">
+<section id="practice" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">行</span>
     <div><div class="sec-eyebrow">Live · The Manual</div><h2>Practice: Wu Wei in the World</h2>
@@ -704,7 +738,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 10. GLOSSARY -->
-<section id="glossary" class="reveal">
+<section id="glossary" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">字</span>
     <div><div class="sec-eyebrow">Study · The Words</div><h2>Glossary</h2>
@@ -715,7 +749,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 11. QUIZ -->
-<section id="quiz" class="reveal">
+<section id="quiz" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">试</span>
     <div><div class="sec-eyebrow">Live · The Test</div><h2>Quiz Mode</h2>
@@ -745,7 +779,7 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 </section>
 
 <!-- 1. ORIENTATION -->
-<section id="orientation" class="reveal">
+<section id="orientation" class="reveal page" hidden>
   <div class="sec-head">
     <span class="sec-zh">源</span>
     <div><div class="sec-eyebrow">About · The Door</div><h2>About: The Old Master and the Way</h2>
@@ -1625,12 +1659,13 @@ rbtn.addEventListener("click",beginReveal);
 
 /* ---------- reveal another verse: pill fills, verses flow out and back in ---------- */
 let swapping=false;
-$("#anotherBtn").addEventListener("click",()=>{
+function swapVerse(btn,scrollUp){
   if(swapping)return; swapping=true;
-  const btn=$("#anotherBtn"), box=$("#diveBox");
+  const box=$("#diveBox");
   btn.classList.add("filling");
   box.classList.remove("flow-in");
   box.classList.add("flow-out");
+  if(scrollUp) setTimeout(()=>$("#divePost").scrollIntoView({behavior:"smooth",block:"start"}),250);
   setTimeout(()=>{
     const others=DIVE_ORDER.filter(n=>n!==state.dive);
     state.dive=others[Math.floor(Math.random()*others.length)];
@@ -1641,7 +1676,31 @@ $("#anotherBtn").addEventListener("click",()=>{
     btn.classList.remove("filling"); btn.classList.add("draining");
     setTimeout(()=>{btn.classList.remove("draining"); swapping=false;},1100);
   },REDUCED?420:1080);
-});
+}
+$("#anotherBtn").addEventListener("click",()=>swapVerse($("#anotherBtn"),false));
+$("#finaleAnother").addEventListener("click",()=>swapVerse($("#finaleAnother"),true));
+$("#finaleMenu").addEventListener("click",()=>document.body.classList.add("nav-open"));
+
+/* ---------- pages: each study section is its own page; home is the verse ---------- */
+const PAGES=["chapters","concepts","bridges","timeline","zhuangzi","paths","practice","glossary","quiz","orientation"];
+function route(){
+  const h=(location.hash||"").replace("#","");
+  const page=PAGES.includes(h)?h:"home";
+  document.querySelector(".hero").hidden = page!=="home";
+  $("#depths").hidden = page!=="home";
+  $("#backHome").hidden = page==="home";
+  PAGES.forEach(id=>{ document.getElementById(id).hidden = (id!==page); });
+  if(page!=="home"){ document.getElementById(page).classList.add("in"); }
+  if(page==="chapters") expandChapters();
+  document.querySelectorAll("#sideNav a").forEach(a=>{
+    const href=(a.getAttribute("href")||"").slice(1);
+    a.classList.toggle("on", href===page || (page==="home"&&href==="depths"));
+  });
+  document.body.classList.remove("nav-open");
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+route();
 
 /* =====================================================================
    BRIDGES
