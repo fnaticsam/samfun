@@ -140,7 +140,7 @@ section{padding:72px 0 36px}
 .hero .pinyin{letter-spacing:7px;font-size:.85rem;text-transform:uppercase;color:var(--ink-soft);
   margin-top:10px;animation:fadeup 1s .15s ease both}
 .hero h1{font-size:clamp(1.9rem,4vw,2.6rem);margin:10px 0 10px;animation:fadeup 1s .25s ease both}
-.hero p.sub{color:var(--ink-soft);font-style:italic;font-size:1.08rem;max-width:540px;margin:0 auto;
+.hero p.sub{color:var(--ink-soft);font-style:italic;font-size:1.06rem;max-width:620px;margin:0 auto;
   animation:fadeup 1s .35s ease both}
 .seal-stamp{
   display:inline-grid;grid-template-rows:repeat(2,1fr);grid-auto-flow:column;direction:rtl;
@@ -149,33 +149,86 @@ section{padding:72px 0 36px}
   transform:rotate(-3deg);box-shadow:2px 3px 0 rgba(74,58,30,.18);
   animation:fadeup 1s .5s ease both}
 /* ---------- the reveal ritual ---------- */
-.reveal-stage{display:flex;flex-direction:column;align-items:center;gap:16px;padding:30px 0 22px;
-  transition:opacity .45s ease,transform .45s ease}
-.reveal-stage.gone{opacity:0;transform:scale(.96);pointer-events:none}
-.reveal-btn{position:relative;width:208px;height:208px;border-radius:50%;border:1.5px solid var(--vermilion);
-  background:var(--card);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;box-shadow:0 6px 26px -10px var(--shadow);transition:transform .25s ease,box-shadow .25s ease;
-  -webkit-user-select:none;user-select:none;touch-action:none}
-.reveal-btn:hover{transform:translateY(-3px) scale(1.02);
-  box-shadow:0 16px 40px -14px color-mix(in srgb,var(--vermilion) 45%,transparent)}
-.rb-ring{position:absolute;inset:8px;border:1.5px dashed color-mix(in srgb,var(--vermilion) 50%,transparent);
-  border-radius:50%;animation:spin 30s linear infinite}
-.reveal-btn:hover .rb-ring{animation-duration:6s}
-.rb-ink{position:absolute;left:0;right:0;bottom:0;height:0;z-index:0;
-  background:linear-gradient(180deg,var(--vermilion-soft),var(--vermilion));
-  border-radius:40% 40% 0 0/14px 14px 0 0;transition:height .35s ease}
-.reveal-btn:hover .rb-ink{height:12%}
-.reveal-btn.charging .rb-ink{height:104%;transition:height .8s cubic-bezier(.35,.1,.35,1)}
-.rb-zh{font-size:3.6rem;color:var(--vermilion);line-height:1;z-index:1;transition:color .35s;
-  animation:breathe 4.5s ease-in-out infinite}
-.rb-label{z-index:1;font-size:.95rem;font-style:italic;color:var(--ink-soft);transition:color .35s}
-.reveal-btn.charging .rb-zh,.reveal-btn.charging .rb-label{color:#f4edda}
-.reveal-hint{font-size:.84rem;color:var(--ink-faint);font-style:italic}
-#divePost.shown{animation:fadeup .7s ease both}
+#depths{padding:26px 0 36px}
+.reveal-stage{display:flex;flex-direction:column;align-items:center;padding:44px 0 26px;
+  transition:opacity .6s ease,transform .6s ease}
+.reveal-stage.gone{opacity:0;transform:scale(.97);pointer-events:none}
+/* a water-drop vessel: rotated square with three rounded corners; the inside
+   is counter-rotated so the water rises level while the drop stays a drop */
+.reveal-btn{position:relative;width:176px;height:176px;border:1.5px solid var(--vermilion);
+  background:var(--card);overflow:hidden;cursor:pointer;padding:0;
+  border-radius:54% 0 54% 54%;transform:rotate(-45deg);
+  box-shadow:6px 10px 30px -14px var(--shadow);
+  transition:transform .35s ease,box-shadow .35s ease;
+  -webkit-user-select:none;user-select:none;touch-action:manipulation}
+.reveal-btn:hover{transform:rotate(-45deg) scale(1.035);
+  box-shadow:8px 14px 42px -16px color-mix(in srgb,var(--vermilion) 45%,transparent)}
+.reveal-btn.charging{transform:rotate(-45deg) scale(.99)}
+.rb-ring{position:absolute;inset:9px;border:1.5px dashed color-mix(in srgb,var(--vermilion) 45%,transparent);
+  border-radius:inherit;z-index:2;animation:ringpulse 4.5s ease-in-out infinite}
+.rb-inner{position:absolute;inset:-32%;transform:rotate(45deg);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px}
+/* the water: a rising vermilion body whose surface is carved by two
+   slowly counter-rotating card-coloured occluders — a live, bobbing waterline */
+.rb-water{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,var(--vermilion-soft),var(--vermilion) 62%);
+  transform:translateY(102%);transition:transform .9s ease}
+.reveal-btn:hover .rb-water{transform:translateY(86%)}
+.reveal-btn.charging .rb-water{transform:translateY(0);transition:transform 2.4s cubic-bezier(.32,.15,.22,1)}
+.wv{position:absolute;left:50%;top:0;width:520px;height:520px;background:var(--card);
+  transform:translate(-50%,-100%);border-radius:43% 47% 44% 46%}
+.wv1{animation:wrot 7s linear infinite}
+.wv2{border-radius:46% 43% 47% 44%;opacity:.62;margin-top:-7px;animation:wrot 11s linear infinite reverse}
+@keyframes wrot{from{transform:translate(-50%,-100%) rotate(0deg)}to{transform:translate(-50%,-100%) rotate(360deg)}}
+@keyframes ringpulse{0%,100%{opacity:.45}50%{opacity:1}}
+.rb-zh{font-size:3.1rem;color:var(--vermilion);line-height:1;z-index:3;
+  transition:color .6s ease;animation:breathe 4.5s ease-in-out infinite}
+.rb-label{z-index:3;font-size:.9rem;font-style:italic;color:var(--ink-soft);transition:color .6s ease}
+.reveal-btn.charging .rb-zh{color:#f6efdc;transition:color .7s ease 1.05s}
+.reveal-btn.charging .rb-label{color:#f6efdc;transition:color .7s ease 1.45s}
+.reveal-hint{font-size:.84rem;color:var(--ink-faint);font-style:italic;margin-top:48px}
+#divePost.shown{animation:fadeup .8s ease both}
+/* the dive flowing out and back in when a new verse is drawn */
+#diveBox.flow-out>article{animation:sink .5s ease both}
+#diveBox.flow-out>article:nth-child(2){animation-delay:.07s}
+#diveBox.flow-out>article:nth-child(3){animation-delay:.14s}
+#diveBox.flow-out>article:nth-child(4){animation-delay:.21s}
+#diveBox.flow-in>article{animation:rise .85s cubic-bezier(.22,.61,.36,1) both}
+#diveBox.flow-in>article:nth-child(2){animation-delay:.14s}
+#diveBox.flow-in>article:nth-child(3){animation-delay:.28s}
+#diveBox.flow-in>article:nth-child(4){animation-delay:.42s}
+@keyframes sink{to{opacity:0;transform:translateY(22px)}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+/* water-fill pill button (reveal another verse) */
+.btn-water{position:relative;overflow:hidden;border:1.5px solid var(--vermilion);background:transparent;
+  color:var(--vermilion);border-radius:999px;padding:11px 22px;font-size:.95rem;font-family:inherit;
+  transition:transform .25s ease,box-shadow .25s ease;-webkit-user-select:none;user-select:none}
+.btn-water:hover{transform:translateY(-1px);box-shadow:0 8px 20px -10px color-mix(in srgb,var(--vermilion) 55%,transparent)}
+.bw-liq{position:absolute;inset:-2px;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,var(--vermilion-soft),var(--vermilion) 70%);
+  transform:translateY(103%);transition:transform .8s ease}
+.btn-water:hover .bw-liq{transform:translateY(86%)}
+.btn-water.filling .bw-liq{transform:translateY(0);transition:transform 1.1s cubic-bezier(.32,.15,.22,1)}
+.btn-water.draining .bw-liq{transform:translateY(103%);transition:transform .9s ease-in .15s}
+.wv-p{position:absolute;left:50%;top:0;width:340px;height:340px;background:var(--paper);transform:translate(-50%,-100%);border-radius:46% 47.5% 46.5% 47%}
+.wp1{animation:wrot 6s linear infinite}
+.wp2{border-radius:47% 46% 47.5% 46.5%;opacity:.6;margin-top:-4px;animation:wrot 9s linear infinite reverse}
+.bw-label{position:relative;z-index:1;transition:color .5s ease}
+.btn-water.filling .bw-label{color:#f6efdc;transition-delay:.4s}
 .chapters-gate{padding:4px 0 10px}
 #chWrap.shown{animation:fadeup .6s ease both}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+/* ink-wash mountains: layers drifting softly out of phase, like mist */
+.hero .mtns .drift{animation:mdrift 26s ease-in-out infinite alternate}
+.hero .mtns .d2{animation-duration:40s;animation-direction:alternate-reverse}
+.hero .mtns .d3{animation-duration:54s;animation-delay:-18s}
+@keyframes mdrift{from{transform:translateX(-28px)}to{transform:translateX(28px)}}
+@media(prefers-reduced-motion:reduce){
+  .wv,.wv-p,.rb-ring,.rb-zh,.mtns .drift{animation:none!important}
+  #diveBox.flow-out>article,#diveBox.flow-in>article,#divePost.shown{animation:none!important}
+  .rb-water,.bw-liq{transition-duration:.4s!important}
+}
 .bridge-glyph.zh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-weight:400}
 @keyframes fadeup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
@@ -220,7 +273,7 @@ html[data-theme="dark"] .brushline{background-image:url("data:image/svg+xml,%3Cs
   border-radius:999px;padding:3px 10px;letter-spacing:.5px}
 
 /* =================== DEEP DIVE (One Verse, Deeply) =================== */
-.dive-bar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:22px}
+.dive-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}
 #diveWhich{font-style:italic;color:var(--ink-soft);font-size:.95rem}
 .dive{display:grid;gap:18px}
 .dive-verse{padding:34px 38px;position:relative;overflow:hidden}
@@ -488,19 +541,19 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 
 <header class="hero" id="top">
   <svg class="mtns" viewBox="0 0 1440 340" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-    <path fill="currentColor" opacity=".06" d="M0,250 C160,210 260,235 420,185 C560,142 660,210 820,180 C980,152 1080,205 1240,170 C1330,151 1390,175 1440,160 L1440,340 0,340 Z"/>
-    <path fill="currentColor" opacity=".10" d="M0,290 C120,260 240,275 380,235 C540,190 640,255 800,235 C960,215 1060,260 1200,230 C1320,205 1390,235 1440,225 L1440,340 0,340 Z"/>
-    <path fill="currentColor" opacity=".15" d="M0,330 C140,300 300,318 460,285 C620,252 760,305 920,288 C1080,271 1200,310 1340,290 L1440,278 1440,340 0,340 Z"/>
+    <g class="drift d1"><path fill="currentColor" opacity=".06" d="M-90,253 C160,210 260,235 420,185 C560,142 660,210 820,180 C980,152 1080,205 1240,170 C1330,151 1390,175 1530,158 L1530,340 -90,340 Z"/></g>
+    <g class="drift d2"><path fill="currentColor" opacity=".10" d="M-90,292 C120,260 240,275 380,235 C540,190 640,255 800,235 C960,215 1060,260 1200,230 C1320,205 1390,235 1530,223 L1530,340 -90,340 Z"/></g>
+    <g class="drift d3"><path fill="currentColor" opacity=".15" d="M-90,331 C140,300 300,318 460,285 C620,252 760,305 920,288 C1080,271 1200,310 1340,290 L1530,276 1530,340 -90,340 Z"/>
     <g stroke="currentColor" opacity=".25" stroke-width="1.4" stroke-linecap="round" fill="none">
       <path d="M120,322 q60,-6 130,0"/><path d="M340,330 q80,-7 170,0"/>
       <path d="M700,324 q70,-6 150,0"/><path d="M1050,331 q80,-7 160,0"/>
-    </g>
+    </g></g>
   </svg>
   <div class="hero-inner">
     <div class="bigzh brush-zh">道</div>
     <div class="pinyin">dào — the way</div>
     <h1>The Watercourse Way</h1>
-    <p class="sub">A slow companion to the Tao Te Ching — one verse at a time.</p>
+    <p class="sub">The Tao Te Ching is not meant to be read; it is meant to be steeped, like leaves. Take a single chapter and turn it in the light: hear it in different voices, line by line, and notice how the meaning shifts.</p>
     <div><span class="seal-stamp" aria-label="The highest good is like water"><span>上</span><span>善</span><span>若</span><span>水</span></span></div>
   </div>
 </header>
@@ -509,24 +562,24 @@ footer .fzh{font-family:"Ma Shan Zheng","Noto Serif TC",serif;color:var(--vermil
 
 <!-- 2. ONE VERSE, DEEPLY -->
 <section id="depths" class="reveal">
-  <div class="sec-head">
-    <span class="sec-zh">味</span>
-    <div><div class="sec-eyebrow">Start Here · Taste, Don't Gulp</div><h2>One Verse, Deeply</h2></div>
-  </div>
-  <div class="brushline"></div>
   <div class="reveal-stage" id="revealStage">
-    <button class="reveal-btn" id="revealBtn">
+    <button class="reveal-btn" id="revealBtn" aria-label="Reveal your verse">
       <span class="rb-ring" aria-hidden="true"></span>
-      <span class="rb-ink" aria-hidden="true"></span>
-      <span class="rb-zh brush-zh" aria-hidden="true">開</span>
-      <span class="rb-label">Reveal your verse</span>
+      <span class="rb-inner">
+        <span class="rb-water" aria-hidden="true"><i class="wv wv1"></i><i class="wv wv2"></i></span>
+        <span class="rb-zh brush-zh" aria-hidden="true">開</span>
+        <span class="rb-label">Reveal your verse</span>
+      </span>
     </button>
-    <p class="reveal-hint">A chapter is already steeping for you — press and hold.</p>
+    <p class="reveal-hint">A chapter is already steeping — press, and let it pour.</p>
   </div>
   <div id="divePost" hidden>
     <div class="dive-bar">
-      <button class="btn" id="luckyBtn">☯ I'm feeling lucky</button>
       <span id="diveWhich"></span>
+      <button class="btn-water" id="anotherBtn">
+        <span class="bw-liq" aria-hidden="true"><i class="wv-p wp1"></i><i class="wv-p wp2"></i></span>
+        <span class="bw-label">☯ Reveal another verse</span>
+      </button>
     </div>
     <div class="dive" id="diveBox"></div>
   </div>
@@ -1536,28 +1589,58 @@ function renderDive(){
     state.voice=+b.dataset.v; renderDive();
   }));
 }
-/* ---------- the reveal ritual ---------- */
-let revealed=false, revealTimer=null;
-function revealVerse(){
-  if(revealed) return; revealed=true;
+/* ---------- the reveal ritual: a committed, slow pour ---------- */
+const rbtn=$("#revealBtn");
+const REDUCED=typeof matchMedia!=="undefined"&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+const FILL_MS=REDUCED?550:2550;
+let revealed=false, revealTimer=null, flowTimer=null;
+function beginReveal(e){
+  if(revealed||rbtn.classList.contains("charging"))return;
+  if(e&&e.pointerType==="mouse"&&e.button!==0)return;
+  rbtn.classList.add("charging");
+  rbtn.querySelector(".rb-label").textContent="steeping…";
+  revealTimer=setTimeout(finishReveal,FILL_MS);
+}
+function cancelReveal(){
+  if(revealed)return;
   clearTimeout(revealTimer);
-  const stage=$("#revealStage"), post=$("#divePost");
+  rbtn.classList.remove("charging");
+  rbtn.querySelector(".rb-label").textContent="Reveal your verse";
+}
+function finishReveal(){
+  if(revealed)return; revealed=true;
+  const stage=$("#revealStage"), post=$("#divePost"), box=$("#diveBox");
   stage.classList.add("gone");
   post.hidden=false; post.classList.add("shown");
+  box.classList.add("flow-in");
+  clearTimeout(flowTimer);
+  flowTimer=setTimeout(()=>box.classList.remove("flow-in"),1700);
   setTimeout(()=>{ stage.style.display="none";
-    if(post.scrollIntoView) post.scrollIntoView({behavior:"smooth",block:"start"}); },420);
+    if(post.scrollIntoView) post.scrollIntoView({behavior:"smooth",block:"start"}); },560);
 }
-const rbtn=$("#revealBtn");
-rbtn.addEventListener("pointerdown",()=>{ rbtn.classList.add("charging"); revealTimer=setTimeout(revealVerse,800); });
-["pointerup","pointerleave","pointercancel"].forEach(ev=>rbtn.addEventListener(ev,()=>{
-  if(!revealed){ rbtn.classList.remove("charging"); clearTimeout(revealTimer); }
-}));
-rbtn.addEventListener("click",revealVerse);
+rbtn.addEventListener("pointerdown",beginReveal);
+rbtn.addEventListener("pointercancel",cancelReveal);
+rbtn.addEventListener("contextmenu",(e)=>{ if(rbtn.classList.contains("charging")) e.preventDefault(); });
+rbtn.addEventListener("click",beginReveal);
 
-$("#luckyBtn").addEventListener("click",()=>{
-  const others=DIVE_ORDER.filter(n=>n!==state.dive);
-  state.dive=others[Math.floor(Math.random()*others.length)];
-  state.voice=0; renderDive();
+/* ---------- reveal another verse: pill fills, verses flow out and back in ---------- */
+let swapping=false;
+$("#anotherBtn").addEventListener("click",()=>{
+  if(swapping)return; swapping=true;
+  const btn=$("#anotherBtn"), box=$("#diveBox");
+  btn.classList.add("filling");
+  box.classList.remove("flow-in");
+  box.classList.add("flow-out");
+  setTimeout(()=>{
+    const others=DIVE_ORDER.filter(n=>n!==state.dive);
+    state.dive=others[Math.floor(Math.random()*others.length)];
+    state.voice=0; renderDive();
+    box.classList.remove("flow-out"); box.classList.add("flow-in");
+    clearTimeout(flowTimer);
+    flowTimer=setTimeout(()=>box.classList.remove("flow-in"),1700);
+    btn.classList.remove("filling"); btn.classList.add("draining");
+    setTimeout(()=>{btn.classList.remove("draining"); swapping=false;},1100);
+  },REDUCED?420:1080);
 });
 
 /* =====================================================================
