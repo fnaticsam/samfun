@@ -92,16 +92,41 @@ h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-
 #themeToggle:hover{border-color:var(--vermilion)}
 
 /* ---------- edge hint (desktop) ---------- */
-.edge-hint{display:none;position:fixed;left:0;top:0;bottom:0;width:26px;z-index:92;align-items:center;cursor:pointer;background:transparent;border:none;padding:0}
-.edge-hint .ea{display:flex;align-items:center;justify-content:center;width:25px;height:64px;
-  background:var(--card);border:1px solid var(--card-border);border-left:none;border-radius:0 12px 12px 0;
-  color:var(--vermilion);font-size:.95rem;box-shadow:2px 2px 10px var(--shadow);
-  animation:nudge 2.4s ease-in-out infinite}
-@keyframes nudge{0%,100%{transform:translateX(0);opacity:.7}50%{transform:translateX(5px);opacity:1}}
-@media(min-width:961px){
-  .edge-hint{display:flex}
-  .edge-hint:hover ~ .sidebar,.sidebar:hover{transform:none;box-shadow:10px 0 36px rgba(20,15,8,.16)}
+/* hand-drawn pencil arrow inviting you to open the menu */
+.edge-hint{display:none;position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:92;
+  flex-direction:column;align-items:center;gap:3px;cursor:pointer;background:transparent;border:none;
+  padding:16px 8px 16px 4px;transition:opacity .35s ease}
+.ea-arrow{width:44px;height:33px;overflow:visible}
+.ea-arrow path{fill:none;stroke:var(--vermilion);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+/* the draw-on loop only on the edge hint (the pencil sketching the arrow) */
+.edge-hint .ea-arrow{animation:eanudge 4.6s ease-in-out infinite}
+.edge-hint .ea-shaft{--len:46;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:eadraw 4.6s ease-in-out infinite}
+.edge-hint .ea-head{--len:34;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:eadraw 4.6s ease-in-out .45s infinite}
+.edge-hint .ea-label{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:.72rem;letter-spacing:1px;
+  color:var(--vermilion);opacity:.5;transition:opacity .3s ease}
+.edge-hint:hover .ea-label{opacity:1}
+.edge-hint:hover .ea-arrow path{animation:none;stroke-dashoffset:0;opacity:1}
+.edge-hint:hover{transform:translateY(-50%) translateX(2px)}
+@keyframes eadraw{
+  0%{stroke-dashoffset:var(--len);opacity:0}
+  12%{opacity:1}
+  40%{stroke-dashoffset:0;opacity:1}
+  80%{stroke-dashoffset:0;opacity:1}
+  92%{stroke-dashoffset:0;opacity:0}
+  100%{stroke-dashoffset:var(--len);opacity:0}
 }
+@keyframes eanudge{0%,100%{transform:translateX(0)}44%{transform:translateX(5px)}}
+body.nav-open .edge-hint{opacity:0;pointer-events:none}
+/* the collapse arrow at the top of the open menu */
+.nav-collapse{display:flex;align-items:center;gap:9px;align-self:flex-start;margin:-6px 0 16px;
+  background:transparent;border:none;cursor:pointer;padding:6px 4px;
+  font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:.82rem;letter-spacing:1px;color:var(--ink-soft);
+  transition:color .2s ease}
+.nav-collapse .ea-arrow{width:36px;height:26px}
+.nav-collapse:hover{color:var(--vermilion)}
+.nav-collapse .ea-arrow path{stroke:var(--ink-soft);transition:stroke .2s ease}
+.nav-collapse:hover .ea-arrow path{stroke:var(--vermilion)}
+@media(min-width:961px){ .edge-hint{display:flex} }
 body.nav-open .sidebar{transform:none}
 
 /* =================== MOBILE TOP BAR =================== */
@@ -151,6 +176,35 @@ section{padding:72px 0 36px}
   animation:fadeup 1s .5s ease both}
 /* ---------- the reveal ritual ---------- */
 #depths{padding:26px 0 36px}
+/* the landing fork: choose the Tao Te Ching (teapot) or the I Ching (hexagram) */
+.fork-lead{text-align:center;color:var(--ink-soft);font-style:italic;font-size:1.02rem;margin:14px 0 6px;
+  transition:opacity .4s ease}
+.fork{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:18px 0 30px;
+  transition:opacity .6s ease,transform .6s ease}
+.fork.gone{opacity:0;transform:scale(.97);pointer-events:none}
+.fork-card{position:relative;overflow:hidden;flex:0 1 286px;min-width:240px;
+  display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;color:var(--ink);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,#fff0),var(--card));
+  border:1px solid var(--card-border);border-radius:30px 18px 32px 20px/18px 32px 20px 30px;
+  padding:40px 26px;text-decoration:none;
+  box-shadow:0 1px 2px var(--shadow),0 16px 34px -24px var(--shadow);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.fork-card:hover{transform:translateY(-4px);border-color:var(--vermilion-soft);text-decoration:none;
+  box-shadow:0 1px 2px var(--shadow),0 26px 50px -26px var(--shadow)}
+.fork-body{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:14px}
+.fork-ill{width:88px;height:68px;color:var(--vermilion);transition:color .5s ease}
+.fork-name{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-weight:600;color:var(--ink);transition:color .5s ease}
+.fork-desc{font-size:.86rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);transition:color .5s ease}
+.fork-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:1.2rem;line-height:1.15;color:var(--ink-faint)}
+/* the teapot card steeps with water on tap */
+.fork-water{position:absolute;inset:-2px;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,var(--vermilion-soft),var(--vermilion) 70%);
+  transform:translateY(103%);transition:transform .8s ease}
+.fork-card.tea:hover .fork-water{transform:translateY(90%)}
+.fork-card.tea.steeping .fork-water{transform:translateY(0);transition:transform 1.45s cubic-bezier(.32,.15,.22,1)}
+.fork-card.tea.steeping .fork-ill,.fork-card.tea.steeping .fork-name{color:#f6efdc;transition:color .6s ease .55s}
+.fork-card.tea.steeping .fork-desc{color:color-mix(in srgb,#f6efdc 80%,transparent);transition:color .6s ease .7s}
 .reveal-stage{display:flex;flex-direction:column;align-items:center;padding:44px 0 26px;
   transition:opacity .6s ease,transform .6s ease}
 .reveal-stage.gone{opacity:0;transform:scale(.97);pointer-events:none}
@@ -468,14 +522,33 @@ kbd{border:1px solid var(--card-border);border-bottom-width:2px;border-radius:5p
 .hex .ln.settle{animation:lnsettle .55s cubic-bezier(.22,.61,.36,1) both}
 @keyframes lnsettle{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 /* the cast stage */
-.cast-stage{display:flex;flex-direction:column;align-items:center;padding:18px 0 26px;
+.cast-stage{display:flex;flex-direction:column;align-items:center;padding:6px 0 22px;
   transition:opacity .6s ease,transform .6s ease}
 .cast-stage.gone{opacity:0;transform:scale(.97);pointer-events:none}
-.cast-btn .rb-zh{font-size:2.9rem}
-.cast-btn.charging .rb-water{transition-duration:3.9s}
-.cast-build{min-height:138px;display:flex;align-items:center;justify-content:center;margin-top:30px}
-.cast-build:empty{min-height:0;margin-top:0}
-.cast-build .hex{--hexw:150px;--hexh:14px}
+/* three coins — the three-coin casting method, tossed six times */
+.coin-cast{background:transparent;border:none;cursor:pointer;padding:16px 12px;display:inline-flex;
+  -webkit-user-select:none;user-select:none;touch-action:manipulation;transition:transform .2s ease}
+.coin-cast:hover:not(:disabled){transform:translateY(-2px)}
+.coin-cast:disabled{cursor:default}
+.coins{display:inline-flex;perspective:340px}
+.coin{width:54px;height:54px;border-radius:50%;border:2.5px solid var(--vermilion);background:var(--card);
+  position:relative;margin-left:-12px;box-shadow:2px 3px 9px -3px var(--shadow)}
+.coin:first-child{margin-left:0}
+.coin::after{content:"";position:absolute;left:50%;top:50%;width:18px;height:18px;transform:translate(-50%,-50%);
+  background:var(--paper);border:1.5px solid var(--vermilion);border-radius:3px}
+.coin-cast.tossing .coin{animation:cointoss .55s ease}
+.coin-cast.tossing .coin:nth-child(2){animation-delay:.07s}
+.coin-cast.tossing .coin:nth-child(3){animation-delay:.14s}
+@keyframes cointoss{0%{transform:rotateY(0) translateY(0)}35%{transform:rotateY(180deg) translateY(-16px)}70%{transform:rotateY(360deg) translateY(0)}100%{transform:rotateY(360deg)}}
+.cast-progress{display:flex;gap:9px;margin-top:18px}
+.cast-progress i{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--card-border);transition:all .3s ease}
+.cast-progress i.done{background:var(--vermilion);border-color:var(--vermilion)}
+.cast-instruct{font-size:.95rem;color:var(--ink-soft);font-style:italic;margin-top:13px;text-align:center;max-width:42ch}
+.cast-instruct b{color:var(--vermilion);font-style:normal}
+.cast-build{margin-bottom:26px;min-height:128px;display:flex;align-items:center;justify-content:center}
+.cast-build .hex{--hexw:150px;--hexh:14px;gap:9px}
+.hex .ln.empty{justify-content:center}
+.hex .ln.empty .bar{width:100%;background:var(--card-border);opacity:.4}
 /* the reading */
 #castReading.shown{animation:fadeup .8s ease both}
 .cr-card{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,#fff0),var(--card));
@@ -509,13 +582,16 @@ kbd{border:1px solid var(--card-border);border-bottom-width:2px;border-radius:5p
 .cr-echo .why{font-size:.9rem;color:var(--ink-soft);font-style:italic;flex:1;min-width:200px}
 .cast-actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
 /* the pre-cast consulting guide */
-.cast-guide{max-width:64ch;margin-bottom:10px}
-.cg-lead{font-size:1.08rem;color:var(--ink);margin-bottom:24px}
-.cg-steps{list-style:none;display:grid;gap:18px;margin:0 0 26px;padding:0}
-.cg-steps li{display:flex;gap:16px;align-items:flex-start}
-.cg-steps .cg-zh{font-size:1.9rem;color:var(--vermilion);line-height:1;flex:0 0 auto;width:40px;text-align:center;margin-top:2px}
+.cast-guide{max-width:64ch;margin-bottom:8px}
+.cg-lead{font-size:1.04rem;color:var(--ink);margin-bottom:18px;max-width:60ch}
+.cg-steps{list-style:none;display:grid;gap:13px;margin:0 0 20px;padding:0}
+.cg-steps li{display:flex;gap:15px;align-items:flex-start}
+.cg-mark{position:relative;flex:0 0 auto;width:44px;height:40px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.cg-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:"Cormorant Garamond",serif;font-size:2.5rem;font-weight:600;color:var(--ink);opacity:.08}
+.cg-zh{position:relative;font-size:1.7rem;color:var(--vermilion);line-height:1}
 .cg-steps b{color:var(--ink)}
-.cg-steps li>div{font-size:1.01rem;color:var(--ink-soft);line-height:1.7}
+.cg-steps li>div{font-size:.99rem;color:var(--ink-soft);line-height:1.65}
 .cg-steps em{color:var(--vermilion);font-style:italic}
 .cg-ask{margin-bottom:20px;max-width:580px}
 .cg-ask label{display:block;font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
@@ -730,9 +806,22 @@ footer .fnotes{font-size:.86rem;max-width:580px;margin:0 auto;line-height:1.75}
   <button id="menuBtn">☰ Contents</button>
 </header>
 
-<button class="edge-hint" id="edgeHint" aria-label="Open contents menu"><span class="ea">❯</span></button>
+<button class="edge-hint" id="edgeHint" aria-label="Open the menu">
+  <svg class="ea-arrow" viewBox="0 0 54 40" aria-hidden="true">
+    <path class="ea-shaft" d="M6 20 C 16 16.5, 28 22.5, 40 19.5"/>
+    <path class="ea-head" d="M30 10 C 35.5 13.5, 39.5 17, 42 20 C 39.5 23, 35.5 26.5, 30 30"/>
+  </svg>
+  <span class="ea-label">menu</span>
+</button>
 
 <aside class="sidebar">
+  <button class="nav-collapse" id="navCollapse" aria-label="Collapse the menu">
+    <svg class="ea-arrow" viewBox="0 0 54 40" aria-hidden="true">
+      <path d="M48 20 C 38 16.5, 26 22.5, 14 19.5"/>
+      <path d="M24 10 C 18.5 13.5, 14.5 17, 12 20 C 14.5 23, 18.5 26.5, 24 30"/>
+    </svg>
+    <span>collapse</span>
+  </button>
   <div class="brand">
     <span class="seal brush-zh">道</span>
     <span><b>Taotime</b><i>the way of water</i></span>
@@ -791,16 +880,44 @@ footer .fnotes{font-size:.86rem;max-width:580px;margin:0 auto;line-height:1.75}
 
 <!-- 2. ONE VERSE, DEEPLY -->
 <section id="depths" class="reveal">
-  <div class="reveal-stage" id="revealStage">
-    <button class="reveal-btn dice" id="revealBtn" aria-label="Fill the water die, then reveal your verse">
-      <span class="rb-ring" aria-hidden="true"></span>
-      <span class="rb-inner">
-        <span class="rb-water" aria-hidden="true"><i class="wv wv1"></i><i class="wv wv2"></i></span>
-        <span class="dice-pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-        <span class="rb-label">Tap to fill</span>
+  <p class="fork-lead">Two ways in. Choose one.</p>
+  <div class="fork" id="forkChoose">
+    <button class="fork-card tea" id="forkTea" aria-label="Steep a Tao Te Ching verse">
+      <span class="fork-water" aria-hidden="true"><i class="wv-p wp1"></i><i class="wv-p wp2"></i></span>
+      <span class="fork-body">
+        <svg class="fork-ill" viewBox="0 0 92 70" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 36 C24 25, 68 25, 68 36 C68 49, 57 56, 46 56 C35 56, 24 49, 24 36 Z"/>
+            <path d="M37 26 C40 20, 52 20, 55 26"/>
+            <circle cx="46" cy="17" r="2.6" fill="currentColor" stroke="none"/>
+            <path d="M24 33 C15 31, 10 27, 7 21"/>
+            <path d="M68 31 C80 29, 80 45, 67 45"/>
+            <path d="M30 60 q16 5 32 0" opacity=".5"/>
+          </g>
+          <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".4" fill="none">
+            <path d="M42 14 q-3 -5 1 -9"/><path d="M50 13 q3 -5 -1 -9"/>
+          </g>
+        </svg>
+        <span class="fork-name">The Tao Te Ching</span>
+        <span class="fork-desc">steep a verse</span>
       </span>
     </button>
-    <p class="reveal-hint">A water die. Tap once to fill it — tap again to reveal your verse.</p>
+    <span class="fork-mid" aria-hidden="true">道<br>易</span>
+    <a class="fork-card hex" id="forkHex" href="#iching" aria-label="Cast an I Ching hexagram">
+      <span class="fork-body">
+        <svg class="fork-ill" viewBox="0 0 92 70" aria-hidden="true">
+          <g fill="currentColor">
+            <rect x="26" y="9"  width="40" height="5" rx="2"/>
+            <rect x="26" y="21" width="16" height="5" rx="2"/><rect x="50" y="21" width="16" height="5" rx="2"/>
+            <rect x="26" y="33" width="40" height="5" rx="2"/>
+            <rect x="26" y="45" width="16" height="5" rx="2"/><rect x="50" y="45" width="16" height="5" rx="2"/>
+            <rect x="26" y="57" width="16" height="5" rx="2"/><rect x="50" y="57" width="16" height="5" rx="2"/>
+          </g>
+        </svg>
+        <span class="fork-name">The I Ching</span>
+        <span class="fork-desc">cast a hexagram</span>
+      </span>
+    </a>
   </div>
   <div id="divePost" hidden>
     <div class="dive-bar">
@@ -895,15 +1012,14 @@ footer .fnotes{font-size:.86rem;max-width:580px;margin:0 auto;line-height:1.75}
   <div class="sec-head">
     <span class="sec-zh">易</span>
     <div><div class="sec-eyebrow">Cast · The Book of Changes</div><h2>The I Ching</h2>
-    <p class="sec-sub">China's oldest classic — the older book the Tao Te Ching grew up beside. Hold a question lightly, cast a hexagram, and sit with what it mirrors back.</p></div>
+    <p class="sec-sub">China's oldest classic. Settle on a question, toss the coins six times, and sit with the hexagram it gives back.</p></div>
   </div>
-  <div class="brushline"></div>
   <div class="cast-guide" id="castGuide">
-    <p class="cg-lead">The most important part of a reading is the question you bring to it. The I Ching is a mirror — ask it something scattered and the reflection comes back scattered. So before you cast, take a moment to settle.</p>
+    <p class="cg-lead">The most important part of a reading is the question you bring — the I Ching is a mirror, and a scattered question comes back scattered. Before you cast, settle:</p>
     <ol class="cg-steps">
-      <li><span class="cg-zh brush-zh">静</span><div><b>Center yourself.</b> A few slow breaths. Sit upright and grounded, clear the space in front of you, and loosen your grip on any one outcome — meet it with neutrality and openness.</div></li>
-      <li><span class="cg-zh brush-zh">问</span><div><b>Ask an open question.</b> Not <em>"Will I get the job?"</em> but <em>"What is the best way to approach this opportunity?"</em> Ask about your own understanding and action — not what others are thinking, and not what the future holds.</div></li>
-      <li><span class="cg-zh brush-zh">守</span><div><b>Write it down, then hold it.</b> Putting the question in words locks your intention so the answer can't be quietly rewritten later. Keep it lightly in mind as the six lines settle.</div></li>
+      <li><span class="cg-mark"><span class="cg-num">1</span><span class="cg-zh brush-zh">静</span></span><div><b>Center yourself.</b> A few slow breaths. Sit upright, clear the space in front of you, and loosen your grip on any one outcome.</div></li>
+      <li><span class="cg-mark"><span class="cg-num">2</span><span class="cg-zh brush-zh">问</span></span><div><b>Ask an open question.</b> Not <em>"Will I get the job?"</em> but <em>"How should I approach this?"</em> — about your own understanding and action, not what others think or what the future holds.</div></li>
+      <li><span class="cg-mark"><span class="cg-num">3</span><span class="cg-zh brush-zh">守</span></span><div><b>Write it down, then hold it.</b> Wording the question locks your intention. Keep it lightly in mind as the six lines settle.</div></li>
     </ol>
     <div class="cg-ask">
       <label for="castQ">Your question <span>— optional, but it focuses the reading</span></label>
@@ -912,16 +1028,12 @@ footer .fnotes{font-size:.86rem;max-width:580px;margin:0 auto;line-height:1.75}
     <button class="iching-more" id="ichingMore" type="button">☯ What is the I Ching?</button>
   </div>
   <div class="cast-stage" id="castStage">
-    <button class="reveal-btn cast-btn" id="castBtn" aria-label="Cast a hexagram">
-      <span class="rb-ring" aria-hidden="true"></span>
-      <span class="rb-inner">
-        <span class="rb-water" aria-hidden="true"><i class="wv wv1"></i><i class="wv wv2"></i></span>
-        <span class="rb-zh brush-zh" aria-hidden="true">易</span>
-        <span class="rb-label">Cast a hexagram</span>
-      </span>
-    </button>
     <div class="cast-build" id="castBuild" aria-hidden="true"></div>
-    <p class="reveal-hint">Hold your question in mind — press, and let the six lines settle.</p>
+    <button class="coin-cast" id="castBtn" aria-label="Toss the three coins to cast a line">
+      <span class="coins" aria-hidden="true"><span class="coin"></span><span class="coin"></span><span class="coin"></span></span>
+    </button>
+    <div class="cast-progress" id="castProgress" aria-hidden="true"></div>
+    <p class="cast-instruct" id="castInstruct">Toss the coins <b>six times</b> — one line each, building from the ground up.</p>
   </div>
   <div id="castReading" hidden></div>
 </section>
@@ -1877,7 +1989,8 @@ $("#themeToggle").addEventListener("click",()=>{
 /* ---------- mobile drawer ---------- */
 $("#menuBtn").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
 $("#backdrop").addEventListener("click",()=>document.body.classList.remove("nav-open"));
-$("#edgeHint").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
+$("#edgeHint").addEventListener("click",()=>document.body.classList.add("nav-open"));
+$("#navCollapse").addEventListener("click",()=>document.body.classList.remove("nav-open"));
 document.querySelectorAll("#sideNav a").forEach(a=>a.addEventListener("click",()=>document.body.classList.remove("nav-open")));
 
 /* ---------- scroll spy ---------- */
@@ -1949,39 +2062,25 @@ function renderDive(){
   }));
 }
 /* ---------- the water die: tap once to fill, tap again to reveal ---------- */
-const rbtn=$("#revealBtn");
 const REDUCED=typeof matchMedia!=="undefined"&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-let revealed=false, flowTimer=null;
-let dieState=0; /* 0 empty · 1 filling · 2 full(ready) */
-function tapDie(){
-  if(revealed) return;
-  if(dieState===0){
-    dieState=1;
-    rbtn.classList.add("charging");
-    rbtn.querySelector(".rb-label").textContent="filling…";
-    setTimeout(()=>{
-      if(revealed) return;
-      dieState=2;
-      rbtn.classList.add("full");
-      rbtn.querySelector(".rb-label").textContent="Tap to reveal";
-    }, REDUCED?420:1320);
-  } else if(dieState===2){
-    finishReveal();
-  }
-  /* dieState===1 (mid-fill): ignore taps until full */
-}
-function finishReveal(){
+let revealed=false, flowTimer=null, teaSteeping=false;
+function revealVerse(){
   if(revealed)return; revealed=true;
-  const stage=$("#revealStage"), post=$("#divePost"), box=$("#diveBox");
-  stage.classList.add("gone");
+  const fork=$("#forkChoose"), post=$("#divePost"), box=$("#diveBox");
+  if(fork) fork.classList.add("gone");
   post.hidden=false; post.classList.add("shown");
   box.classList.add("flow-in");
   clearTimeout(flowTimer);
   flowTimer=setTimeout(()=>box.classList.remove("flow-in"),1700);
-  setTimeout(()=>{ stage.style.display="none";
+  setTimeout(()=>{ if(fork) fork.style.display="none"; const fl=$(".fork-lead"); if(fl) fl.style.display="none";
     if(post.scrollIntoView) post.scrollIntoView({behavior:"smooth",block:"start"}); },560);
 }
-rbtn.addEventListener("click",tapDie);
+const forkTea=$("#forkTea");
+if(forkTea) forkTea.addEventListener("click",()=>{
+  if(revealed||teaSteeping) return; teaSteeping=true;
+  forkTea.classList.add("steeping");
+  setTimeout(revealVerse, REDUCED?460:1420);
+});
 
 /* ---------- reveal another verse: pill fills, verses flow out and back in ---------- */
 let swapping=false;
@@ -2027,7 +2126,6 @@ function tossLine(){
   let s=0; for(let i=0;i<3;i++) s+=(Math.random()<0.5?2:3);
   return {yang:(s===7||s===9), changing:(s===6||s===9)};
 }
-function castSix(){ const a=[]; for(let i=0;i<6;i++) a.push(tossLine()); return a; }
 function lineDiv(ln,settle){
   const yang=ln.yang;
   return `<div class="ln ${yang?'yang':'yin'}${ln.changing?' changing':''}${settle?' settle':''}">`
@@ -2038,17 +2136,31 @@ function hexFigure(hex, states){
   return `<div class="hex">${rows.join('')}</div>`;
 }
 const castBtn=$("#castBtn");
-let casting=false, castDone=false, castTimers=[];
+let castDone=false, castTimers=[], tossCount=0, tossStates=[];
 function clearCastTimers(){ castTimers.forEach(clearTimeout); castTimers=[]; }
 let castQuestion="";
+function renderEmptyHex(){
+  const b=$("#castBuild"); if(!b) return;
+  b.innerHTML='<div class="hex">'+Array(6).fill('<div class="ln empty"><span class="bar"></span></div>').join('')+'</div>';
+}
+function renderCastProgress(){
+  const p=$("#castProgress"); if(!p) return;
+  p.innerHTML=Array.from({length:6},(_,i)=>`<i class="${i<tossCount?'done':''}"></i>`).join('');
+}
+function setCastInstruct(){
+  const el=$("#castInstruct"); if(!el) return;
+  if(tossCount===0) el.innerHTML='Toss the coins <b>six times</b> — one line each, building from the ground up.';
+  else if(tossCount<6) el.innerHTML=`Tossed <b>${tossCount}</b> of 6 — keep going, the hexagram is rising.`;
+  else el.innerHTML='The cast is complete — reading your hexagram…';
+}
 function castInit(){
   initBagua();
   clearCastTimers();
-  casting=false; castDone=false;
-  if(castBtn){ castBtn.classList.remove("charging"); const lb=castBtn.querySelector(".rb-label"); if(lb) lb.textContent="Cast a hexagram"; }
+  castDone=false; tossCount=0; tossStates=[];
+  if(castBtn){ castBtn.disabled=false; castBtn.classList.remove("tossing"); }
+  renderEmptyHex(); renderCastProgress(); setCastInstruct();
   const gd=$("#castGuide"); if(gd) gd.style.display="";
   const st=$("#castStage"); if(st){ st.style.display=""; st.classList.remove("gone"); }
-  const bd=$("#castBuild"); if(bd) bd.innerHTML="";
   const rd=$("#castReading"); if(rd){ rd.hidden=true; rd.classList.remove("shown"); rd.innerHTML=""; }
 }
 /* "What is the I Ching?" modal */
@@ -2060,21 +2172,19 @@ function icModalEsc(e){ if(e.key==="Escape") closeIcModal(); }
   const m=$("#ichingModal"); if(m) m.querySelectorAll("[data-close]").forEach(el=>el.addEventListener("click",closeIcModal));
 })();
 const LINE_POS=["the bottom line","the second line","the third line","the fourth line","the fifth line","the top line"];
-function beginCast(e){
-  if(casting||castDone) return;
-  if(e&&e.pointerType==="mouse"&&e.button!==0) return;
-  casting=true;
-  castBtn.classList.add("charging");
-  castBtn.querySelector(".rb-label").textContent="casting…";
-  const states=castSix();
-  const build=$("#castBuild"); build.innerHTML='<div class="hex"></div>';
-  const hex=build.querySelector('.hex');
-  const step=REDUCED?110:560;
-  states.forEach((ln,i)=> castTimers.push(setTimeout(()=>{ hex.insertAdjacentHTML('beforeend', lineDiv(ln,true)); }, 360+i*step)));
-  castTimers.push(setTimeout(()=>finishCast(states), 360 + 6*step + (REDUCED?200:520)));
+function tossCoins(e){
+  if(castDone || tossCount>=6) return;
+  if(e&&e.button!==undefined&&e.button!==0) return;
+  castBtn.classList.remove("tossing"); void castBtn.offsetWidth; castBtn.classList.add("tossing");
+  const ln=tossLine(); tossStates.push(ln);
+  const hex=$("#castBuild .hex");
+  if(hex && hex.children[tossCount]) hex.children[tossCount].outerHTML=lineDiv(ln,true);
+  tossCount++;
+  renderCastProgress(); setCastInstruct();
+  if(tossCount===6){ castBtn.disabled=true; castTimers.push(setTimeout(()=>finishCast(tossStates.slice()), REDUCED?500:850)); }
 }
 function finishCast(states){
-  if(castDone) return; castDone=true; casting=false;
+  if(castDone) return; castDone=true;
   const q=$("#castQ"); castQuestion = q ? q.value.trim() : "";
   const hex=HEX_BY_LINES[states.map(l=>l.yang?'1':'0').join('')];
   renderCastReading(hex, states, castQuestion);
@@ -2142,9 +2252,7 @@ function renderCastReading(hex, states, question){
 }
 function gotoChapter(n){ state.cur=n; state.activeTag="all"; state.search=""; pendingChScroll=true; location.hash="#chapters"; }
 if(castBtn){
-  castBtn.addEventListener("pointerdown",beginCast);
-  castBtn.addEventListener("click",beginCast);
-  castBtn.addEventListener("contextmenu",(e)=>{ if(castBtn.classList.contains("charging")) e.preventDefault(); });
+  castBtn.addEventListener("click",tossCoins);
 }
 
 /* ---------- pages: each study section is its own page; home is the verse ---------- */
