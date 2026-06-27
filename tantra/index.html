@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tantra — The Loom of Union · a sensual path from first breath to sacred union</title>
+<meta name="description" content="A beautiful, free, self-paced tantra course rooted in philosophy. Learn presence, breath, the body as temple, solo sensual practice, and the path of union with a partner — from beginner foundations to advanced energy mastery.">
+<meta name="theme-color" content="#efe7da">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tantra — The Loom of Union">
+<meta property="og:description" content="A sensual, philosophy-rooted tantra course you can teach yourself — from first breath to sacred union.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23efe7da'/%3E%3Ctext x='32' y='47' font-size='38' text-anchor='middle' fill='%23a8324a' font-family='serif'%3E%E0%A4%93%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   TANTRA — THE LOOM OF UNION  ·  "Ink and Gold Thread — The Continuous Loom"
+   warm lime-washed plaster · soft sepia ink · Rajput madder · leaf-gold
+   one unbroken hairline weaves the whole folio — hero to closing seed-dot
+===================================================================== */
+:root{
+  /* INK AND GOLD THREAD — light theme: gallery plaster, sepia ink, Rajput madder */
+  --paper:#efe7da;        /* warm lime-wash plaster */
+  --paper-2:#e6dac8;      /* deeper plaster — sidebar / niche shade */
+  --ink:#2c211c;          /* soft warm sepia-black */
+  --ink-soft:#6f5b4e;     /* sepia mid — subtitles, captions */
+  --ink-faint:#8a7363;    /* chalk line — meta, faint rules (darkened for AA on small text) */
+  --rose:#a8324a;         /* Rajput madder */
+  --rose-soft:#c75e6f;    /* madder, softened */
+  --gold:#9c7a2e;         /* matte leaf-gold BODY */
+  --gold-text:#74571c;    /* darker leaf-gold for small readable text (≥4.5:1 on paper & tag chip) */
+  --gold-bright:#d8b25a;  /* leaf EDGE / highlight */
+  --indigo:#41507e;       /* true Pahari indigo, used SPARINGLY */
+  --ember:#c2542a;        /* single warm terracotta-ember accent */
+  --card:#f6efe3;         /* tipped-in plate paper */
+  --card-border:#ddccb6;  /* incised keyline */
+  --tag-bg:#e7dac6;       /* small-caps label chip ground */
+  --wash:rgba(120,80,55,.06);
+  --shadow:rgba(70,45,30,.10);
+  /* the continuous drawing system */
+  --line:#2c211c;
+  --line-gold:#9c7a2e;
+  --line-madder:#a8324a;
+  --thread:rgba(156,122,46,.42);
+  --rule-gold:rgba(156,122,46,.55);
+  --lamp:rgba(194,84,42,.10);
+  /* editorial + layout constants */
+  --label-track:.26em;
+  --measure:68ch;
+  --col:700px;
+  --sidebar-w:268px;
+  --stroke-w:1.7;
+  --draw-dur:1.4s;
+  --breath-dur:6s;
+  /* legacy aliases */
+  --rose-madder:var(--rose); --accent:var(--rose);
+}
+html[data-theme="dark"]{
+  /* CANDLELIGHT — ink on warm dark, an oil-lamp sketchbook */
+  --paper:#15100c;
+  --paper-2:#1d1611;
+  --ink:#ede0cf;
+  --ink-soft:#b89e87;
+  --ink-faint:#8a7159;
+  --rose:#e07088;
+  --rose-soft:#ef91a3;
+  --gold:#d6ab57;
+  --gold-text:#d6ab57;
+  --gold-bright:#f0cd7e;
+  --indigo:#8e9bd4;
+  --ember:#e0743f;
+  --card:#20180f;
+  --card-border:#3a2c1c;
+  --tag-bg:#2c2114;
+  --wash:rgba(224,170,120,.06);
+  --shadow:rgba(0,0,0,.55);
+  --line:#ede0cf;
+  --line-gold:#d6ab57;
+  --line-madder:#e07088;
+  --thread:rgba(214,171,87,.40);
+  --rule-gold:rgba(214,171,87,.45);
+  --lamp:rgba(224,116,63,.16);
+  --rose-madder:var(--rose); --accent:var(--rose);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  font-family:"EB Garamond",Georgia,"Iowan Old Style",serif;
+  font-size:20px;line-height:1.85;
+  background:var(--paper);
+  color:var(--ink);overflow-x:hidden;
+  transition:background .4s,color .4s;-webkit-font-smoothing:antialiased;
+}
+/* the ONE dark-mode signature: a single static candle-pool radial behind the column */
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(680px 760px at 50% 40%, var(--lamp), transparent 70%);
+}
+::selection{background:var(--rose);color:#fbeee9}
+.dv{font-family:"Tiro Devanagari Sanskrit","Noto Serif Devanagari",serif;font-weight:400}
+html[data-theme="dark"] .dv{color:var(--gold)}
+a{color:var(--rose)}a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+/* visible keyboard focus — WCAG 2.4.7, always applies (outside reduced-motion) */
+a:focus-visible,button:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
+.btn-complete:focus-visible,.btn:focus-visible{outline-color:var(--ink)}
+h1,h2,h3,h4{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.1;letter-spacing:.2px}
+em,i{font-style:italic}
+
+/* shared small-caps editorial wall-label */
+.label{font-family:"EB Garamond",serif;text-transform:lowercase;font-variant:small-caps;
+  letter-spacing:var(--label-track);color:var(--gold-text);font-size:.72rem;font-weight:500}
+
+/* =================== SIDEBAR (colophon / contents page) =================== */
+.sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);z-index:93;
+  transform:translateX(-100%);transition:transform .32s ease;
+  display:flex;flex-direction:column;padding:30px 22px 20px;overflow-y:auto;scrollbar-width:thin;
+  background:var(--paper-2);
+  border-right:1px solid transparent;
+}
+/* the spine — a single gold thread on the sidebar's right edge */
+.sidebar::after{content:"";position:absolute;top:24px;bottom:24px;right:0;width:1px;background:var(--thread)}
+body.nav-open .sidebar{transform:translateX(0)}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.brand .seal{
+  width:50px;height:50px;flex:0 0 auto;display:grid;place-items:center;
+  transform:rotate(-1.5deg);
+  filter:drop-shadow(-1px 1px 0 var(--shadow));
+}
+.brand .seal svg{width:50px;height:50px;display:block}
+.brand .seal.dv{font-family:"Tiro Devanagari Sanskrit",serif} /* preserve .dv on the seal hook; glyph hidden, drawn seal shown */
+.brand b{font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-weight:600;line-height:1.12;display:block;color:var(--ink)}
+.brand i{font-size:.78rem;color:var(--ink-soft);font-style:italic}
+.snav-group{font-family:"EB Garamond",serif;font-variant:small-caps;text-transform:lowercase;
+  font-size:.74rem;letter-spacing:var(--label-track);color:var(--gold-text);margin:19px 0 6px;padding-left:6px;font-weight:500}
+.snav{display:flex;align-items:center;gap:12px;padding:7px 10px;border-radius:7px;
+  color:var(--ink-soft);font-size:.97rem;line-height:1.4;position:relative;transition:background .15s,color .15s;text-decoration:none}
+.snav .ndv{font-family:"Tiro Devanagari Sanskrit",serif;font-size:1.18rem;line-height:1;width:24px;text-align:center;color:var(--ink-faint);transition:color .15s}
+.snav:hover{background:color-mix(in srgb,var(--gold) 9%, transparent);color:var(--ink);text-decoration:none}
+.snav.on{color:var(--rose)}
+.snav.on .ndv{color:var(--rose)}
+/* the active indicator: a short hand-inked madder tick that draws down */
+.snav.on::before{content:"";position:absolute;left:-2px;top:8px;bottom:8px;width:2px;background:var(--rose);
+  border-radius:2px;transform-origin:top;transform:scaleY(0);animation:tickDraw .4s ease forwards}
+@keyframes tickDraw{to{transform:scaleY(1)}}
+/* completion tick = a small gold seed-dot, not an emoji check */
+.snav .done{margin-left:auto;font-size:0;line-height:0;width:9px;height:9px;border-radius:50%;
+  background:var(--gold);opacity:0;transform:scale(.4);transition:opacity .2s,transform .2s}
+.snav.complete .done{opacity:1;transform:scale(1)}
+.side-foot{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:13px}
+.prog-wrap{font-size:.82rem;color:var(--ink-soft)}
+.prog-bar{height:6px;border-radius:99px;background:color-mix(in srgb,var(--card-border) 70%,transparent);
+  overflow:hidden;margin-top:7px;border:1px solid var(--card-border)}
+.prog-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--rose));transition:width .5s ease}
+html[data-theme="dark"] .prog-fill{background:linear-gradient(90deg,var(--gold),var(--rose),var(--ember))}
+.prog-wrap b{color:var(--gold-text);font-weight:600;font-variant:small-caps;letter-spacing:.08em}
+#themeToggle{border:1px solid var(--card-border);background:transparent;color:var(--ink);border-radius:999px;
+  padding:8px 15px;font-size:.82rem;transition:border-color .2s,color .2s}
+#themeToggle:hover{border-color:var(--gold);color:var(--gold)}
+
+/* =================== TOP BAR =================== */
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;z-index:90;display:flex;align-items:center;gap:12px;
+  padding:0 18px;background:transparent;backdrop-filter:blur(8px);
+  border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+.topbar.solid{background:color-mix(in srgb,var(--paper-2) 92%, transparent);border-color:var(--card-border);
+  box-shadow:0 2px 12px var(--shadow)}
+#menuBtn{border:1px solid var(--card-border);background:transparent;color:var(--ink);border-radius:999px;
+  padding:7px 15px;font-size:.86rem;transition:border-color .2s}
+#menuBtn:hover{border-color:var(--gold)}
+.topbar .tt{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:1.06rem;color:var(--ink-soft)}
+.topbar .tt b{color:var(--rose);font-weight:600}
+.backdrop{display:none;position:fixed;inset:0;background:color-mix(in srgb, var(--ink) 28%, transparent);z-index:85}
+html[data-theme="dark"] .backdrop{background:color-mix(in srgb, #000 52%, transparent)}
+body.nav-open .backdrop{display:block}
+
+/* =================== MAIN + GUTTER LOOM THREAD =================== */
+main{max-width:calc(var(--col) + 80px);margin:0 auto;padding:56px 40px 130px;position:relative;z-index:1}
+.col{max-width:var(--col);margin:0 auto;position:relative}
+/* the gutter loom thread — one hairline running the full reading column */
+.col::before{content:"";position:absolute;top:0;bottom:0;left:-26px;width:1px;
+  background:var(--thread);pointer-events:none}
+
+/* hero — the pen's first touch */
+.hero{text-align:center;padding:96px 8px 40px;position:relative}
+.hero-mark{width:min(220px,52vw);margin:0 auto 6px;position:relative}
+.hero-mark svg{width:100%;height:auto;display:block}
+.bigdv{font-family:"Tiro Devanagari Sanskrit",serif;font-size:clamp(3rem,12vw,6rem);
+  color:var(--rose);line-height:1;position:relative;display:inline-block;
+  animation:rise .9s ease both}
+html[data-theme="dark"] .bigdv{color:var(--gold)}
+/* gilt offset-duplicate behind the word — faint gold-bright, never a glow */
+.bigdv::before{content:"तन्त्र";position:absolute;left:-1px;top:-1px;color:var(--gold-bright);
+  opacity:.5;z-index:-1;pointer-events:none}
+/* one non-looping shimmer sweep on load */
+.bigdv::after{content:"तन्त्र";position:absolute;inset:0;color:var(--gold-bright);
+  background:linear-gradient(100deg,transparent 38%,var(--gold-bright) 50%,transparent 62%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  background-size:300% 100%;background-position:120% 0;opacity:.85;pointer-events:none;
+  animation:shimmer 1.6s ease .5s 1 both}
+@keyframes shimmer{from{background-position:120% 0;opacity:0}30%{opacity:.85}to{background-position:-60% 0;opacity:0}}
+.wordmark{font-variant:small-caps;text-transform:lowercase;letter-spacing:.5em;color:var(--gold-text);
+  font-size:.92rem;margin-top:10px;font-weight:500}
+.hero h1{font-size:clamp(2.4rem,7vw,3.7rem);margin:18px 0 6px;font-weight:600;line-height:1.08;
+  display:inline-flex;align-items:center;gap:22px}
+.hero h1::before,.hero h1::after{content:"";height:1px;width:clamp(20px,6vw,54px);background:var(--rule-gold)}
+.hero .sub{max-width:580px;margin:16px auto 0;color:var(--ink-soft);font-size:1.12rem;font-style:italic;line-height:1.7}
+/* the seal-stamp — a hand-drawn nib-seal that reads as a pressed wax chop */
+.seal-stamp{position:relative;display:inline-grid;place-items:center;margin-top:30px;
+  width:118px;height:118px;transform:rotate(-1.5deg);
+  filter:drop-shadow(-1.5px 2px 1px var(--shadow));
+  transform-origin:center;animation:breath var(--breath-dur) ease-in-out infinite}
+.seal-stamp .ring{position:absolute;inset:0;width:100%;height:100%;color:var(--rose)}
+html[data-theme="dark"] .seal-stamp .ring{color:var(--gold)}
+.seal-stamp .glyphs{position:relative;z-index:1;display:grid;grid-template-columns:repeat(2,1fr);
+  gap:0 6px;place-items:center}
+.seal-stamp span{font-family:"Tiro Devanagari Sanskrit",serif;color:var(--rose);font-size:1.18rem;
+  width:24px;height:24px;display:grid;place-items:center}
+html[data-theme="dark"] .seal-stamp span{color:var(--gold)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes breath{0%,100%{opacity:.92;transform:rotate(-1.5deg) scale(1)}50%{opacity:1;transform:rotate(-1.5deg) scale(1.02)}}
+
+/* intro / prose */
+.lede{font-size:1.16rem;color:var(--ink);margin:40px 0;line-height:1.9}
+.lede strong{color:var(--rose);font-weight:600}
+/* first-line lettrine leading (no glyph swap — copy stays byte-safe) */
+.lede::first-line{line-height:2.1}
+p{margin:0 0 18px}
+.muted{color:var(--ink-soft)}
+
+/* section dividers + stage headers (lintels / chapter plates) */
+.brushline{height:14px;margin:10px auto 4px;width:200px;
+  background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 380 14'%3E%3Cpath d='M6 7 C90 2 150 11 200 7 S320 9 374 6' stroke='%239c7a2e' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='374' cy='6' r='2.6' fill='%239c7a2e'/%3E%3C/svg%3E")}
+.stage-head{text-align:center;margin:104px 0 10px}
+.stage-head .knum{font-variant:small-caps;text-transform:lowercase;letter-spacing:var(--label-track);
+  color:var(--gold-text);font-size:.74rem;font-weight:500}
+.stage-head h2{font-size:clamp(2rem,5vw,2.7rem);margin-top:6px;font-weight:600}
+.stage-head p{color:var(--ink-soft);font-style:italic;max-width:560px;margin:10px auto 0;line-height:1.65}
+
+/* ===== lesson ===== */
+.lesson{margin:72px 0;scroll-margin-top:72px}
+.lesson-top{display:flex;align-items:flex-start;gap:18px;margin-bottom:8px}
+/* number badge = thin keyline nib-circle */
+.lesson-num{flex:0 0 auto;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card);border:1px solid var(--rule-gold);font-family:"Tiro Devanagari Sanskrit",serif;
+  font-size:1.4rem;color:var(--rose);box-shadow:-1px 2px 8px var(--shadow);position:relative;transition:border-color .3s}
+html[data-theme="dark"] .lesson-num{color:var(--gold)}
+.lesson-meta .tag{display:inline-block;font-variant:small-caps;text-transform:lowercase;
+  font-size:.72rem;letter-spacing:var(--label-track);color:var(--gold-text);
+  background:var(--tag-bg);border-radius:99px;padding:3px 12px;margin-bottom:9px;font-weight:500}
+.lesson-meta h3{font-size:clamp(1.7rem,4.4vw,2.2rem);font-weight:600}
+.lesson-meta .sdv{font-family:"Tiro Devanagari Sanskrit",serif;color:var(--ink-faint);font-size:1.04rem;
+  font-style:italic;margin-top:3px}
+/* lettrine leading on the opening line of the first prose paragraph */
+.lesson > p:first-of-type::first-line{line-height:2.05}
+
+/* illustration frame — the tipped-in print */
+.plate{margin:30px 0;padding:28px 28px 22px;border:1px solid var(--card-border);border-radius:6px;
+  background:var(--card);position:relative;text-align:center;box-shadow:-2px 3px 14px var(--shadow);
+  transition:box-shadow .25s}
+/* the inner gold hairline rule, inset ~6px */
+.plate::before{content:"";position:absolute;inset:6px;border:1px solid var(--rule-gold);border-radius:3px;pointer-events:none}
+/* optional warm lamp niche behind the art */
+.plate .niche{position:absolute;inset:6px;border-radius:3px;pointer-events:none;
+  background:radial-gradient(60% 56% at 50% 44%, var(--lamp), transparent 72%);transition:opacity .2s;opacity:1}
+.plate:hover .niche{opacity:1.4}
+.plate .art{position:relative;z-index:1;display:flex;justify-content:center}
+.plate svg{width:100%;max-width:300px;height:auto;display:block}
+.plate.vert svg{max-width:200px}
+.plate .cap{position:relative;z-index:1;margin-top:14px;font-family:"Cormorant Garamond",serif;
+  font-style:italic;font-size:1rem;color:var(--ink-soft);line-height:1.5;max-width:46ch;margin-left:auto;margin-right:auto}
+.plate.wide svg{max-width:300px}
+
+/* essence bullets */
+.essence{list-style:none;margin:30px 0;padding:0;display:flex;flex-direction:column;gap:4px}
+.essence li{position:relative;padding:11px 8px 11px 34px;border-radius:6px;
+  transition:transform .18s,box-shadow .18s}
+.essence li::after{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:transparent;transition:background .18s}
+.essence li:hover{transform:translateX(3px)}
+.essence li:hover::after{background:var(--rule-gold)}
+/* marker = a small gold seed/rhombus that fills madder on hover */
+.essence li::before{content:"";position:absolute;left:12px;top:18px;transform:rotate(45deg);
+  width:8px;height:8px;border:1.4px solid var(--gold);background:transparent;
+  border-radius:1px;transition:background .18s,border-color .18s}
+.essence li:hover::before{background:var(--rose);border-color:var(--rose)}
+.essence li b{color:var(--ink);font-weight:600}
+.essence li .lead{color:var(--rose);font-weight:600}
+
+/* practice cards */
+.practices{display:grid;gap:18px;margin:30px 0;grid-template-columns:1fr 1fr}
+.pcard{padding:22px 22px 20px;border-radius:6px;border:1px solid var(--card-border);background:var(--card);
+  box-shadow:-2px 3px 12px var(--shadow);position:relative;transition:border-color .2s}
+.pcard:hover{border-color:color-mix(in srgb,var(--ember) 45%,var(--card-border))}
+/* the drawn head-mark — single line motif at the card head */
+.pcard .headmark{height:30px;margin-bottom:8px;transition:opacity .2s}
+.pcard .headmark svg{height:30px;width:auto;display:block}
+.pcard:hover .headmark{opacity:.85}
+.pcard .ph{display:flex;align-items:baseline;gap:8px;font-family:"Cormorant Garamond",serif;font-weight:600;
+  font-size:1.18rem;margin-bottom:4px}
+.pcard .ph .ic{display:inline-flex;align-items:center;opacity:.75;line-height:1}
+.pcard .ph .ic svg{width:1em;height:1.05em;display:block;vertical-align:-0.14em}
+.pcard .tagline{font-variant:small-caps;text-transform:lowercase;font-size:.74rem;letter-spacing:.12em;
+  color:var(--ink-faint);margin-bottom:12px}
+.pcard ol{margin:0 0 0 18px;padding:0}
+.pcard ol li{margin:8px 0;font-size:.98rem;line-height:1.62}
+.pcard.solo .ph{color:var(--ember)}
+.pcard.duo .ph{color:var(--ink)}
+
+/* mantra — rubricated manuscript inscription, the page jewel */
+.mantra{margin:34px 0;padding:6px 0 6px 24px;position:relative}
+.mantra::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:2px;
+  background:linear-gradient(180deg,var(--gold),var(--rose));border-radius:2px}
+.mantra .dv{font-size:1.7rem;color:var(--rose);display:block;margin-bottom:8px;line-height:1.3}
+html[data-theme="dark"] .mantra .dv{color:var(--gold)}
+.mantra .tr{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.22rem;color:var(--ink)}
+.mantra .gl{font-size:.92rem;color:var(--ink-soft);margin-top:6px;line-height:1.6}
+
+/* note — calm indigo shadow-stone, grounded not alarming */
+.note{margin:30px 0;padding:18px 20px;border:1px dashed color-mix(in srgb,var(--indigo) 55%,var(--card-border));
+  border-radius:6px;background:color-mix(in srgb,var(--indigo) 5%,transparent);font-size:.98rem;line-height:1.7}
+.note b{color:var(--indigo)}
+
+/* complete button — keyline pill, honoured = seal pressed */
+.complete-row{display:flex;align-items:center;gap:14px;margin-top:30px;flex-wrap:wrap}
+.btn-complete{border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:999px;
+  padding:9px 22px;font-size:.92rem;letter-spacing:.3px;position:relative;overflow:hidden;
+  transition:color .25s,border-color .25s,background .25s;display:inline-flex;align-items:center;gap:8px;
+  font-variant:small-caps;text-transform:lowercase}
+/* gold underline that ignites left-to-right */
+.btn-complete::after{content:"";position:absolute;left:14px;right:14px;bottom:7px;height:1px;
+  background:var(--gold-bright);transform:scaleX(0);transform-origin:left;transition:transform .5s ease}
+.btn-complete:hover{border-color:var(--rose);color:var(--rose)}
+.lesson.is-done .btn-complete{background:var(--rose);color:#f6efe3;border-color:var(--rose)}
+.lesson.is-done .btn-complete::after{transform:scaleX(1);background:var(--gold-bright)}
+.lesson.is-done .btn-complete .lbl::after{content:" · honoured"}
+.lesson.is-done .btn-complete .lbl span{display:none}
+.lesson.is-done .btn-complete{animation:settle .35s ease}
+@keyframes settle{0%{transform:scale(1.04)}100%{transform:scale(1)}}
+/* is-done: badge rim warms to gold + a seed-dot blooms beside it */
+.lesson.is-done .lesson-num{border-color:var(--gold-bright)}
+.lesson.is-done .lesson-num::after{content:"";position:absolute;right:-5px;top:-3px;width:8px;height:8px;
+  border-radius:50%;background:var(--gold);animation:bloom .35s ease both}
+@keyframes bloom{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* reveal — soft settle with gentle child stagger */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal .plate,.reveal .essence,.reveal .practices,.reveal .mantra,.reveal .note,.reveal .complete-row{
+  opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in .plate{transition-delay:.12s}
+.reveal.in .essence{transition-delay:.18s}
+.reveal.in .mantra{transition-delay:.2s}
+.reveal.in .practices{transition-delay:.24s}
+.reveal.in .note{transition-delay:.26s}
+.reveal.in .complete-row{transition-delay:.3s}
+.reveal.in .plate,.reveal.in .essence,.reveal.in .practices,.reveal.in .mantra,.reveal.in .note,.reveal.in .complete-row{opacity:1;transform:none}
+
+/* ===== the line draw-on signature ===== */
+.plate svg [pathLength],.hero-mark svg [pathLength],.oracle-mark svg [pathLength],
+.pcard .headmark svg [pathLength],.closing-mark svg [pathLength]{
+  stroke-dasharray:100;stroke-dashoffset:0}
+.reveal.in .plate svg [pathLength]{animation:draw var(--draw-dur) ease-out forwards}
+.hero-mark svg [pathLength]{animation:draw var(--draw-dur) ease-out .2s forwards}
+.oracle.in .oracle-mark svg [pathLength]{animation:draw var(--draw-dur) ease-out forwards}
+.reveal.in .pcard .headmark svg [pathLength]{animation:draw 1s ease-out .3s forwards}
+.reveal.in .closing-mark svg [pathLength]{animation:draw var(--draw-dur) ease-out forwards}
+@keyframes draw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+
+/* oracle — centred title-plate */
+.oracle{margin:48px 0;text-align:center;padding:34px 28px 30px;border-radius:6px;border:1px solid var(--card-border);
+  background:var(--card);box-shadow:-2px 3px 14px var(--shadow);position:relative}
+.oracle::before{content:"";position:absolute;inset:6px;border:1px solid var(--rule-gold);border-radius:3px;pointer-events:none}
+.oracle > *{position:relative;z-index:1}
+.oracle-mark{width:120px;margin:0 auto 4px}
+.oracle-mark svg{width:100%;height:auto;display:block}
+.oracle h3{font-size:1.8rem;font-weight:600}
+.btn{border:1px solid var(--ember);background:transparent;color:var(--ember);border-radius:999px;
+  padding:11px 28px;font-size:.95rem;font-variant:small-caps;text-transform:lowercase;letter-spacing:.12em;
+  transition:background .2s,color .2s,box-shadow .2s;margin-top:8px}
+.btn:hover{background:var(--ember);color:#f6efe3;box-shadow:0 4px 16px var(--shadow)}
+#oracleOut{margin-top:20px;min-height:10px;font-size:1.12rem;font-style:italic;color:var(--ink);
+  font-family:"Cormorant Garamond",serif;animation:rise .5s ease}
+#oracleOut .dv{font-style:normal;color:var(--rose);font-size:1.4rem;display:block;margin-bottom:6px;font-family:"Tiro Devanagari Sanskrit",serif}
+html[data-theme="dark"] #oracleOut .dv{color:var(--gold)}
+
+/* closing — colophon, the far end of the thread */
+.closing{text-align:center;margin:96px 0 0;padding:48px 20px 0;border-top:1px solid var(--card-border);position:relative}
+.closing-mark{width:54px;margin:0 auto 18px}
+.closing-mark svg{width:100%;height:auto;display:block;color:var(--line)}
+.closing .dv{font-size:2.5rem;color:var(--rose)}
+html[data-theme="dark"] .closing .dv{color:var(--gold)}
+.closing p{color:var(--ink-soft);font-style:italic;max-width:540px;margin:14px auto;line-height:1.7}
+.foot{text-align:center;color:var(--ink-faint);font-size:.82rem;margin-top:44px}
+
+/* desktop layout shift when sidebar pinned */
+@media(min-width:1080px){
+  body.nav-open .sidebar{transform:translateX(0)}
+  .sidebar{transform:translateX(0)}
+  body{padding-left:var(--sidebar-w)}
+  .backdrop{display:none!important}
+  main{padding-top:40px}
+  .topbar{left:var(--sidebar-w)}
+  #menuBtn{display:none}
+}
+@media(max-width:700px){
+  .col::before{display:none} /* hide gutter thread — plates stand alone gracefully */
+}
+@media(max-width:680px){
+  body{font-size:18px}
+  .practices{grid-template-columns:1fr}
+  main{padding:62px 20px 100px}
+  .lesson-num{width:48px;height:48px;font-size:1.25rem}
+  .hero{padding-top:72px}
+  .plate{padding:20px 18px 18px}
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *{animation:none !important; transition:none !important}
+  .reveal,.reveal .plate,.reveal .essence,.reveal .practices,.reveal .mantra,.reveal .note,.reveal .complete-row{
+    opacity:1 !important; transform:none !important}
+  /* force every draw-on path to its finished (fully drawn) state — the offset is set in CSS, not as an attribute, so target the same selectors */
+  .plate svg [pathLength],.hero-mark svg [pathLength],.oracle-mark svg [pathLength],
+  .pcard .headmark svg [pathLength],.closing-mark svg [pathLength]{
+    stroke-dashoffset:0 !important}
+  .bigdv::after{display:none}
+}
+</style>
+</head>
+<body>
+<!-- tantra-loom-redesign -->
+<div class="backdrop" id="backdrop"></div>
+
+<div class="topbar" id="topbar">
+  <button id="menuBtn">☰ Path</button>
+  <span class="tt"><b>तन्त्र</b> · the loom of union</span>
+</div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+  <div class="brand">
+    <div class="seal dv" aria-label="om">
+      <svg viewBox="0 0 50 50" role="img" aria-hidden="true" style="color:var(--rose)">
+        <title>nib-seal</title>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke">
+          <circle cx="25" cy="25" r="22" stroke="var(--line-gold)" stroke-width="1" opacity=".55"/>
+          <circle cx="25" cy="25" r="18.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M16 20 C20 16 26 18 26 23 C26 28 19 28 18 24 C17 21 21 19 24 22 C28 26 24 33 18 32 M30 18 C34 22 35 30 31 34 M30 16 C33 15 36 16 37 19" stroke="currentColor" stroke-width="1.4"/>
+        </g>
+      </svg>
+    </div>
+    <div><b>The Loom of Union</b><i>a tantric path · self-paced</i></div>
+  </div>
+  <nav id="sideNav">
+    <div class="snav-group">Begin</div>
+    <a class="snav" href="#welcome"><span class="ndv">द्</span>Welcome &amp; How to Walk This</a>
+
+    <div class="snav-group">I · Foundations</div>
+    <a class="snav" data-l="1" href="#l1"><span class="ndv">१</span>What Tantra Truly Is<span class="done">✦</span></a>
+    <a class="snav" data-l="2" href="#l2"><span class="ndv">२</span>Shiva &amp; Shakti<span class="done">✦</span></a>
+    <a class="snav" data-l="3" href="#l3"><span class="ndv">३</span>Breath &amp; Presence<span class="done">✦</span></a>
+
+    <div class="snav-group">II · The Solo Path</div>
+    <a class="snav" data-l="4" href="#l4"><span class="ndv">४</span>The Body as Temple<span class="done">✦</span></a>
+    <a class="snav" data-l="5" href="#l5"><span class="ndv">५</span>Sensual Self-Practice<span class="done">✦</span></a>
+    <a class="snav" data-l="6" href="#l6"><span class="ndv">६</span>The Subtle Body<span class="done">✦</span></a>
+
+    <div class="snav-group">III · The Path of Union</div>
+    <a class="snav" data-l="7" href="#l7"><span class="ndv">७</span>Meeting Her<span class="done">✦</span></a>
+    <a class="snav" data-l="8" href="#l8"><span class="ndv">८</span>Gaze &amp; Shared Breath<span class="done">✦</span></a>
+    <a class="snav" data-l="9" href="#l9"><span class="ndv">९</span>Sacred Touch<span class="done">✦</span></a>
+    <a class="snav" data-l="10" href="#l10"><span class="ndv dv">१०</span>Union as Meditation<span class="done">✦</span></a>
+
+    <div class="snav-group">IV · Mastery</div>
+    <a class="snav" data-l="11" href="#l11"><span class="ndv dv">११</span>Circulating the Fire<span class="done">✦</span></a>
+    <a class="snav" data-l="12" href="#l12"><span class="ndv dv">१२</span>Living Tantra<span class="done">✦</span></a>
+
+    <div class="snav-group">Close</div>
+    <a class="snav" href="#oracle"><span class="ndv">✶</span>Draw Today's Practice</a>
+  </nav>
+  <div class="side-foot">
+    <div class="prog-wrap" aria-live="polite">Lessons honoured: <b id="progTxt">0 / 12</b>
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+    </div>
+    <button id="themeToggle" aria-pressed="false">🌙 Candlelight</button>
+  </div>
+</aside>
+
+<main>
+<div class="col">
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-mark" aria-hidden="true">
+    <svg viewBox="0 0 240 240" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>A refined tantric union emblem — interlaced triangles within a lotus-yantra, sensual through symmetry and gold line</title><defs><symbol id="hero-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g stroke-linecap="round" stroke-linejoin="round" fill="none"><g opacity=".7" stroke="var(--line-gold)" stroke-width="1"><path vector-effect="non-scaling-stroke" d="M119.2 39.2 L119.2 39.2"/><circle cx="119.2" cy="120.2" r="83"/><path vector-effect="non-scaling-stroke" d="M120.2 53.2 L194.2 167.2 L46.2 167.2 Z"/><path vector-effect="non-scaling-stroke" d="M120.2 187.2 L46.2 73.2 L194.2 73.2 Z"/></g><circle cx="120" cy="120" r="104" stroke="var(--line-gold)" stroke-width="1" opacity=".55" vector-effect="non-scaling-stroke"/><g opacity=".5" stroke="var(--line)" stroke-width="var(--stroke-w)" vector-effect="non-scaling-stroke"><path d="M120 16 C120 16 96 36 96 56 C96 72 120 84 120 84 C120 84 144 72 144 56 C144 36 120 16 120 16 Z"/><path d="M120 224 C120 224 96 204 96 184 C96 168 120 156 120 156 C120 156 144 168 144 184 C144 204 120 224 120 224 Z"/><path d="M16 120 C16 120 36 96 56 96 C72 96 84 120 84 120 C84 120 72 144 56 144 C36 144 16 120 16 120 Z"/><path d="M224 120 C224 120 204 96 184 96 C168 96 156 120 156 120 C156 120 168 144 184 144 C204 144 224 120 224 120 Z"/><path d="M47 47 C47 47 74 56 84 70 C92 81 84 96 84 96 C84 96 69 92 58 84 C44 74 47 47 47 47 Z"/><path d="M193 47 C193 47 184 74 170 84 C159 92 144 84 144 84 C144 84 148 69 156 58 C166 44 193 47 193 47 Z"/><path d="M47 193 C47 193 56 166 70 156 C81 148 96 156 96 156 C96 156 92 171 84 182 C74 196 47 193 47 193 Z"/><path d="M193 193 C193 193 166 184 156 170 C148 159 156 144 156 144 C156 144 171 148 182 156 C196 166 193 193 193 193 Z"/></g><path stroke="var(--line)" stroke-width="var(--stroke-w)" pathLength="100" vector-effect="non-scaling-stroke" d="M120 52 C150 64 168 86 168 110 C168 136 146 150 120 150 C94 150 72 136 72 110 C72 86 90 64 120 52 C90 80 96 130 120 150 C144 170 150 200 120 212"/><g stroke="var(--line-madder)" stroke-width="var(--stroke-w)" vector-effect="non-scaling-stroke"><path d="M120 96 C108 104 104 118 120 132 C136 118 132 104 120 96 Z"/><path d="M120 144 C132 136 136 122 120 108 C104 122 108 136 120 144 Z"/></g><circle cx="120" cy="120" r="3.4" fill="var(--gold)" stroke="none"/><use href="#hero-seed" x="117" y="49" width="6" height="6" fill="var(--line-madder)"/><use href="#hero-seed" x="117" y="209" width="6" height="6" fill="var(--gold)"/></g></svg>
+  </div>
+  <div class="bigdv">तन्त्र</div>
+  <div class="wordmark">t a n t r a</div>
+  <h1>The Loom of Union</h1>
+  <p class="sub">Tantra means <em>to weave</em>. A path that refuses to split the sacred from the sensual — and teaches you to hold both, with your whole body, at once.</p>
+  <div><span class="seal-stamp" aria-label="So hum — I am that">
+    <svg class="ring" viewBox="0 0 118 118" role="img" aria-hidden="true"><title>seal ring</title><g fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="59" cy="59" r="52" stroke="var(--line-gold)" stroke-width="1" opacity=".5" vector-effect="non-scaling-stroke"/><path d="M59 8 C86 8 110 31 110 59 C110 87 87 110 59 110 C31 110 8 87 8 59 C8 32 30 9 57 8" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke"/></g></svg>
+    <span class="glyphs"><span>स</span><span>ो</span><span>ऽ</span><span>हं</span></span>
+  </span></div>
+</header>
+
+<!-- ============ WELCOME ============ -->
+<section id="welcome" class="reveal">
+  <div class="brushline"></div>
+  <p class="lede">This is a <strong>course you can teach yourself</strong> — slowly, privately, with no guru in the room. It moves in four stages: first the <strong>philosophy</strong>, so the practice has roots; then the <strong>solo path</strong>, where you learn your own body as an instrument; then the <strong>path of union</strong>, where everything you've learned becomes a way of meeting a woman; and finally <strong>mastery</strong>, where energy itself becomes the practice.</p>
+
+  <p>Read in order the first time. Each lesson gives you the idea, an image to hold it, a few <em>essence</em> points to remember, and two practices — one to do <b>alone</b>, one to do <b>with her</b>. Do the solo work first. It is not a warm-up; it is the foundation. A man who knows his own body and breath brings a steadiness to partnership that no technique can fake.</p>
+
+  <div class="note">
+    <b>Before you begin.</b> Everything here is for consenting adults and rests on one non-negotiable: <em>her yes, freely given, every time</em>. Tantra is the opposite of taking. It is the art of slowing down enough to feel what is actually happening between two people. Go gently. There is no race, and nothing to perform.
+  </div>
+
+  <div class="plate wide vert reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 220 320" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>A lotus rising from mud into light — rooted base, clean stem, opening bloom, drawn as one unbroken line</title><defs><symbol id="welcome-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g stroke-linecap="round" stroke-linejoin="round" fill="none"><!-- gold underlay: still-water lines at the base, plus a faint symmetric echo of the open bloom --><path opacity=".5" stroke="var(--line-gold)" stroke-width="1" vector-effect="non-scaling-stroke" d="M42 256 C74 246 146 246 178 256"/><path opacity=".34" stroke="var(--line-gold)" stroke-width="1" vector-effect="non-scaling-stroke" d="M58 272 C86 264 134 264 162 272"/><g opacity=".42" stroke="var(--line-gold)" stroke-width="1" vector-effect="non-scaling-stroke"><path d="M110 168 C84 156 52 150 44 126 C66 120 92 130 110 152 M110 168 C136 156 168 150 176 126 C154 120 128 130 110 152 M110 152 C94 132 86 102 92 80 C104 100 110 128 110 150 M110 150 C110 128 116 100 128 80 C134 102 126 132 110 152"/></g><!-- ONE continuous ink line: rooted base → clean rising stem → symmetric opening petals (left, then right) --><path stroke="var(--line)" stroke-width="var(--stroke-w)" pathLength="100" vector-effect="non-scaling-stroke" d="M93 266 C100 258 106 256 110 252 C114 256 120 258 127 266 C119 258 113 256 110 252 C108 222 112 196 110 168 C84 156 52 150 44 126 C66 120 92 130 110 152 C94 132 86 102 92 80 C104 100 110 128 110 150 C110 128 116 100 128 80 C134 102 126 132 110 152 C128 130 154 120 176 126 C168 150 136 156 110 168"/><!-- madder central petal: shares the bloom base (110,168), opens straight up the middle, connected not floating --><path stroke="var(--line-madder)" stroke-width="var(--stroke-w)" pathLength="100" vector-effect="non-scaling-stroke" d="M110 168 C99 142 101 108 110 82 C119 108 121 142 110 168 Z"/><use href="#welcome-seed" x="107" y="249" width="6" height="6" fill="var(--line-madder)"/><use href="#welcome-seed" x="107" y="138" width="6" height="6" fill="var(--gold)"/><use href="#welcome-seed" x="107" y="86" width="5" height="5" fill="var(--gold-bright)"/></g></svg>
+    </div>
+    <div class="cap">From the mud, one stem — the bloom that opens is the same line that was rooted.</div>
+  </div>
+</section>
+
+<!-- ============ STAGE I ============ -->
+<div class="stage-head reveal">
+  <div class="knum">Stage One</div>
+  <h2>Foundations · The Philosophy</h2>
+  <p>Before a single technique, the worldview. Tantra without philosophy is just choreography; with it, every touch becomes meaning.</p>
+  <div class="brushline"></div>
+</div>
+
+<!-- L1 -->
+<section class="lesson reveal" id="l1" data-lesson="1">
+  <div class="lesson-top">
+    <div class="lesson-num">१</div>
+    <div class="lesson-meta">
+      <span class="tag">Foundations</span>
+      <h3>What Tantra Truly Is</h3>
+      <div class="sdv dv">तन्त्र — to weave, to extend</div>
+    </div>
+  </div>
+
+  <p>Strip away the Western mythology and tantra is a <strong>philosophy of non-separation</strong>. Where most spiritual paths climb <em>away</em> from the body — fasting, denying, transcending — tantra turns and walks straight through it. The body is not the obstacle to the sacred. The body is the <em>doorway</em>.</p>
+
+  <p>That single reversal changes everything. Desire is not a sin to be managed; it is raw life-force, and life-force is divine. Pleasure, met with full awareness, becomes a form of prayer. The point was never to escape the world of the senses — it was to enter it so completely, so consciously, that it turns luminous.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Warp and weft: spirit and flesh woven into one cloth</title><defs><symbol id="l1-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><!-- gold underlay: a faint echo of the woven grid --><g stroke="var(--line-gold)" stroke-width="1" opacity="0.6" transform="translate(-0.8 -0.8)"><path d="M86 30 C80 56 92 74 86 100 C80 126 92 144 86 190 M126 30 C132 56 120 74 126 100 C132 126 120 144 126 190 M166 30 C160 56 172 74 166 100 C160 126 172 144 166 190 M206 30 C212 56 200 74 206 100 C212 126 200 144 206 190 M246 30 C240 56 252 74 246 100 C240 126 252 144 246 190"/><path d="M44 64 C70 58 86 70 116 64 C146 58 162 70 196 64 C230 58 250 70 286 64 M44 110 C70 116 86 104 116 110 C146 116 162 104 196 110 C230 116 250 104 286 110 M44 156 C70 150 86 162 116 156 C146 150 162 162 196 156 C230 150 250 162 286 156"/></g><!-- warp threads (ink, vertical) — they weave under each weft they cross --><path pathLength="100" stroke="var(--line)" stroke-width="var(--stroke-w)" d="M86 30 C80 56 92 74 86 100 C80 126 92 144 86 190 M126 30 C132 56 120 74 126 100 C132 126 120 144 126 190 M166 30 C160 56 172 74 166 100 C160 126 172 144 166 190 M206 30 C212 56 200 74 206 100 C212 126 200 144 206 190 M246 30 C240 56 252 74 246 100 C240 126 252 144 246 190"/><!-- weft threads (madder, horizontal) — they interlace over and under the warp --><path pathLength="100" stroke="var(--line-madder)" stroke-width="var(--stroke-w)" d="M44 64 C70 58 86 70 116 64 C146 58 162 70 196 64 C230 58 250 70 286 64 M44 110 C70 116 86 104 116 110 C146 116 162 104 196 110 C230 116 250 104 286 110 M44 156 C70 150 86 162 116 156 C146 150 162 162 196 156 C230 150 250 162 286 156"/><use href="#l1-seed" x="83" y="27" width="6" height="6" fill="var(--line-madder)" stroke="none"/><use href="#l1-seed" x="283" y="153" width="6" height="6" fill="var(--gold)" stroke="none"/></g></svg>
+    </div>
+    <div class="cap"><em>Warp and weft &mdash; spirit and flesh on a single loom, two threads resolved into one cloth.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Non-duality.</span> There is no holy/unholy split. The sacred wears the face of the sensual.</li>
+    <li><span class="lead">The body is the temple,</span> not the prison. You don't leave it to find the divine — you arrive in it.</li>
+    <li><span class="lead">Energy over goal.</span> Tantra is about <b>cultivating and circulating</b> sexual energy, not racing to release it.</li>
+    <li><span class="lead">Presence is the whole technique.</span> Everything else is just a way to become more present.</li>
+    <li><span class="lead">It is a path of <b>more</b>, not less</span> — more feeling, more awareness, more aliveness — held consciously.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">यथा पिण्डे तथा ब्रह्माण्डे</span>
+    <span class="tr">As in the body, so in the cosmos.</span>
+    <div class="gl">What you touch in yourself, you touch in everything. Begin where you are — in your own skin.</div>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">The first sit · 5 minutes</div>
+      <ol>
+        <li>Sit comfortably. Place one palm on your chest, one on your belly.</li>
+        <li>Don't change your breath — just <em>feel</em> it move under your hands.</li>
+        <li>Silently offer one sentence: <em>"Nothing about me is unwelcome here."</em></li>
+        <li>Notice any urge to "do it right." Let that go too. There's nothing to achieve.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">A different kind of question</div>
+      <ol>
+        <li>Over a slow evening, ask her: <em>"What makes you feel most alive in your body?"</em></li>
+        <li>Listen with no agenda — not to reply, just to understand.</li>
+        <li>Notice how rarely either of you is asked this. That noticing <em>is</em> tantra beginning.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="1"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L2 -->
+<section class="lesson reveal" id="l2" data-lesson="2">
+  <div class="lesson-top">
+    <div class="lesson-num">२</div>
+    <div class="lesson-meta">
+      <span class="tag">Foundations</span>
+      <h3>Shiva &amp; Shakti — The Two That Are One</h3>
+      <div class="sdv dv">शिव · शक्ति</div>
+    </div>
+  </div>
+
+  <p>At the heart of tantra is a love story the size of the universe. <strong>Shiva</strong> is pure consciousness — still, spacious, the silent witness. <strong>Shakti</strong> is energy — movement, creativity, the dance of all that lives. Shiva without Shakti is inert; Shakti without Shiva is blind. Reality happens in their union. Existence itself is their lovemaking.</p>
+
+  <p>This is the model for everything that follows. In any embrace, one current holds presence and space — grounded, still, a container; the other moves, flows, surrenders into feeling. These are <em>polarities</em>, not genders — every person carries both. But the charge between two people comes precisely from this tension of opposites. Learn to feel which current you're carrying, and you can consciously create the spark, instead of waiting for it.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Shiva and Shakti: stillness and motion interlocked as one form</title><defs><symbol id="l2-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M24 40 C70 34 96 70 112 104 C128 138 150 168 122 192 C170 196 196 158 184 116 C172 74 200 44 244 52 C220 84 232 128 268 144 C232 160 196 142 178 110 C160 78 132 96 138 132 C144 168 110 186 86 168 C112 140 96 100 70 86 C44 72 30 96 40 124 C26 110 22 70 24 40" stroke="var(--line-gold)" stroke-width="1" opacity="0.7" transform="translate(-0.8 -0.8)"/><path pathLength="100" d="M24 40 C70 34 96 70 112 104 C128 138 150 168 122 192 C170 196 196 158 184 116 C172 74 200 44 244 52 C220 84 232 128 268 144 C232 160 196 142 178 110 C160 78 132 96 138 132 C144 168 110 186 86 168 C112 140 96 100 70 86 C44 72 30 96 40 124 C26 110 22 70 24 40" stroke="var(--line)" stroke-width="var(--stroke-w)"/><path pathLength="100" d="M158 122 C172 110 174 92 162 80 C150 68 130 72 124 88 C118 104 130 122 148 124 C166 126 178 112 174 96" stroke="var(--line-madder)" stroke-width="var(--stroke-w)"/><use href="#l2-seed" x="148" y="99" width="6" height="6" fill="var(--gold)" stroke="none"/><use href="#l2-seed" x="21" y="37" width="6" height="6" fill="var(--line-madder)" stroke="none"/></g></svg>
+    </div>
+    <div class="cap"><em>Shiva and Shakti &mdash; stillness and motion, sun and moon, interlocked into a single embracing form.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Shiva = consciousness</span> — the still, holding, witnessing presence.</li>
+    <li><span class="lead">Shakti = energy</span> — the moving, feeling, flowing, creative current.</li>
+    <li><span class="lead">Polarity creates charge.</span> Sameness is comfortable; difference is electric. Tantra works the difference.</li>
+    <li><span class="lead">You hold both.</span> Knowing which one you're embodying — and being able to switch — is real skill.</li>
+    <li><span class="lead">Union is the goal of the whole cosmos,</span> playing out in miniature every time two people truly meet.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">शिवशक्त्यात्मकं</span>
+    <span class="tr">Of the nature of Shiva and Shakti, inseparably.</span>
+    <div class="gl">Two poles of one reality. Apart, an idea; together, a current.</div>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Feel both currents · 8 minutes</div>
+      <ol>
+        <li>Sit tall and still. For four minutes, be only the <em>witness</em> — watch thoughts pass like weather. This is your Shiva.</li>
+        <li>Then stand and let your body move however it wants — sway, stretch, undulate, eyes closed. This is your Shakti.</li>
+        <li>Notice you contain both: the one who watches, and the one who moves.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Holding &amp; flowing</div>
+      <ol>
+        <li>Sit facing each other. One of you simply <em>holds</em> — steady, grounded, present, doing nothing.</li>
+        <li>The other moves, speaks, expresses freely, knowing they're held.</li>
+        <li>After a few minutes, switch. Feel how good it is both to be the container and to be received.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="2"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L3 -->
+<section class="lesson reveal" id="l3" data-lesson="3">
+  <div class="lesson-top">
+    <div class="lesson-num">३</div>
+    <div class="lesson-meta">
+      <span class="tag">Foundations</span>
+      <h3>Breath &amp; Presence — The Only Real Technique</h3>
+      <div class="sdv dv">प्राण — the breath that is life</div>
+    </div>
+  </div>
+
+  <p>Everything sophisticated in tantra rests on something almost embarrassingly simple: <strong>the breath</strong>. Breath is the bridge between body and mind, the one rhythm you can both watch and steer. Where the breath goes, attention follows; where attention goes, energy flows. Speed the breath and you scatter. Slow and deepen it, and you gather — you become present, and presence is the entire art.</p>
+
+  <p>Most of us rush sex the way we rush everything — shallow breath, braced body, racing toward a finish. Tantra reverses this. <strong>Slow the breath, soften the body, and time dilates.</strong> A single minute of breathing low into the belly will teach you more about being present than a year of reading. This is the practice you'll return to in every lesson that follows.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Breath unwinding from a still centre — inhale, exhale.</title><defs><symbol id="l3-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M24 36 C70 30 96 56 96 92 C96 130 70 150 130 150 C176 150 210 124 210 88 C210 50 178 30 144 38 C112 46 100 78 118 104 C134 126 168 124 178 100 C186 80 172 64 156 70 C144 75 142 90 152 96" transform="translate(-0.8,-0.8)" stroke="var(--line-gold)" stroke-width="1" opacity="0.7" pathLength="100"/><path d="M24 36 C70 30 96 56 96 92 C96 130 70 150 130 150 C176 150 210 124 210 88 C210 50 178 30 144 38 C112 46 100 78 118 104 C134 126 168 124 178 100 C186 80 172 64 156 70 C144 75 142 90 152 96" stroke="var(--line)" stroke-width="var(--stroke-w)" pathLength="100"/><path d="M24 184 C58 178 70 176 84 178" stroke="var(--line-madder)" stroke-width="var(--stroke-w)" opacity="0.85" pathLength="100"/></g><use href="#l3-seed" x="149.5" y="92.5" width="6" height="6" fill="var(--gold)"/><use href="#l3-seed" x="81" y="175" width="6" height="6" fill="var(--rose)"/></svg>
+    </div>
+    <div class="cap"><em>Breath unwinds from a still centre — the long coil of inhale, the slow release of exhale.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Breath leads attention;</span> attention leads energy. Steer the first and the rest follow.</li>
+    <li><span class="lead">Slow + low + long</span> = present, grounded, sensitive. Fast + high + short = anxious, numb, rushed.</li>
+    <li><span class="lead">Belly, not chest.</span> Breathe so your lower belly rises first. This drops you out of your head.</li>
+    <li><span class="lead">The exhale is the gateway</span> to relaxation and surrender. Make it long and soft.</li>
+    <li><span class="lead">Presence can't be faked.</span> It is simply attention, here, now — and breath is how you summon it.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">सो ऽहम्</span>
+    <span class="tr">So-ham — "I am that."</span>
+    <div class="gl">A natural mantra: <em>so</em> on the inhale, <em>ham</em> on the exhale. The breath is already whispering it.</div>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Ocean breath · 10 minutes</div>
+      <ol>
+        <li>Lie down, hand on lower belly. Inhale slowly through the nose for a count of 5 — belly rises.</li>
+        <li>Exhale even slower, count of 7 — belly falls. Soften the jaw, the shoulders, the pelvis.</li>
+        <li>Silently ride <em>so</em> in, <em>ham</em> out. When the mind wanders, return to the belly.</li>
+        <li>Do this daily. It is the root of every practice in this course.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">One breath between two</div>
+      <ol>
+        <li>Sit close, backs straight, and simply breathe — no touching needed yet.</li>
+        <li>Gradually let your breathing match hers, slow and low, until you share one rhythm.</li>
+        <li>Stay there for ten quiet breaths. You'll feel the room change. That settling <em>is</em> intimacy.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="3"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- ============ STAGE II ============ -->
+<div class="stage-head reveal">
+  <div class="knum">Stage Two</div>
+  <h2>The Solo Path · You as an Instrument</h2>
+  <p>You cannot give what you have not found in yourself. Here you learn your own body, slowly, with reverence — before you ever bring it to another.</p>
+  <div class="brushline"></div>
+</div>
+
+<!-- L4 -->
+<section class="lesson reveal" id="l4" data-lesson="4">
+  <div class="lesson-top">
+    <div class="lesson-num">४</div>
+    <div class="lesson-meta">
+      <span class="tag">Solo Path</span>
+      <h3>The Body as Temple</h3>
+      <div class="sdv dv">देह — the embodied self</div>
+    </div>
+  </div>
+
+  <p>Most men live <em>above the neck</em> — all thought, planning, performing — and visit the body only at the finish line. Tantra asks you to move back in. To inhabit your hands, your skin, your spine, your sex, as places worth dwelling, not just using. This is <strong>embodiment</strong>, and it is a sensual skill you can train.</p>
+
+  <p>When you treat your own body as a temple — something to enter slowly, with attention and respect — two things happen. Your capacity for sensation deepens, so that a fingertip on the forearm can become an event. And you stop outsourcing your wholeness to a partner. You arrive at her already full, which is the most attractive thing in the world.</p>
+
+  <div class="plate reveal vert">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 220 320" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>The body as temple — a doorway one is invited to enter.</title><defs><symbol id="l4-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M40 300 L52 300 L52 134 C52 94 78 62 110 62 C142 62 168 94 168 134 L168 300 L180 300 M52 134 C72 120 96 116 110 116 C124 116 148 120 168 134" transform="translate(-1.2,-1.2)" stroke="var(--line-gold)" stroke-width="1" opacity="0.7" pathLength="100"/><path d="M40 300 L52 300 L52 134 C52 94 78 62 110 62 C142 62 168 94 168 134 L168 300 L180 300 M52 134 C72 120 96 116 110 116 C124 116 148 120 168 134" stroke="var(--line)" stroke-width="var(--stroke-w)" pathLength="100"/><path d="M54 280 C58 258 78 242 104 244 C130 246 146 262 166 280" stroke="var(--line-madder)" stroke-width="var(--stroke-w)" opacity="0.8" pathLength="100"/></g><use href="#l4-seed" x="107" y="59" width="6" height="6" fill="var(--gold)"/><use href="#l4-seed" x="101" y="241" width="6" height="6" fill="var(--line-madder)"/></svg>
+    </div>
+    <div class="cap"><em>The body as temple — a threshold one is invited to cross, the doorway's quiet inner space the reclining form itself.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Drop your attention below the neck.</span> Feeling, not thinking, is the medium here.</li>
+    <li><span class="lead">Sensitivity is trainable.</span> The slower you go, the more you can feel. Speed numbs; slowness reveals.</li>
+    <li><span class="lead">Reverence changes sensation.</span> Touch yourself as something precious and the body answers in kind.</li>
+    <li><span class="lead">Wholeness is self-generated.</span> Arrive full, not needy. That is true magnetism.</li>
+    <li><span class="lead">The whole body is erogenous</span> once you're present — not just the obvious places.</li>
+  </ul>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">The slow inventory · 15 minutes</div>
+      <ol>
+        <li>Warm, private, unhurried. Skin bare, lights low, breath slow and low.</li>
+        <li>With fingertips, touch your own arms, chest, belly, thighs — as slowly as you can bear.</li>
+        <li>The goal is <em>not</em> arousal — it's <em>sensation</em>. Notice texture, temperature, the places you usually skip.</li>
+        <li>If your mind narrates, return to breath. Let the body simply be felt.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Mapping, not goal · clothed or not</div>
+      <ol>
+        <li>Take turns. One lies still; the other explores their skin slowly — arms, back, neck — no erogenous zones yet.</li>
+        <li>The one receiving simply breathes and says only <em>"more there"</em> or <em>"softer."</em></li>
+        <li>Learn her map before you ever rush it. Most touch is too fast; let yours be the exception.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="4"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L5 -->
+<section class="lesson reveal" id="l5" data-lesson="5">
+  <div class="lesson-top">
+    <div class="lesson-num">५</div>
+    <div class="lesson-meta">
+      <span class="tag">Solo Path</span>
+      <h3>Sensual Self-Practice — Pleasure as Meditation</h3>
+      <div class="sdv dv">स्वाध्याय — study of the self</div>
+    </div>
+  </div>
+
+  <p>Here tantra reframes self-pleasure entirely. Not as a quick discharge of tension, but as a <strong>meditation</strong> — a way to build and circulate energy rather than spend it. The ordinary pattern races toward release and ends in depletion. The tantric pattern <em>builds</em> arousal in waves, climbs toward the edge, then deliberately backs off, letting the energy spread through the whole body instead of draining out.</p>
+
+  <p>This is the single most transformative solo skill in the course. By learning to ride high arousal <em>without</em> tipping over — softening, breathing, pausing at the edge — you train your body to hold far more energy, to stay present at intensity, and to separate the peak of pleasure from the reflex of release. Everything you learn here you'll later bring to a partner, where it becomes the difference between a sprint and an ocean.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>A single tended flame, built and held, not spent</title><defs><symbol id="l5-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path opacity="0.7" stroke="var(--line-gold)" stroke-width="1" d="M23.2,23.2 C43.2,67.2 71.2,99.2 70.2,131.2 C97.2,109.2 113.2,79.2 105.2,55.2 C133.2,87.2 137.2,135.2 109.2,167.2 C152.2,153.2 173.2,107.2 159.2,71.2 C201.2,103.2 213.2,159.2 173.2,191.2 C231.2,183.2 257.2,127.2 233.2,79.2 C266.2,121.2 263.2,179.2 215.2,205.2"/><path stroke="currentColor" stroke-width="var(--stroke-w)" pathLength="100" d="M24,24 C44,68 72,100 71,132 C98,110 114,80 106,56 C134,88 138,136 110,168 C153,154 174,108 160,72 C202,104 214,160 174,192 C232,184 258,128 234,80 C267,122 264,180 216,206"/><path stroke="var(--line-madder)" stroke-width="var(--stroke-w)" pathLength="100" d="M150,196 C137,176 134,156 144,138 C155,124 156,112 149,100 C168,112 174,134 165,154 C181,148 186,128 178,114 C190,130 192,156 178,176 C170,188 160,194 150,196 Z"/><use href="#l5-seed" x="159" y="112" width="5" height="5" fill="var(--ember)" stroke="none"/></g></svg>
+    </div>
+    <div class="cap"><em>A single tended flame — built and held, not spent.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Build in waves, don't sprint.</span> Rise toward the edge, then ease back. Repeat. Each wave widens your capacity.</li>
+    <li><span class="lead">Breathe <b>through</b> the peak.</span> When arousal spikes, slow the breath and relax the pelvis instead of clenching.</li>
+    <li><span class="lead">Spread, don't release.</span> At high arousal, imagine the warmth flowing up the spine and out through the whole body.</li>
+    <li><span class="lead">Edging is training,</span> not denial. You're teaching the body to hold charge and stay present.</li>
+    <li><span class="lead">Stay conscious throughout.</span> The moment you "check out" into fantasy, you've left the practice. Return to sensation.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">ओजस्</span>
+    <span class="tr">Ojas — vital essence, the refined glow of conserved energy.</span>
+    <div class="gl">What you gather and circulate, rather than spend, becomes radiance, steadiness, and presence.</div>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">The wave practice · 20–30 minutes</div>
+      <ol>
+        <li>Unhurried and private. Begin with the slow breathing from Lesson 3 until you feel settled in the body.</li>
+        <li>Self-pleasure slowly. As arousal climbs, <em>slow down</em> well before the edge. Breathe long and deep.</li>
+        <li>Pause completely near the peak. Let the wave subside halfway. Then build again — higher, slower.</li>
+        <li>On each pause, picture the warmth rising from the pelvis up the spine to the crown.</li>
+        <li>Whether or not you choose release, end with a few minutes of stillness, hand on belly, simply glowing.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Shared edges · later in the journey</div>
+      <ol>
+        <li>Once this is natural alone, bring the same waves to partnered touch: build, slow, breathe, pause.</li>
+        <li>Tell her the practice beforehand so the pauses feel like devotion, not hesitation.</li>
+        <li>Your steadiness becomes a gift — it lets her relax fully, knowing there's no rush toward an exit.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="note"><b>Pace yourself.</b> This skill builds over weeks, not in one night. Frustration means you're pushing; ease means you're learning. Always choose ease.</div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="5"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L6 -->
+<section class="lesson reveal" id="l6" data-lesson="6">
+  <div class="lesson-top">
+    <div class="lesson-num">६</div>
+    <div class="lesson-meta">
+      <span class="tag">Solo Path</span>
+      <h3>The Subtle Body — Chakras &amp; the Inner Fire</h3>
+      <div class="sdv dv">कुण्डलिनी — the coiled serpent</div>
+    </div>
+  </div>
+
+  <p>Tantra maps an <strong>inner anatomy</strong> alongside the physical one: a central channel running up the spine, and seven energy centres — <em>chakras</em> — strung along it like beads, from the root at the base of the pelvis to the crown of the head. Whether you take these as literal energy or as a poetic map of felt experience, they work the same way: as a guide for moving sensation through the whole body rather than letting it pool and discharge in one place.</p>
+
+  <p>At the base sleeps <strong>kundalini</strong> — coiled life-force, often pictured as a serpent. Tantric practice gently invites this energy to uncurl and rise up the spine, awakening each centre as it passes: from raw survival and sex, up through power and the heart, to vision and the crown. In sexual practice, this is the secret of <em>full-body</em> pleasure — drawing the charge that gathers in the pelvis up and out, so the whole being lights up, not just the genitals.</p>
+
+  <div class="plate reveal vert">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 220 320" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>The subtle body — seven centres strung on the spinal channel, kundalini rising</title><defs><symbol id="l6-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path opacity="0.7" stroke="var(--line-gold)" stroke-width="1" d="M23.2,295.2 C39.2,289.2 52.2,277.2 53.2,261.2 C77.2,267.2 77.2,231.2 53.2,237.2 C45.2,213.2 45.2,189.2 53.2,165.2 C77.2,171.2 77.2,135.2 53.2,141.2 C45.2,117.2 45.2,93.2 53.2,69.2 C77.2,75.2 77.2,45.2 53.2,49.2 C61.2,33.2 75.2,25.2 95.2,23.2"/><path stroke="currentColor" stroke-width="var(--stroke-w)" pathLength="100" d="M24,296 C40,290 53,278 54,262 C78,268 78,232 54,238 C46,214 46,190 54,166 C78,172 78,136 54,142 C46,118 46,94 54,70 C78,76 78,46 54,50 C62,34 76,26 96,24"/><path stroke="var(--line-madder)" stroke-width="var(--stroke-w)" pathLength="100" d="M110,300 C110,260 110,220 110,180 C110,140 110,100 110,60 C110,44 110,32 110,24"/><g fill="var(--gold)" stroke="none"><circle cx="110" cy="288" r="4.5"/><circle cx="110" cy="244" r="4.5"/><circle cx="110" cy="200" r="4.5"/><circle cx="110" cy="156" r="4.5"/><circle cx="110" cy="112" r="4.5"/><circle cx="110" cy="68" r="4.5"/></g><circle cx="110" cy="30" r="4.5" fill="var(--gold-bright)" stroke="none"/><circle cx="110" cy="288" r="1.4" fill="var(--ember)" stroke="none"/></g></svg>
+    </div>
+    <div class="cap"><em>The subtle body — seven centres strung on the channel, the coil rising to the crown.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Root → Crown.</span> Seven centres: survival, sex/creativity, power, heart, voice, vision, transcendence.</li>
+    <li><span class="lead">Energy that only pools in the pelvis</span> drains out fast. Energy drawn upward fills the whole body.</li>
+    <li><span class="lead">Breath + attention move it.</span> Inhale, imagine drawing warmth up the spine; exhale, let it bloom outward.</li>
+    <li><span class="lead">Kundalini is not forced.</span> It's invited — through relaxation, breath, and patience, never strain.</li>
+    <li><span class="lead">The heart is the hinge.</span> Energy that rises through the heart turns lust into intimacy.</li>
+  </ul>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Rising breath · 12 minutes</div>
+      <ol>
+        <li>Sit tall, spine long. Settle with slow belly breathing.</li>
+        <li>On each inhale, imagine drawing a warm thread of light from the base of your pelvis up the spine to the crown.</li>
+        <li>On each exhale, let it shower back down the front of the body to the base. A continuous gentle loop.</li>
+        <li>Pause at the heart now and then; let the warmth soften it open.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Heart over heat</div>
+      <ol>
+        <li>Embrace seated, chest to chest, and breathe together (Lesson 3).</li>
+        <li>Place a palm flat over the centre of each other's chest. Breathe as if into each other's hearts.</li>
+        <li>Let warmth rise from the belly to where your hands rest. Intimacy before intensity — every time.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="6"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- ============ STAGE III ============ -->
+<div class="stage-head reveal">
+  <div class="knum">Stage Three</div>
+  <h2>The Path of Union · With a Partner</h2>
+  <p>Now everything turns outward. These are the practices of meeting a woman as Shakti — with presence, reverence, and the unhurried attention you've built in yourself.</p>
+  <div class="brushline"></div>
+</div>
+
+<!-- L7 -->
+<section class="lesson reveal" id="l7" data-lesson="7">
+  <div class="lesson-top">
+    <div class="lesson-num">७</div>
+    <div class="lesson-meta">
+      <span class="tag">Path of Union</span>
+      <h3>Meeting Her — Consent, Safety &amp; Sacred Space</h3>
+      <div class="sdv dv">नमस्ते — the divine in me bows to the divine in you</div>
+    </div>
+  </div>
+
+  <p>Before technique, before touch, comes the <strong>container</strong>: the felt sense of safety in which a woman can actually let go. Nothing sensual unfolds in a body that is bracing. And the deepest aphrodisiac is not a move — it's the experience of being <em>truly seen and completely safe</em>. You build that with presence, honesty, and unhurried attention.</p>
+
+  <p>This is also where consent stops being a checkbox and becomes an <em>art</em>. Tantric consent is ongoing, spoken and felt, a continuous conversation: <em>"Is this good? Do you want more, or slower?"</em> Far from killing the mood, this attentiveness <em>is</em> the seduction — it tells her you're tracking her, not performing at her. When she feels that you'll honour every <em>no</em>, her <em>yes</em> can become wholehearted.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Two presences meeting as equals — a held space between them.</title><defs><symbol id="l7-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M24 200 C40 188 36 168 44 150 C54 126 80 122 92 100 C102 82 92 64 104 50 C114 38 132 36 142 48 C150 58 146 74 152 84" stroke="var(--line-gold)" stroke-width="1" opacity="0.7" transform="translate(-0.8,-0.8)"/><path d="M296 200 C280 188 284 168 276 150 C266 126 240 122 228 100 C218 82 228 64 216 50 C206 38 188 36 178 48 C170 58 174 74 168 84" stroke="var(--line-gold)" stroke-width="1" opacity="0.7" transform="translate(-0.8,-0.8)"/><path pathLength="100" d="M24 200 C40 188 36 168 44 150 C54 126 80 122 92 100 C102 82 92 64 104 50 C114 38 132 36 142 48 C150 58 146 74 152 84" stroke="var(--line)" stroke-width="var(--stroke-w)"/><path pathLength="100" d="M296 200 C280 188 284 168 276 150 C266 126 240 122 228 100 C218 82 228 64 216 50 C206 38 188 36 178 48 C170 58 174 74 168 84" stroke="var(--line)" stroke-width="var(--stroke-w)"/><line x1="160" y1="96" x2="160" y2="132" stroke="var(--line-madder)" stroke-width="var(--stroke-w)" stroke-dasharray="2 7" opacity="0.85"/></g><use href="#l7-seed" x="149" y="81" width="6" height="6" fill="var(--gold)"/><use href="#l7-seed" x="165" y="81" width="6" height="6" fill="var(--gold)"/></svg>
+    </div>
+    <div class="cap">Two who arrive whole — the charge lives in the space they keep between them.</div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Safety is the real aphrodisiac.</span> A relaxed nervous system is a sensual one. Build calm first.</li>
+    <li><span class="lead">Consent is ongoing &amp; spoken.</span> Keep asking, keep listening. Attentiveness is seductive, not clinical.</li>
+    <li><span class="lead">Honour every <b>no</b> instantly &amp; warmly.</span> That is exactly what makes her <em>yes</em> able to be total.</li>
+    <li><span class="lead">Set the space.</span> Phones away, warmth, low light, no clock. Ritual tells the body <em>something sacred is happening</em>.</li>
+    <li><span class="lead">See <b>her</b>, not your idea of her.</span> Presence means dropping the script and meeting who's actually there.</li>
+  </ul>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Prepare your presence</div>
+      <ol>
+        <li>Before she arrives, take ten minutes of belly breathing. Arrive grounded, not grasping.</li>
+        <li>Set one intention: <em>"Tonight I am here to feel and to honour, not to achieve anything."</em></li>
+        <li>Ready the space — clean, warm, soft light, no distractions. The room is part of the practice.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Open the container · together</div>
+      <ol>
+        <li>Begin not with touch but with words: <em>"What would help you feel relaxed and safe tonight?"</em></li>
+        <li>Agree a simple way to say <em>slower</em> or <em>pause</em> — and promise it will always be honoured.</li>
+        <li>Sit, breathe together a moment, and only then let touch begin. The pause makes everything richer.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="7"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L8 -->
+<section class="lesson reveal" id="l8" data-lesson="8">
+  <div class="lesson-top">
+    <div class="lesson-num">८</div>
+    <div class="lesson-meta">
+      <span class="tag">Path of Union</span>
+      <h3>Gaze &amp; Shared Breath — The First Communion</h3>
+      <div class="sdv dv">दृष्टि — the seeing that joins</div>
+    </div>
+  </div>
+
+  <p>Two simple practices form the gateway to tantric partnership, and both happen before a single garment comes off. The first is <strong>eye-gazing</strong>: holding soft, steady eye contact with a partner for minutes at a time. It feels vulnerable because it <em>is</em> — and that vulnerability is the doorway. To look and be looked at without flinching is to say, <em>I am here, I am not hiding, and I see you.</em></p>
+
+  <p>The second is <strong>synchronised breathing</strong>, which you've already met alone. Together it becomes profound: matching breath, or breathing in opposition (you inhale as she exhales, as if passing one current back and forth) dissolves the sense of two separate people. Combine gaze and breath and you have the heart of tantric foreplay — a communion that can be more charged than anything more overtly sexual.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Gaze and shared breath — two faces meeting, a single breath shared.</title><defs><symbol id="l8-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M24 200 C44 192 56 176 56 158 C56 138 44 124 60 108 C74 94 96 100 112 92 C124 86 130 72 124 60 C118 48 102 46 96 56 C112 60 128 70 142 84 C150 92 154 102 160 110 C166 102 170 92 178 84 C192 70 208 60 224 56 C218 46 202 48 196 60 C190 72 196 86 208 92 C224 100 246 94 260 108 C276 124 264 138 264 158 C264 176 276 192 296 200" stroke="var(--line-gold)" stroke-width="1" opacity="0.7" transform="translate(-0.8,-0.8)"/><path pathLength="100" d="M24 200 C44 192 56 176 56 158 C56 138 44 124 60 108 C74 94 96 100 112 92 C124 86 130 72 124 60 C118 48 102 46 96 56 C112 60 128 70 142 84 C150 92 154 102 160 110 C166 102 170 92 178 84 C192 70 208 60 224 56 C218 46 202 48 196 60 C190 72 196 86 208 92 C224 100 246 94 260 108 C276 124 264 138 264 158 C264 176 276 192 296 200" stroke="var(--line)" stroke-width="var(--stroke-w)"/><path pathLength="100" d="M138 122 C148 116 172 116 182 122" stroke="var(--line-madder)" stroke-width="var(--stroke-w)"/></g><use href="#l8-seed" x="157" y="107" width="6" height="6" fill="var(--gold)"/></svg>
+    </div>
+    <div class="cap">Two faces lean to one breath — the gaze that opens the body without touch.</div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Soft gaze, not a stare.</span> Rest your eyes on her left eye, let your face relax. It's receiving, not gripping.</li>
+    <li><span class="lead">Let the awkwardness pass.</span> Nervous laughter is normal in the first minute. Breathe; it settles into depth.</li>
+    <li><span class="lead">Synchronised breath = one body.</span> Matching, or trading inhale-for-exhale, melts the boundary.</li>
+    <li><span class="lead">This <b>is</b> foreplay.</span> Charge built through presence runs deeper than charge built through friction.</li>
+    <li><span class="lead">Stay, don't perform.</span> The whole practice is simply: keep arriving, again and again, into this moment with her.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">अहं त्वं</span>
+    <span class="tr">"I, you" — and slowly, the line between them blurs.</span>
+    <div class="gl">In the held gaze, the question <em>who is who</em> gently loosens. That loosening is union beginning.</div>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Meet your own eyes · 5 minutes</div>
+      <ol>
+        <li>Sit close to a mirror in soft light. Hold your own gaze, breathing slowly.</li>
+        <li>Notice the impulse to look away or judge — and gently stay. Offer yourself kindness.</li>
+        <li>If you can be present with yourself, you can be present with her.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Gaze &amp; breath · 6–10 minutes</div>
+      <ol>
+        <li>Sit facing, close, knees touching. Set a soft timer for 5 minutes so neither has to track time.</li>
+        <li>Soften your eyes onto hers. Let your breath slow and, gradually, sync with hers.</li>
+        <li>When emotion rises — and it may — breathe and stay. Let it move through; don't fix it.</li>
+        <li>Close by resting forehead to forehead for a few breaths. No words needed.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="8"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L9 -->
+<section class="lesson reveal" id="l9" data-lesson="9">
+  <div class="lesson-top">
+    <div class="lesson-num">९</div>
+    <div class="lesson-meta">
+      <span class="tag">Path of Union</span>
+      <h3>Sacred Touch — Honouring the Body</h3>
+      <div class="sdv dv">स्पर्श — the touch that worships</div>
+    </div>
+  </div>
+
+  <p>In tantra, touch is not a means to an end — it is the end. <strong>Sacred touch</strong> is given with full presence, as an offering rather than a tactic, with no destination in mind. When you slow down and touch a woman's body as something worthy of reverence, you give her a rare gift: the freedom to receive without having to give anything back, without performing, without rushing toward "what's next."</p>
+
+  <p>Tantra honours the genitals with their own sacred names — the <em>yoni</em> ("sacred space," her sex) and the <em>lingam</em> ("wand of light," his) — precisely to dissolve shame and restore reverence. A tantric massage of the yoni is approached as devotion: slow, breathing, attentive, with <em>no</em> goal of orgasm. Pleasure is welcome if it comes, but it is never the target. The target is presence — and paradoxically, that is exactly what lets pleasure run deepest.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Sacred touch — hands and fingertips, the charge of slow contact</title><defs><symbol id="l9-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path opacity="0.7" stroke="var(--line-gold)" stroke-width="1" transform="translate(-0.8,-0.8)" d="M4 196 C 60 188 96 176 116 150 C 128 134 126 116 138 104 C 150 92 168 96 172 110 M 172 110 C 176 124 162 130 150 124 M 116 150 C 120 162 134 168 146 162 C 156 157 158 146 168 138 C 182 126 200 132 202 148 M 202 148 C 204 162 188 166 178 158 M 146 162 C 150 174 166 178 178 170 C 188 164 190 154 202 148"/><path stroke="var(--line)" stroke-width="var(--stroke-w)" pathLength="100" d="M4 196 C 60 188 96 176 116 150 C 128 134 126 116 138 104 C 150 92 168 96 172 110 M 172 110 C 176 124 162 130 150 124 M 116 150 C 120 162 134 168 146 162 C 156 157 158 146 168 138 C 182 126 200 132 202 148 M 202 148 C 204 162 188 166 178 158 M 146 162 C 150 174 166 178 178 170 C 188 164 190 154 202 148"/><path stroke="var(--line)" stroke-width="var(--stroke-w)" pathLength="100" d="M316 196 C 260 190 226 180 210 162 C 198 148 200 130 190 118 C 180 106 162 110 159 122 M 210 162 C 207 174 194 180 184 174 M 159 122 C 156 134 168 138 178 132"/><path stroke="var(--line-madder)" stroke-width="var(--stroke-w)" pathLength="100" d="M176 116 C 172 124 170 132 174 140"/><use href="#l9-seed" x="1" y="193" width="6" height="6" fill="var(--line-gold)"/><use href="#l9-seed" x="172.5" y="125" width="5" height="5" fill="var(--rose)"/></g></svg>
+    </div>
+    <div class="cap"><em>Sacred touch — the charge lives in the held gap between fingertips.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Touch is the destination,</span> not the path to one. Drop "what's next" entirely.</li>
+    <li><span class="lead">Reverence over technique.</span> Slow, present, warm hands say more than any clever move.</li>
+    <li><span class="lead">No goal of orgasm.</span> Removing the target is what lets her fully relax — and feel more, not less.</li>
+    <li><span class="lead">Receiving is a practice too.</span> Many women find it hard to receive without reciprocating. Let her just receive.</li>
+    <li><span class="lead">Stay in dialogue.</span> Keep breathing together, keep gently checking — <em>"here? slower? more?"</em></li>
+  </ul>
+
+  <div class="note"><b>A note on honour.</b> The sacred names — <em>yoni</em>, <em>lingam</em> — exist to replace shame and crude language with reverence. Use whatever words feel real and warm between you. The reverence is the point, not the vocabulary.</div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Hands of presence · 8 minutes</div>
+      <ol>
+        <li>Rub your palms together until warm. Rest them on your own heart and belly.</li>
+        <li>Touch your own chest, arms, face as slowly and kindly as you'd touch someone deeply loved.</li>
+        <li>Train your hands to <em>listen</em> — to move at the speed of feeling, not the speed of wanting.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Honouring massage · unhurried</div>
+      <ol>
+        <li>Warm room, warm oil, warm hands. She receives; you give, with no expectation of return.</li>
+        <li>Begin far from the centre — back, arms, legs — for a long time. Build trust through patience.</li>
+        <li>Only with her clear invitation, move slowly inward. Keep breathing together. There is nowhere to get to.</li>
+        <li>If pleasure rises, welcome it; if it doesn't, that's perfect too. Presence was always the gift.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="9"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L10 -->
+<section class="lesson reveal" id="l10" data-lesson="10">
+  <div class="lesson-top">
+    <div class="lesson-num dv">१०</div>
+    <div class="lesson-meta">
+      <span class="tag">Path of Union</span>
+      <h3>Union as Meditation — Maithuna</h3>
+      <div class="sdv dv">मैथुन — the sacrament of union</div>
+    </div>
+  </div>
+
+  <p>This is the practice tantra is famous for and least understood for. <strong>Maithuna</strong> — sexual union approached as meditation — turns lovemaking from a build-and-discharge into a <em>sustained, shared, conscious state</em>. The classic image is <em>yab-yum</em>: she seated in his lap, chest to chest, wrapped together, moving slowly or barely at all — far more about stillness, breath, and gaze than about friction.</p>
+
+  <p>The shift is from <strong>peak to valley</strong>. Conventional sex chases peaks — sharp, brief, depleting. Tantric union seeks the <em>valley</em>: a broad, sustained plateau of high arousal held without tipping over, sometimes for a very long time. You use everything you've practised — the wave breathing, edging, drawing energy up the spine, the synchronised breath, the gaze. Polarity is the engine: one partner holding presence and space while the other moves and surrenders, then trading. Less doing, more being. The aim is not a bigger orgasm but a <em>deeper communion</em> — though the pleasure of the valley often outshines any peak.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Union as meditation — two forms merged into stillness</title><defs><symbol id="l10-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path opacity="0.7" stroke="var(--line-gold)" stroke-width="1" transform="translate(-0.8,-0.8)" d="M4 200 C 48 196 70 182 84 158 C 100 130 96 96 118 74 C 136 56 160 60 160 86 C 160 116 138 134 122 156 C 108 176 130 192 160 196 C 190 192 212 176 198 156 C 182 134 160 116 160 86 C 160 60 184 56 202 74 C 224 96 220 130 236 158 C 250 182 272 196 316 200"/><path stroke="var(--line)" stroke-width="var(--stroke-w)" pathLength="100" d="M4 200 C 48 196 70 182 84 158 C 100 130 96 96 118 74 C 136 56 160 60 160 86 C 160 116 138 134 122 156 C 108 176 130 192 160 196 C 190 192 212 176 198 156 C 182 134 160 116 160 86 C 160 60 184 56 202 74 C 224 96 220 130 236 158 C 250 182 272 196 316 200"/><path stroke="var(--line-madder)" stroke-width="var(--stroke-w)" pathLength="100" d="M160 86 C 156 102 156 118 160 134 C 164 118 164 102 160 86"/><use href="#l10-seed" x="1" y="197" width="6" height="6" fill="var(--line-gold)"/><use href="#l10-seed" x="313" y="197" width="6" height="6" fill="var(--line-gold)"/><use href="#l10-seed" x="157" y="107" width="6" height="6" fill="var(--rose)"/></g></svg>
+    </div>
+    <div class="cap"><em>Union as meditation — two forms merged into one still mandorla.</em></div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Valley, not peak.</span> Hold a high, sustained plateau instead of racing to release. Stay there; breathe.</li>
+    <li><span class="lead">Stillness over friction.</span> Movement can almost stop. Presence, breath, and gaze carry the charge.</li>
+    <li><span class="lead">Polarity is the engine.</span> One holds and grounds; one moves and surrenders. Trade roles fluidly.</li>
+    <li><span class="lead">Bring the whole toolkit:</span> wave breathing, edging, energy rising up the spine, shared breath, soft gaze.</li>
+    <li><span class="lead">Aim for communion, not climax.</span> Release becomes optional; the depth of meeting is the point.</li>
+    <li><span class="lead">When energy spikes, both pause and breathe</span> together — let it circulate up and through, not out.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">मैथुन</span>
+    <span class="tr">Maithuna — the union in which two become a single circuit.</span>
+    <div class="gl">Not friction toward a finish, but a shared breath that has no hurry to end.</div>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Rehearse the valley</div>
+      <ol>
+        <li>In solo practice, deliberately find your plateau — high arousal, held steady — and stay there ten minutes.</li>
+        <li>Practise the spike-and-settle: when you near the edge, stop all motion, breathe, draw energy up, let it level.</li>
+        <li>This rehearsal is what lets you stay present and unhurried later, in union.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">Yab-yum union · slow &amp; conscious</div>
+      <ol>
+        <li>Begin fully connected but <em>still</em> — wrapped together, foreheads close, breathing as one.</li>
+        <li>Move slowly, or barely. Let long pauses of stillness be the heart of it.</li>
+        <li>Keep soft eye contact. When either nears the edge, both pause, breathe, and draw the energy upward.</li>
+        <li>Trade polarity: take turns holding stillness and offering movement. Feel the current pass back and forth.</li>
+        <li>There is no finish line. End when it feels whole — wrapped, breathing, quiet.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="10"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- ============ STAGE IV ============ -->
+<div class="stage-head reveal">
+  <div class="knum">Stage Four</div>
+  <h2>Mastery · The Living Path</h2>
+  <p>The advanced work is not more positions but more <em>circulation</em> — and finally, weaving the whole practice into the fabric of a life.</p>
+  <div class="brushline"></div>
+</div>
+
+<!-- L11 -->
+<section class="lesson reveal" id="l11" data-lesson="11">
+  <div class="lesson-top">
+    <div class="lesson-num dv">११</div>
+    <div class="lesson-meta">
+      <span class="tag">Mastery</span>
+      <h3>Circulating the Fire — The Microcosmic Orbit</h3>
+      <div class="sdv dv">the wheel of energy, turning</div>
+    </div>
+  </div>
+
+  <p>The advanced solo and partnered skill is <strong>circulation</strong>: keeping sexual energy moving in a continuous loop rather than letting it build to a single point of release. The classic map (borrowed by tantra from Taoist inner alchemy) is the <strong>microcosmic orbit</strong> — energy rising up the spine to the crown on the inhale, and flowing down the front of the body back to the base on the exhale, around and around like a wheel that never stops.</p>
+
+  <p>Mastered, this is the foundation of what some traditions call the <em>injaculation</em> or non-ejaculatory peak for men — experiencing the wave of orgasm as energy while choosing to retain and circulate the seed, so that pleasure becomes repeatable and whole-body rather than singular and depleting. This is genuinely advanced; it takes months of patient solo practice. Approach it with curiosity, never strain — the orbit is something you <em>relax into</em>, not force.</p>
+
+  <div class="plate reveal">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 320 220" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Circulating the fire — the microcosmic orbit, energy looping up the spine and down the front</title><defs><symbol id="l11-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><g stroke="var(--line-gold)" stroke-width="1" opacity=".7" transform="translate(-0.8,-0.8)"><path d="M24,196 C40,176 44,150 78,150 C120,150 128,176 150,168 C166,162 168,128 162,100 C156,72 148,46 168,34 C192,20 224,30 232,58 C242,92 214,108 186,104 C156,100 150,72 162,52 C174,32 206,28 224,44 C246,64 240,108 214,140 C190,170 156,186 132,196 C108,206 72,210 24,196"/></g><path d="M24,196 C40,176 44,150 78,150 C120,150 128,176 150,168 C166,162 168,128 162,100 C156,72 148,46 168,34 C192,20 224,30 232,58 C242,92 214,108 186,104 C156,100 150,72 162,52 C174,32 206,28 224,44 C246,64 240,108 214,140 C190,170 156,186 132,196 C108,206 72,210 24,196" stroke="var(--line)" stroke-width="var(--stroke-w,1.7)" pathLength="100"/><path d="M168,34 C150,80 156,140 132,196" stroke="var(--line-madder)" stroke-width="var(--stroke-w,1.7)" opacity=".9" pathLength="100"/></g><use href="#l11-seed" x="178" y="63" width="7" height="7" fill="var(--ember)"/><use href="#l11-seed" x="21" y="193" width="6" height="6" fill="var(--gold)"/></svg>
+    </div>
+    <div class="cap">Circulating the fire — the orbit climbs the spine and pours down the front, one unbroken current.</div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Up the back, down the front.</span> Inhale rising to the crown, exhale descending to the base. A continuous loop.</li>
+    <li><span class="lead">Connect the circuit:</span> tongue lightly to the roof of the mouth links the two channels (a Taoist detail tantra adopts).</li>
+    <li><span class="lead">Retain &amp; circulate.</span> At the brink, relax — don't clench — breathe the wave up and around instead of out.</li>
+    <li><span class="lead">Repeatable pleasure.</span> Separating the peak-sensation from release lets the wave return, again and again.</li>
+    <li><span class="lead">Patience is the whole skill.</span> Months, not nights. Strain ruins it; ease unlocks it.</li>
+  </ul>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">The orbit · 15 minutes</div>
+      <ol>
+        <li>Sit tall, tongue resting on the roof of the mouth. Settle with slow breathing.</li>
+        <li>Inhale: draw warmth from the base up the spine to the crown. Exhale: let it pour down the front to the base.</li>
+        <li>Make ten slow, smooth loops with breath alone, before any arousal.</li>
+        <li>Then, in the wave practice from Lesson 5, run the orbit at high arousal — at the edge, circulate instead of release.</li>
+        <li>Always end calm and grounded, energy gathered low in the belly.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">A shared circuit</div>
+      <ol>
+        <li>In yab-yum, imagine a single orbit running through <em>both</em> of you — up your spine, down into her, up hers, down into you.</li>
+        <li>Breathe to pass it: you exhale energy into her as she inhales, and back again — one wheel turning through two bodies.</li>
+        <li>This is the height of the practice: two people, one circulating current, held in stillness.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="11"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- L12 -->
+<section class="lesson reveal" id="l12" data-lesson="12">
+  <div class="lesson-top">
+    <div class="lesson-num dv">१२</div>
+    <div class="lesson-meta">
+      <span class="tag">Mastery</span>
+      <h3>Living Tantra — Weaving It Into a Life</h3>
+      <div class="sdv dv">साधना — the ongoing practice</div>
+    </div>
+  </div>
+
+  <p>The final teaching is that tantra was never only about sex. The reverence, presence, and energy you've cultivated in the bedroom are meant to <strong>spill into everything</strong> — how you eat, how you walk, how you listen, how you touch a cup of tea or the small of her back in passing. Tantra is a way of meeting <em>all</em> of life as sacred and sensual. The bedroom is simply the most concentrated classroom.</p>
+
+  <p>So make it a <em>sādhana</em> — an ongoing practice, not a trick you pull out occasionally. A few minutes of breath each morning. A weekly evening of gazing and slow touch with no goal. Presence brought, again and again, to ordinary moments. Done this way, tantra becomes less a thing you do and more a way you <em>are</em> — fully alive in your body, deeply present with your partner, treating desire as a doorway and union as a kind of worship. That is the whole path, and it has no end. You simply keep weaving.</p>
+
+  <div class="plate reveal vert">
+    <div class="niche"></div>
+    <div class="art">
+      <svg viewBox="0 0 220 320" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Living tantra — a tree and mandala of a whole life, rooted below and flowering above</title><defs><symbol id="l12-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><circle cx="110" cy="118" r="82" stroke="var(--line-gold)" stroke-width="1" opacity=".45" stroke-dasharray="1 7"/><g stroke="var(--line-gold)" stroke-width="1" opacity=".7" transform="translate(-0.8,-0.8)"><path d="M24,300 C44,286 58,300 78,286 C98,272 96,250 108,238 C96,224 92,196 108,182 C124,168 116,140 110,128 C104,112 120,86 142,84 C120,76 116,52 134,40 C112,46 96,30 110,16 C124,30 108,46 86,40 C104,52 100,76 78,84 C100,86 116,112 110,128 C104,140 96,168 112,182 C128,196 124,224 112,238 C124,250 122,272 142,286 C162,300 176,286 196,300"/></g><path d="M24,300 C44,286 58,300 78,286 C98,272 96,250 108,238 C96,224 92,196 108,182 C124,168 116,140 110,128 C104,112 120,86 142,84 C120,76 116,52 134,40 C112,46 96,30 110,16 C124,30 108,46 86,40 C104,52 100,76 78,84 C100,86 116,112 110,128 C104,140 96,168 112,182 C128,196 124,224 112,238 C124,250 122,272 142,286 C162,300 176,286 196,300" stroke="var(--line)" stroke-width="var(--stroke-w,1.7)" pathLength="100"/><path d="M110,238 C108,196 106,160 110,128" stroke="var(--line-madder)" stroke-width="var(--stroke-w,1.7)" opacity=".9" pathLength="100"/></g><use href="#l12-seed" x="107" y="13" width="7" height="7" fill="var(--gold)"/><use href="#l12-seed" x="21" y="297" width="6" height="6" fill="var(--line-madder)"/></svg>
+    </div>
+    <div class="cap">Living tantra — one life drawn as a single tree, rooted in the dark and flowering into a ring of light.</div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Tantra is a way of <b>being</b>,</span> not a bedroom trick. Carry the presence into ordinary life.</li>
+    <li><span class="lead">Make it a daily root.</span> A few minutes of breath each morning keeps the whole practice alive.</li>
+    <li><span class="lead">Keep a weekly ritual</span> with your partner: gaze, breath, slow touch, no goal. Protect it like anything sacred.</li>
+    <li><span class="lead">Sensual presence everywhere</span> — taste, touch, listening. Treat the whole of life as worthy of attention.</li>
+    <li><span class="lead">There is no finish.</span> The weaving continues. Return to Lesson 3's breath whenever you drift.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">सर्वं खल्विदं ब्रह्म</span>
+    <span class="tr">All this, truly, is the sacred.</span>
+    <div class="gl">Nothing left outside the temple. Body, breath, desire, her, this moment — all of it, the path itself.</div>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--ember)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M14 28 C8 22 8 14 14 6 C20 14 20 22 14 28 Z" stroke="currentColor" stroke-width="1.6" pathLength="100"/><circle cx="14" cy="13" r="1.6" fill="var(--ember)" stroke="none"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9 C5.4 6 5.6 3.6 8 1 C10.4 3.6 10.6 6 8 9 Z"/><path d="M8 9 L8 11"/><path d="M5.4 11.4 L10.6 11.4 L10.6 18 C10.6 18.7 10 19.2 8 19.2 C6 19.2 5.4 18.7 5.4 18 Z"/></svg></span>Alone</div>
+      <div class="tagline">Build your rhythm</div>
+      <ol>
+        <li>Choose a daily anchor: five minutes of belly breathing, morning or night. Non-negotiable, however small.</li>
+        <li>Once a week, take one solo hour for the wave or orbit practice. Treat it as devotion to yourself.</li>
+        <li>Through the day, drop in: one conscious breath, one fully-felt sensation. Tantra in miniature.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="headmark" aria-hidden="true"><svg viewBox="0 0 44 30" role="img" aria-hidden="true" style="color:var(--line)"><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M6 26 C16 18 16 12 22 6 C28 12 28 18 38 26" stroke="var(--line-madder)" stroke-width="1.6" pathLength="100"/><path d="M14 26 C20 18 24 14 22 6 C20 14 24 18 30 26" stroke="var(--indigo)" stroke-width="1.6" pathLength="100"/></g></svg></div>
+      <div class="ph"><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 5.2 C4.2 2.6 6 1 8 1 C10 1 11.8 2.6 11.8 5.2 C11.8 7.8 10 9.4 8 9.4 C6 9.4 4.2 7.8 4.2 5.2 Z"/><path d="M8 9.4 C6.6 7.8 6.6 4.4 8 3 C9.4 4.4 9.4 7.8 8 9.4 Z"/><path d="M8 9.4 L8 14"/><path d="M8 13 C6.4 12.2 4.6 12.6 3.4 14.4 C5.2 15.2 7 14.8 8 13.4 M8 13.6 C9.4 12.6 11.4 12.8 12.6 14.6 C10.8 15.6 9 15 8 13.6"/><path d="M8 14 L8 19"/></svg></span>With Her</div>
+      <div class="tagline">A standing ritual</div>
+      <ol>
+        <li>Set a recurring evening — phones away, soft light — for gaze, breath, and unhurried touch with no goal.</li>
+        <li>Now and then, revisit an earlier lesson together. The foundations always reward returning.</li>
+        <li>Let presence become your shared language, in and far beyond the bedroom.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="12"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- ============ ORACLE ============ -->
+<section class="oracle reveal" id="oracle">
+  <div class="oracle-mark" aria-hidden="true">
+    <svg viewBox="0 0 240 240" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true" style="color:var(--line)"><title>Drawing of lots — the seed the loom offers</title><defs><symbol id="oracle-seed" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3"/></symbol></defs><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M28 24 C 70 60 100 92 120 118 M120 118 C 96 70 100 36 120 22 C 140 36 144 70 120 118 M120 118 C 158 96 196 96 214 96 C 196 116 158 130 120 118 M120 118 C 144 158 138 198 120 214 C 102 198 96 158 120 118 M120 118 C 82 134 50 158 30 178" stroke="var(--line-gold)" stroke-width="1" opacity="0.7" transform="translate(-0.8,-0.8)" pathLength="100"/><path d="M28 24 C 70 60 100 92 120 118 M120 118 C 96 70 100 36 120 22 C 140 36 144 70 120 118 M120 118 C 158 96 196 96 214 96 C 196 116 158 130 120 118 M120 118 C 144 158 138 198 120 214 C 102 198 96 158 120 118 M120 118 C 82 134 50 158 30 178" stroke="currentColor" stroke-width="var(--stroke-w)" pathLength="100"/><path d="M120 118 m-30 0 a30 30 0 1 0 60 0 a30 30 0 1 0 -60 0" stroke="var(--line-madder)" stroke-width="var(--stroke-w)" opacity="0.92" pathLength="100"/></g><use href="#oracle-seed" x="117" y="115" width="6" height="6" fill="var(--gold)"/><use href="#oracle-seed" x="25.5" y="21.5" width="5" height="5" fill="var(--line-madder)"/></svg>
+  </div>
+  <div class="dv" style="font-size:1.8rem;color:var(--rose)">✶</div>
+  <h3>Draw Today's Practice</h3>
+  <p class="muted">Not sure where to begin today? Let the loom choose for you.</p>
+  <button class="btn" id="oracleBtn">Draw a practice</button>
+  <div id="oracleOut" role="status" aria-live="polite"></div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<div class="closing reveal">
+  <div class="closing-mark" aria-hidden="true">
+    <svg viewBox="0 0 54 54" role="img" aria-hidden="true" style="color:var(--line)"><title>the thread ties off</title><g fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"><path d="M27 2 C27 2 27 18 27 27 C27 34 22 40 22 40 C22 40 32 44 32 38 C32 32 22 34 22 40 C22 46 30 50 36 47" stroke="var(--line-gold)" stroke-width="1" opacity=".6" transform="translate(-0.8,-0.8)" pathLength="100"/><path d="M27 2 C27 2 27 18 27 27 C27 34 22 40 22 40 C22 40 32 44 32 38 C32 32 22 34 22 40 C22 46 30 50 36 47" stroke="currentColor" stroke-width="1.6" pathLength="100"/></g><circle cx="35" cy="47" r="2.6" fill="var(--gold)"/></svg>
+  </div>
+  <div class="dv">ॐ शान्तिः</div>
+  <p>You now hold a whole path — from the philosophy in your mind, through the body you've learned to inhabit, to the woman you meet as Shakti. Walk it slowly. Return often. The weaving is never finished, and that is the gift.</p>
+  <div class="foot">The Loom of Union · a self-paced tantric course · made for slow reading. Your progress is saved privately in this browser only.</div>
+</div>
+
+</div><!-- /col -->
+</main>
+
+<script>
+/* ============ APP ============ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const STORE_KEY="loom_progress_v1", THEME_KEY="loom_theme_v1";
+const TOTAL=12;
+
+/* ---- theme ---- */
+const root=document.documentElement;
+function setTheme(t){
+  root.setAttribute("data-theme",t);
+  const tg=$("#themeToggle");
+  tg.textContent = t==="dark" ? "☀️ Dawn" : "🌙 Candlelight";
+  tg.setAttribute("aria-pressed", t==="dark" ? "true" : "false");
+  try{localStorage.setItem(THEME_KEY,t)}catch(e){}
+}
+$("#themeToggle").addEventListener("click",()=>{
+  setTheme(root.getAttribute("data-theme")==="dark"?"light":"dark");
+});
+try{const st=localStorage.getItem(THEME_KEY); if(st) setTheme(st);}catch(e){}
+
+/* ---- menu ---- */
+$("#menuBtn").addEventListener("click",()=>document.body.classList.toggle("nav-open"));
+$("#backdrop").addEventListener("click",()=>document.body.classList.remove("nav-open"));
+$$("#sideNav a").forEach(a=>a.addEventListener("click",()=>{
+  if(window.innerWidth<1080) document.body.classList.remove("nav-open");
+}));
+
+/* ---- progress ---- */
+function loadDone(){
+  try{return new Set(JSON.parse(localStorage.getItem(STORE_KEY)||"[]"))}catch(e){return new Set()}
+}
+function saveDone(set){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify([...set]))}catch(e){}
+}
+let done=loadDone();
+
+function renderProgress(){
+  const n=done.size;
+  $("#progTxt").textContent=`${n} / ${TOTAL}`;
+  $("#progFill").style.width=`${(n/TOTAL)*100}%`;
+  // lessons
+  $$(".lesson").forEach(sec=>{
+    const id=sec.dataset.lesson;
+    const on=done.has(id);
+    sec.classList.toggle("is-done",on);
+  });
+  // nav ticks
+  $$("#sideNav a[data-l]").forEach(a=>{
+    a.classList.toggle("complete",done.has(a.dataset.l));
+  });
+  // honoured toggle state for screen readers
+  $$(".btn-complete").forEach(btn=>{
+    btn.setAttribute("aria-pressed", done.has(btn.dataset.complete) ? "true" : "false");
+  });
+}
+$$(".btn-complete").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const id=btn.dataset.complete;
+    if(done.has(id)) done.delete(id); else done.add(id);
+    saveDone(done); renderProgress();
+  });
+});
+renderProgress();
+
+/* ---- scroll spy ---- */
+const navMap={};
+$$("#sideNav a[href^='#']").forEach(a=>{ navMap[a.getAttribute("href").slice(1)]=a; });
+if("IntersectionObserver" in window){
+  const spy=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const id=e.target.id;
+        $$("#sideNav a.on").forEach(a=>a.classList.remove("on"));
+        if(navMap[id]) navMap[id].classList.add("on");
+      }
+    });
+  },{rootMargin:"-30% 0px -60% 0px",threshold:0});
+  $$("section[id], #welcome").forEach(s=>spy.observe(s));
+
+  /* reveal */
+  const rev=new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); rev.unobserve(e.target);} });
+  },{rootMargin:"0px 0px -8% 0px",threshold:.05});
+  $$(".reveal").forEach(el=>rev.observe(el));
+}else{
+  $$(".reveal").forEach(el=>el.classList.add("in"));
+}
+
+/* ---- topbar solid on scroll ---- */
+const tb=$("#topbar");
+addEventListener("scroll",()=>{ tb.classList.toggle("solid", window.scrollY>40); },{passive:true});
+
+/* ---- oracle ---- */
+const PRACTICES=[
+  {dv:"प्राण", t:"Ten ocean breaths. Belly rising on a slow five, falling on a slower seven. Nothing else to do."},
+  {dv:"दृष्टि", t:"Five minutes of soft eye contact — with her, or with your own eyes in the mirror. Just stay."},
+  {dv:"स्पर्श", t:"Touch one part of your own body as slowly and kindly as you'd touch someone you love."},
+  {dv:"शक्ति", t:"Stand, close your eyes, and let your body move however it wants for three songs. No judging."},
+  {dv:"ओजस्", t:"The wave: build arousal slowly, ease back before the edge, breathe it up the spine. Gather, don't spend."},
+  {dv:"⟳", t:"Ten slow loops of the microcosmic orbit — up the spine on the inhale, down the front on the exhale."},
+  {dv:"नमस्ते", t:"Ask her one real question about her body and her pleasure — then listen with no agenda at all."},
+  {dv:"शिव", t:"Four minutes as the pure witness: sit still and watch your thoughts pass like weather. Be the sky."},
+  {dv:"मैथुन", t:"Tonight, choose stillness over friction. Hold the valley. Let breath and gaze carry the charge."},
+  {dv:"साधना", t:"Bring one fully-present breath to an ordinary moment today — a cup of tea, a doorway, her hand."}
+];
+let lastIdx=-1;
+$("#oracleBtn").addEventListener("click",()=>{
+  let i; do{ i=Math.floor(Math.random()*PRACTICES.length); }while(i===lastIdx && PRACTICES.length>1);
+  lastIdx=i;
+  const p=PRACTICES[i];
+  $("#oracleOut").innerHTML=`<span class="dv">${p.dv}</span>${p.t}`;
+});
+</script>
+</body>
+</html>
