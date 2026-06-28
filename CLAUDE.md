@@ -9,7 +9,7 @@ It is a collection of independent, self-contained static toys, one per top-level
 
 ## ⚠️ CRITICAL BOUNDARY: there are TWO "taotime" things. Do not conflate them.
 1. **taotime.me = the PRIMARY / live Watercourse Way site.** It is a *separate project entirely*:
-   - codebase: **`~/Code/taotime`** (its own git repo, **no GitHub remote** — local only)
+   - codebase: **`~/Code/taotime`** — its own git repo, its own **private GitHub repo `fnaticsam/taotime`** (separate from this `samfun` repo; backup only, deploy is still manual `vercel deploy --prod`)
    - Vercel project: **`taotime`** (prj_qQXiAkwyEo095RpBGQCrMdiQKkty), domain **taotime.me**
    - **NOTHING in this repo affects taotime.me.** Editing/deleting `samfun`'s `taotime/` folder or any `samfun` branch has ZERO effect on taotime.me.
 2. **sam.toys/taotime = a stale LEGACY mirror** living in this repo's `taotime/` folder. It is not the source of truth; taotime.me is. Don't invest work here; if anything, this folder may eventually be retired (but it's live at 200 today — don't delete without explicit say-so).
