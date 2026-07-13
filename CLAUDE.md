@@ -6,6 +6,7 @@ It is a collection of independent, self-contained static toys, one per top-level
 ## Folders → live URLs
 - `tantra/index.html`  → **https://sam.toys/tantra** — "The Loom of Union" tantra course (Ink & Gold Thread design). `noindex`.
 - `taotime/index.html` → **https://sam.toys/taotime** — *LEGACY* copy of the Watercourse Way site (see boundary below).
+- `voicenotes/index.html` → **https://sam.toys/voicenotes** — WhatsApp voice-note → transcript + bullets (WhatsApp-dark chat UI). `noindex`. Backed by `api/transcribe.js` (Vercel function → Gemini `gemini-3.5-flash` audio input; needs `GEMINI_API_KEY` prod env var, set 2026-07-13). `vercel.json` exists only to give that function `maxDuration: 60`. This is the one exception to "no backend" here — keep new toys static unless there's a real reason.
 
 ## ⚠️ CRITICAL BOUNDARY: there are TWO "taotime" things. Do not conflate them.
 1. **taotime.me = the PRIMARY / live Watercourse Way site.** It is a *separate project entirely*:
