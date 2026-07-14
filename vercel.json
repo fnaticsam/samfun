@@ -2,6 +2,15 @@
   "functions": {
     "api/transcribe.js": {
       "maxDuration": 60
+    },
+    "api/ldn-refresh.mjs": {
+      "maxDuration": 300
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/ldn-refresh",
+      "schedule": "0 8 1 * *"
+    }
+  ]
 }

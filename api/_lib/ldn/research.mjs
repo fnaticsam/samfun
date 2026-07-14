@@ -1,0 +1,159 @@
+// Research pipeline: for each category, ask Gemini (grounded on Google Search)
+// for a structured top-5, then normalise into the dataset shape the map reads.
+
+import { groundedGenerate, extractJson } from './gemini.mjs';
+import { CATEGORIES, CATEGORY_BY_ID, inLondon } from './categories.mjs';
+
+const VOICE = [
+  'Voice: dry, precise, lightly witty. Brevity is the brand.',
+  'No hype words ("iconic", "must-visit", "hidden gem", "vibrant"), no exclamation marks, no emoji.',
+  'Each "why" is ONE sentence, under 22 words, telling a discerning Londoner why this one and not the obvious tourist pick.'
+].join(' ');
+
+function prompt(cat, month) {
+  return `You are compiling the definitive top 5 for a monthly London culture map. Category: "${cat.label}".
+${cat.guidance}
+
+Current month: ${month}. Use Google Search to ground every fact in real, current sources.
+
+Return the FIVE best in London right now, ranked 1 (best) to 5. For each, decide a "tier":
+- "evergreen" = a standing institution/venue worth knowing any month.
+- "this-month" = something specifically happening in or around ${month} (a production, exhibition, run, or limited experience). Only use "this-month" if you can ground an actual current/upcoming date window.
+
+Prefer a mix that reflects reality for this category. For theatre and immersive, favour "this-month" productions with real date windows.
+
+${VOICE}
+
+Respond with ONLY a JSON array of exactly 5 objects, no prose, in this exact shape:
+[
+  {
+    "name": "string — the venue or production name",
+    "venue": "string — for a production, the theatre/venue hosting it; else same as name",
+    "area": "string — London neighbourhood, e.g. Soho, Southbank, Dalston",
+    "address": "string — full street address including postcode",
+    "lat": number,   // precise decimal latitude of the venue in London
+    "lng": number,   // precise decimal longitude
+    "why": "string — one dry sentence, see voice rules",
+    "priceBand": "one of: Free, £, ££, £££, ££££",
+    "url": "string — official website URL",
+    "tier": "evergreen" | "this-month",
+    "thisMonth": { "headline": "string", "dates": "string e.g. 'until 30 Aug 2026'", "detail": "string, optional" }
+  }
+]
+Rules: coordinates must be the venue's real location in Greater London. "thisMonth" is required when tier is "this-month" and omitted otherwise. Output valid JSON only.`;
+}
+
+export function clampWhy(s, words = 26) {
+  if (!s) return '';
+  const w = String(s).trim().replace(/\s+/g, ' ').split(' ');
+  let out = w.slice(0, words).join(' ');
+  out = out.replace(/[!]+/g, '.'); // enforce no exclamation marks
+  return out;
+}
+
+export function normalizePlace(cat, raw, rank) {
+  const lat = Number(raw.lat);
+  const lng = Number(raw.lng);
+  const coordsOk = inLondon(lat, lng);
+  const tier = raw.tier === 'this-month' ? 'this-month' : 'evergreen';
+  const place = {
+    id: `${cat.id}-${rank}`,
+    category: cat.id,
+    rank,
+    name: String(raw.name || '').trim(),
+    venue: String(raw.venue || raw.name || '').trim(),
+    area: String(raw.area || '').trim(),
+    address: String(raw.address || '').trim(),
+    lat: coordsOk ? lat : null,
+    lng: coordsOk ? lng : null,
+    coordsVerified: coordsOk,
+    why: clampWhy(raw.why),
+    priceBand: normBand(raw.priceBand),
+    url: cleanUrl(raw.url),
+    tier
+  };
+  if (tier === 'this-month' && raw.thisMonth) {
+    place.thisMonth = {
+      headline: String(raw.thisMonth.headline || '').trim(),
+      dates: String(raw.thisMonth.dates || '').trim(),
+      detail: String(raw.thisMonth.detail || '').trim() || undefined
+    };
+  }
+  return place;
+}
+
+function normBand(b) {
+  const s = String(b || '').trim();
+  if (/free/i.test(s)) return 'Free';
+  const m = s.match(/£+/);
+  if (m) return m[0].slice(0, 4);
+  return '££';
+}
+
+function cleanUrl(u) {
+  const s = String(u || '').trim();
+  if (!s) return '';
+  if (/^https?:\/\//i.test(s)) return s;
+  if (/^[\w.-]+\.[a-z]{2,}/i.test(s)) return 'https://' + s;
+  return '';
+}
+
+/** Research one category. Returns { category, places, sources, queries }. */
+export async function researchCategory(cat, { month, signal } = {}) {
+  const { text, sources, queries } = await groundedGenerate({
+    prompt: prompt(cat, month),
+    temperature: 0.35,
+    signal
+  });
+  let arr;
+  try {
+    arr = extractJson(text);
+  } catch (e) {
+    throw new Error(`[${cat.id}] JSON parse failed: ${e.message}`);
+  }
+  if (!Array.isArray(arr)) throw new Error(`[${cat.id}] expected array`);
+  const places = arr
+    .slice(0, 5)
+    .map((raw, i) => normalizePlace(cat, raw, i + 1))
+    .filter(p => p.name);
+  return { category: cat.id, places, sources, queries };
+}
+
+/** Research all categories with bounded concurrency. */
+export async function researchAll({ month, concurrency = 3, onProgress, signal } = {}) {
+  const results = [];
+  const queue = [...CATEGORIES];
+  async function worker() {
+    while (queue.length) {
+      const cat = queue.shift();
+      try {
+        const r = await researchCategory(cat, { month, signal });
+        results.push(r);
+        onProgress?.({ category: cat.id, ok: true, count: r.places.length });
+      } catch (err) {
+        results.push({ category: cat.id, places: [], error: err.message });
+        onProgress?.({ category: cat.id, ok: false, error: err.message });
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: concurrency }, worker));
+  return results;
+}
+
+/** Assemble the final dataset object the map consumes. */
+export function buildDataset(results, { month, generatedAt }) {
+  const byId = Object.fromEntries(results.map(r => [r.category, r]));
+  const places = [];
+  for (const cat of CATEGORIES) {
+    const r = byId[cat.id];
+    if (r?.places?.length) places.push(...r.places);
+  }
+  return {
+    month,
+    generatedAt,
+    city: 'London',
+    categories: CATEGORIES.map(({ id, label, short, color, blurb }) => ({ id, label, short, color, blurb })),
+    places,
+    sources: Object.fromEntries(results.map(r => [r.category, (r.sources || []).slice(0, 5)]))
+  };
+}
