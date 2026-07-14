@@ -2,29 +2,30 @@
 // for a structured top-5, then normalise into the dataset shape the map reads.
 
 import { groundedGenerate, extractJson } from './gemini.mjs';
-import { CATEGORIES, CATEGORY_BY_ID, inLondon } from './categories.mjs';
+import { CATEGORIES, CATEGORY_BY_ID, inLondon, TOP_N } from './categories.mjs';
 
 const VOICE = [
   'Voice: dry, precise, lightly witty. Brevity is the brand.',
   'No hype words ("iconic", "must-visit", "hidden gem", "vibrant"), no exclamation marks, no emoji.',
-  'Each "why" is ONE sentence, under 22 words, telling a discerning Londoner why this one and not the obvious tourist pick.'
+  'Each "why" is ONE sentence, under 22 words, telling a discerning Londoner what this place IS and its character.',
+  'The "hook" is a DIFFERENT one-liner (under 16 words) completing the sentence "You\'ll like this because…" — the single most distinctive reason to pick THIS one over the alternatives (the thing you cannot get elsewhere). Do not repeat the "why".'
 ].join(' ');
 
 function prompt(cat, month) {
-  return `You are compiling the definitive top 5 for a monthly London culture map. Category: "${cat.label}".
+  return `You are compiling the definitive top ${TOP_N} for a monthly London culture map. Category: "${cat.label}".
 ${cat.guidance}
 
 Current month: ${month}. Use Google Search to ground every fact in real, current sources.
 
-Return the FIVE best in London right now, ranked 1 (best) to 5. For each, decide a "tier":
+Return the ${TOP_N} best in London right now, ranked 1 (best) to ${TOP_N}. For each, decide a "tier":
 - "evergreen" = a standing institution/venue worth knowing any month.
 - "this-month" = something specifically happening in or around ${month} (a production, exhibition, run, or limited experience). Only use "this-month" if you can ground an actual current/upcoming date window.
 
-Prefer a mix that reflects reality for this category. For theatre and immersive, favour "this-month" productions with real date windows.
+Prefer a mix that reflects reality for this category. For theatre and immersive, favour "this-month" productions with real date windows. All ${TOP_N} must be genuinely worth recommending — do not pad with weak entries.
 
 ${VOICE}
 
-Respond with ONLY a JSON array of exactly 5 objects, no prose, in this exact shape:
+Respond with ONLY a JSON array of exactly ${TOP_N} objects, no prose, in this exact shape:
 [
   {
     "name": "string — the venue or production name",
@@ -33,7 +34,8 @@ Respond with ONLY a JSON array of exactly 5 objects, no prose, in this exact sha
     "address": "string — full street address including postcode",
     "lat": number,   // precise decimal latitude of the venue in London
     "lng": number,   // precise decimal longitude
-    "why": "string — one dry sentence, see voice rules",
+    "why": "string — one dry sentence describing what it is (see voice rules)",
+    "hook": "string — the 'You'll like this because…' one-liner, under 16 words (see voice rules)",
     "priceBand": "one of: Free, £, ££, £££, ££££",
     "url": "string — official website URL",
     "tier": "evergreen" | "this-month",
@@ -68,6 +70,7 @@ export function normalizePlace(cat, raw, rank) {
     lng: coordsOk ? lng : null,
     coordsVerified: coordsOk,
     why: clampWhy(raw.why),
+    hook: clampWhy(raw.hook, 18),
     priceBand: normBand(raw.priceBand),
     url: cleanUrl(raw.url),
     tier
@@ -113,7 +116,7 @@ export async function researchCategory(cat, { month, signal } = {}) {
   }
   if (!Array.isArray(arr)) throw new Error(`[${cat.id}] expected array`);
   const places = arr
-    .slice(0, 5)
+    .slice(0, TOP_N)
     .map((raw, i) => normalizePlace(cat, raw, i + 1))
     .filter(p => p.name);
   return { category: cat.id, places, sources, queries };

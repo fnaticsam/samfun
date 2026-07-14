@@ -33,7 +33,7 @@ export async function groundedGenerate({
 
   const body = {
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
-    generationConfig: { temperature, maxOutputTokens: 8192 }
+    generationConfig: { temperature, maxOutputTokens: 32768 }
   };
   if (grounded) body.tools = [{ google_search: {} }];
   if (systemInstruction) body.systemInstruction = { parts: [{ text: systemInstruction }] };
