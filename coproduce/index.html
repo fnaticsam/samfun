@@ -48,6 +48,10 @@
   ol.steps code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;
     background:#0b0f16;border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:#cfe;word-break:break-all}
   ol.steps .sub{color:var(--dim);font-size:13.5px;margin-top:4px}
+  ul.limits{list-style:none;display:flex;flex-direction:column;gap:10px}
+  ul.limits li{position:relative;padding:13px 16px 13px 40px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);color:var(--dim);font-size:14.5px}
+  ul.limits li b{color:var(--text);font-weight:600}
+  ul.limits li::before{content:"—";position:absolute;left:16px;top:12px;color:var(--accent-2);font-weight:700}
   .note{color:var(--dim);font-size:13px;margin-top:10px}
   footer{margin-top:60px;color:var(--dim);font-size:13px}
   footer a{color:var(--dim)}
@@ -72,6 +76,15 @@
     <div class="cap"><div class="t">Groove</div><div class="d">Groove pool, apply and commit groove to clips.</div></div>
     <div class="cap"><div class="t">Generative helpers</div><div class="d">Chord, scale and pattern utilities on top of the raw note API.</div></div>
   </div>
+
+  <h2>What it doesn't do (yet)</h2>
+  <ul class="limits">
+    <li><b>Only runs while Ableton is open</b> with the AbletonMCP Remote Script loaded — nothing works headless or without Live.</li>
+    <li><b>Some tools are Live-version gated</b> — creating audio clips needs Live 12; extended note fields (probability, release velocity) need Live 11+.</li>
+    <li><b>macOS &amp; Windows only</b> — no Linux, because Ableton Live doesn't run there.</li>
+    <li><b>Local &amp; loopback-only by design</b> — no remote/LAN control, no REST bridge, no Max for Live device.</li>
+    <li><b>Audio import is sandboxed</b> to your <span class="mono">~/Music</span> folder — it won't load files from anywhere else.</li>
+  </ul>
 
   <h2>Get producing</h2>
   <ol class="steps">

@@ -22,7 +22,7 @@
     font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:960px;margin:0 auto;padding:64px 20px 80px}
+  .wrap{max-width:1000px;margin:0 auto;padding:64px 20px 80px}
   @media (max-width:640px){.wrap{padding:44px 16px 60px}}
 
   header{margin-bottom:14px}
@@ -34,30 +34,42 @@
   h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
     font-weight:700;margin:48px 0 16px}
 
+  /* ── toys: compact text cards ─────────────── */
   .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
   .card{
     position:relative;display:flex;flex-direction:column;gap:6px;
     background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 18px 16px;text-decoration:none;color:inherit;
-    transition:transform .16s ease,border-color .16s ease,background .16s ease;
-    overflow:hidden;
+    transition:transform .16s ease,border-color .16s ease,background .16s ease;overflow:hidden;
   }
   .card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--dot,var(--accent));opacity:.85}
   .card:hover{transform:translateY(-3px);background:var(--card-hi);border-color:#37363f}
-  .card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .card:focus-visible,.build:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .card .name{font-size:17px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
   .card .desc{color:var(--dim);font-size:14px;flex:1}
   .card .foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
-  .card .host{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-  .card .arrow{color:var(--dim);transition:transform .16s ease}
-  .card:hover .arrow{transform:translate(2px,-2px);color:var(--text)}
-  .badge{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-    padding:2px 7px;border-radius:999px;border:1px solid currentColor}
-  .badge.new{color:var(--accent)}
-  .badge.lock{color:var(--accent-2)}
+  .card .host,.build .host{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .card .arrow,.build .arrow{color:var(--dim);transition:transform .16s ease}
+  .card:hover .arrow,.build:hover .arrow{transform:translate(2px,-2px);color:var(--text)}
 
-  @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+  /* ── bigger builds: screenshot cards ──────── */
+  .builds{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .build{display:flex;flex-direction:column;text-decoration:none;color:inherit;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    transition:transform .16s ease,border-color .16s ease}
+  .build:hover{transform:translateY(-4px);border-color:#3a3a45}
+  .shot{aspect-ratio:16/10;width:100%;object-fit:cover;object-position:top center;display:block;
+    background:#0e0e14;border-bottom:1px solid var(--line)}
+  .build .body{padding:14px 16px 15px;display:flex;flex-direction:column;gap:5px}
+  .build .name{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:700;letter-spacing:-.01em}
+  .build .logo{width:22px;height:22px;border-radius:6px;background:#fff;object-fit:contain;flex-shrink:0;
+    box-shadow:0 0 0 1px var(--line)}
+  .build .desc{color:var(--dim);font-size:14px}
+  .build .foot{display:flex;align-items:center;justify-content:space-between;margin-top:5px}
+  .badge{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid currentColor}
+  .badge.new{color:var(--accent)} .badge.lock{color:var(--accent-2)}
 
+  @media (prefers-reduced-motion:reduce){.card,.build{transition:none}.card:hover,.build:hover{transform:none}}
   footer{margin-top:56px;color:var(--dim);font-size:13px;line-height:1.7}
   footer a{color:var(--dim)}
 </style>
@@ -69,11 +81,11 @@
     <p class="tag"><b>Things I build.</b> Little tools, weekend experiments, and a few that grew up.</p>
   </header>
 
+  <h2>Bigger builds</h2>
+  <div class="builds" id="builds"></div>
+
   <h2>Toys &amp; experiments</h2>
   <div class="grid" id="toys"></div>
-
-  <h2>Bigger builds</h2>
-  <div class="grid" id="products"></div>
 
   <footer>
     Made by Sam. Some of these are just for me — say hi if one’s useful.
@@ -86,23 +98,26 @@
   var TOYS=[
     {name:"Tracks", desc:"Buy what you stream, find what you spin — Spotify to Beatport & back.", url:"/tracks", host:"sam.toys/tracks", dot:"#01ff95", badge:"new", internal:true},
     {name:"Voicenotes", desc:"Drop a WhatsApp voice note, get the gist in bullets.", url:"/voicenotes", host:"sam.toys/voicenotes", dot:"#25d366", internal:true},
-    {name:"Out / London", desc:"London’s best bars, music, art, comedy & tables — a ranked top 5 per category, refreshed monthly by AI.", url:"/ldn", host:"sam.toys/ldn", dot:"#e0559b", internal:true},
+    {name:"Out / London", desc:"London’s best bars, music, art & tables — a ranked top 5 per category, refreshed monthly by AI.", url:"/ldn", host:"sam.toys/ldn", dot:"#e0559b", internal:true},
     {name:"Co-produce", desc:"An AI co-producer that lives inside Ableton Live — fat basslines, clean sessions.", url:"/coproduce", host:"sam.toys/coproduce", dot:"#00e0c6", internal:true},
-    {name:"Taotime", desc:"The Watercourse Way — Tao, the I Ching, and daily stillness.", url:"https://taotime.me", host:"taotime.me", dot:"#7fb2d9"},
-    {name:"Hike Fan", desc:"Find your next hike in Ibiza.", url:"https://hike.fan", host:"hike.fan", dot:"#8ec06c"},
-    {name:"Finca", desc:"Browse beautiful Ibiza homes.", url:"https://finca.fan", host:"finca.fan", dot:"#d9a441"},
-    {name:"The Brief Brief", desc:"Your world, briefed by AI every morning.", url:"https://tbb.ceo", host:"tbb.ceo", dot:"#ffb454"},
+    {name:"Phone", desc:"A browser softphone — make & take calls, powered by Twilio.", url:"/phone", host:"sam.toys/phone", dot:"#4f9dff", internal:true},
     {name:"Tantra", desc:"The Loom of Union — a tantra journey in ink & gold.", url:"/tantra", host:"sam.toys/tantra", dot:"#c9a227", internal:true}
   ];
-  var PRODUCTS=[
-    {name:"TradeGG", desc:"Options-trading dashboard with research, pricing & a masterclass.", url:"https://trd.fun", host:"trd.fun", dot:"#22c55e"},
-    {name:"DrFit", desc:"Your pocket AI fitness coach.", url:"https://drfit.tips", host:"drfit.tips", dot:"#38bdf8"},
-    {name:"Drift & Sea", desc:"Ibiza property stays, done properly.", url:"https://driftsea.co", host:"driftsea.co", dot:"#e0c9a6"},
-    {name:"Seer", desc:"AI League of Legends draft & post-game coaching.", url:"https://seer.coach", host:"seer.coach", dot:"#8b7cff", badge:"lock"}
+  var BUILDS=[
+    {name:"TradeGG", desc:"Options-trading dashboard with research, live pricing & a masterclass.", url:"https://trd.fun", host:"trd.fun", shot:"/assets/shots/trd.jpg"},
+    {name:"Taotime", desc:"The Watercourse Way — Taoism, the I Ching & daily stillness.", url:"https://taotime.me", host:"taotime.me", shot:"/assets/shots/taotime.jpg"},
+    {name:"The Brief Brief", desc:"Your world, briefed by AI every morning.", url:"https://tbb.ceo", host:"tbb.ceo", shot:"/assets/shots/tbb.jpg"},
+    {name:"Hike Fan", desc:"Find your next hike in Ibiza.", url:"https://hike.fan", host:"hike.fan", shot:"/assets/shots/hike.jpg"},
+    {name:"Finca", desc:"Browse beautiful Ibiza homes.", url:"https://finca.fan", host:"finca.fan", shot:"/assets/shots/finca.jpg"},
+    {name:"Drift & Sea", desc:"Ibiza property stays, done properly.", url:"https://driftsea.co", host:"driftsea.co", shot:"/assets/shots/driftsea.jpg"},
+    {name:"DrFit", desc:"Your pocket AI fitness coach.", url:"https://drfit.tips", host:"drfit.tips", shot:"/assets/shots/drfit.jpg"},
+    {name:"Seer", desc:"AI League of Legends draft & post-game coaching.", url:"https://seer.coach", host:"seer.coach", shot:"/assets/shots/seer.jpg", badge:"lock"}
   ];
   function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   function badgeHtml(b){ if(b==="new")return '<span class="badge new">new</span>'; if(b==="lock")return '<span class="badge lock">invite</span>'; return ''; }
-  function render(id, items){
+  function attrs(it){ return it.internal ? '' : ' target="_blank" rel="noopener noreferrer"'; }
+
+  function renderToys(items){
     var frag=document.createDocumentFragment();
     items.forEach(function(it){
       var a=document.createElement('a');
@@ -114,10 +129,27 @@
         '<div class="foot"><span class="host">'+esc(it.host)+'</span><span class="arrow">↗</span></div>';
       frag.appendChild(a);
     });
-    document.getElementById(id).appendChild(frag);
+    document.getElementById('toys').appendChild(frag);
   }
-  render('toys', TOYS);
-  render('products', PRODUCTS);
+  function renderBuilds(items){
+    var frag=document.createDocumentFragment();
+    items.forEach(function(it){
+      var a=document.createElement('a');
+      a.className='build'; a.href=it.url; a.target='_blank'; a.rel='noopener noreferrer';
+      var fav='https://www.google.com/s2/favicons?domain='+encodeURIComponent(it.host)+'&sz=64';
+      a.innerHTML=
+        '<img class="shot" loading="lazy" decoding="async" alt="'+esc(it.name)+' screenshot" src="'+esc(it.shot)+'">'+
+        '<div class="body">'+
+          '<div class="name"><img class="logo" loading="lazy" alt="" src="'+fav+'">'+esc(it.name)+' '+badgeHtml(it.badge)+'</div>'+
+          '<div class="desc">'+esc(it.desc)+'</div>'+
+          '<div class="foot"><span class="host">'+esc(it.host)+'</span><span class="arrow">↗</span></div>'+
+        '</div>';
+      frag.appendChild(a);
+    });
+    document.getElementById('builds').appendChild(frag);
+  }
+  renderBuilds(BUILDS);
+  renderToys(TOYS);
 })();
 </script>
 </body>

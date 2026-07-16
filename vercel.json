@@ -18,5 +18,9 @@
       "path": "/api/ldn-refresh",
       "schedule": "0 8 1 * *"
     }
+  ],
+  "redirects": [
+    { "source": "/phone", "destination": "https://phone-nine-theta.vercel.app", "permanent": false },
+    { "source": "/phone/:path*", "destination": "https://phone-nine-theta.vercel.app/:path*", "permanent": false }
   ]
 }
