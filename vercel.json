@@ -5,6 +5,12 @@
     },
     "api/ldn-refresh.mjs": {
       "maxDuration": 300
+    },
+    "api/tracks-playlist.js": {
+      "maxDuration": 30
+    },
+    "api/tracks-ocr.js": {
+      "maxDuration": 60
     }
   },
   "crons": [
