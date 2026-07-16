@@ -39,10 +39,12 @@ Respond with ONLY a JSON array of exactly ${TOP_N} objects, no prose, in this ex
     "priceBand": "one of: Free, £, ££, £££, ££££",
     "url": "string — official website URL",
     "tier": "evergreen" | "this-month",
-    "thisMonth": { "headline": "string", "dates": "string e.g. 'until 30 Aug 2026'", "detail": "string, optional" }
+    "thisMonth": { "headline": "string", "dates": "string e.g. 'until 30 Aug 2026'", "detail": "string, optional" },
+    "rating": { "value": number, "scale": 5, "source": "string e.g. Time Out / Google / The Guardian", "sourceUrl": "string — page where the rating appears" }
   }
 ]
-Rules: coordinates must be the venue's real location in Greater London. "thisMonth" is required when tier is "this-month" and omitted otherwise. Output valid JSON only.`;
+Rules: coordinates must be the venue's real location in Greater London. "thisMonth" is required when tier is "this-month" and omitted otherwise.
+"rating": include ONLY a rating you can attribute to a real named source you grounded (critic stars out of 5 for shows/exhibitions; Time Out or Google out of 5 for venues). Set "rating" to null if you cannot ground a real one — NEVER invent a rating or a source. Output valid JSON only.`;
 }
 
 export function clampWhy(s, words = 26) {
@@ -82,7 +84,24 @@ export function normalizePlace(cat, raw, rank) {
       detail: String(raw.thisMonth.detail || '').trim() || undefined
     };
   }
+  const rating = normalizeRating(raw.rating);
+  if (rating) place.rating = rating;
   return place;
+}
+
+export function normalizeRating(r) {
+  if (!r || r.value == null) return null;
+  const value = Number(r.value);
+  if (!isFinite(value) || value <= 0) return null;
+  const scale = Number(r.scale) === 10 ? 10 : 5;
+  if (value > scale) return null; // guard against garbage
+  const source = String(r.source || '').trim();
+  const url = cleanUrl(r.sourceUrl || r.url);
+  if (!source || !url) return null; // must be attributable to a real source page
+  const out = { value: Math.round(value * 10) / 10, scale, source, url };
+  const count = Number(r.ratingCount);
+  if (isFinite(count) && count > 0) out.ratingCount = Math.round(count);
+  return out;
 }
 
 function normBand(b) {
