@@ -2,6 +2,12 @@
   "functions": {
     "api/transcribe.js": {
       "maxDuration": 60
+    },
+    "api/tracks-playlist.js": {
+      "maxDuration": 30
+    },
+    "api/tracks-ocr.js": {
+      "maxDuration": 60
     }
   }
 }
