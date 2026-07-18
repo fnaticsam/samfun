@@ -162,6 +162,32 @@ export async function researchAll({ month, concurrency = 3, onProgress, signal }
   return results;
 }
 
+/**
+ * Carry human/agent-verified enrichment (hours, showTimes, ratings) forward
+ * from the previous dataset onto a freshly-researched one, matched by
+ * normalised name + category. New places stay un-enriched (and are excluded
+ * from the date planner) until a verification pass fills them in.
+ */
+export function carryOverEnrichment(prev, next) {
+  if (!prev?.places?.length || !next?.places?.length) return { carried: 0 };
+  const key = p => `${p.category}|${String(p.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()}`;
+  const prevBy = new Map(prev.places.map(p => [key(p), p]));
+  let carried = 0;
+  for (const p of next.places) {
+    const old = prevBy.get(key(p));
+    if (!old) continue;
+    let touched = false;
+    if (!p.hours && old.hours) { p.hours = old.hours; touched = true; }
+    if (!p.entry && old.entry) { p.entry = old.entry; touched = true; }
+    if (!p.showTimes && old.showTimes) { p.showTimes = old.showTimes; touched = true; }
+    if (p.runtimeMins == null && old.runtimeMins != null) { p.runtimeMins = old.runtimeMins; touched = true; }
+    if (!p.hoursUrl && old.hoursUrl) { p.hoursUrl = old.hoursUrl; touched = true; }
+    if (!p.rating && old.rating) { p.rating = old.rating; touched = true; }
+    if (touched) carried++;
+  }
+  return { carried };
+}
+
 /** Assemble the final dataset object the map consumes. */
 export function buildDataset(results, { month, generatedAt }) {
   const byId = Object.fromEntries(results.map(r => [r.category, r]));

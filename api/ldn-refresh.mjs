@@ -5,9 +5,9 @@
 // Pipeline: Gemini 3.5 grounded research (9 categories) -> normalise -> sanity
 // gate -> persist to Blob (archive per month). If the sanity gate fails, the
 // previous live dataset is KEPT — a broken refresh never replaces good data.
-import { researchAll, buildDataset } from './_lib/ldn/research.mjs';
+import { researchAll, buildDataset, carryOverEnrichment } from './_lib/ldn/research.mjs';
 import { sanityGate } from './_lib/ldn/verify.mjs';
-import { writeDataset } from './_lib/ldn/store.mjs';
+import { writeDataset, readDataset } from './_lib/ldn/store.mjs';
 
 function monthTag() {
   const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit' });
@@ -29,11 +29,15 @@ export default async function handler(req, res) {
     const results = await researchAll({ month, concurrency: 3 });
     const dataset = buildDataset(results, { month, generatedAt: new Date().toISOString() });
     dataset.verified = false; // automated pipeline — lighter than the interactive adversarial pass
+    // preserve verified hours/showtimes/ratings for places that persist month-to-month
+    const { dataset: prev } = await readDataset();
+    const { carried } = carryOverEnrichment(prev, dataset);
     const gate = sanityGate(dataset);
     const summary = {
       month,
       totalPlaces: dataset.places.length,
       perCategory: results.map(r => ({ category: r.category, count: r.places?.length || 0, error: r.error || null })),
+      carriedEnrichment: carried,
       gate
     };
 
