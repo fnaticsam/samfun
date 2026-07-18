@@ -7,6 +7,7 @@
 // previous live dataset is KEPT — a broken refresh never replaces good data.
 import { researchAll, buildDataset, carryOverEnrichment } from './_lib/ldn/research.mjs';
 import { sanityGate } from './_lib/ldn/verify.mjs';
+import { enrichWithPlaces } from './_lib/ldn/places.mjs';
 import { writeDataset, readDataset } from './_lib/ldn/store.mjs';
 
 function monthTag() {
@@ -32,12 +33,14 @@ export default async function handler(req, res) {
     // preserve verified hours/showtimes/ratings for places that persist month-to-month
     const { dataset: prev } = await readDataset();
     const { carried } = carryOverEnrichment(prev, dataset);
+    const placesStats = await enrichWithPlaces(dataset, { key: process.env.GOOGLE_PLACES_API_KEY }).catch(e => ({ error: String(e.message || e) }));
     const gate = sanityGate(dataset);
     const summary = {
       month,
       totalPlaces: dataset.places.length,
       perCategory: results.map(r => ({ category: r.category, count: r.places?.length || 0, error: r.error || null })),
       carriedEnrichment: carried,
+      places: placesStats,
       gate
     };
 
