@@ -61,6 +61,31 @@ Vocabularies (BODY / SEGMENTS / TAGS / FUELS) live in `lib/vocab.mjs` and are en
 
 Typical full build: `node scripts/vroom/03-images.mjs && node scripts/vroom/05-validate.mjs && node scripts/vroom/06-build.mjs`
 
+## STATUS (handoff 2026-07-21)
+
+- **Catalogue: 371/1,000+ cars, 35 makes** in `catalogue/*.mjs` — all validate clean (`05-validate.mjs --min=1`).
+  Done: BMW, Mercedes, Audi, VW, Toyota, Ford, Honda, Hyundai, Kia, Land Rover, Porsche, Nissan, Mazda,
+  Skoda, Volvo, Tesla, MINI, Renault, Peugeot, Vauxhall, Lexus, SEAT, Cupra, Citroën, MG, Fiat/Abarth,
+  Alfa, Jaguar, Jeep, Dacia, Suzuki, Subaru, Mitsubishi, Polestar, BYD.
+  **Still to author** (wave 1): Lotus, Alpine, Ineos, Genesis, Smart, DS, KGM/SsangYong, Isuzu, Saab,
+  Chrysler, halo exotics (Bentley/Aston/McLaren refs used by rivals). **Wave 2**: older/extra generations
+  per major make (Golf Mk6, Fiesta Mk6, Qashqai J10, RAV4 XA30/40, Leaf ZE0, 350Z, MX-5 NA/NB, Octavia Mk2,
+  XC90 P1, T-Cross, Sharan, Galaxy, C-Max, EcoSport, Auris, Avensis, Verso, Jazz GK, Civic FK7, CR-V RE/RM,
+  Micra K12/13, i10 previous, Ceed JD, Sportage QL/SL, A4 B7, A6 C6, X5 E70, E-Class W211, 1 Series F21…)
+  until `05-validate.mjs` count gate ≥ 1000 passes.
+- **Images: 364/371 (98.1%)** in `state/images.json` (committed despite gitignore, via -f). 7 stragglers listed in
+  `state/missing-images.json` — overrides in `image-overrides.json` didn't take (likely no lead image or title
+  edge case; debug `batchPageImages` or point overrides at `File:` names directly).
+- **Score calibration TODO**: vroom-score histogram too compressed (p10=70/p90=79; gates want <62/>82).
+  Plan: segment-specific weight profiles in `lib/vocab.mjs` (performance/utility/default) + bolder sub-scores
+  for icons & duds, then re-run validator.
+- **Rivals integrity**: ~240 rival ids reference not-yet-written entries — resolve after wave 2 (validator warns).
+- **Not started**: `06-build.mjs` (emit `vroom/data/cars.json` + `meta.json`), the whole `vroom/` app UI
+  (finca/bijou design language — tokens in the plan), landing-page TOYS card, deploy.
+- **Blocked/creds**: GEMINI_API_KEY (in Vercel prod env) + Vercel deploy auth — needed for the grounded
+  verify/regrade scripts (01/02/04, not yet written) and `vercel deploy`. Locally: `vercel login` then
+  `vercel env pull` and `vercel link` (project **sam-toys**).
+
 The catalogue was authored end-to-end with AI research and is graded on the same rubric the
 Gemini scripts use; when `GEMINI_API_KEY` is present, `02-specs.mjs --verify` and `04-grade.mjs`
 re-check and re-grade it (grounded) so the dataset can be refreshed without touching the app.
