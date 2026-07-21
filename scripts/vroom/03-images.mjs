@@ -1,10 +1,11 @@
-// Vroom image pipeline — Wikipedia/Commons page-image per model-generation.
-// No API key needed. Resumable: state/images.json is a cache keyed by car id.
-// Usage: node scripts/vroom/03-images.mjs [--force] [--concurrency=8]
+// Vroom image pipeline v2 — Wikipedia/Commons page-image per model-generation.
+// Batched (50 titles/request) to stay well inside API limits. Resumable cache.
+// Usage: node scripts/vroom/03-images.mjs [--force] [--retry-missing]
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCatalogue } from './05-validate.mjs';
+import { slug } from './lib/vocab.mjs';
 
 const DIR = dirname(fileURLToPath(import.meta.url));
 const STATE = join(DIR, 'state');
@@ -15,131 +16,179 @@ mkdirSync(STATE, { recursive: true });
 const args = Object.fromEntries(process.argv.slice(2).map(a => {
   const m = a.match(/^--([^=]+)(?:=(.*))?$/); return m ? [m[1], m[2] ?? true] : [a, true];
 }));
-const CONC = Number(args.concurrency || 8);
-const API = 'https://en.wikipedia.org/w/api.php';
-const UA = 'sam.toys-vroom/1.0 (car picker toy; contact via sam.toys)';
 
+const API = 'https://en.wikipedia.org/w/api.php';
+const UA = 'sam.toys-vroom/1.0 (car picker toy; hello@sam.toys)';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-async function api(params, tries = 3) {
-  const url = `${API}?${new URLSearchParams({ format: 'json', formatversion: '2', origin: '*', ...params })}`;
+async function api(params, tries = 4) {
+  const url = `${API}?${new URLSearchParams({ format: 'json', formatversion: '2', maxlag: '5', ...params })}`;
   for (let i = 0; i < tries; i++) {
-    try {
-      const res = await fetch(url, { headers: { 'User-Agent': UA } });
-      if (res.status === 429 || res.status >= 500) { await sleep(1200 * (i + 1)); continue; }
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return await res.json();
-    } catch (e) { if (i === tries - 1) throw e; await sleep(800 * (i + 1)); }
+    const res = await fetch(url, { headers: { 'User-Agent': UA } }).catch(() => null);
+    if (!res) { await sleep(1000 * (i + 1)); continue; }
+    if (res.status === 429 || res.status >= 500) { await sleep(1500 * (i + 1)); continue; }
+    const d = await res.json().catch(() => null);
+    if (!d) { await sleep(1000 * (i + 1)); continue; }
+    if (d.error) { // maxlag / ratelimited etc — back off and retry
+      await sleep(2000 * (i + 1));
+      continue;
+    }
+    return d;
   }
+  throw new Error('api: retries exhausted');
 }
 
-// Candidate Wikipedia article titles for a car, best-first.
 function candidates(c) {
   const out = [];
   const makes = [c.make];
-  if (c.make === 'Vauxhall') makes.push('Opel'); // Wikipedia canonicalises many as Opel
+  if (c.make === 'Vauxhall') makes.push('Opel');
   if (c.make === 'MINI') makes.push('Mini');
+  if (c.make === 'Skoda') makes.push('Škoda');
+  if (c.make === 'Citroen') makes.push('Citroën');
   for (const mk of makes) {
     const base = `${mk} ${c.model}`;
     out.push(`${base} (${c.gen})`);
     if (c.genName) out.push(`${base} (${c.genName})`);
-    // common generation-name styles: "Mk7", "Mark VII", codes
     if (/^Mk\d/i.test(c.gen)) out.push(`${base} ${c.gen}`);
     out.push(base);
+  }
+  // model names with slashes ("X1 / iX1") — also try each side
+  if (c.model.includes('/')) {
+    for (const part of c.model.split('/').map(s => s.trim())) {
+      out.push(`${c.make} ${part} (${c.gen})`, `${c.make} ${part}`);
+    }
   }
   return [...new Set(out)];
 }
 
-async function pageImage(title) {
-  const d = await api({
-    action: 'query', titles: title, redirects: '1',
-    prop: 'pageimages|info', piprop: 'thumbnail|name', pithumbsize: '1000', inprop: 'url'
-  });
-  const p = d?.query?.pages?.[0];
-  if (!p || p.missing || !p.thumbnail) return null;
-  return {
-    src: p.thumbnail.source, w: p.thumbnail.width, h: p.thumbnail.height,
-    file: p.pageimage ? `File:${p.pageimage}` : null, page: p.fullurl || null, title: p.title
-  };
+// Batch-fetch page images for a set of titles → Map(canonicalisedInputTitle → img)
+async function batchPageImages(titles) {
+  const map = new Map();
+  for (let i = 0; i < titles.length; i += 50) {
+    const chunk = titles.slice(i, i + 50);
+    const d = await api({
+      action: 'query', titles: chunk.join('|'), redirects: '1',
+      prop: 'pageimages|info', piprop: 'thumbnail|name', pithumbsize: '1000', inprop: 'url'
+    });
+    const q = d.query || {};
+    // map input title -> final title through normalization + redirects
+    const trace = new Map(chunk.map(t => [t, t]));
+    for (const n of q.normalized || []) for (const [k, v] of trace) if (v === n.from) trace.set(k, n.to);
+    for (const r of q.redirects || []) for (const [k, v] of trace) if (v === r.from) trace.set(k, r.to);
+    const byTitle = new Map((q.pages || []).map(p => [p.title, p]));
+    for (const [input, finalTitle] of trace) {
+      const p = byTitle.get(finalTitle);
+      if (p && !p.missing && p.thumbnail) {
+        map.set(input, {
+          src: p.thumbnail.source, w: p.thumbnail.width, h: p.thumbnail.height,
+          file: p.pageimage ? `File:${p.pageimage}` : null, page: p.fullurl || null, title: p.title
+        });
+      }
+    }
+    await sleep(300);
+  }
+  return map;
 }
 
-async function attribution(file) {
-  if (!file) return {};
-  const d = await api({
-    action: 'query', titles: file, prop: 'imageinfo',
-    iiprop: 'extmetadata|url', iiextmetadatafilter: 'Artist|LicenseShortName|Credit'
-  });
-  const info = d?.query?.pages?.[0]?.imageinfo?.[0];
-  const meta = info?.extmetadata || {};
+// Batch attribution for File: titles → Map(file → {credit,license})
+async function batchAttribution(files) {
+  const map = new Map();
+  const uniq = [...new Set(files.filter(Boolean))];
   const strip = (h) => (h || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().slice(0, 120);
-  return {
-    credit: strip(meta.Artist?.value) || null,
-    license: strip(meta.LicenseShortName?.value) || null,
-    descUrl: info?.descriptionurl || null
-  };
+  for (let i = 0; i < uniq.length; i += 50) {
+    const chunk = uniq.slice(i, i + 50);
+    const d = await api({
+      action: 'query', titles: chunk.join('|'), prop: 'imageinfo',
+      iiprop: 'extmetadata', iiextmetadatafilter: 'Artist|LicenseShortName'
+    });
+    for (const p of d.query?.pages || []) {
+      const meta = p.imageinfo?.[0]?.extmetadata || {};
+      map.set(p.title, { credit: strip(meta.Artist?.value) || null, license: strip(meta.LicenseShortName?.value) || null });
+    }
+    await sleep(300);
+  }
+  return map;
 }
 
-async function resolve(c, overrides) {
-  const id = c.id;
-  if (overrides[id]) {
-    // override = explicit article title or Commons file name
-    const o = overrides[id];
-    if (o.startsWith('File:')) {
-      const at = await attribution(o);
-      const d = await api({ action: 'query', titles: o, prop: 'imageinfo', iiprop: 'url', iiurlwidth: '1000' });
-      const ii = d?.query?.pages?.[0]?.imageinfo?.[0];
-      if (ii?.thumburl) return { src: ii.thumburl, w: ii.thumbwidth, h: ii.thumbheight, page: at.descUrl, ...at, via: 'override' };
-    } else {
-      const img = await pageImage(o);
-      if (img) { const at = await attribution(img.file); return { ...img, ...at, via: 'override' }; }
-    }
-  }
-  for (const t of candidates(c)) {
-    const img = await pageImage(t);
-    if (img) {
-      const at = await attribution(img.file);
-      return { ...img, ...at, via: t };
-    }
-  }
-  return null;
+// Search fallback for stragglers: one search per car, then batch the found titles.
+async function searchTitles(c) {
+  const d = await api({
+    action: 'query', list: 'search', srlimit: '4', srnamespace: '0',
+    srsearch: `${c.make} ${c.model} ${c.gen}`
+  });
+  return (d.query?.search || []).map(s => s.title)
+    .filter(t => t.toLowerCase().includes(c.model.split(' ')[0].toLowerCase().slice(0, 4)) || t.toLowerCase().includes(c.make.toLowerCase()));
 }
 
 async function main() {
   const carsRaw = await loadCatalogue();
-  const { slug } = await import('./lib/vocab.mjs');
   const cars = carsRaw.map(c => ({ ...c, id: slug(c.make, c.model, c.gen) }));
   const prev = existsSync(OUT) && !args.force ? JSON.parse(readFileSync(OUT, 'utf8')) : {};
   const overrides = existsSync(OVERRIDES) ? JSON.parse(readFileSync(OVERRIDES, 'utf8')) : {};
-  const todo = cars.filter(c => !(c.id in prev) || (args.force && overrides[c.id]));
-  console.log(`images: ${cars.length} cars, ${Object.keys(prev).length} cached, ${todo.length} to fetch`);
+  const todo = cars.filter(c => !(c.id in prev) || (prev[c.id] == null && args['retry-missing']) || overrides[c.id]);
+  console.log(`images v2: ${cars.length} cars, ${Object.keys(prev).length} cached, ${todo.length} to resolve`);
 
-  let done = 0, found = 0;
-  const queue = [...todo];
-  async function worker() {
-    while (queue.length) {
-      const c = queue.shift();
-      try {
-        const img = await resolve(c, overrides);
-        prev[c.id] = img; // null = tried and missing (cached too)
-        if (img) found++;
-      } catch (e) {
-        console.error(`  ! ${c.id}: ${e.message}`);
-        prev[c.id] = null;
-      }
-      if (++done % 25 === 0) {
-        writeFileSync(OUT, JSON.stringify(prev, null, 1));
-        console.log(`  …${done}/${todo.length} (${found} found)`);
-      }
-      await sleep(120); // politeness
+  // 1) overrides first (article-title overrides only here; File: overrides below)
+  const titleWants = new Map(); // car.id -> [titles best-first]
+  for (const c of todo) {
+    const o = overrides[c.id];
+    titleWants.set(c.id, o && !o.startsWith('File:') ? [o, ...candidates(c)] : candidates(c));
+  }
+
+  // 2) batch-resolve all candidate titles
+  const allTitles = [...new Set([...titleWants.values()].flat())];
+  console.log(`  batch querying ${allTitles.length} candidate titles…`);
+  const imgByTitle = await batchPageImages(allTitles);
+
+  const chosen = new Map(); // id -> img
+  for (const c of todo) {
+    for (const t of titleWants.get(c.id)) {
+      const img = imgByTitle.get(t);
+      if (img) { chosen.set(c.id, { ...img, via: t }); break; }
     }
   }
-  await Promise.all(Array.from({ length: CONC }, worker));
-  writeFileSync(OUT, JSON.stringify(prev, null, 1));
 
+  // 3) File: overrides (rare) — direct thumb via imageinfo
+  for (const c of todo) {
+    const o = overrides[c.id];
+    if (o && o.startsWith('File:')) {
+      const d = await api({ action: 'query', titles: o, prop: 'imageinfo', iiprop: 'url', iiurlwidth: '1000' });
+      const ii = d.query?.pages?.[0]?.imageinfo?.[0];
+      if (ii?.thumburl) chosen.set(c.id, { src: ii.thumburl, w: ii.thumbwidth, h: ii.thumbheight, file: o, page: null, via: 'override-file' });
+      await sleep(200);
+    }
+  }
+
+  // 4) search fallback for still-missing
+  const still = todo.filter(c => !chosen.has(c.id));
+  console.log(`  search fallback for ${still.length} cars…`);
+  const searchFound = new Map(); // id -> [titles]
+  for (const c of still) {
+    try { searchFound.set(c.id, await searchTitles(c)); } catch { searchFound.set(c.id, []); }
+    await sleep(250);
+  }
+  const searchTitlesAll = [...new Set([...searchFound.values()].flat())].filter(t => !imgByTitle.has(t));
+  const imgByTitle2 = await batchPageImages(searchTitlesAll);
+  for (const c of still) {
+    for (const t of searchFound.get(c.id) || []) {
+      const img = imgByTitle.get(t) || imgByTitle2.get(t);
+      if (img) { chosen.set(c.id, { ...img, via: `search:${t}` }); break; }
+    }
+  }
+
+  // 5) attribution for every chosen file
+  const att = await batchAttribution([...chosen.values()].map(i => i.file));
+  for (const [id, img] of chosen) {
+    const a = img.file ? att.get(img.file) || {} : {};
+    prev[id] = { ...img, ...a };
+  }
+  for (const c of todo) if (!chosen.has(c.id)) prev[c.id] = null;
+
+  writeFileSync(OUT, JSON.stringify(prev, null, 1));
   const missing = cars.filter(c => !prev[c.id]).map(c => c.id);
   writeFileSync(join(STATE, 'missing-images.json'), JSON.stringify(missing, null, 1));
   const cov = ((cars.length - missing.length) / cars.length * 100).toFixed(1);
-  console.log(`\nimages done: ${cars.length - missing.length}/${cars.length} (${cov}%) — missing list in state/missing-images.json`);
+  console.log(`\nimages done: ${cars.length - missing.length}/${cars.length} (${cov}%) — missing → state/missing-images.json`);
 }
 
 main();
