@@ -115,7 +115,7 @@ export default {
     { model: 'Land Cruiser', gen: 'J250', years: [2024, 0], bodies: ['suv'], segment: 'off-roader',
       priceNew: [75000, 87000], used: [60000, 80000], accel: 10.9, power: [204, 204], top: 103,
       fuels: ['diesel'], mpg: 33, ev: null, seats: 7, doors: 5, boot: 566, len: 4925, kg: 2520,
-      mpy: 9000, ncap: [5, 2024], onSale: true, halo: true,
+      mpy: 9000, ncap: [5, 2024], onSale: true, halo: false,
       g: { build: 92, drive: 60, practicality: 86, value: 60, design: 86, running: 52 },
       verdict: 'Retro-boxy reboot with the immortal bones intact. Suddenly the Land Cruiser is a style object — prices noticed.',
       issues: ['UK allocation tiny', 'Price crept into Defender country'],

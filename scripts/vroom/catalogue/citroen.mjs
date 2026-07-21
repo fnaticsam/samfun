@@ -79,7 +79,7 @@ export default {
       tags: ['seven-seats', 'tardis', 'family-bus', 'bargain-hero', 'left-field', 'cheap-to-run'],
       rivals: ['ford-s-max-mk2', 'volkswagen-touran-5t', 'vauxhall-zafira-tourer-c'] },
 
-    { model: 'DS3', gen: 'A55', years: [2010, 2019], bodies: ['hatch', 'convertible'], segment: 'supermini',
+    { model: 'DS3', gen: 'A55', years: [2010, 2015], bodies: ['hatch', 'convertible'], segment: 'supermini',
       priceNew: [13000, 24000], used: [3500, 9000], accel: 6.5, power: [82, 208], top: 143,
       fuels: ['petrol', 'diesel'], mpg: 50, ev: null, seats: 5, doors: 3, boot: 285, len: 3948, kg: 1075,
       mpy: 7000, ncap: [5, 2009], onSale: false, halo: false,
@@ -104,7 +104,7 @@ export default {
     { model: 'SM', gen: 'Classic', years: [1970, 1975], bodies: ['coupe'], segment: 'roadster-classic',
       priceNew: [5000, 6000], used: [35000, 70000], accel: 8.9, power: [170, 178], top: 142,
       fuels: ['petrol'], mpg: 20, ev: null, seats: 4, doors: 2, boot: 380, len: 4893, kg: 1450,
-      mpy: 2000, ncap: null, onSale: false, halo: true,
+      mpy: 2000, ncap: null, onSale: false, halo: false,
       g: { build: 66, drive: 72, practicality: 50, value: 58, design: 97, running: 26 },
       verdict: 'Maserati V6, hydropneumatic glide, spaceship glass nose — the most audacious GT ever made. A rolling artwork.',
       issues: ['Cam chains and carbs need specialists', 'Hydraulics: green fluid religion'],

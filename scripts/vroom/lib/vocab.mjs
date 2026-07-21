@@ -47,13 +47,33 @@ export const TAGS = [
   'badge-value', 'left-field', 'crowd-pleaser', 'posh-interior'
 ];
 
-// Vroom Score weights (sum = 1)
-export const WEIGHTS = { build: 0.22, drive: 0.20, value: 0.20, practicality: 0.15, design: 0.13, running: 0.10 };
+// Segment-aware Vroom Score profiles. A sports car should not lose to a family
+// crossover simply because it has a tiny boot; a workhorse should not be sunk
+// by ordinary handling or styling. The explicit calibration then uses more of
+// the /100 scale so "best" and "avoid" are meaningful rather than a wall of 70s.
+export const WEIGHT_PROFILES = {
+  default: { build: 0.22, drive: 0.20, value: 0.20, practicality: 0.15, design: 0.13, running: 0.10 },
+  performance: { build: 0.10, drive: 0.40, value: 0.16, practicality: 0.05, design: 0.20, running: 0.09 },
+  utility: { build: 0.18, drive: 0.08, value: 0.22, practicality: 0.30, design: 0.07, running: 0.15 }
+};
 
-export function vroomScore(g) {
-  const s = WEIGHTS.build * g.build + WEIGHTS.drive * g.drive + WEIGHTS.value * g.value +
-    WEIGHTS.practicality * g.practicality + WEIGHTS.design * g.design + WEIGHTS.running * g.running;
-  return Math.round(s);
+export const WEIGHTS = WEIGHT_PROFILES.default;
+
+const PERFORMANCE_SEGMENTS = new Set(['sports', 'super-coupe', 'hot-hatch', 'roadster-classic']);
+const UTILITY_SEGMENTS = new Set(['mpv-van', 'seven-seater', 'pickup', 'off-roader']);
+
+export function scoreProfile(car = {}) {
+  const segment = typeof car === 'string' ? car : car.segment;
+  if (PERFORMANCE_SEGMENTS.has(segment)) return 'performance';
+  if (UTILITY_SEGMENTS.has(segment)) return 'utility';
+  return 'default';
+}
+
+export function vroomScore(g, car = {}) {
+  const weights = WEIGHT_PROFILES[scoreProfile(car)];
+  const raw = Object.entries(weights).reduce((sum, [key, weight]) => sum + weight * g[key], 0);
+  const spread = raw < 75 ? 4 : 2.4;
+  return Math.max(42, Math.min(96, Math.round(75 + (raw - 75) * spread)));
 }
 
 export function slug(make, model, gen) {

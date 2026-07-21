@@ -192,7 +192,7 @@ export default {
     { model: 'G-Class', gen: 'W463', years: [1990, 2018], bodies: ['suv'], segment: 'off-roader',
       priceNew: [80000, 140000], used: [35000, 90000], accel: 5.9, power: [184, 571], top: 130,
       fuels: ['petrol', 'diesel'], mpg: 25, ev: null, seats: 5, doors: 5, boot: 480, len: 4662, kg: 2570,
-      mpy: 5000, ncap: null, onSale: false, halo: true,
+      mpy: 5000, ncap: null, onSale: false, halo: false,
       g: { build: 92, drive: 52, practicality: 74, value: 60, design: 94, running: 30 },
       verdict: 'The box that outlived every trend. Agricultural to drive, eternal to look at, and it will outlast your house.',
       issues: ['Rust hides under trim on older cars', 'Thirst is a lifestyle'],

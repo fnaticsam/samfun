@@ -1,0 +1,210 @@
+{
+ "schemaVersion": 1,
+ "dataVersion": "aee435509f26",
+ "count": 1129,
+ "makes": [
+  "Alfa Romeo",
+  "Alpine",
+  "Aston Martin",
+  "Audi",
+  "BMW",
+  "BYD",
+  "Bentley",
+  "Chevrolet",
+  "Chrysler",
+  "Citroen",
+  "Cupra",
+  "DS",
+  "Dacia",
+  "Daihatsu",
+  "Dodge",
+  "Ferrari",
+  "Fiat",
+  "Ford",
+  "Genesis",
+  "Honda",
+  "Hyundai",
+  "Ineos",
+  "Isuzu",
+  "Jaguar",
+  "Jeep",
+  "KGM",
+  "Kia",
+  "Lamborghini",
+  "Land Rover",
+  "Lexus",
+  "Lotus",
+  "MG",
+  "MINI",
+  "Maserati",
+  "Mazda",
+  "McLaren",
+  "Mercedes-Benz",
+  "Mitsubishi",
+  "Nissan",
+  "Peugeot",
+  "Polestar",
+  "Porsche",
+  "Renault",
+  "SEAT",
+  "Saab",
+  "Skoda",
+  "Smart",
+  "SsangYong",
+  "Subaru",
+  "Suzuki",
+  "Tesla",
+  "Toyota",
+  "Vauxhall",
+  "Volkswagen",
+  "Volvo"
+ ],
+ "bounds": {
+  "budgetGBP": [
+   5000,
+   100000
+  ],
+  "usedGBP": [
+   500,
+   1000000
+  ],
+  "year": [
+   1950,
+   2026
+  ],
+  "ageYears": [
+   0,
+   76
+  ],
+  "accel062": [
+   2.1,
+   25
+  ],
+  "mpg": [
+   13,
+   135
+  ],
+  "evMiles": [
+   6,
+   466
+  ]
+ },
+ "counts": {
+  "makes": {
+   "Alfa Romeo": 23,
+   "Alpine": 5,
+   "Aston Martin": 10,
+   "Audi": 54,
+   "Bentley": 10,
+   "BMW": 63,
+   "BYD": 15,
+   "Chevrolet": 14,
+   "Chrysler": 8,
+   "Citroen": 30,
+   "Cupra": 5,
+   "Dacia": 16,
+   "Daihatsu": 12,
+   "Dodge": 7,
+   "DS": 9,
+   "Ferrari": 12,
+   "Fiat": 23,
+   "Ford": 41,
+   "Genesis": 8,
+   "Honda": 32,
+   "Hyundai": 27,
+   "Ineos": 2,
+   "Isuzu": 8,
+   "Jaguar": 22,
+   "Jeep": 16,
+   "KGM": 5,
+   "Kia": 25,
+   "Lamborghini": 8,
+   "Land Rover": 29,
+   "Lexus": 25,
+   "Lotus": 13,
+   "Maserati": 10,
+   "Mazda": 26,
+   "McLaren": 10,
+   "Mercedes-Benz": 57,
+   "MG": 21,
+   "MINI": 17,
+   "Mitsubishi": 19,
+   "Nissan": 33,
+   "Peugeot": 33,
+   "Polestar": 6,
+   "Porsche": 23,
+   "Renault": 31,
+   "Saab": 12,
+   "SEAT": 26,
+   "Skoda": 31,
+   "Smart": 12,
+   "SsangYong": 7,
+   "Subaru": 18,
+   "Suzuki": 17,
+   "Tesla": 9,
+   "Toyota": 42,
+   "Vauxhall": 27,
+   "Volkswagen": 39,
+   "Volvo": 26
+  },
+  "bodies": {
+   "convertible": 163,
+   "coupe": 188,
+   "estate": 197,
+   "hatch": 328,
+   "mpv": 61,
+   "pickup": 19,
+   "saloon": 239,
+   "suv": 299,
+   "van": 7
+  },
+  "segments": {
+   "city": 41,
+   "compact-exec": 40,
+   "ev-native": 82,
+   "exec": 77,
+   "family-hatch": 147,
+   "family-suv": 89,
+   "hot-hatch": 29,
+   "large-suv": 43,
+   "luxury": 43,
+   "mpv-van": 45,
+   "off-roader": 35,
+   "pickup": 13,
+   "roadster-classic": 53,
+   "seven-seater": 49,
+   "small-suv": 67,
+   "sports": 52,
+   "super-coupe": 121,
+   "supermini": 103
+  },
+  "fuels": {
+   "diesel": 595,
+   "ev": 127,
+   "hybrid": 94,
+   "petrol": 960,
+   "phev": 109
+  }
+ },
+ "coverage": {
+  "images": {
+   "count": 1114,
+   "total": 1129,
+   "pct": 98.7
+  },
+  "attribution": {
+   "count": 1108,
+   "total": 1114,
+   "pct": 99.5
+  },
+  "rivals": {
+   "count": 2945,
+   "total": 2945,
+   "pct": 100
+  }
+ },
+ "build": {
+  "bytes": 1428373,
+  "sha256": "aee435509f260dc7dd422c86a92e36a242e3ee8f5df7f10522574d81ba2663ec"
+ }
+}

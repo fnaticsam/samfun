@@ -1,0 +1,127 @@
+/* ============================================================
+   FINCA — Design Tokens (canonical source of truth)
+   finca.fan · Ibiza property browser
+   Identity ported from hike.fan (Assouline-poster "Ibiza chic"),
+   adapted for Vroom's UK car picker.
+   ============================================================ */
+
+:root {
+  /* Paper & neutrals */
+  --paper: #F1E8D4;
+  --paper-deep: #E8DDC3;
+  --bone: #F8F0DB;
+  --linen: #E0D4B8;
+  --rule: #1E1F1A;
+  --rule-soft: #C9B98F;
+
+  /* Ink */
+  --ink: #14160F;
+  --ink-soft: #545548;
+  /* Reserved for supporting copy; still clears WCAG AA on paper and bone. */
+  --ink-faint: #5F6254;
+
+  /* Forest */
+  --forest: #1E3A2C;
+  --forest-deep: #12271D;
+  --forest-mid: #2A5240;
+
+  /* Magenta */
+  --magenta: #E8457D;
+  --magenta-deep: #B52B5A;
+
+  /* Supporting accents */
+  --butter: #F5D24F;
+  --butter-deep: #E6B72E;
+  --clay: #C36A3A;
+  --clay-deep: #9A4A24;
+  --clay-light: #E39A72;
+  --blue: #6F74F7;
+  --blue-deep: #4248D6;
+  --blue-wash: #D6D8FA;
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --font-caps: "Jost", system-ui, -apple-system, sans-serif;
+  --font-body: "Jost", system-ui, -apple-system, sans-serif;
+
+  --fs-wall: clamp(3.75rem, 14vw + 0.5rem, 11rem);
+  --fs-hero: clamp(3rem, 10vw, 8.5rem);
+  --fs-h1: clamp(2.25rem, 3.5vw + 1rem, 4.5rem);
+  --fs-h2: clamp(1.5rem, 2vw + 0.8rem, 2.5rem);
+  --fs-h3: clamp(1.125rem, 0.4vw + 1rem, 1.375rem);
+  --fs-body: clamp(0.9375rem, 0.2vw + 0.875rem, 1rem);
+  --fs-caption: 0.75rem;
+  --fs-eyebrow: 0.6875rem;
+  --fs-price: clamp(1.25rem, 1vw + 1rem, 1.75rem);
+
+  --track-tighter: -0.05em;
+  --track-tight: -0.035em;
+  --track-normal: 0;
+  --track-wide: 0.08em;
+  --track-wider: 0.18em;
+
+  --lh-tight: 0.95;
+  --lh-snug: 1.15;
+  --lh-body: 1.55;
+
+  /* Spacing */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* Layout */
+  --content-max: 1240px;
+  --gutter: clamp(1.25rem, 3vw, 3rem);
+  --nav-h: 72px;
+  --nav-h-mobile: 58px;
+  --tabbar-h: 64px;
+
+  /* Shape */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 8px;
+  --r-xl: 16px;
+  --r-pill: 999px;
+  --r-photo: 2px;
+  --r-card: 4px;
+
+  --bd-hair: 1px solid var(--rule-soft);
+  --bd-ink: 2px solid var(--ink);
+  --bd-ink-thick: 3px solid var(--ink);
+
+  /* Poster-flat elevation */
+  --shadow-poster: 6px 8px 0 rgba(20, 22, 15, 0.13);
+  --shadow-card: 3px 5px 0 rgba(20, 22, 15, 0.09);
+  --shadow-polaroid: 0 14px 30px -16px rgba(20, 22, 15, 0.55),
+    0 4px 8px -4px rgba(20, 22, 15, 0.28);
+  --shadow-float: 0 24px 48px -20px rgba(20, 22, 15, 0.35);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 0.9, 0.32, 1);
+  --ease-spring: cubic-bezier(0.34, 1.42, 0.6, 1);
+  --t-fast: 160ms;
+  --t-med: 280ms;
+  --t-slow: 500ms;
+
+  /* Layering */
+  --z-map: 10;
+  --z-nav: 50;
+  --z-tabbar: 60;
+  --z-sheet: 80;
+  --z-toast: 90;
+  --z-modal: 100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 1ms;
+    --t-med: 1ms;
+    --t-slow: 1ms;
+  }
+}

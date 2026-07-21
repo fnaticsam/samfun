@@ -1,7 +1,7 @@
 // Vroom image pipeline v2 — Wikipedia/Commons page-image per model-generation.
 // Batched (50 titles/request) to stay well inside API limits. Resumable cache.
 // Usage: node scripts/vroom/03-images.mjs [--force] [--retry-missing]
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, renameSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCatalogue } from './05-validate.mjs';
@@ -20,6 +20,63 @@ const args = Object.fromEntries(process.argv.slice(2).map(a => {
 const API = 'https://en.wikipedia.org/w/api.php';
 const UA = 'sam.toys-vroom/1.0 (car picker toy; hello@sam.toys)';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+export function canonicalFileKey(title) {
+  return String(title || '')
+    .normalize('NFKC')
+    .replace(/^(?:file|image):/i, '')
+    .replace(/_/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLocaleLowerCase('en');
+}
+
+export function commonsFilePage(title) {
+  const name = String(title || '').replace(/^(?:file|image):/i, '').replace(/ /g, '_');
+  return name ? `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(name).replace(/%2F/gi, '/')}` : null;
+}
+
+function writeJsonAtomic(path, value) {
+  const temp = `${path}.tmp`;
+  writeFileSync(temp, `${JSON.stringify(value, null, 1)}\n`);
+  renameSync(temp, path);
+}
+
+function wikipediaTitleFromUrl(value) {
+  try {
+    const url = new URL(value);
+    if (!/^(?:[a-z-]+\.)?(?:wikipedia|wikimedia)\.org$/i.test(url.hostname)) return null;
+    const match = url.pathname.match(/^\/wiki\/(.+)$/);
+    return match ? decodeURIComponent(match[1]).replace(/_/g, ' ') : null;
+  } catch { return null; }
+}
+
+// Overrides accept an article title, a File: title, a Wikipedia page URL, a direct
+// image URL, or an object: { title } / { file } / { src, w, h, page, credit, license }.
+export function normalizeOverride(raw) {
+  if (!raw) return null;
+  if (typeof raw === 'object' && !Array.isArray(raw)) {
+    if (raw.src) return { kind: 'direct', image: {
+      src: String(raw.src), w: Number(raw.w) || null, h: Number(raw.h) || null,
+      file: raw.file || null, page: raw.page || (raw.file ? commonsFilePage(raw.file) : null),
+      credit: raw.credit || null, license: raw.license || null, via: 'override-direct'
+    } };
+    if (raw.file) return { kind: 'file', value: String(raw.file).replace(/^(?!File:)/i, 'File:') };
+    if (raw.title) return { kind: 'title', value: String(raw.title) };
+    throw new Error(`Unsupported image override object: ${JSON.stringify(raw)}`);
+  }
+  if (typeof raw !== 'string') throw new Error(`Unsupported image override: ${JSON.stringify(raw)}`);
+  const value = raw.trim();
+  if (/^(?:file|image):/i.test(value)) return { kind: 'file', value: value.replace(/^(?:file|image):/i, 'File:') };
+  const wikiTitle = /^https?:\/\//i.test(value) ? wikipediaTitleFromUrl(value) : null;
+  if (wikiTitle) return /^(?:file|image):/i.test(wikiTitle)
+    ? { kind: 'file', value: wikiTitle.replace(/^(?:file|image):/i, 'File:') }
+    : { kind: 'title', value: wikiTitle };
+  if (/^https?:\/\//i.test(value)) return { kind: 'direct', image: {
+    src: value, w: null, h: null, file: null, page: value, credit: null, license: null, via: 'override-direct'
+  } };
+  return { kind: 'title', value };
+}
 
 async function api(params, tries = 4) {
   const url = `${API}?${new URLSearchParams({ format: 'json', formatversion: '2', maxlag: '5', ...params })}`;
@@ -93,7 +150,7 @@ async function batchPageImages(titles) {
 // Batch attribution for File: titles → Map(file → {credit,license})
 async function batchAttribution(files) {
   const map = new Map();
-  const uniq = [...new Set(files.filter(Boolean))];
+  const uniq = [...new Map(files.filter(Boolean).map(file => [canonicalFileKey(file), file])).values()];
   const strip = (h) => (h || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().slice(0, 120);
   for (let i = 0; i < uniq.length; i += 50) {
     const chunk = uniq.slice(i, i + 50);
@@ -103,7 +160,10 @@ async function batchAttribution(files) {
     });
     for (const p of d.query?.pages || []) {
       const meta = p.imageinfo?.[0]?.extmetadata || {};
-      map.set(p.title, { credit: strip(meta.Artist?.value) || null, license: strip(meta.LicenseShortName?.value) || null });
+      map.set(canonicalFileKey(p.title), {
+        credit: strip(meta.Artist?.value) || null,
+        license: strip(meta.LicenseShortName?.value) || null
+      });
     }
     await sleep(300);
   }
@@ -125,14 +185,15 @@ async function main() {
   const cars = carsRaw.map(c => ({ ...c, id: slug(c.make, c.model, c.gen) }));
   const prev = existsSync(OUT) && !args.force ? JSON.parse(readFileSync(OUT, 'utf8')) : {};
   const overrides = existsSync(OVERRIDES) ? JSON.parse(readFileSync(OVERRIDES, 'utf8')) : {};
+  const normalizedOverrides = Object.fromEntries(Object.entries(overrides).map(([id, value]) => [id, normalizeOverride(value)]));
   const todo = cars.filter(c => !(c.id in prev) || (prev[c.id] == null && args['retry-missing']) || overrides[c.id]);
   console.log(`images v2: ${cars.length} cars, ${Object.keys(prev).length} cached, ${todo.length} to resolve`);
 
   // 1) overrides first (article-title overrides only here; File: overrides below)
   const titleWants = new Map(); // car.id -> [titles best-first]
   for (const c of todo) {
-    const o = overrides[c.id];
-    titleWants.set(c.id, o && !o.startsWith('File:') ? [o, ...candidates(c)] : candidates(c));
+    const override = normalizedOverrides[c.id];
+    titleWants.set(c.id, override?.kind === 'title' ? [override.value, ...candidates(c)] : candidates(c));
   }
 
   // 2) batch-resolve all candidate titles
@@ -142,6 +203,8 @@ async function main() {
 
   const chosen = new Map(); // id -> img
   for (const c of todo) {
+    const override = normalizedOverrides[c.id];
+    if (override?.kind === 'direct') { chosen.set(c.id, override.image); continue; }
     for (const t of titleWants.get(c.id)) {
       const img = imgByTitle.get(t);
       if (img) { chosen.set(c.id, { ...img, via: t }); break; }
@@ -150,11 +213,18 @@ async function main() {
 
   // 3) File: overrides (rare) — direct thumb via imageinfo
   for (const c of todo) {
-    const o = overrides[c.id];
-    if (o && o.startsWith('File:')) {
-      const d = await api({ action: 'query', titles: o, prop: 'imageinfo', iiprop: 'url', iiurlwidth: '1000' });
-      const ii = d.query?.pages?.[0]?.imageinfo?.[0];
-      if (ii?.thumburl) chosen.set(c.id, { src: ii.thumburl, w: ii.thumbwidth, h: ii.thumbheight, file: o, page: null, via: 'override-file' });
+    const override = normalizedOverrides[c.id];
+    if (override?.kind === 'file') {
+      const d = await api({ action: 'query', titles: override.value, prop: 'imageinfo|info', iiprop: 'url', iiurlwidth: '1000', inprop: 'url' });
+      const page = d.query?.pages?.[0];
+      const ii = page?.imageinfo?.[0];
+      if (ii?.thumburl || ii?.url) {
+        const file = page?.title || override.value;
+        chosen.set(c.id, {
+          src: ii.thumburl || ii.url, w: ii.thumbwidth || ii.width, h: ii.thumbheight || ii.height,
+          file, page: commonsFilePage(file), via: 'override-file'
+        });
+      }
       await sleep(200);
     }
   }
@@ -176,19 +246,30 @@ async function main() {
     }
   }
 
-  // 5) attribution for every chosen file
-  const att = await batchAttribution([...chosen.values()].map(i => i.file));
+  // 5) attribution for new images and cached records missing it. Canonical file
+  // keys avoid the MediaWiki underscore/space normalization bug.
+  const attributionTargets = [
+    ...chosen.values(),
+    ...Object.values(prev).filter(img => img?.file && (!img.credit || !img.license))
+  ];
+  const att = await batchAttribution(attributionTargets.map(i => i.file));
   for (const [id, img] of chosen) {
-    const a = img.file ? att.get(img.file) || {} : {};
+    const a = img.file ? att.get(canonicalFileKey(img.file)) || {} : {};
     prev[id] = { ...img, ...a };
+  }
+  for (const [id, img] of Object.entries(prev)) {
+    if (!img?.file || (img.credit && img.license)) continue;
+    const a = att.get(canonicalFileKey(img.file));
+    if (a) prev[id] = { ...img, ...a };
   }
   for (const c of todo) if (!chosen.has(c.id)) prev[c.id] = null;
 
-  writeFileSync(OUT, JSON.stringify(prev, null, 1));
+  const ordered = Object.fromEntries(Object.entries(prev).sort(([a], [b]) => a.localeCompare(b)));
+  writeJsonAtomic(OUT, ordered);
   const missing = cars.filter(c => !prev[c.id]).map(c => c.id);
-  writeFileSync(join(STATE, 'missing-images.json'), JSON.stringify(missing, null, 1));
+  writeJsonAtomic(join(STATE, 'missing-images.json'), missing);
   const cov = ((cars.length - missing.length) / cars.length * 100).toFixed(1);
   console.log(`\nimages done: ${cars.length - missing.length}/${cars.length} (${cov}%) — missing → state/missing-images.json`);
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) await main();

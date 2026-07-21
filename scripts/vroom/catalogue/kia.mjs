@@ -71,7 +71,7 @@ export default {
     { model: 'EV9', gen: 'MV', years: [2023, 0], bodies: ['suv'], segment: 'seven-seater',
       priceNew: [65000, 78000], used: [45000, 65000], accel: 5.3, power: [204, 384], top: 124,
       fuels: ['ev'], mpg: null, ev: 349, seats: 7, doors: 5, boot: 828, len: 5015, kg: 2560,
-      mpy: 10000, ncap: [5, 2023], onSale: true, halo: true,
+      mpy: 10000, ncap: [5, 2023], onSale: true, halo: false,
       g: { build: 86, drive: 68, practicality: 94, value: 72, design: 88, running: 78 },
       verdict: 'The first great seven-seat EV — a concept car that escaped with the family aboard. Big money, bigger presence.',
       issues: ['It is enormous and 2.6 tonnes', 'Efficiency drops at pace'],

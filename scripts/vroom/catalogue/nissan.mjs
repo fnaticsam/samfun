@@ -93,7 +93,7 @@ export default {
     { model: 'GT-R', gen: 'R35', years: [2009, 2022], bodies: ['coupe'], segment: 'super-coupe',
       priceNew: [60000, 100000], used: [45000, 90000], accel: 2.8, power: [480, 570], top: 196,
       fuels: ['petrol'], mpg: 23, ev: null, seats: 4, doors: 2, boot: 315, len: 4710, kg: 1740,
-      mpy: 4000, ncap: null, onSale: false, halo: true,
+      mpy: 4000, ncap: null, onSale: false, halo: false,
       g: { build: 84, drive: 90, practicality: 52, value: 74, design: 76, running: 30 },
       verdict: 'Godzilla: the giant-killer that humbled supercars for 911 money. Servicing is a religion — join it or don’t buy.',
       issues: ['Gearbox and consumables cost supercar money', 'Modified cars everywhere — stock is king'],

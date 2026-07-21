@@ -82,7 +82,7 @@ export default {
     { model: 'EX90', gen: 'P3', years: [2024, 0], bodies: ['suv'], segment: 'seven-seater',
       priceNew: [82000, 100000], used: [65000, 88000], accel: 4.9, power: [408, 517], top: 112,
       fuels: ['ev'], mpg: null, ev: 374, seats: 7, doors: 5, boot: 655, len: 5037, kg: 2745,
-      mpy: 9500, ncap: [5, 2024], onSale: true, halo: true,
+      mpy: 9500, ncap: [5, 2024], onSale: true, halo: false,
       g: { build: 88, drive: 70, practicality: 90, value: 64, design: 84, running: 76 },
       verdict: 'The XC90’s electric heir: seven seats, 374 miles, lidar watching the road. Launch software wobbles now settling.',
       issues: ['Software maturing in public', '2.7 tonnes needs its brakes'],

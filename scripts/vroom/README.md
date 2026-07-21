@@ -63,6 +63,8 @@ Typical full build: `node scripts/vroom/03-images.mjs && node scripts/vroom/05-v
 
 ## STATUS (handoff 2026-07-21)
 
+> **Release checkpoint 2026-07-22:** the current worktree has **1,129 model-generations / 87 catalogue files**, a complete static `vroom/` app with saved cars, twins and shareable two-to-four-car comparison, deterministic pipeline scripts, segment-calibrated scores (**p10=45 / p90=87**), zero unresolved rival references, and **98.7% image coverage**. The generated `cars.json` is **1,428,373 bytes**, beneath the 1.6 MB cap. All emitted images link to their Commons material page; cards, details and comparison expose source, author and licence. Shipping validation and **23/23 tests** pass after three visual-polish rounds. Read [`EXECPLAN.md`](./EXECPLAN.md) for current source of truth. The older bullets remain as provenance and should not be treated as current state.
+
 - **Catalogue: 371/1,000+ cars, 35 makes** in `catalogue/*.mjs` — all validate clean (`05-validate.mjs --min=1`).
   Done: BMW, Mercedes, Audi, VW, Toyota, Ford, Honda, Hyundai, Kia, Land Rover, Porsche, Nissan, Mazda,
   Skoda, Volvo, Tesla, MINI, Renault, Peugeot, Vauxhall, Lexus, SEAT, Cupra, Citroën, MG, Fiat/Abarth,

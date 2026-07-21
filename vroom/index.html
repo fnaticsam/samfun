@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#F1E8D4">
+    <link rel="icon" href="/vroom/favicon.svg" type="image/svg+xml">
+    <meta name="description" content="Vroom is the slider-first UK car picker. Set your budget, age and pace, then find the cars worth knowing.">
+    <title>Vroom — Find your kind of car</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&amp;family=Jost:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/vroom/finca-tokens.css">
+    <link rel="stylesheet" href="/vroom/static/css/app.css">
+    <link rel="preload" href="/vroom/data/cars.json" as="fetch" type="application/json" crossorigin>
+    <link rel="preload" href="/vroom/data/meta.json" as="fetch" type="application/json" crossorigin>
+  </head>
+  <body>
+    <a class="skip-link" href="#results">Skip to cars</a>
+
+    <div id="boot-screen" class="boot-screen" role="status" aria-live="polite" aria-label="Loading Vroom">
+      <div class="boot-mark" aria-hidden="true">V</div>
+      <p>Turning the key…</p>
+    </div>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="wordmark" href="/vroom/" aria-label="Vroom home">
+          <span>Vroom</span>
+          <small>Car picker</small>
+        </a>
+
+        <form class="global-search" role="search" action="/vroom/" method="get">
+          <label class="sr-only" for="search-input">Search by make, model or vibe</label>
+          <span class="search-glyph" aria-hidden="true"></span>
+          <input id="search-input" name="search" type="search" inputmode="search" autocomplete="off" placeholder="Search make, model or vibe…">
+          <button class="search-clear" type="button" data-action="clear-search" aria-label="Clear search" hidden>Clear</button>
+        </form>
+
+        <div class="header-actions">
+          <button class="icon-button compare-header-button" type="button" data-action="open-compare" aria-label="Compare selected cars">
+            <span aria-hidden="true">⇄</span>
+            <span class="saved-count" data-compare-count>0</span>
+          </button>
+          <button class="icon-button saved-button" type="button" data-action="show-saved" aria-label="Show saved cars">
+            <span aria-hidden="true">♥</span>
+            <span class="saved-count" data-saved-count>0</span>
+          </button>
+          <button class="poster-button poster-button--compact" type="button" data-action="open-filters" aria-haspopup="dialog" aria-controls="filter-drawer">
+            Filters <span class="filter-count" data-filter-count hidden>0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="picker-hero" aria-labelledby="picker-title">
+        <div class="picker-hero__copy">
+          <p class="eyebrow">Britain's opinionated car picker</p>
+          <h1 id="picker-title">Find the car that<br><em>fits your life.</em></h1>
+          <p class="hero-deck">Move the sliders. We’ll surface the brilliant, the left-field and the same-vibes-for-less.</p>
+        </div>
+
+        <div class="picker-stamp" aria-label="Independent grades across six categories">
+          <span>6 grades</span>
+          <strong>No waffle</strong>
+        </div>
+      </section>
+
+      <nav id="chiprail" class="chiprail" aria-label="Quick car filters">
+        <div class="chiprail__scroll">
+          <button class="filter-chip is-active" type="button" data-filter="all" data-value="all" aria-pressed="true">All cars</button>
+          <button class="filter-chip" type="button" data-filter="body" data-value="suv" aria-pressed="false">SUV</button>
+          <button class="filter-chip" type="button" data-filter="body" data-value="hatchback" aria-pressed="false">Hatch</button>
+          <button class="filter-chip" type="button" data-filter="body" data-value="estate" aria-pressed="false">Estate</button>
+          <button class="filter-chip" type="button" data-filter="body" data-value="coupe" aria-pressed="false">Coupé</button>
+          <button class="filter-chip filter-chip--ev" type="button" data-filter="fuel" data-value="ev" aria-pressed="false">Electric</button>
+          <button class="filter-chip" type="button" data-filter="fuel" data-value="hybrid" aria-pressed="false">Hybrid</button>
+          <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="boxy-icon" aria-pressed="false">Boxy icons</button>
+          <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="drivers-car" aria-pressed="false">Driver’s cars</button>
+          <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="family-hero" aria-pressed="false">Family heroes</button>
+          <button class="filter-chip filter-chip--best" type="button" data-filter="best" data-value="88" aria-pressed="false">Best of Vroom</button>
+        </div>
+      </nav>
+
+      <section id="slider-deck" class="slider-deck" aria-labelledby="slider-deck-title">
+        <div class="slider-deck__heading">
+          <div>
+            <p class="eyebrow">Your shortlist starts here</p>
+            <h2 id="slider-deck-title">Dial in the brief</h2>
+          </div>
+          <button class="text-button" type="button" data-action="reset-filters">Reset all</button>
+        </div>
+
+        <div class="slider-deck__grid">
+          <fieldset class="slider-card slider-card--budget" data-range="budget">
+            <legend>Budget</legend>
+            <div class="slider-card__value">
+              <output id="budget-output" for="budget-min budget-max">£10k–£40k</output>
+              <span>used price</span>
+            </div>
+            <div class="range-stack" style="--low: 23%; --high: 61%;">
+              <div class="range-track" aria-hidden="true"></div>
+              <input id="budget-min" class="range-input range-input--min" type="range" min="0" max="100" value="23" step="1" aria-label="Minimum used-car budget">
+              <input id="budget-max" class="range-input range-input--max" type="range" min="0" max="100" value="61" step="1" aria-label="Maximum used-car budget">
+            </div>
+            <div class="range-scale" aria-hidden="true"><span>£5k</span><span>£25k</span><span>£100k+</span></div>
+          </fieldset>
+
+          <fieldset class="slider-card" data-range="age">
+            <legend>Age</legend>
+            <div class="slider-card__value">
+              <output id="age-output" for="age-min age-max">0–7 years</output>
+              <span>old today</span>
+            </div>
+            <div class="range-stack" style="--low: 0%; --high: 35%;">
+              <div class="range-track" aria-hidden="true"></div>
+              <input id="age-min" class="range-input range-input--min" type="range" min="0" max="20" value="0" step="1" aria-label="Minimum car age in years">
+              <input id="age-max" class="range-input range-input--max" type="range" min="0" max="25" value="7" step="1" aria-label="Maximum car age in years">
+            </div>
+            <div class="slider-note">
+              <span>Expect around</span>
+              <output id="mileage-output" for="age-min age-max">35,000 miles</output>
+            </div>
+          </fieldset>
+
+          <fieldset class="slider-card" data-range="accel">
+            <legend>Quick enough?</legend>
+            <div class="slider-card__value">
+              <output id="accel-output" for="accel-max">Under 8.0 sec</output>
+              <span>0–62 mph</span>
+            </div>
+            <div class="range-stack range-stack--single" style="--low: 0%; --high: 52%;">
+              <div class="range-track" aria-hidden="true"></div>
+              <input id="accel-max" class="range-input" type="range" min="2" max="15" value="8" step="0.1" aria-label="Slowest acceptable zero to sixty-two time">
+            </div>
+            <div class="range-scale" aria-hidden="true"><span>Supercar</span><span>Brisk</span><span>Unhurried</span></div>
+          </fieldset>
+
+          <fieldset class="slider-card slider-card--efficiency" data-range="efficiency">
+            <legend id="efficiency-label">Range or economy</legend>
+            <div class="slider-card__value">
+              <output id="efficiency-output" for="efficiency-min">35+ mpg</output>
+              <span id="efficiency-context">adapts to fuel</span>
+            </div>
+            <div class="range-stack range-stack--single" style="--low: 0%; --high: 43%;">
+              <div class="range-track" aria-hidden="true"></div>
+              <input id="efficiency-min" class="range-input" type="range" min="0" max="400" value="35" step="1" aria-label="Minimum efficiency">
+            </div>
+            <div class="range-scale" aria-hidden="true"><span>Thirsty</span><span>Sensible</span><span>Sips fuel</span></div>
+          </fieldset>
+        </div>
+      </section>
+
+      <section id="results" class="results-section" aria-labelledby="results-title" tabindex="-1">
+        <div class="results-toolbar">
+          <div>
+            <p class="eyebrow">The running order</p>
+            <h2 id="results-title" aria-live="polite"><span id="result-count">371</span> cars worth a look</h2>
+          </div>
+          <div class="results-toolbar__controls">
+            <button class="poster-button" type="button" data-action="open-filters" aria-haspopup="dialog" aria-controls="filter-drawer">More filters</button>
+            <label class="select-wrap" for="sort-select">
+              <span>Sort</span>
+              <select id="sort-select" name="sort" aria-label="Sort cars">
+                <option value="score">Vroom score</option>
+                <option value="price-low">Price: low first</option>
+                <option value="accel">Quickest first</option>
+                <option value="newest">Newest first</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div id="loading-state" class="state-panel state-panel--loading" role="status" aria-live="polite" hidden>
+          <div class="loading-poster" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <h3>Shuffling the deck</h3>
+          <p>Comparing price bands, pace and practicality…</p>
+        </div>
+
+        <div id="error-state" class="state-panel state-panel--error" role="alert" hidden>
+          <span class="state-panel__mark" aria-hidden="true">!</span>
+          <h3>That stalled.</h3>
+          <p data-error-message>We couldn’t load the catalogue. Check your connection and give it another turn.</p>
+          <button class="poster-button poster-button--primary" type="button" data-action="retry-load">Try again</button>
+        </div>
+
+        <div id="empty-state" class="state-panel" role="status" hidden>
+          <span class="state-panel__mark" aria-hidden="true">0</span>
+          <h3>No exact matches.</h3>
+          <p>Loosen one slider and we’ll bring the interesting stuff back.</p>
+          <button class="poster-button" type="button" data-action="reset-filters">Clear filters</button>
+        </div>
+
+        <div id="results-grid" class="car-grid" aria-busy="false"></div>
+
+        <button id="load-more" class="load-more" type="button" data-action="load-more" hidden>
+          <span>Show more cars</span>
+          <small>Keep browsing the deck</small>
+        </button>
+
+        <noscript>
+          <div class="state-panel state-panel--error">
+            <h3>Vroom needs JavaScript.</h3>
+            <p>Switch it on to use the sliders and browse the catalogue.</p>
+          </div>
+        </noscript>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><strong>Vroom</strong> is a picker, not a classifieds site.</p>
+      <p>UK prices and specs are a guide. Always check the actual car.</p>
+      <a href="https://sam.toys">More Sam toys</a>
+    </footer>
+
+    <dialog id="filter-drawer" class="sheet drawer" aria-labelledby="filter-drawer-title">
+      <form class="sheet__surface drawer__surface" method="dialog">
+        <header class="sheet__header">
+          <div>
+            <p class="eyebrow">Fine tuning</p>
+            <h2 id="filter-drawer-title">More filters</h2>
+          </div>
+          <button class="sheet__close" type="submit" value="cancel" data-close-filter aria-label="Close filters">×</button>
+        </header>
+
+        <div class="drawer__body">
+          <fieldset class="choice-group">
+            <legend>Fuel</legend>
+            <div class="choice-grid">
+              <label><input type="checkbox" name="fuel" value="petrol"><span>Petrol</span></label>
+              <label><input type="checkbox" name="fuel" value="diesel"><span>Diesel</span></label>
+              <label><input type="checkbox" name="fuel" value="hybrid"><span>Hybrid</span></label>
+              <label><input type="checkbox" name="fuel" value="phev"><span>Plug-in</span></label>
+              <label><input type="checkbox" name="fuel" value="ev"><span>Electric</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="choice-group">
+            <legend>Body</legend>
+            <div class="choice-grid">
+              <label><input type="checkbox" name="body" value="hatchback"><span>Hatchback</span></label>
+              <label><input type="checkbox" name="body" value="suv"><span>SUV</span></label>
+              <label><input type="checkbox" name="body" value="estate"><span>Estate</span></label>
+              <label><input type="checkbox" name="body" value="saloon"><span>Saloon</span></label>
+              <label><input type="checkbox" name="body" value="coupe"><span>Coupé</span></label>
+              <label><input type="checkbox" name="body" value="convertible"><span>Convertible</span></label>
+              <label><input type="checkbox" name="body" value="mpv"><span>MPV</span></label>
+              <label><input type="checkbox" name="body" value="pickup"><span>Pick-up</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="choice-group choice-group--split">
+            <legend>The practical bits</legend>
+            <label class="field-label" for="seats-min">At least
+              <select id="seats-min" name="seats">
+                <option value="0">Any seats</option>
+                <option value="4">4 seats</option>
+                <option value="5">5 seats</option>
+                <option value="7">7 seats</option>
+              </select>
+            </label>
+            <label class="field-label" for="boot-min">Boot space
+              <select id="boot-min" name="boot">
+                <option value="0">Any size</option>
+                <option value="300">300+ litres</option>
+                <option value="450">450+ litres</option>
+                <option value="600">600+ litres</option>
+              </select>
+            </label>
+          </fieldset>
+
+          <fieldset class="choice-group">
+            <legend>Only show</legend>
+            <label class="toggle-row">
+              <span><strong>Best of Vroom</strong><small>Score 88 or higher</small></span>
+              <input type="checkbox" name="best" value="88" role="switch">
+            </label>
+            <label class="toggle-row">
+              <span><strong>Still sold new</strong><small>Current-generation cars</small></span>
+              <input type="checkbox" name="onsale" value="true" role="switch">
+            </label>
+          </fieldset>
+        </div>
+
+        <footer class="sheet__footer">
+          <button class="text-button" type="reset" data-action="reset-drawer">Clear</button>
+          <button class="poster-button poster-button--primary" type="submit" value="apply" data-action="apply-filters">Show matching cars</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog id="car-dialog" class="sheet detail-sheet" aria-labelledby="detail-title">
+      <div class="sheet__surface detail-sheet__surface">
+        <header class="detail-sheet__chrome">
+          <a class="wordmark wordmark--small" href="/vroom/" aria-label="Vroom home">Vroom</a>
+          <button class="sheet__close" type="button" data-close-dialog aria-label="Close car details">×</button>
+        </header>
+        <div id="detail-content" class="detail-content">
+          <div class="detail-placeholder" role="status">
+            <span class="state-panel__mark" aria-hidden="true">V</span>
+            <h2 id="detail-title">Opening the glovebox…</h2>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="compare-dialog" class="sheet compare-sheet" aria-labelledby="compare-title">
+      <div class="sheet__surface compare-sheet__surface">
+        <header class="sheet__header compare-sheet__header">
+          <div>
+            <p class="eyebrow">Head to head</p>
+            <h2 id="compare-title">Compare your shortlist</h2>
+          </div>
+          <div class="compare-sheet__tools">
+            <button class="text-button" type="button" data-action="clear-compare">Clear</button>
+            <button class="sheet__close" type="button" data-close-compare aria-label="Close comparison">×</button>
+          </div>
+        </header>
+        <div class="compare-content" data-compare-content></div>
+      </div>
+    </dialog>
+
+    <aside id="compare-tray" class="compare-tray" aria-live="polite" hidden>
+      <div class="compare-tray__copy">
+        <span class="compare-tray__count" data-compare-count>0</span>
+        <span><strong>Cars lined up</strong><small>Choose 2–4 for a proper face-off</small></span>
+      </div>
+      <div class="compare-tray__actions">
+        <button class="text-button" type="button" data-action="clear-compare">Clear</button>
+        <button class="poster-button poster-button--primary" type="button" data-action="open-compare" disabled>Compare now</button>
+      </div>
+    </aside>
+
+    <div id="toast-region" class="toast-region" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <nav class="mobile-tabbar" aria-label="Vroom sections">
+      <button class="mobile-tabbar__item is-active" type="button" data-tab="browse" aria-current="page">
+        <span class="tab-glyph tab-glyph--browse" aria-hidden="true"></span>
+        <span>Browse</span>
+      </button>
+      <button class="mobile-tabbar__item" type="button" data-tab="filters" data-action="open-filters" aria-haspopup="dialog" aria-controls="filter-drawer">
+        <span class="tab-glyph tab-glyph--filters" aria-hidden="true"></span>
+        <span>Filters</span>
+      </button>
+      <button class="mobile-tabbar__item" type="button" data-tab="saved" data-action="show-saved">
+        <span class="tab-glyph tab-glyph--heart" aria-hidden="true">♥</span>
+        <span>Saved <b data-saved-count>0</b></span>
+      </button>
+      <button class="mobile-tabbar__item" type="button" data-tab="compare" data-action="open-compare">
+        <span class="tab-glyph tab-glyph--compare" aria-hidden="true">⇄</span>
+        <span>Compare <b data-compare-count>0</b></span>
+      </button>
+    </nav>
+
+    <script type="module" src="/vroom/static/js/app.mjs"></script>
+  </body>
+</html>
