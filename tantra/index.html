@@ -199,8 +199,45 @@ p{margin:0 0 18px}
   padding:9px 20px;font-size:.92rem;letter-spacing:.4px;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
 .btn-complete:hover{background:color-mix(in srgb,var(--rose) 10%,transparent)}
 .lesson.is-done .btn-complete{background:var(--rose);color:#fbeee9;border-color:var(--rose)}
-.lesson.is-done .btn-complete .lbl::after{content:" ✓ honoured"}
+.lesson.is-done .btn-complete:not(.read) .lbl::after{content:" ✓ honoured"}
+.lesson.is-done .btn-complete.read{background:var(--indigo);border-color:var(--indigo)}
+.lesson.is-done .btn-complete.read .lbl::after{content:" ✓ read"}
+.btn-complete.read{border-color:var(--indigo);color:var(--indigo)}
+.btn-complete.read:hover{background:color-mix(in srgb,var(--indigo) 10%,transparent)}
 .lesson.is-done .btn-complete .lbl span{display:none}
+
+/* ---- theory / metaphysics accents ---- */
+.tag.theory{color:var(--indigo);border-color:color-mix(in srgb,var(--indigo) 45%,transparent)}
+.lesson-num.tnum{color:var(--indigo);font-size:1.2rem}
+/* concrete example / "picture this" box */
+.example{margin:22px 0;padding:15px 18px 15px 48px;position:relative;border-radius:12px;
+  background:color-mix(in srgb,var(--gold) 9%,transparent);border:1px solid color-mix(in srgb,var(--gold) 32%,var(--card-border))}
+.example::before{content:"✦";position:absolute;left:17px;top:14px;color:var(--gold);font-size:1rem}
+.example .xl{display:block;font-size:.66rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.example em,.example i{color:var(--ink)}
+/* contemplation (single, full-width practice for theory) */
+.practices.single{grid-template-columns:1fr}
+.pcard.contempl::after{background:linear-gradient(90deg,var(--indigo),var(--gold))}
+.pcard.contempl .ph{color:var(--indigo)}
+/* glossary */
+.glossary{margin:22px 0;display:flex;flex-direction:column}
+.gterm{padding:15px 4px;border-bottom:1px solid var(--card-border)}
+.gterm .w{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:1.24rem;color:var(--rose)}
+.gterm .w .dv{color:var(--ink-soft);font-size:1rem;font-weight:400;margin-left:8px}
+.gterm .say{font-style:italic;color:var(--ink-faint);font-size:.9rem;margin-left:8px}
+.gterm p{margin:5px 0 0;font-size:1rem;line-height:1.65}
+/* timeline */
+.timeline{margin:24px 0;border-left:2px solid var(--card-border);padding-left:24px;display:flex;flex-direction:column;gap:22px}
+.tevent{position:relative}
+.tevent::before{content:"";position:absolute;left:-31px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--rose);border:2px solid var(--paper)}
+.tevent .when{font-size:.7rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold)}
+.tevent h4{font-size:1.22rem;margin:2px 0 4px}
+.tevent p{margin:0;font-size:1rem;color:var(--ink-soft)}
+/* reading list */
+.reading{list-style:none;margin:22px 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.reading li{padding:15px 17px;border:1px solid var(--card-border);border-radius:12px;background:var(--card);font-size:1rem;line-height:1.6}
+.reading li b{color:var(--rose)}
+.reading li .k{display:block;font-size:.7rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:4px}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
@@ -258,6 +295,16 @@ p{margin:0 0 18px}
     <div class="snav-group">Begin</div>
     <a class="snav" href="#welcome"><span class="ndv">द्</span>Welcome &amp; How to Walk This</a>
 
+    <div class="snav-group">0 · The Ground · Theory</div>
+    <a class="snav" data-l="t1" href="#t1"><span class="ndv">ग</span>What Tantra Is &amp; Isn't<span class="done">✦</span></a>
+    <a class="snav" data-l="t2" href="#t2"><span class="ndv">ॐ</span>The One That Became Two<span class="done">✦</span></a>
+    <a class="snav" data-l="t3" href="#t3"><span class="ndv">स्</span>Spanda — Reality Vibrates<span class="done">✦</span></a>
+    <a class="snav" data-l="t4" href="#t4"><span class="ndv">ण</span>The Great Contraction<span class="done">✦</span></a>
+    <a class="snav" data-l="t5" href="#t5"><span class="ndv">प्</span>The Path of Recognition<span class="done">✦</span></a>
+    <a class="snav" data-l="t6" href="#t6"><span class="ndv">ली</span>Māyā, Līlā &amp; the Sacred Yes<span class="done">✦</span></a>
+    <a class="snav" data-l="t7" href="#t7"><span class="ndv">कु</span>The Subtle Architecture<span class="done">✦</span></a>
+    <a class="snav" data-l="t8" href="#t8"><span class="ndv">यं</span>Mantra, Yantra &amp; Sound<span class="done">✦</span></a>
+
     <div class="snav-group">I · Foundations</div>
     <a class="snav" data-l="1" href="#l1"><span class="ndv">१</span>What Tantra Truly Is<span class="done">✦</span></a>
     <a class="snav" data-l="2" href="#l2"><span class="ndv">२</span>Shiva &amp; Shakti<span class="done">✦</span></a>
@@ -278,11 +325,21 @@ p{margin:0 0 18px}
     <a class="snav" data-l="11" href="#l11"><span class="ndv">⟳</span>Circulating the Fire<span class="done">✦</span></a>
     <a class="snav" data-l="12" href="#l12"><span class="ndv">卐</span>Living Tantra<span class="done">✦</span></a>
 
+    <div class="snav-group">V · The Deep Work</div>
+    <a class="snav" data-l="d1" href="#d1"><span class="ndv">भ</span>Emotions &amp; What Arises<span class="done">✦</span></a>
+    <a class="snav" data-l="d2" href="#d2"><span class="ndv">वि</span>Obstacles &amp; Troubleshooting<span class="done">✦</span></a>
+    <a class="snav" data-l="d3" href="#d3"><span class="ndv">दे</span>Honoring the Feminine<span class="done">✦</span></a>
+    <a class="snav" data-l="d4" href="#d4"><span class="ndv">श</span>Aftercare &amp; Integration<span class="done">✦</span></a>
+
+    <div class="snav-group">Reference</div>
+    <a class="snav" href="#glossary"><span class="ndv">श्</span>Glossary of Terms</a>
+    <a class="snav" href="#lineage"><span class="ndv">इ</span>Lineage &amp; Further Reading</a>
+
     <div class="snav-group">Close</div>
     <a class="snav" href="#oracle"><span class="ndv">✶</span>Draw Today's Practice</a>
   </nav>
   <div class="side-foot">
-    <div class="prog-wrap">Lessons honoured: <b id="progTxt">0 / 12</b>
+    <div class="prog-wrap">Your journey: <b id="progTxt">0 / 24</b>
       <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
     </div>
     <button id="themeToggle">🌙 Candlelight</button>
@@ -304,9 +361,9 @@ p{margin:0 0 18px}
 <!-- ============ WELCOME ============ -->
 <section id="welcome" class="reveal">
   <div class="brushline"></div>
-  <p class="lede">This is a <strong>course you can teach yourself</strong> — slowly, privately, with no guru in the room. It moves in four stages: first the <strong>philosophy</strong>, so the practice has roots; then the <strong>solo path</strong>, where you learn your own body as an instrument; then the <strong>path of union</strong>, where everything you've learned becomes a way of meeting a woman; and finally <strong>mastery</strong>, where energy itself becomes the practice.</p>
+  <p class="lede">This is a <strong>course you can teach yourself</strong> — and a book you can read from cover to cover. It moves through the ground and then the path: first <strong>the theory</strong>, the metaphysics that tells you <em>what reality is</em> and why the body is a doorway to it; then the <strong>foundations</strong> and the <strong>solo path</strong>, where you learn your own body as an instrument; then the <strong>path of union</strong>, where everything becomes a way of meeting a woman; then <strong>mastery</strong>, where energy itself is the practice; and finally the <strong>deep work</strong> — emotions, obstacles, the feminine, and how to close a practice well.</p>
 
-  <p>Read in order the first time. Each lesson gives you the idea, an image to hold it, a few <em>essence</em> points to remember, and two practices — one to do <b>alone</b>, one to do <b>with her</b>. Do the solo work first. It is not a warm-up; it is the foundation. A man who knows his own body and breath brings a steadiness to partnership that no technique can fake.</p>
+  <p>You can read it two ways. Sit and read <strong>Stage Zero — The Ground</strong> like a book: eight short chapters that lay out the philosophy of tantra so nothing that follows feels arbitrary. Or skip straight to the practices and let the theory deepen as you go. Either is right. Each chapter gives you the idea, an image to hold it, a few <em>essence</em> points, a concrete <em>example</em>, and — in the practice lessons — two practices: one to do <b>alone</b>, one to do <b>with her</b>. Do the solo work first. It is not a warm-up; it is the foundation. A man who knows his own body and breath brings a steadiness to partnership that no technique can fake.</p>
 
   <div class="note">
     <b>Before you begin.</b> Everything here is for consenting adults and rests on one non-negotiable: <em>her yes, freely given, every time</em>. Tantra is the opposite of taking. It is the art of slowing down enough to feel what is actually happening between two people. Go gently. There is no race, and nothing to perform.
@@ -325,6 +382,403 @@ p{margin:0 0 18px}
       <circle cx="150" cy="150" r="3.4" fill="currentColor"/>
     </svg>
     <div class="cap">The lotus: rooted in mud, opening in light. Nothing is rejected — even the base becomes the bloom.</div>
+  </div>
+</section>
+
+<!-- ============ STAGE ZERO — THEORY ============ -->
+<div class="stage-head reveal" id="ground">
+  <div class="knum">Stage Zero</div>
+  <h2>The Ground · Theory &amp; Metaphysics</h2>
+  <p>Read this part like a book. Before any practice, the worldview — what tantra says reality <em>is</em>, and why that makes the body sacred and desire a doorway.</p>
+</div>
+
+<!-- T1 -->
+<section class="lesson reveal" id="t1" data-lesson="t1">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">◈</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · The Ground</span>
+      <h3>What Tantra Is — and Isn't</h3>
+      <div class="sdv dv">तन्त्र — loom, system, continuity</div>
+    </div>
+  </div>
+
+  <p>Before the metaphysics, an honest clearing of the ground — because almost everything you've heard about "tantra" is either half-true or invented. The word names a vast family of texts and practices that erupted across India from roughly the fifth century onward: a spiritual <em>revolution</em> against the world-denying asceticism that dominated before it. Where the older path said <em>the world is a trap, escape the body</em>, tantra turned and said the opposite — <strong>the world is the body of the divine; enter it fully and wake up.</strong></p>
+
+  <p>Classical tantra is enormous: ritual, mantra, deity yoga, philosophy, medicine, alchemy, and yes — in a small, advanced, often symbolic corner — sexual yoga. What the modern West calls "tantric sex" is mostly <strong>neo-tantra</strong>: a twentieth-century synthesis (Osho and those after him) that took the sexual-sacred thread and made it the whole cloth. This course draws on both, and it's worth being clear which is which. What unites them — and what you're really learning — is a single radical stance: <em>nothing needs to be escaped; everything can be made conscious, and consciousness is what's sacred.</em></p>
+
+  <div class="example">
+    <span class="xl">Picture this</span>
+    <em>Two mystics reach the same mountaintop. One climbed by starving himself and renouncing every pleasure. The other climbed by eating, loving, and paying such fierce attention to each sensation that the ordinary became luminous. Tantra is the second path — not indulgence, not denial, but <b>total presence</b> to what is already here.</em>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Tantra = "to weave."</span> It weaves spirit and matter, sacred and sensual, into one fabric — never a hierarchy.</li>
+    <li><span class="lead">A path of affirmation,</span> not renunciation. It says <em>yes</em> to the body and the world as the very site of awakening.</li>
+    <li><span class="lead">Classical vs. neo-tantra.</span> The ancient system is vast; "tantric sex" is one modern branch. Honesty here keeps you grounded.</li>
+    <li><span class="lead">Sex is not the point — <b>consciousness</b> is.</span> Sexuality is used because it is the most concentrated doorway into presence and energy.</li>
+    <li><span class="lead">Not a technique to acquire</span> but a way of seeing. The methods only serve the seeing.</li>
+  </ul>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t1"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- T2 -->
+<section class="lesson reveal" id="t2" data-lesson="t2">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">ॐ</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · Non-Duality</span>
+      <h3>The One That Became Two</h3>
+      <div class="sdv dv">प्रकाश · विमर्श — light &amp; its self-awareness</div>
+    </div>
+  </div>
+
+  <p>Here is the heart of the metaphysics, drawn from the great non-dual tradition of <strong>Kashmir Shaivism</strong>. There is only <em>one</em> reality, and it is not matter — it is <strong>Consciousness</strong>. Not your small personal awareness, but a single, infinite, self-aware Consciousness that the tradition calls <em>Shiva</em>. Everything that exists — stars, stone, thought, your lover's skin — is that one Consciousness, appearing as many.</p>
+
+  <p>But Consciousness has two inseparable faces. <strong>Prakāśa</strong> is the <em>light</em> — the sheer fact of awareness, that anything shines forth at all. <strong>Vimarśa</strong> is that light <em>knowing itself</em> — the reflexive "I am" by which awareness turns and recognizes its own existence. This self-awareness, this creative self-reflection, is <strong>Shakti</strong>. So Shiva and Shakti are not two beings; they are light and the light's knowing of itself. And because Consciousness delights in knowing itself, it does something extraordinary: it <em>splits</em> — into knower and known, lover and beloved, one and many — so that it can experience the bliss of its own recognition. <strong>The entire universe is Consciousness making love to itself.</strong> And sexual union between two people is that cosmic act, played in miniature: two apparent halves remembering they were never separate.</p>
+
+  <div class="plate reveal">
+    <!-- one point splitting into two, mirror-like -->
+    <svg viewBox="0 0 300 170" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true">
+      <circle cx="150" cy="85" r="7" fill="currentColor"/>
+      <circle cx="150" cy="85" r="26" opacity=".8"/>
+      <circle cx="150" cy="85" r="48" opacity=".5"/>
+      <circle cx="150" cy="85" r="70" opacity=".28"/>
+      <path d="M96 85 a54 30 0 0 1 108 0 a54 30 0 0 1 -108 0" opacity=".6"/>
+      <circle cx="120" cy="85" r="4" fill="currentColor"/><circle cx="180" cy="85" r="4" fill="currentColor"/>
+    </svg>
+    <div class="cap">One point, aware of itself, ripples outward into two — and into everything. Prakāśa and Vimarśa: the light and its self-knowing.</div>
+  </div>
+
+  <div class="example">
+    <span class="xl">Picture this</span>
+    A flame that not only burns but <em>sees</em> itself burning. In that self-seeing it feels a kind of joy — and to taste that joy more fully, it imagines itself as two flames leaning toward each other. Nothing was ever added or lost. There was only ever one fire, playing at being two so it could know the sweetness of reunion.
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">One reality: Consciousness.</span> Not mind or matter — the aware presence in which both appear.</li>
+    <li><span class="lead">Prakāśa = the light of awareness.</span> Vimarśa = that light knowing itself. Shiva and Shakti.</li>
+    <li><span class="lead">Creation is self-recognition.</span> The One becomes two to experience the bliss of knowing and being known.</li>
+    <li><span class="lead">You are not <em>in</em> the universe;</span> you are a point where the one Consciousness is looking out through a pair of eyes.</li>
+    <li><span class="lead">Union re-enacts the cosmos.</span> Two lovers dissolving into one is the universe remembering itself.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">अहम्</span>
+    <span class="tr">Aham — "I am." The universe's first and final word.</span>
+    <div class="gl">Not the small ego's "I," but the vast self-awareness at the root of everything that exists.</div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t2"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- T3 -->
+<section class="lesson reveal" id="t3" data-lesson="t3">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">≈</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · Vibration</span>
+      <h3>Spanda — Reality Vibrates</h3>
+      <div class="sdv dv">स्पन्द — the sacred throb, the pulse</div>
+    </div>
+  </div>
+
+  <p>If all is one Consciousness, why does anything <em>move</em>? The answer is <strong>Spanda</strong> — the subtle throb or pulse at the heart of reality. Consciousness is not a dead stillness; it <em>quivers</em>. This primordial vibration is the first stirring by which the changeless gives rise to all change. Everything that exists is a frequency of that single pulse — matter, light, sound, thought, and feeling are not different substances but the one Consciousness vibrating at different rates.</p>
+
+  <p>This is why tantra is so intensely <em>physical</em>: the divine is not somewhere else, to be reached by leaving the body. It is <em>throbbing right here</em>, as the beat of your heart, the tide of your breath, the pulse of arousal, the tremor of a shiver up the spine. These are not distractions from the sacred — they <em>are</em> the sacred, felt directly. Learn to feel the spanda in your own body and you are touching the pulse of the cosmos. And there is a secret in it: between every two pulses — between inhale and exhale, between one heartbeat and the next, at the very peak of pleasure — there is a <strong>still point</strong>, a gap where the vibration pauses and the boundless shows through. Tantra lives in that gap.</p>
+
+  <div class="plate reveal">
+    <!-- radiating pulse / concentric waves -->
+    <svg viewBox="0 0 300 160" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true">
+      <path d="M20 80 q15 -34 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0" opacity=".9"/>
+      <path d="M20 80 q15 34 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0" opacity=".45"/>
+      <circle cx="150" cy="80" r="5" fill="currentColor"/>
+    </svg>
+    <div class="cap">The one pulse, rippling into every form. Between the crests: the still point where the infinite peers through.</div>
+  </div>
+
+  <div class="example">
+    <span class="xl">Picture this</span>
+    Hold a single note on a string and watch it tremble. The note is not <em>separate</em> from the string — it <em>is</em> the string, vibrating. In the same way, you are not separate from Consciousness; you are Consciousness, vibrating as a body. And at the peak of arousal, when the whole body hums, you can feel that string singing at its clearest.
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Reality is vibration.</span> Consciousness quivers; that quiver — spanda — becomes all things.</li>
+    <li><span class="lead">The body is a tuning fork.</span> Heartbeat, breath, arousal, shivers — the divine pulse, felt directly.</li>
+    <li><span class="lead">Find the gap.</span> Between two breaths, two heartbeats, at the crest of pleasure — a still point opens. Rest there.</li>
+    <li><span class="lead">Nothing to reach for.</span> The sacred isn't elsewhere; it's pulsing in you right now. Practice is just noticing.</li>
+    <li><span class="lead">Energy is intelligence in motion.</span> When you move sexual energy, you're conducting the same current that moves the stars.</li>
+  </ul>
+
+  <div class="practices single">
+    <div class="pcard contempl">
+      <div class="ph"><span class="ic">☽</span>Contemplation</div>
+      <div class="tagline">Find the still point · 5 minutes</div>
+      <ol>
+        <li>Breathe slowly and watch the turn between inhale and exhale — the tiny pause where neither is happening.</li>
+        <li>Rest your attention <em>in that gap</em>, however brief. Don't force it longer; just notice it's there.</li>
+        <li>That silent pause is spanda at rest — the doorway the whole tradition points to.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t3"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- T4 -->
+<section class="lesson reveal" id="t4" data-lesson="t4">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">▽</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · The Descent</span>
+      <h3>The Great Contraction — Why You Feel Small</h3>
+      <div class="sdv dv">सङ्कोच — contraction, the veiling</div>
+    </div>
+  </div>
+
+  <p>If you are truly infinite Consciousness, why do you feel like a limited, separate, often lonely person who <em>lacks</em> things and <em>craves</em> things? Tantra's answer is the most psychologically astute idea in the whole system: <strong>you contracted on purpose.</strong> Consciousness, in its play, veils its own infinity — step by step, the boundless becomes a single small point of experience. The map of that descent is the <em>tattvas</em> (the 36 levels from pure Shiva down to solid earth), and the mechanism is a set of <strong>five veils</strong>, the <em>kañcukas</em>, that clamp the infinite down into the finite:</p>
+
+  <ul class="essence">
+    <li><span class="lead">Kalā</span> — all-<b>power</b> shrinks to a little ability. <em>"I can only do so much."</em></li>
+    <li><span class="lead">Vidyā</span> — all-<b>knowing</b> shrinks to a little knowledge. <em>"I only know so much."</em></li>
+    <li><span class="lead">Rāga</span> — all-<b>fullness</b> shrinks to <b>craving</b>. <em>"I lack something; I must have it."</em></li>
+    <li><span class="lead">Kāla</span> — <b>eternity</b> shrinks to <b>time</b>. <em>"I am running out."</em></li>
+    <li><span class="lead">Niyati</span> — total <b>freedom</b> shrinks to <b>limitation &amp; fate</b>. <em>"I am bound; things must be a certain way."</em></li>
+  </ul>
+
+  <p>Beneath these lie the three <em>malas</em> — the primal "stains" or knots: <strong>āṇava</strong> (the ache of "I am incomplete"), <strong>māyīya</strong> (the sense "I am separate from everything"), and <strong>kārma</strong> (the belief "I am only what I do"). Here is the point that changes everything: <em>this contraction is self-imposed, and it can be reversed.</em> The whole tantric path is the movement back — <strong>vikāsa, expansion</strong> — relaxing the clench, un-veiling the light, remembering fullness. And your sexual longing? Tantra reads it as the veiled memory of your own lost wholeness, reaching for reunion. Desire is not a flaw. <em>It is the infinite, in disguise, trying to find its way home.</em></p>
+
+  <div class="example">
+    <span class="xl">Picture this</span>
+    A king falls asleep and dreams he is a beggar, cold and desperate, searching the streets for a crust of bread. His suffering in the dream is completely real to him. Yet nothing was ever actually lost — he was a king the whole time. Waking is not <em>getting</em> anything. It is simply <b>remembering what you already are.</b> Tantra is the art of waking up inside the dream.
+  </div>
+
+  <div class="mantra">
+    <span class="dv">पूर्णम्</span>
+    <span class="tr">Pūrṇam — fullness, wholeness, already complete.</span>
+    <div class="gl">The craving beneath every craving is the memory of this. You are not chasing fullness — you are it, forgotten.</div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t4"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- T5 -->
+<section class="lesson reveal" id="t5" data-lesson="t5">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">◉</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · Recognition</span>
+      <h3>Pratyabhijñā — The Path of Recognition</h3>
+      <div class="sdv dv">प्रत्यभिज्ञा — re-cognition, remembering</div>
+    </div>
+  </div>
+
+  <p>Follow the last chapter to its conclusion and you arrive at the most liberating teaching in tantra — the doctrine of <strong>Pratyabhijñā, "Recognition."</strong> If you are already the infinite, only veiled, then enlightenment is not something you <em>attain</em> by effort. It is something you <strong>recognize</strong>. You do not <em>become</em> divine; you <em>remember</em> that you always were. The whole path collapses from a ladder you must climb into a simple, sudden turning-around — a recognition of the awareness that has been here, watching, the entire time.</p>
+
+  <p>This quietly transforms how you practice everything else in this course. You are not <em>working toward</em> some future breakthrough, straining to earn a state you don't have. You are <em>relaxing into</em> what is already the case. The methods — breath, touch, gaze, union — are not machines that manufacture the sacred; they are ways of removing the noise so you can <em>notice</em> the sacred that was never absent. In lovemaking this is the difference between <em>performing</em> to reach a peak and <em>recognizing</em> the divine already shining in her eyes, in this breath, in this exact moment. Sometimes recognition dawns gradually. Sometimes it is sparked by <strong>śaktipāta</strong> — a "descent of grace," a spontaneous flooding of energy, often through a teacher, a moment of beauty, or the electric intimacy of deep union.</p>
+
+  <div class="plate reveal">
+    <!-- eye / mirror recognition -->
+    <svg viewBox="0 0 300 160" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true">
+      <path d="M60 80 q90 -60 180 0 q-90 60 -180 0 Z"/>
+      <circle cx="150" cy="80" r="26"/>
+      <circle cx="150" cy="80" r="10" fill="currentColor"/>
+      <path d="M150 30 v-12 M150 142 v-12 M100 80 h-14 M214 80 h-14" opacity=".5"/>
+      <path d="M150 54 a26 26 0 0 1 0 52" opacity=".35" stroke-dasharray="2 5"/>
+    </svg>
+    <div class="cap">Nothing new is added. The eye simply turns and recognizes the seer it was looking for.</div>
+  </div>
+
+  <div class="example">
+    <span class="xl">Picture this</span>
+    A woman turns her whole house upside down searching for her necklace — frantic, certain it's lost. Then she catches her reflection and laughs: it was <em>around her own neck</em> the entire time. She didn't <b>find</b> it; she <b>recognized</b> it. Your own awareness is that necklace. You have been wearing it through every search.
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Enlightenment = recognition,</span> not acquisition. You remember what you are; you don't manufacture it.</li>
+    <li><span class="lead">Effort gives way to noticing.</span> Practices remove the noise; they don't create the signal.</li>
+    <li><span class="lead">In union: recognize, don't perform.</span> The sacred is already present — in her, in this breath. Meet it.</li>
+    <li><span class="lead">Grace (śaktipāta) is real.</span> Energy can descend on its own — through beauty, love, or deep intimacy.</li>
+    <li><span class="lead">You are already home.</span> The path is long only because the truth is so close it's easy to miss.</li>
+  </ul>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t5"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- T6 -->
+<section class="lesson reveal" id="t6" data-lesson="t6">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">❈</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · Affirmation</span>
+      <h3>Māyā, Līlā &amp; the Sacred Yes</h3>
+      <div class="sdv dv">माया · लीला · आनन्द</div>
+    </div>
+  </div>
+
+  <p>Other spiritual paths treat the world as <strong>māyā</strong> — illusion — something false to see through and leave behind. Tantra performs a stunning reversal. For tantra, māyā is not a lie but <em>Shakti's creative power to manifest</em>: the divine artistry by which the One becomes the dazzling many. The world is not an error to escape; it is a <strong>masterpiece to enter</strong>. This is why tantra can bless what other traditions renounce — food, beauty, art, the body, sexual union. If everything is Consciousness in disguise, then to reject the world is to reject the divine wearing its most beautiful costume.</p>
+
+  <p>Two more ideas complete the picture. <strong>Līlā</strong> means <em>divine play</em>: the cosmos was not made from need or duty but from sheer overflowing delight — reality plays, the way a child plays or lovers play, for the joy of it. And the very substance of that reality is <strong>ānanda</strong>, <em>bliss</em> — the classic formula names the absolute <em>Sat-Chit-Ānanda</em>, being–consciousness–bliss. Bliss is not a reward you earn at the end; it is the <em>nature of what is</em>, right now, beneath the noise. Put these together and you arrive at tantra's beating heart: <strong>the Sacred Yes.</strong> A full-bodied affirmation of life, desire, pleasure, and this present moment — not as distractions from the spirit, but as the spirit itself, tasting its own sweetness through you.</p>
+
+  <div class="plate reveal">
+    <!-- blossoming / play mandala -->
+    <svg viewBox="0 0 300 170" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <g transform="translate(150 85)">
+        <circle r="10" fill="currentColor"/>
+        <g opacity=".85"><path d="M0 -14 C14 -34 34 -34 22 -8 C34 -34 34 -14 14 -2"/></g>
+        <g opacity=".85" transform="rotate(60)"><path d="M0 -14 C14 -34 34 -34 22 -8 C34 -34 34 -14 14 -2"/></g>
+        <g opacity=".85" transform="rotate(120)"><path d="M0 -14 C14 -34 34 -34 22 -8 C34 -34 34 -14 14 -2"/></g>
+        <g opacity=".85" transform="rotate(180)"><path d="M0 -14 C14 -34 34 -34 22 -8 C34 -34 34 -14 14 -2"/></g>
+        <g opacity=".85" transform="rotate(240)"><path d="M0 -14 C14 -34 34 -34 22 -8 C34 -34 34 -14 14 -2"/></g>
+        <g opacity=".85" transform="rotate(300)"><path d="M0 -14 C14 -34 34 -34 22 -8 C34 -34 34 -14 14 -2"/></g>
+        <circle r="58" opacity=".28"/>
+      </g>
+    </svg>
+    <div class="cap">Creation as play, not toil. The world blooms because bliss overflows — and you are one of its petals.</div>
+  </div>
+
+  <div class="example">
+    <span class="xl">Picture this</span>
+    Why does a great dancer dance? Not to <em>get</em> anywhere — the dance has no destination. She dances because the joy of movement wants to express itself. The universe is that dance, and so is a night of unhurried love: <b>not a means to an end, but delight taking form.</b> When you make love as play rather than performance, you rejoin the cosmic dance.
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Māyā is art, not lie.</span> The world is Shakti manifesting — a masterpiece to enter, not an illusion to flee.</li>
+    <li><span class="lead">Līlā — divine play.</span> Reality arises from overflowing delight, not need. Lightness is closer to truth than strain.</li>
+    <li><span class="lead">Ānanda — bliss is the substance.</span> Not earned at the end; the nature of what is, here and now.</li>
+    <li><span class="lead">The Sacred Yes.</span> Tantra's core gesture: affirm the body, desire, pleasure, this moment — as the divine itself.</li>
+    <li><span class="lead">Pleasure met with awareness is worship.</span> To savor consciously is to taste the bliss at the root of reality.</li>
+  </ul>
+
+  <div class="mantra">
+    <span class="dv">सच्चिदानन्द</span>
+    <span class="tr">Sat-Chit-Ānanda — being, consciousness, bliss: one thing, three names.</span>
+    <div class="gl">You do not travel toward bliss. You quiet down until you notice it was always the ground you stood on.</div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t6"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- T7 -->
+<section class="lesson reveal" id="t7" data-lesson="t7">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">§</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · Subtle Body</span>
+      <h3>The Subtle Architecture</h3>
+      <div class="sdv dv">नाडी · बिन्दु · नाद — channel, point, sound</div>
+    </div>
+  </div>
+
+  <p>Tantra maps an inner geography that the practices later put to work. Alongside the physical body runs a <strong>subtle body</strong> of flowing energy (<em>prāṇa</em>) moving through channels called <strong>nāḍīs</strong>. Three matter most: <strong>iḍā</strong>, the cool, lunar, receptive current (left); <strong>piṅgalā</strong>, the warm, solar, active current (right); and between them the central channel, <strong>suṣumnā</strong>, running straight up the spine. Ordinary life runs on iḍā and piṅgalā alternating — restless, dual, back and forth. The whole aim of the subtle work is to balance those two so energy can enter the central channel — and when it does, duality quiets and the still center opens.</p>
+
+  <p>Strung along suṣumnā are the seven <strong>chakras</strong>, wheels where consciousness and energy concentrate, from the root at the pelvic floor to the crown. At the base sleeps <strong>kuṇḍalinī</strong> — Shakti herself, coiled, the individual's own share of cosmic energy, resting until awakened. Tantra's inner drama is her <em>homeward journey</em>: roused gently, she uncoils and rises through suṣumnā, piercing three knots (<em>granthis</em>) of fear, striving, and attachment, awakening each chakra as she passes, until at the crown she reunites with Shiva — the microcosmic echo of the cosmic union from Chapter 2. Two further terms name the poles of this current: <strong>bindu</strong>, the concentrated <em>point</em> (associated with seed, with focused potency), and <strong>nāda</strong>, the subtle <em>sound or vibration</em> into which the point unfolds. Retaining and refining bindu, and dissolving into nāda, are the esoteric keys behind the energy practices you'll meet in the path itself.</p>
+
+  <div class="plate reveal">
+    <!-- three channels + chakras -->
+    <svg viewBox="0 0 300 200" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <path d="M150 188 V22" stroke-width="2.4"/>
+      <path d="M150 182 C120 160 120 130 150 108 C180 86 180 56 150 34" opacity=".55"/>
+      <path d="M150 182 C180 160 180 130 150 108 C120 86 120 56 150 34" opacity=".55"/>
+      <g fill="currentColor">
+        <circle cx="150" cy="180" r="5.5"/><circle cx="150" cy="150" r="5.5"/><circle cx="150" cy="122" r="5.5"/>
+        <circle cx="150" cy="94" r="5.5"/><circle cx="150" cy="66" r="5.5"/><circle cx="150" cy="40" r="5.5"/><circle cx="150" cy="18" r="5.5"/>
+      </g>
+      <path d="M150 188 q-9 -6 0 -12 q9 -6 0 -12" opacity=".7"/>
+    </svg>
+    <div class="cap">Iḍā and piṅgalā weave around the central suṣumnā; the coiled Shakti rises through seven wheels to meet Shiva at the crown.</div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Three channels.</span> Iḍā (cool, lunar), piṅgalā (warm, solar), suṣumnā (central). Balance the first two to open the third.</li>
+    <li><span class="lead">Seven chakras</span> on the central channel — from root (survival, sex) up through heart to crown (union).</li>
+    <li><span class="lead">Kuṇḍalinī = coiled Shakti.</span> Your own cosmic energy, sleeping at the base, waiting to make its way home.</li>
+    <li><span class="lead">Her rising is the inner union.</span> Shakti climbs to meet Shiva at the crown — the cosmos, re-enacted in your spine.</li>
+    <li><span class="lead">Bindu &amp; nāda</span> — the point and its sound. Conserving and refining this energy underlies the whole path.</li>
+    <li><span class="lead">A map, not a dogma.</span> Take it literally or as a felt geography — either way, it guides where attention goes.</li>
+  </ul>
+
+  <div class="note"><b>A word of care.</b> Kuṇḍalinī is invited, never forced. Rushed or strained "raising" can overwhelm the nervous system. Everything in the practice lessons builds it gently, through relaxation and breath — the slow way is the safe way and the deep way.</div>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t7"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- T8 -->
+<section class="lesson reveal" id="t8" data-lesson="t8">
+  <div class="lesson-top">
+    <div class="lesson-num tnum">卍</div>
+    <div class="lesson-meta">
+      <span class="tag theory">Theory · The Tools</span>
+      <h3>Mantra, Yantra &amp; the Technology of Vibration</h3>
+      <div class="sdv dv">मन्त्र · यन्त्र — sound-tool, form-tool</div>
+    </div>
+  </div>
+
+  <p>Here the metaphysics becomes practical. If reality is <em>vibration</em> (Chapter 3), then sound and form are not decoration — they are <strong>instruments for tuning consciousness</strong>. Tantra is famously a technology: repeatable methods that reliably shift your state. Two of its master-tools are mantra and yantra.</p>
+
+  <p>A <strong>mantra</strong> is sacred sound. Its power lies not mainly in meaning but in <em>vibration</em> — the way a particular sound, repeated with attention, resonates a region of the subtle body and quiets the mind. The primordial mantra is <strong>OM (ॐ)</strong>, held to be the sound-form of the whole vibrating cosmos. Beyond it are <strong>bīja</strong> or "seed" mantras — single syllables like <em>LAM, VAM, RAM, YAM, HAM, OM</em> — each tuned to a chakra, planted in the body like seeds that flower into awareness. A <strong>yantra</strong> is the same principle in visual form: a geometric diagram that maps the cosmos and focuses the mind. The supreme yantra is the <strong>Śrī Yantra</strong> — nine interlocking triangles, four pointing up (Shakti, energy rising) and five pointing down (Shiva, consciousness descending), radiating from a single central point, the <em>bindu</em>. To gaze into it is to contemplate the entire structure of reality — the One and the many — in a single image. Mantra for the ear, yantra for the eye: two doors into the same silent center.</p>
+
+  <div class="plate reveal">
+    <!-- Sri Yantra (stylized) -->
+    <svg viewBox="0 0 240 240" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true">
+      <rect x="24" y="24" width="192" height="192" opacity=".35"/>
+      <rect x="36" y="36" width="168" height="168" opacity=".25"/>
+      <circle cx="120" cy="120" r="82" opacity=".5"/>
+      <circle cx="120" cy="120" r="74" opacity=".3"/>
+      <polygon points="120,54 176,150 64,150" />
+      <polygon points="120,64 166,144 74,144" opacity=".8"/>
+      <polygon points="120,186 64,90 176,90" />
+      <polygon points="120,176 74,96 166,96" opacity=".8"/>
+      <polygon points="120,84 150,132 90,132" opacity=".7"/>
+      <polygon points="120,156 90,108 150,108" opacity=".7"/>
+      <circle cx="120" cy="120" r="4.5" fill="currentColor"/>
+      <g opacity=".5"><path d="M120 202 l-8 -12 h16 z"/><path d="M120 38 l-8 12 h16 z"/></g>
+    </svg>
+    <div class="cap">The Śrī Yantra: triangles of Shiva and Shakti interwoven around a single point. The cosmos, drawn as one meditation.</div>
+  </div>
+
+  <div class="example">
+    <span class="xl">Picture this</span>
+    Strike the right note near a piano and the matching string hums by itself, untouched — <em>sympathetic resonance</em>. A bīja mantra works the same way: sounded with attention at a chakra, it sets that center vibrating in tune, without force. You are not <b>commanding</b> the body — you are <b>playing</b> it, like an instrument that already knows the song.
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">Sound is a tool.</span> Mantra shifts state through vibration, not meaning. OM is the sound of the cosmos itself.</li>
+    <li><span class="lead">Bīja (seed) mantras</span> — LAM, VAM, RAM, YAM, HAM, OM — tune the chakras, root to crown.</li>
+    <li><span class="lead">Yantra is sound made visible.</span> A geometric map that gathers a scattered mind into one point.</li>
+    <li><span class="lead">The Śrī Yantra</span> weaves Shiva's and Shakti's triangles around the bindu — the One and the many in one figure.</li>
+    <li><span class="lead">Repeatable, not magical.</span> These are reliable methods to change consciousness — a genuine inner technology.</li>
+  </ul>
+
+  <div class="practices single">
+    <div class="pcard contempl">
+      <div class="ph"><span class="ic">🕉</span>Contemplation</div>
+      <div class="tagline">Sound one seed · 4 minutes</div>
+      <ol>
+        <li>Sit tall. Take a slow breath and, on the exhale, hum a long, low <em>"maaa"</em> or <em>"om,"</em> feeling where it vibrates.</li>
+        <li>Direct the hum downward into the belly and pelvis; feel the tissue there gently resonate.</li>
+        <li>Six rounds. Notice how sound alone can move sensation and settle the mind — the whole principle, in miniature.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="t8"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
   </div>
 </section>
 
@@ -1147,6 +1601,263 @@ p{margin:0 0 18px}
   </div>
 </section>
 
+<!-- ============ STAGE V — DEEP WORK ============ -->
+<div class="stage-head reveal">
+  <div class="knum">Stage Five</div>
+  <h2>The Deep Work · What the Books Leave Out</h2>
+  <p>The practices open things. This is the part most courses skip: what to do with the emotions that surface, the obstacles you'll actually hit, how to honor the feminine, and how to close a practice with care.</p>
+</div>
+
+<!-- D1 -->
+<section class="lesson reveal" id="d1" data-lesson="d1">
+  <div class="lesson-top">
+    <div class="lesson-num">भ</div>
+    <div class="lesson-meta">
+      <span class="tag">Deep Work</span>
+      <h3>Emotions, Trauma &amp; What Arises</h3>
+      <div class="sdv dv">भाव — feeling, emotional state</div>
+    </div>
+  </div>
+
+  <p>Nobody warns you about this, so hear it clearly: <strong>moving sexual and breath energy will surface emotion.</strong> The body stores experience — old grief, tension, joy, and sometimes real wounds — in the tissues, especially in the belly, hips, and pelvis. When you slow down and bring energy and attention to those places, what's held there can start to move. Tears may come for no reason. Laughter, shaking, heat, waves of sadness or bliss, sudden memories. This is not a malfunction. It is <em>release</em> — the practice doing exactly what it's meant to do.</p>
+
+  <p>The skill is not to <em>stop</em> it or <em>fix</em> it, but to <strong>hold space</strong> for it — to let the wave move through without either clamping down or being swept away. Breathe, stay present, let it pass like weather. This applies doubly with a partner: when she opens, she may release too, and your job is not to problem-solve but simply to <em>be a steady, safe presence</em> while she feels what she feels. That steadiness is one of the greatest gifts a man can offer. And know the honest limit of this work: tantra can gently surface old material, but it is <em>not</em> a substitute for therapy. If deep trauma arises — dissociation, panic, overwhelming flooding — that is a sign to slow right down, and to seek a trained somatic or trauma professional. Tender is strong. Knowing when to pause is mastery, not failure.</p>
+
+  <ul class="essence">
+    <li><span class="lead">The body keeps the score.</span> Energy work dislodges stored emotion. Expect it; don't fear it.</li>
+    <li><span class="lead">Release ≠ malfunction.</span> Tears, shaking, heat, memory — usually the practice working, not going wrong.</li>
+    <li><span class="lead">Hold space, don't fix.</span> Let waves move through. Breathe. Stay. Don't clamp down or get swept off.</li>
+    <li><span class="lead">Be her safe ground.</span> If she opens, don't solve — witness. Steady presence is the medicine.</li>
+    <li><span class="lead">Know the edge.</span> Overwhelm, panic, dissociation → stop, ground, and seek a trauma-informed professional. Not a failing.</li>
+    <li><span class="lead">Titrate.</span> Touch the intensity in small doses, then rest. Little and often beats forcing a breakthrough.</li>
+  </ul>
+
+  <div class="example">
+    <span class="xl">For example</span>
+    Mid-practice, a wave of grief rises in your chest with no story attached. Instead of shutting it down or chasing <em>why</em>, you soften, keep breathing low and slow, and silently say <em>"this is allowed."</em> Ninety seconds later it crests and passes — and you feel lighter, more open, than before. <b>You didn't do anything except stay.</b>
+  </div>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="ph"><span class="ic">🕯</span>Alone</div>
+      <div class="tagline">Meet what's held · 12 minutes</div>
+      <ol>
+        <li>Lie down, breathe into the belly and hips. Rest a warm hand wherever you feel tension or numbness.</li>
+        <li>If emotion rises, breathe and let it move. Say inwardly: <em>"I'm here. This is allowed."</em></li>
+        <li>Take it in small doses — feel, then rest. End with a hand on the heart until you're settled.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="ph"><span class="ic">🌹</span>With Her</div>
+      <div class="tagline">Holding space</div>
+      <ol>
+        <li>Agree beforehand: if feeling comes up for either of you, the answer is presence, not fixing or apology.</li>
+        <li>If she releases, hold her, breathe slow, and stay quiet. Let her know with your body: <em>nothing here is wrong.</em></li>
+        <li>Afterward, offer water, warmth, and a few gentle words. Don't analyze it. Just be together.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="d1"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- D2 -->
+<section class="lesson reveal" id="d2" data-lesson="d2">
+  <div class="lesson-top">
+    <div class="lesson-num">वि</div>
+    <div class="lesson-meta">
+      <span class="tag">Deep Work</span>
+      <h3>Obstacles &amp; Troubleshooting</h3>
+      <div class="sdv dv">विघ्न — obstacle, that which is dissolved</div>
+    </div>
+  </div>
+
+  <p>Every practitioner meets the same handful of walls. None of them means you're doing it wrong; each has a cause and a doorway through. The pattern is almost always the same: <strong>the solution is less, not more</strong> — slower, softer, more present, less trying. Here are the common ones, with what's really going on and what to do.</p>
+
+  <ul class="essence">
+    <li><span class="lead">"I can't feel much / I'm numb."</span> <b>Why:</b> speed and force deaden the nerves; the mind is elsewhere. <b>Do:</b> slow drastically, lighten the touch, breathe into the area. Sensitivity returns with slowness, never with more friction.</li>
+    <li><span class="lead">"I get anxious about performing."</span> <b>Why:</b> you've made it a test with a pass/fail. <b>Do:</b> drop every goal — no erection, no orgasm, nothing to achieve. Return to breath and to <em>her</em>. Presence dissolves performance because there's nothing left to perform.</li>
+    <li><span class="lead">"I finish too fast."</span> <b>Why:</b> the arousal wave is climbing unwatched, and the pelvis is clenching toward release. <b>Do:</b> the wave &amp; orbit practice (Lessons 5 &amp; 11) — slow before the edge, <em>relax</em> the pelvic floor instead of gripping, breathe the energy up. This is a trainable skill, not a fixed trait.</li>
+    <li><span class="lead">"My mind won't stop wandering."</span> <b>Why:</b> attention has no anchor. <b>Do:</b> ride the breath and one point of sensation. Each time you drift, return — <em>the returning is the practice</em>, not a failure to concentrate.</li>
+    <li><span class="lead">"Nothing dramatic happens — I feel silly."</span> <b>Why:</b> you're expecting fireworks. <b>Do:</b> recalibrate. Tantra's fruit is subtle presence and depth, not spectacle. The quiet <em>is</em> the result. Give it weeks.</li>
+    <li><span class="lead">"I'm comparing us to porn."</span> <b>Why:</b> a performance script has hijacked your nervous system. <b>Do:</b> consciously set it down. Real intimacy is slow, imperfect, and felt — a different universe from a screen.</li>
+    <li><span class="lead">Spiritual bypassing.</span> <b>Why:</b> using "tantra" and lofty words to avoid real intimacy, honesty, or responsibility. <b>Do:</b> stay embodied and truthful. If it's becoming an idea in your head instead of a feeling in your body, come back down.</li>
+  </ul>
+
+  <div class="example">
+    <span class="xl">For example</span>
+    You notice yourself speeding up and tensing, racing toward the finish. Instead of pushing on, you <em>stop entirely</em> — hands still, three long exhales, pelvic floor consciously softening, and you picture the heat spreading up your spine. The urgency subsides. You've just turned a sprint back into an ocean, in about twenty seconds. That single move, repeated, <b>is</b> the mastery.
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete read" data-complete="d2"><span class="lbl"><span>◈ Mark this chapter read</span></span></button>
+  </div>
+</section>
+
+<!-- D3 -->
+<section class="lesson reveal" id="d3" data-lesson="d3">
+  <div class="lesson-top">
+    <div class="lesson-num">दे</div>
+    <div class="lesson-meta">
+      <span class="tag">Deep Work</span>
+      <h3>Honoring the Feminine</h3>
+      <div class="sdv dv">देवी — the goddess, the feminine divine</div>
+    </div>
+  </div>
+
+  <p>In tantra a woman is not an object of pleasure but a face of <strong>Shakti</strong> — the living, moving divine energy of the cosmos. This is not a compliment to pay; it is a stance to embody. Approach her as reverence rather than conquest, as someone to <em>worship and learn from</em> rather than win or perform for, and the entire quality of contact changes. She feels the difference instantly — between a man taking and a man honoring — and it is honoring that lets her open.</p>
+
+  <p>Practically, this means meeting her as she actually is. A woman's arousal often unfolds more slowly and more <em>contextually</em> than a man's — it lives in safety, trust, mood, and being felt, not just in touch. Patience is therefore not a favor; it is the doorway. Her <strong>emotional safety unlocks her physical opening</strong> — the two are one system. Learn her particular body and rhythms rather than a generic script; let her responses be your teacher, moment to moment. And meet her whole cyclical nature with respect — her energy, desire, and needs genuinely shift across her cycle, and a man who notices and honors that, rather than expecting sameness, becomes rare and trusted. Above all: <em>listen.</em> Her body, her breath, her sounds, her words are telling you everything. The deepest tantric skill with a woman is not a move — it is <strong>attention so complete she feels truly met.</strong></p>
+
+  <div class="plate reveal">
+    <!-- crescent + rose / feminine -->
+    <svg viewBox="0 0 300 160" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M150 20 a58 58 0 1 0 40 100 a44 44 0 1 1 -40 -100 Z" opacity=".7"/>
+      <g transform="translate(150 92)">
+        <circle r="7" fill="currentColor"/>
+        <path d="M0 -12 C10 -26 26 -22 16 -4 M0 -12 C-10 -26 -26 -22 -16 -4 M12 2 C28 -4 30 12 12 12 M-12 2 C-28 -4 -30 12 -12 12" opacity=".8"/>
+      </g>
+    </svg>
+    <div class="cap">The moon and the rose: her cyclical, unfolding nature. Honored, not hurried, she opens like petals in warmth.</div>
+  </div>
+
+  <ul class="essence">
+    <li><span class="lead">She is Shakti.</span> Meet her as a face of the divine feminine — reverence, not conquest. She feels which one you bring.</li>
+    <li><span class="lead">Arousal is contextual.</span> For many women it grows from safety, trust, and mood — not touch alone. Build the context first.</li>
+    <li><span class="lead">Emotional safety = physical opening.</span> They're one system. Make her feel safe and seen, and the body follows.</li>
+    <li><span class="lead">Patience is the doorway,</span> not a favor. Slower is not "holding back" — it's how depth becomes possible.</li>
+    <li><span class="lead">Honor the cycle.</span> Her energy and desire shift across her rhythm. Notice and respect it; don't expect sameness.</li>
+    <li><span class="lead">Listen with everything.</span> Her body is the teacher. Attention so complete she feels <em>met</em> is the real art.</li>
+  </ul>
+
+  <div class="practices">
+    <div class="pcard solo">
+      <div class="ph"><span class="ic">🕯</span>Alone</div>
+      <div class="tagline">Examine your lens</div>
+      <ol>
+        <li>Honestly ask: do I approach a woman to <em>get</em> something, or to honor and meet her? Notice without judgment.</li>
+        <li>Reflect on where your ideas of sex were shaped — porn, ego, past hurt — and choose what you actually want to embody.</li>
+        <li>Set an intention to see the next woman you're with as she truly is, not as a role.</li>
+      </ol>
+    </div>
+    <div class="pcard duo">
+      <div class="ph"><span class="ic">🌹</span>With Her</div>
+      <div class="tagline">Let her teach you</div>
+      <ol>
+        <li>Slow everything to half the speed that feels natural. Watch her breath and body for the real feedback.</li>
+        <li>Ask, genuinely: <em>"What do you love? What helps you feel safe with me?"</em> — then honor the answer completely.</li>
+        <li>Follow her rhythm rather than leading to a script. Being followed, precisely, is deeply erotic to her.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="d3"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- D4 -->
+<section class="lesson reveal" id="d4" data-lesson="d4">
+  <div class="lesson-top">
+    <div class="lesson-num">श</div>
+    <div class="lesson-meta">
+      <span class="tag">Deep Work</span>
+      <h3>Aftercare &amp; Integration</h3>
+      <div class="sdv dv">शान्ति — peace, the settling</div>
+    </div>
+  </div>
+
+  <p>How a practice <em>ends</em> matters as much as how it unfolds — and it is the part almost everyone neglects. After deep energetic or sexual connection, both bodies are open, soft, and sensitive; the worst thing to do is to break the field abruptly — roll over, reach for a phone, get up and leave. The energy you raised needs to <strong>settle and integrate</strong>, and the trust you built either compounds or leaks away in these final minutes.</p>
+
+  <p>So close with care. <strong>Stay connected</strong> as the intensity fades — hold each other, keep breathing together, let the nervous system come down gently from the heights. This is <em>aftercare</em>: warmth, water, a blanket, soft words, unhurried presence. Let the energy you circulated <em>land</em> in the body rather than dissipate — a few quiet minutes with a hand on the belly or heart. And a little while later, or the next day, <strong>integrate</strong>: reflect together on what you each felt, gently and without analysis, which deepens intimacy and teaches you both for next time. Done well, aftercare is where the real bonding happens. It tells her, wordlessly, that she is safe with you <em>after</em> the peak as much as during it — and that is what turns a beautiful night into lasting trust.</p>
+
+  <ul class="essence">
+    <li><span class="lead">Don't break the field.</span> No abrupt exit, no phone. The open, tender minutes after are sacred, not "over."</li>
+    <li><span class="lead">Stay connected as it fades.</span> Hold, breathe together, let the nervous system descend slowly from the peak.</li>
+    <li><span class="lead">Let the energy land.</span> A few still minutes, hand on heart or belly, so what you raised integrates instead of scattering.</li>
+    <li><span class="lead">Offer care.</span> Warmth, water, a blanket, soft words. Small tending speaks louder than any technique.</li>
+    <li><span class="lead">Integrate later.</span> Gently share what you felt, another time. Reflection deepens intimacy and sharpens the practice.</li>
+    <li><span class="lead">Aftercare builds trust.</span> Safety <em>after</em> the peak is what turns one good night into a deepening bond.</li>
+  </ul>
+
+  <div class="example">
+    <span class="xl">For example</span>
+    Instead of the old pattern — finish, roll away, drift off — you draw her in, pull the blanket over you both, and simply breathe together for ten unhurried minutes, foreheads close, saying little. She softens in a way she rarely has before. <b>Nothing was performed. You just stayed, all the way to the end.</b> That is often the moment she remembers most.
+  </div>
+
+  <div class="complete-row">
+    <button class="btn-complete" data-complete="d4"><span class="lbl"><span>✦ Mark this lesson honoured</span></span></button>
+  </div>
+</section>
+
+<!-- ============ GLOSSARY ============ -->
+<div class="stage-head reveal">
+  <div class="knum">Reference</div>
+  <h2>Glossary of Terms</h2>
+  <p>The Sanskrit woven through this course, gathered in one place — with rough pronunciations and plain meanings.</p>
+</div>
+
+<section class="reveal" id="glossary">
+  <div class="glossary">
+    <div class="gterm"><div class="w">Tantra <span class="dv">तन्त्र</span> <span class="say">(TUN-truh)</span></div><p>"Loom / to weave." A vast tradition weaving spirit and matter into one — the sacred found <em>through</em> the world, not beyond it.</p></div>
+    <div class="gterm"><div class="w">Shiva <span class="dv">शिव</span> <span class="say">(SHEE-vuh)</span></div><p>Pure consciousness — the still, spacious, witnessing ground of all reality.</p></div>
+    <div class="gterm"><div class="w">Shakti <span class="dv">शक्ति</span> <span class="say">(SHUCK-tee)</span></div><p>Energy — the moving, creative, feeling power of the divine; the self-awareness of consciousness. Also the divine feminine, and the woman as her embodiment.</p></div>
+    <div class="gterm"><div class="w">Prakāśa &amp; Vimarśa <span class="say">(pra-KAH-sha / vi-MAR-sha)</span></div><p>The light of awareness, and that light knowing itself. Shiva and Shakti as two faces of one Consciousness.</p></div>
+    <div class="gterm"><div class="w">Spanda <span class="dv">स्पन्द</span> <span class="say">(SPUN-duh)</span></div><p>The subtle pulse or vibration at the heart of reality — the throb by which the changeless gives rise to all movement.</p></div>
+    <div class="gterm"><div class="w">Māyā <span class="dv">माया</span> <span class="say">(MAH-yah)</span></div><p>In tantra, not "illusion to reject" but Shakti's creative power to manifest the many — the world as divine art.</p></div>
+    <div class="gterm"><div class="w">Līlā <span class="dv">लीला</span> <span class="say">(LEE-lah)</span></div><p>Divine play. The cosmos arising from overflowing delight rather than need or duty.</p></div>
+    <div class="gterm"><div class="w">Ānanda <span class="dv">आनन्द</span> <span class="say">(ah-NUN-duh)</span></div><p>Bliss — held to be the very substance of reality (<em>Sat-Chit-Ānanda</em>: being–consciousness–bliss).</p></div>
+    <div class="gterm"><div class="w">Kañcukas <span class="say">(kun-CHOO-kuhs)</span></div><p>The five "veils" that contract infinite Consciousness into a limited individual: limited power, knowledge, fullness (→ craving), eternity (→ time), and freedom (→ fate).</p></div>
+    <div class="gterm"><div class="w">Malas <span class="dv">मल</span> <span class="say">(MUH-luhs)</span></div><p>The three primal knots: "I am incomplete" (āṇava), "I am separate" (māyīya), "I am only my actions" (kārma).</p></div>
+    <div class="gterm"><div class="w">Pratyabhijñā <span class="dv">प्रत्यभिज्ञा</span> <span class="say">(pruh-tyuh-bhig-YAH)</span></div><p>"Recognition." Enlightenment as remembering the divinity you already are, not attaining something new.</p></div>
+    <div class="gterm"><div class="w">Śaktipāta <span class="say">(shuck-tee-PAH-tah)</span></div><p>"Descent of grace" — a spontaneous awakening or flooding of energy, often through a teacher, beauty, or deep intimacy.</p></div>
+    <div class="gterm"><div class="w">Kuṇḍalinī <span class="dv">कुण्डलिनी</span> <span class="say">(koon-duh-LEE-nee)</span></div><p>The coiled Shakti resting at the base of the spine — your share of cosmic energy, awaiting its rise home to the crown.</p></div>
+    <div class="gterm"><div class="w">Nāḍī <span class="dv">नाडी</span> <span class="say">(NAH-dee)</span></div><p>A channel of subtle energy. The three key ones: <em>iḍā</em> (lunar, left), <em>piṅgalā</em> (solar, right), <em>suṣumnā</em> (central).</p></div>
+    <div class="gterm"><div class="w">Chakra <span class="dv">चक्र</span> <span class="say">(CHUK-ruh)</span></div><p>"Wheel." One of seven energy centers along the central channel, from root to crown.</p></div>
+    <div class="gterm"><div class="w">Bindu &amp; Nāda <span class="say">(BIN-doo / NAH-duh)</span></div><p>The concentrated point (seed, potency) and the subtle sound it unfolds into — poles of the creative energy.</p></div>
+    <div class="gterm"><div class="w">Prāṇa <span class="dv">प्राण</span> <span class="say">(PRAH-nuh)</span></div><p>Life-force; the vital energy carried on the breath and moved through the nāḍīs.</p></div>
+    <div class="gterm"><div class="w">Ojas <span class="dv">ओजस्</span> <span class="say">(OH-juss)</span></div><p>Vital essence — the refined radiance and steadiness that come from conserving and circulating sexual energy rather than spending it.</p></div>
+    <div class="gterm"><div class="w">Mantra &amp; Yantra <span class="say">(MUN-truh / YUN-truh)</span></div><p>Sacred sound and sacred form — vibrational tools for tuning consciousness. <em>OM</em> and <em>bīja</em> (seed) syllables; the <em>Śrī Yantra</em> geometry.</p></div>
+    <div class="gterm"><div class="w">Maithuna <span class="dv">मैथुन</span> <span class="say">(MY-too-nuh)</span></div><p>Sacred sexual union approached as meditation — the ritual of two becoming one.</p></div>
+    <div class="gterm"><div class="w">Yoni &amp; Lingam <span class="dv">योनि · लिङ्ग</span> <span class="say">(YOH-nee / LING-um)</span></div><p>Reverent names for the female "sacred space" and the male "wand of light" — language meant to replace shame with honor.</p></div>
+    <div class="gterm"><div class="w">Sādhana <span class="dv">साधना</span> <span class="say">(SAH-duh-nuh)</span></div><p>Ongoing spiritual practice — the discipline you return to, day after day, that turns insight into a way of being.</p></div>
+  </div>
+</section>
+
+<!-- ============ LINEAGE ============ -->
+<div class="stage-head reveal">
+  <div class="knum">Reference</div>
+  <h2>Lineage, History &amp; Further Reading</h2>
+  <p>Where this comes from, honestly told — so you can go deeper with discernment, and tell the real thing from the invented.</p>
+</div>
+
+<section class="reveal" id="lineage">
+  <h3 style="text-align:center;font-size:1.5rem;margin:10px 0 6px">A very short history</h3>
+  <div class="timeline">
+    <div class="tevent"><div class="when">c. 1500–500 BCE · Roots</div><h4>The Vedic world</h4><p>Ritual, sacred sound, and the first maps of subtle energy take shape — the soil tantra later grows from.</p></div>
+    <div class="tevent"><div class="when">c. 500–900 CE · The Revolution</div><h4>Tantra erupts</h4><p>A wave of new texts (the <em>Tantras</em> and <em>Āgamas</em>) breaks with world-denial: the body and the world become the very means of awakening. Ritual, mantra, deity yoga, and — in one esoteric corner — sexual yoga.</p></div>
+    <div class="tevent"><div class="when">c. 850–1025 CE · The Peak</div><h4>Kashmir Shaivism &amp; Abhinavagupta</h4><p>The non-dual philosophy at the core of this course is refined into a dazzling system by masters like Abhinavagupta and Utpaladeva — Consciousness, Spanda, Recognition.</p></div>
+    <div class="tevent"><div class="when">c. 1000–1400 CE · The Body</div><h4>Haṭha yoga &amp; the Nāth siddhas</h4><p>The subtle-body technology — chakras, nāḍīs, kuṇḍalinī, breath control — is systematized into the yoga of the physical body.</p></div>
+    <div class="tevent"><div class="when">1500s–1900s · Continuity</div><h4>Shākta &amp; Bengali streams</h4><p>Goddess-centered (Shākta) tantra flourishes, especially in Bengal and Assam — devotion to the Divine Mother as living Shakti.</p></div>
+    <div class="tevent"><div class="when">20th c.–now · The West</div><h4>Neo-tantra</h4><p>Teachers like Osho, and the human-potential movement, distill the sexual-sacred thread into "tantric sex." Powerful and accessible — but a modern branch, not the ancient trunk. Worth knowing the difference.</p></div>
+  </div>
+
+  <h3 style="text-align:center;font-size:1.5rem;margin:36px 0 6px">If you want to go deeper</h3>
+  <ul class="reading">
+    <li><span class="k">Classical source · the gateway text</span><b>Vijñāna Bhairava Tantra.</b> A dialogue between Shiva and Shakti offering 112 short meditation techniques (<em>dhāraṇās</em>) for entering expanded consciousness — many through breath, sensation, and desire itself. The single most practical classical text for this path. Seek a good modern translation with commentary.</li>
+    <li><span class="k">Classical philosophy</span><b>The Kashmir Shaivism corpus</b> — the <em>Shiva Sūtras</em>, the <em>Spanda Kārikās</em>, and Abhinavagupta's vast <em>Tantrāloka</em>. Dense, but the deep root of the metaphysics in Stage Zero. Best met first through a scholarly guide.</li>
+    <li><span class="k">Modern scholarship · for honesty</span><b>Reputable historians of tantra</b> (e.g. writers who distinguish classical tantra from neo-tantra). Read at least one — it inoculates you against the marketing and shows you how rich the real tradition is.</li>
+    <li><span class="k">Practice · sacred sexuality</span><b>Accessible neo-tantra guides</b> on conscious touch, breath, and partnered practice. Useful and warm — just hold them as <em>modern interpretation</em>, and keep what rings true in your own body.</li>
+    <li><span class="k">Adjacent · energy cultivation</span><b>Taoist sexual practices</b> (the microcosmic orbit, retention and circulation). A parallel tradition that overlaps deeply with tantric energy work and explains the Mastery lessons.</li>
+  </ul>
+
+  <div class="note">
+    <b>On choosing a teacher — read this twice.</b> The world of tantra, ancient and modern, has produced genuine wisdom <em>and</em> real abuse. A trustworthy teacher honors your boundaries absolutely, never pressures you sexually or financially, welcomes questions, points you toward your own authority rather than dependence on theirs, and behaves with integrity when no one is watching. Anyone who uses "energy," "grace," or "surrender" to override your <em>no</em> is not a teacher — full stop. Trust your body's discernment over anyone's credentials. You can walk this entire path slowly and safely on your own; a guide should only ever deepen that, never demand it.
+  </div>
+</section>
+
 <!-- ============ ORACLE ============ -->
 <section class="oracle reveal" id="oracle">
   <div class="dv" style="font-size:1.8rem;color:var(--rose)">✶</div>
@@ -1159,7 +1870,7 @@ p{margin:0 0 18px}
 <!-- ============ CLOSING ============ -->
 <div class="closing reveal">
   <div class="dv">ॐ शान्तिः</div>
-  <p>You now hold a whole path — from the philosophy in your mind, through the body you've learned to inhabit, to the woman you meet as Shakti. Walk it slowly. Return often. The weaving is never finished, and that is the gift.</p>
+  <p>You now hold a whole path — from the metaphysics that tells you what reality is, through the body you've learned to inhabit, to the woman you meet as Shakti, to the tender work of holding what arises and closing with care. Read it as a book; live it as a practice. Walk it slowly, return often. The weaving is never finished, and that is the gift.</p>
   <div class="foot">The Loom of Union · a self-paced tantric course · made for slow reading. Your progress is saved privately in this browser only.</div>
 </div>
 
@@ -1170,7 +1881,7 @@ p{margin:0 0 18px}
 /* ============ APP ============ */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const STORE_KEY="loom_progress_v1", THEME_KEY="loom_theme_v1";
-const TOTAL=12;
+const TOTAL=$$("[data-complete]").length;
 
 /* ---- theme ---- */
 const root=document.documentElement;
