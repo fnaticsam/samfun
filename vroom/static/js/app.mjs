@@ -82,6 +82,7 @@ function canonicalFilter(kind, value) {
 async function start() {
   const grid = element('results-grid');
   const resultCount = element('result-count');
+  const resultNoun = element('result-noun');
   const search = element('search-input');
   const sort = element('sort-select');
   const chiprail = element('chiprail');
@@ -247,6 +248,7 @@ async function start() {
       }
     }
     if (resultCount) resultCount.textContent = visibleCars.length.toLocaleString('en-GB');
+    if (resultNoun) resultNoun.textContent = visibleCars.length === 1 ? ' car worth a look' : ' cars worth a look';
     if (search && search.value !== filters.query) search.value = filters.query;
     if (sort && sort.value !== filters.sort) sort.value = filters.sort;
     setButtonStates();
@@ -464,7 +466,11 @@ async function start() {
     if (action === 'show-saved') {
       filters.savedOnly = !filters.savedOnly;
       render();
-      if (event.target.closest('#empty-state')) requestAnimationFrame(() => document.querySelector('[data-tab="browse"]')?.focus());
+      if (event.target.closest('#empty-state')) requestAnimationFrame(() => {
+        const visibleBrowseTab = [...document.querySelectorAll('[data-tab="browse"]')]
+          .find(node => typeof node.getClientRects !== 'function' || node.getClientRects().length > 0);
+        (visibleBrowseTab || element('results'))?.focus();
+      });
     }
     if (action === 'open-compare') openComparison();
     if (action === 'clear-compare') {
