@@ -372,6 +372,148 @@ a { color: inherit; }
   content: "";
 }
 
+/* Optional editorial photography. The markup is intentionally separate from the
+   card body so records without a cleared image licence retain the same layout. */
+.radar-card__media {
+  position: relative;
+  display: grid;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  place-items: center;
+  margin: 0 0 var(--sp-4);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--rule-soft) 78%, var(--ink));
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 73% 24%, color-mix(in srgb, var(--butter) 78%, transparent), transparent 38%),
+    linear-gradient(135deg, #E9E4DE, #D6D0C7);
+  isolation: isolate;
+}
+
+.radar-card__image,
+.radar-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 420ms var(--ease-out);
+}
+
+.radar-card:hover .radar-card__image,
+.radar-card:focus-within .radar-card__image {
+  transform: scale(1.025);
+}
+
+.radar-card__media--fallback,
+.radar-card__media[data-fallback="true"],
+.radar-card__media.is-image-fallback {
+  min-height: 0;
+  background:
+    radial-gradient(circle at 72% 28%, rgba(198, 83, 28, 0.19), transparent 32%),
+    linear-gradient(145deg, #EEE9E3, #D8D1C7);
+}
+
+.radar-card__media--fallback::after,
+.radar-card__media[data-fallback="true"]::after,
+.radar-card__media.is-image-fallback::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 34%;
+  z-index: 0;
+  background: linear-gradient(180deg, transparent, rgba(53, 46, 40, 0.11));
+  content: "";
+  pointer-events: none;
+}
+
+.radar-card__media--fallback .radar-card__silhouette,
+.radar-card__media[data-fallback="true"] .radar-card__silhouette,
+.radar-card__media.is-image-fallback .radar-card__silhouette {
+  position: relative;
+  z-index: 1;
+  width: min(62%, 180px);
+  height: auto;
+  margin: 0;
+  stroke: color-mix(in srgb, var(--magenta-deep) 84%, var(--ink));
+  stroke-width: 1.2;
+}
+
+.radar-card__image-fallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+}
+
+.radar-card__image-fallback[hidden] { display: none; }
+
+.radar-card__media.is-image-fallback .radar-card__attribution { display: none; }
+
+.radar-card__image-note {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  left: 8px;
+  max-width: calc(100% - 16px);
+  padding: 4px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 7px;
+  background: rgba(255, 253, 252, 0.86);
+  color: var(--ink);
+  font-size: 0.58rem;
+  font-weight: 750;
+  line-height: 1.2;
+  backdrop-filter: blur(8px);
+}
+
+.radar-card__attribution {
+  position: absolute;
+  z-index: 2;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  gap: 0.24rem;
+  width: fit-content;
+  max-width: calc(100% - 16px);
+  min-height: 22px;
+  align-items: center;
+  padding: 3px 7px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 7px;
+  background: rgba(28, 25, 22, 0.74);
+  box-shadow: 0 2px 10px rgba(28, 25, 22, 0.13);
+  color: #FFFDFC;
+  font-size: 0.59rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  line-height: 1.15;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+
+.radar-card__attribution:hover {
+  background: var(--magenta-deep);
+  color: var(--bone);
+}
+
+.radar-card__attribution a {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, currentColor 62%, transparent);
+  text-underline-offset: 2px;
+}
+
+.radar-card__attribution a:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 2px;
+}
+
 .radar-card__top {
   display: flex;
   align-items: center;
@@ -611,6 +753,15 @@ a { color: inherit; }
   .radar-results__heading > p { margin-top: var(--sp-3); }
   .radar-grid { grid-template-columns: 1fr; }
   .radar-card { min-height: 0; }
+  .radar-card__media { margin-bottom: var(--sp-3); border-radius: 12px; }
+  .radar-card__attribution {
+    right: 7px;
+    bottom: 7px;
+    left: 7px;
+    flex-wrap: wrap;
+    font-size: 0.56rem;
+    white-space: normal;
+  }
   .radar-card h3 { min-height: 0; }
 
   .radar-method { grid-template-columns: 1fr; gap: var(--sp-5); margin-bottom: var(--sp-7); }
@@ -623,4 +774,6 @@ a { color: inherit; }
   .radar-card { transition: none; }
   .radar-card:hover,
   .radar-card:focus-within { transform: none; }
+  .radar-card__image,
+  .radar-card__media img { transition: none; }
 }

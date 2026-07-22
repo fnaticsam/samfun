@@ -12,6 +12,88 @@ function safeURL(value) {
   }
 }
 
+// Radar imagery is deliberately served from this project rather than hotlinked
+// from a search result or a third-party CDN. Besides making the presentation
+// deterministic, this gives the page a small, enforceable security boundary.
+const RADAR_IMAGE_PATH = /^\/vroom\/media\/radar\/[a-z0-9][a-z0-9-]*\.webp$/;
+const RADAR_IMAGE_LICENSE = /^(?:CC0|Public Domain|CC BY(?:-SA)? (?:2\.0|2\.5|3\.0|4\.0))$/;
+
+function localRadarImage(value) {
+  const path = text(value);
+  return RADAR_IMAGE_PATH.test(path) ? path : '';
+}
+
+function trustedImageProvenance(value, hosts) {
+  const href = safeURL(value);
+  if (!href) return '';
+  try {
+    const url = new URL(href);
+    return hosts.includes(url.hostname) ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
+function positiveInteger(value) {
+  const number = Number(value);
+  return Number.isInteger(number) && number > 0 && number <= 10000 ? number : 0;
+}
+
+function normaliseRadarVariants(value) {
+  const byWidth = new Map();
+  for (const candidate of firstArray(value)) {
+    const source = candidate && typeof candidate === 'object' ? candidate : {};
+    const src = localRadarImage(source.src || source.url);
+    const width = positiveInteger(source.width);
+    if (src && width && !byWidth.has(width)) byWidth.set(width, { src, width });
+  }
+  return [...byWidth.values()].sort((left, right) => left.width - right.width);
+}
+
+function normaliseImageChanges(value) {
+  const changes = Array.isArray(value) ? value : [value];
+  return changes.map(change => text(change)).filter(Boolean);
+}
+
+/**
+ * Convert an editorial image to the deliberately narrow radar delivery shape.
+ * An incomplete record becomes `null`: callers show the neutral car silhouette
+ * rather than emitting a broken image or trusting an arbitrary URL.
+ */
+export function normalizeRadarImage(value) {
+  const source = value && typeof value === 'object' ? value : {};
+  if (text(source.status || 'ready').toLowerCase() !== 'ready') return null;
+
+  const src = localRadarImage(source.src || source.fallback?.src);
+  const srcset = normaliseRadarVariants(source.srcset || source.sources || source.variants);
+  const alt = text(source.alt);
+  const width = positiveInteger(source.width);
+  const height = positiveInteger(source.height);
+  const attribution = source.attribution && typeof source.attribution === 'object' ? source.attribution : source;
+  const creator = text(attribution.creator || attribution.credit);
+  const license = text(attribution.license || attribution.licence);
+  const licenseUrl = trustedImageProvenance(attribution.licenseUrl, ['creativecommons.org', 'commons.wikimedia.org']);
+  const sourcePage = trustedImageProvenance(attribution.sourcePage || attribution.sourceUrl || attribution.page, ['commons.wikimedia.org']);
+  const originalUrl = trustedImageProvenance(attribution.originalUrl, ['upload.wikimedia.org']);
+  const retrievedAt = text(attribution.retrievedAt);
+  const sha256 = text(attribution.sha256).toLowerCase();
+  const changes = normaliseImageChanges(attribution.changes);
+  const note = text(source.note || source.caption);
+
+  // A responsive image needs a real fallback and at least two sized candidates.
+  // That also avoids silently using a huge original for every card.
+  if (
+    !src || srcset.length < 2 || !alt || !width || !height || !creator || !RADAR_IMAGE_LICENSE.test(license)
+    || !licenseUrl || !sourcePage || !originalUrl || !/^\d{4}-\d{2}-\d{2}$/.test(retrievedAt)
+    || !/^[a-f0-9]{64}$/.test(sha256) || !changes.length
+  ) return null;
+
+  return {
+    src, srcset, alt, width, height, creator, license, licenseUrl, sourcePage, originalUrl, retrievedAt, sha256, changes,
+    ...(note ? { note } : {}),
+  };
+}
+
 function firstArray(...values) {
   return values.find(Array.isArray) || [];
 }
@@ -60,6 +142,7 @@ function normaliseItem(item, collectionId = '') {
     price: normalisePrice(source.price, source),
     note: text(source.note || source.summary || source.description),
     source: { label: text(sourceLink.label || source.sourceLabel || 'Source'), url: safeURL(sourceLink.url || source.sourceUrl) },
+    image: normalizeRadarImage(source.image),
   };
 }
 

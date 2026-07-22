@@ -40,9 +40,9 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 | I1 | Integrate data, UI, side-by-side comparison and root launcher | P1,U1,U2,C* | root | local app works from repository server, including persistent/shareable 2–4 car comparisons | complete |
 | Q1 | Repair audited catalogue semantics and template-heavy grading | C4-C9 | repair swarm | body/seat/powertrain/identity/halo checks pass; useful within-make variance | complete |
 | Q2 | Optimize frontend and expose image attribution | I1 | root + frontend worker | responsive images, bounded DOM, coalesced filters, visible credits | complete |
-| V1 | Independent data and regression review | I1 | verification swarm | gates and spot checks audited | pending |
-| V2 | Independent browser/accessibility/visual review | I1 | verification swarm | 390/1440 evidence and defect list | pending |
-| S1 | Preview deploy, production deploy and public verification | V1,V2 | root | public `sam.toys/vroom` returns 200 and core assets load | pending |
+| V1 | Independent data and regression review | I1 | verification swarm | gates and spot checks audited | complete |
+| V2 | Independent browser/accessibility/visual review | I1 | verification swarm | 390/1440 evidence and defect list | complete |
+| S1 | Preview deploy, production deploy and public verification | V1,V2 | root | public `sam.toys/vroom` returns 200 and core assets load | complete |
 
 ## Team topology and budgets
 
@@ -83,6 +83,8 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 - [x] 2026-07-22 New-car radar: added an optional, separately sourced editorial dataset for current and incoming cars in Europe, including OMODA, JAECOO, Leapmotor, XPENG, Zeekr and BYD; new prices remain independent of used-car hashes.
 - [x] 2026-07-22 Dedicated radar: moved the editorial feed out of the used-car results page into `/vroom/new/`, replaced clipped nested rails with a responsive 1/2/3-column grid, expanded the feed to 21 unique sourced cars, added status/powertrain/price filters and explicit price-TBC support, and kept the finder entry as a normal link.
 - [x] 2026-07-22 Dedicated radar release: 38/38 tests, shipping validation, HTML validation, independent accessibility/data/code/performance/responsive/visual reviews, preview verification, exact-preview promotion and public desktop/mobile checks passed; production deployment `dpl_6way4fMQmZBoYaMannzwJ2tCHtyf` is live.
+- [x] 2026-07-22 Radar photography: Google/Commons discovery was followed by file-page identity and licence review; 13 approved card photos are locally cached as 480/960px WebP with visible creator/licence links, hashes and declared transformations. Eight uncertain, mismatched or restricted records retain silhouettes.
+- [x] 2026-07-22 Radar photography release: replaced the predecessor Atto image with an exact CC0 2025 Yuan Plus/Atto 3 Evo facelift photo, fixed 16:10 silhouette geometry and 320px credit wrapping, passed 45/45 tests plus shipping validation, promoted preview `dpl_FCXSJ9NkS5K7hFbRtuKHZKxyxoc9`, and publicly verified production `dpl_C7scBcHKpqrnTK1vTGt3xqnWSH2H`.
 - [x] 2026-07-22 Integrated verification and release: 30/30 Vroom tests, shipping validator, independent data/accessibility/performance/visual review, preview deployment, production deployment, and public desktop/mobile browser checks passed.
 
 ## Discoveries
@@ -106,6 +108,7 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 - The 1,129-row built catalogue has no gearbox or drivetrain fields. Generation-level records can include several transmissions or layouts, so Manual/Automatic and FWD/RWD/AWD filters must wait for a sourced availability-array data contract rather than inferred values.
 - Upcoming European models cannot truthfully be added to the used-car catalogue: its contract requires used-price bands and current UK sale semantics. A small optional editorial artifact keeps market, price basis, checked date and official source explicit without affecting the core 1.6 MB payload gate.
 - Manufacturer prices are mutable. The page visibly marks records once `reviewBy` passes, but a future scheduled source-refresh gate would be stronger than the current manual dated release check.
+- Google Image Search is discovery, not permission. Manufacturer press imagery is excluded unless asset-specific web reuse permission is recorded; BYD UK media terms explicitly bar reposting. Approved radar images therefore come from reviewed Wikimedia Commons files and are served locally to avoid production hotlinks.
 
 ## Decision log
 
@@ -118,6 +121,7 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 - 2026-07-22: Replace the long chip rail with supported Body, Fuel and Character menus. Defer gearbox/drivetrain until every filter value has trustworthy source data; do not ship controls that silently match nothing.
 - 2026-07-22: Treat the new-car radar as editorial data independent of the used-car filters. Every price names a market and source; stale launch prices are visibly qualified.
 - 2026-07-22: Use a dedicated static `/vroom/new/` destination rather than loading editorial data beneath used-car results. Keep cross-currency prices separate: the price sort is explicitly GBP-first and labelled “Lowest UK price.”
+- 2026-07-22: Require an allowlisted Commons licence, canonical file page, original URL, retrieval date, local hash and declared changes for radar photography. Prefer an honest silhouette to a search thumbnail, restricted press asset or uncertain model/generation match.
 
 ## Verification matrix
 
@@ -126,11 +130,11 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 | Schema and vocabulary | `node scripts/vroom/05-validate.mjs --shipping --min=1000 --warn` | pass | 1,129 cars, zero schema errors, zero unresolved rivals |
 | Score calibration | p10 < 62, p90 > 82, useful >=88 cohort | pass | p10 48 / p90 88 at 619 cars |
 | Data reproducibility | run `06-build.mjs` twice and compare | pass | identical cars/meta hashes; editorial artifact unchanged |
-| Payload | parse cars/meta, raw cars JSON <=1.6 MB | pass | cars.json 1,428,373 bytes; editorial.json 15,198 bytes and is loaded only by `/vroom/new/` |
+| Payload | parse cars/meta, raw cars JSON <=1.6 MB | pass | cars.json 1,428,373 bytes; editorial.json 26,714 bytes and is loaded only by `/vroom/new/` |
 | Images | >=95% usable; complete metadata measured separately | pass | 98.7% coverage; 99.5% complete attribution among resolved images |
-| UI logic | Node tests for filters/router/twins/storage/editorial/menus/radar route | pass | 38/38 Vroom tests |
-| Responsive UI | browser review at 390/700/701/768/1000/1001/1440px | pass | radar grid switches 1/2/3 columns with no card or document overflow; exact supplied finder hash still restores 36 results |
-| Release | preview and production deploy plus public HTTP/browser checks | pass | radar preview `sam-toys-32tyavp1y-sam-1339s-projects.vercel.app`; promoted production `dpl_6way4fMQmZBoYaMannzwJ2tCHtyf`; `/vroom/new/`, finder link, 21-card feed, filters and mobile/desktop layouts verified at `https://sam.toys` |
+| UI logic | Node tests for filters/router/twins/storage/editorial/menus/radar route | pass | 45/45 Vroom tests |
+| Responsive UI | browser review at 320/390/700/701/768/1000/1001/1440px | pass | radar grid switches 1/2/3 columns; 13 photos and 8 equal-geometry fallbacks; no card, credit or document overflow |
+| Release | preview and production deploy plus public HTTP/browser checks | pass | preview `dpl_FCXSJ9NkS5K7hFbRtuKHZKxyxoc9`; production `dpl_C7scBcHKpqrnTK1vTGt3xqnWSH2H`; public feed has 21 cars/13 local photos, exact Atto Evo asset hash, zero image errors |
 
 ## Risks and recovery
 

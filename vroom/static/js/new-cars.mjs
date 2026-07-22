@@ -44,6 +44,27 @@ function silhouetteMarkup(body) {
   return `<svg class="radar-card__silhouette" viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="${path}"/><circle cx="34" cy="31" r="7"/><circle cx="91" cy="31" r="7"/></svg>`;
 }
 
+function radarPhotoMarkup(item) {
+  const image = item.image;
+  const fallback = `<span class="radar-card__image-fallback" data-radar-image-fallback${image ? ' hidden' : ''} aria-hidden="true">${silhouetteMarkup(item.body)}</span>`;
+  if (!image) return `<figure class="radar-card__media is-image-fallback">${fallback}</figure>`;
+  const srcset = image.srcset.map(candidate => `${candidate.src} ${candidate.width}w`).join(', ');
+  return `<figure class="radar-card__media">
+    <img class="radar-card__image" data-radar-image src="${escapeHTML(image.src)}" srcset="${escapeHTML(srcset)}" sizes="(max-width: 680px) calc(100vw - 2rem), (max-width: 980px) calc((100vw - 3rem) / 2), 380px" alt="${escapeHTML(image.alt)}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async">
+    ${fallback}
+    ${image.note ? `<span class="radar-card__image-note">${escapeHTML(image.note)}</span>` : ''}
+    <figcaption class="radar-card__attribution"><span>Photo</span><a href="${escapeHTML(image.sourcePage)}" target="_blank" rel="noopener noreferrer">${escapeHTML(image.creator)}<span class="sr-only"> (opens in a new tab)</span></a><span aria-hidden="true">·</span><a href="${escapeHTML(image.licenseUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(image.license)}<span class="sr-only"> (opens in a new tab)</span></a><span aria-hidden="true">·</span><span>resized/WebP</span></figcaption>
+  </figure>`;
+}
+
+function revealRadarImageFallback(image) {
+  const media = image?.closest?.('.radar-card__media');
+  if (!media) return;
+  media.classList.add('is-image-fallback');
+  image.remove();
+  media.querySelector('[data-radar-image-fallback]')?.removeAttribute('hidden');
+}
+
 export function flattenEditorialItems(payload) {
   const editorial = normalizeEditorialPayload(payload);
   const seen = new Set();
@@ -102,7 +123,7 @@ export function radarCardMarkup(item, { today = new Date().toISOString().slice(0
     </div>
     <p class="radar-card__make">${escapeHTML(item.make || item.origin || 'New arrival')}</p>
     <h3>${escapeHTML(item.model || item.title)}</h3>
-    ${silhouetteMarkup(item.body)}
+    ${radarPhotoMarkup(item)}
     <p class="radar-card__price"><strong>${escapeHTML(formatAmount(item.price))}</strong><span>${escapeHTML(item.price?.label || 'Official price has not been announced')}</span></p>
     <dl class="radar-card__facts">
       <div><dt>Power</dt><dd>${escapeHTML(powertrainLabel(item.powertrain))}</dd></div>
@@ -144,6 +165,12 @@ function pageController() {
   const announcer = document.getElementById('radar-announcer');
   const sort = document.getElementById('radar-sort');
   if (!grid || !state || !announcer || !sort) return;
+
+  // Capture image errors because cards are rendered dynamically. This keeps a
+  // failed local asset from leaving a browser broken-image icon in the grid.
+  grid.addEventListener('error', event => {
+    if (event.target?.matches?.('[data-radar-image]')) revealRadarImageFallback(event.target);
+  }, true);
 
   let payload = null;
   let activeFilter = 'all';
