@@ -21,6 +21,8 @@
   ],
   "redirects": [
     { "source": "/phone", "destination": "https://phone-nine-theta.vercel.app", "permanent": false },
-    { "source": "/phone/:path*", "destination": "https://phone-nine-theta.vercel.app/:path*", "permanent": false }
+    { "source": "/phone/:path*", "destination": "https://phone-nine-theta.vercel.app/:path*", "permanent": false },
+    { "source": "/vroom", "destination": "https://vroom.fan/", "permanent": true },
+    { "source": "/vroom/:path(.*)", "destination": "https://vroom.fan/:path", "permanent": true }
   ]
 }
