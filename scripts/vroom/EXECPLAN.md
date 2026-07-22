@@ -78,7 +78,9 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 - [x] 2026-07-22 Browser QA: desktop/mobile filtering, saved, detail, twins, comparison, hash reload, keyboard dialogs, console and network smoke pass; follow-up fixes remain for the mobile skip target and favicon.
 - [x] 2026-07-22 Q1/Q2: repaired body/seat/powertrain/identity/halo issues, removed non-generation rows, separated SsangYong/KGM identity, diversified grading, added responsive Commons imagery and legally useful attribution, bounded paging, coalesced filters and hardened persisted state.
 - [x] 2026-07-22 Polish: completed three visual/product rounds; mobile skip/focus/compare flows, desktop first-result visibility, contrast, card/detail hierarchy and empty/error recovery were iterated through browser review.
-- [ ] Integrated verification and release.
+- [x] 2026-07-22 Automotive refresh: replaced the beige/pink poster layer with cool white, charcoal and motorsport blue; added rounded components and compact hover/focus/click Body, Fuel and Character menus.
+- [x] 2026-07-22 New-car radar: added an optional, separately sourced editorial dataset for current and incoming cars in Europe, including OMODA, JAECOO, Leapmotor, XPENG, Zeekr and BYD; new prices remain independent of used-car hashes.
+- [x] 2026-07-22 Integrated verification and release: 30/30 Vroom tests, shipping validator, independent data/accessibility/performance/visual review, preview deployment, production deployment, and public desktop/mobile browser checks passed.
 
 ## Discoveries
 
@@ -98,6 +100,8 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 - The final image state resolves 1,114/1,129 entries (98.7%); 1,108/1,114 resolved images have complete material/source attribution (99.5%). All emitted image sources are Wikimedia-hosted and every emitted `page` points to its Commons File page.
 - Independent catalogue review found systemic semantic issues hidden by schema-only gates: Ford body overrides, eleven seven-seat rows with five seats, several electrified halo cars marked petrol-only, UK-availability mistakes, model/trim identity duplicates, halo inconsistencies and over-reused grade vectors. These are release work, not deferred cleanup.
 - Browser and accessibility review found no critical/high UI defect. Remaining medium issues are faint text contrast, focus-ring contrast, visible image attribution, mobile skip-link occlusion and an overly tall first viewport. Performance review also measured slider jank under CPU throttling, fixed-size image waste and unbounded automatic card appends.
+- The 1,129-row built catalogue has no gearbox or drivetrain fields. Generation-level records can include several transmissions or layouts, so Manual/Automatic and FWD/RWD/AWD filters must wait for a sourced availability-array data contract rather than inferred values.
+- Upcoming European models cannot truthfully be added to the used-car catalogue: its contract requires used-price bands and current UK sale semantics. A small optional editorial artifact keeps market, price basis, checked date and official source explicit without affecting the core 1.6 MB payload gate.
 
 ## Decision log
 
@@ -107,19 +111,21 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 - 2026-07-22: Do not pad the catalogue with fabricated rows. If 1,000 credible generations remain unfinished, ship and label an honest beta only if all product, schema, attribution and release checks otherwise pass.
 - 2026-07-22: Treat 1,000 as a floor and target roughly 1,100–1,200 distinct model-generations, never separate rows for individual years or trims. Evidence: explicit user direction plus the projected payload remains under 1.6 MB.
 - 2026-07-22: Make side-by-side comparison a release requirement with persistent selection, deep links and responsive two-to-four-car tables. Evidence: explicit user request.
+- 2026-07-22: Replace the long chip rail with supported Body, Fuel and Character menus. Defer gearbox/drivetrain until every filter value has trustworthy source data; do not ship controls that silently match nothing.
+- 2026-07-22: Treat the new-car radar as editorial data independent of the used-car filters. Every price names a market and source; stale launch prices are visibly qualified.
 
 ## Verification matrix
 
 | Done condition | Check | Result | Evidence |
 |---|---|---|---|
-| Schema and vocabulary | `node scripts/vroom/05-validate.mjs --min=<release count>` | pending | |
+| Schema and vocabulary | `node scripts/vroom/05-validate.mjs --shipping --min=1000 --warn` | pass | 1,129 cars, zero schema errors, zero unresolved rivals |
 | Score calibration | p10 < 62, p90 > 82, useful >=88 cohort | pass | p10 48 / p90 88 at 619 cars |
-| Data reproducibility | run `06-build.mjs` twice and compare | pending | |
-| Payload | parse cars/meta, raw cars JSON <=1.6 MB | pending | |
-| Images | >=95% usable; complete metadata measured separately | pending | |
-| UI logic | Node tests for filters/router/twins/storage | pass | 16/16 combined pipeline/UI tests |
-| Responsive UI | browser review at 390px and 1440px | pending | |
-| Release | preview and production deploy plus public HTTP checks | pending | |
+| Data reproducibility | run `06-build.mjs` twice and compare | pass | identical cars/meta hashes; editorial artifact unchanged |
+| Payload | parse cars/meta, raw cars JSON <=1.6 MB | pass | cars.json 1,428,373 bytes; editorial.json 8,377 bytes |
+| Images | >=95% usable; complete metadata measured separately | pass | 98.7% coverage; 99.5% complete attribution among resolved images |
+| UI logic | Node tests for filters/router/twins/storage/editorial/menus | pass | 30/30 Vroom tests plus API match test |
+| Responsive UI | browser review at 390px, 768/820px and 1440px | pass | exact supplied hash restores 36 results; no body overflow; sticky filters and dialogs verified |
+| Release | preview and production deploy plus public HTTP checks | pass | preview `sam-toys-phce0izh1-sam-1339s-projects.vercel.app`; production aliased to `https://sam.toys`; public Vroom assets and data return 200 |
 
 ## Risks and recovery
 

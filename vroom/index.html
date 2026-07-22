@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#F1E8D4">
+    <meta name="theme-color" content="#F4F6F8">
     <link rel="icon" href="/vroom/favicon.svg" type="image/svg+xml">
     <meta name="description" content="Vroom is the slider-first UK car picker. Set your budget, age and pace, then find the cars worth knowing.">
     <title>Vroom — Find your kind of car</title>
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/vroom/static/css/app.css">
     <link rel="preload" href="/vroom/data/cars.json" as="fetch" type="application/json" crossorigin>
     <link rel="preload" href="/vroom/data/meta.json" as="fetch" type="application/json" crossorigin>
+    <link rel="preload" href="/vroom/data/editorial.json" as="fetch" type="application/json" crossorigin>
   </head>
   <body>
     <a class="skip-link" href="#results">Skip to cars</a>
@@ -67,19 +68,19 @@
         </div>
       </section>
 
-      <nav id="chiprail" class="chiprail" aria-label="Quick car filters">
-        <div class="chiprail__scroll">
-          <button class="filter-chip is-active" type="button" data-filter="all" data-value="all" aria-pressed="true">All cars</button>
-          <button class="filter-chip" type="button" data-filter="body" data-value="suv" aria-pressed="false">SUV</button>
-          <button class="filter-chip" type="button" data-filter="body" data-value="hatchback" aria-pressed="false">Hatch</button>
-          <button class="filter-chip" type="button" data-filter="body" data-value="estate" aria-pressed="false">Estate</button>
-          <button class="filter-chip" type="button" data-filter="body" data-value="coupe" aria-pressed="false">Coupé</button>
-          <button class="filter-chip filter-chip--ev" type="button" data-filter="fuel" data-value="ev" aria-pressed="false">Electric</button>
-          <button class="filter-chip" type="button" data-filter="fuel" data-value="hybrid" aria-pressed="false">Hybrid</button>
-          <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="boxy-icon" aria-pressed="false">Boxy icons</button>
-          <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="drivers-car" aria-pressed="false">Driver’s cars</button>
-          <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="family-hero" aria-pressed="false">Family heroes</button>
-          <button class="filter-chip filter-chip--best" type="button" data-filter="best" data-value="88" aria-pressed="false">Best of Vroom</button>
+      <nav id="chiprail" class="chiprail filter-bar" aria-label="Browse the catalogue">
+        <div class="filter-bar__inner">
+          <div class="filter-bar__intro">
+            <span class="eyebrow">Browse by</span>
+            <button class="filter-bar__reset" type="button" data-filter="all" data-value="all" aria-pressed="true">All cars</button>
+          </div>
+          <div id="filter-menu-root" class="filter-menu-root"></div>
+          <div class="filter-bar__quick" aria-label="Quick picks">
+            <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="drivers-car" aria-pressed="false">Driver’s cars</button>
+            <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="family-hero" aria-pressed="false">Family cars</button>
+            <button class="filter-chip filter-chip--best" type="button" data-filter="best" data-value="88" aria-pressed="false">Best of Vroom</button>
+            <button class="filter-chip" type="button" data-action="scroll-editorial">New-car radar</button>
+          </div>
         </div>
       </nav>
 
@@ -208,6 +209,8 @@
           </div>
         </noscript>
       </section>
+
+      <section id="editorial-hub" class="editorial-hub" aria-label="New-car radar" tabindex="-1" hidden></section>
     </main>
 
     <footer class="site-footer">

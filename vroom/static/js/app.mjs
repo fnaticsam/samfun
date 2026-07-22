@@ -2,7 +2,9 @@ import { loadCatalogue } from './data.mjs';
 import { renderCardBatch, updateSavedButtons } from './cards.mjs';
 import { createCompareController, normalizeCompared, toggleCompared } from './compare.mjs';
 import { createDetailController } from './detail.mjs';
-import { compareHash, filtersToHash, parseHash, replaceHash } from './router.mjs';
+import { createEditorialController } from './editorial.mjs';
+import { createFilterMenus } from './filter-menus.mjs';
+import { carHash, compareHash, filtersToHash, parseHash, replaceHash } from './router.mjs';
 import {
   createFilters, DEFAULT_FILTERS, determineEfficiencyMode, filterCars, toggleFilterValue,
 } from './state.mjs';
@@ -17,6 +19,10 @@ const PAGE_SIZE = 48;
 
 function element(id) {
   return document.getElementById(id);
+}
+
+function preferredScrollBehavior() {
+  return globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 }
 
 function showOnlyState(name) {
@@ -109,6 +115,8 @@ async function start() {
   let rendered = 0;
   let moreButton = providedMoreButton;
   let sliderRenderFrame = 0;
+  let filterMenus = null;
+  let pendingDetailTrigger = null;
 
   showOnlyState('loading');
   const { cars, byId, meta } = await loadCatalogue();
@@ -125,6 +133,16 @@ async function start() {
   saveCompared(comparedIds);
   document.documentElement.dataset.catalogueReady = 'true';
   document.documentElement.style.setProperty('--catalogue-count', String(meta.count || cars.length));
+
+  filterMenus = createFilterMenus(element('filter-menu-root'), {
+    filters,
+    onChange: ({ stateKey, patch }) => {
+      const oldEfficiencyMode = determineEfficiencyMode(filters);
+      Object.assign(filters, patch);
+      if (stateKey === 'fuels' && oldEfficiencyMode !== determineEfficiencyMode(filters)) filters.efficiencyMin = 0;
+      render();
+    },
+  });
 
   function setButtonStates() {
     document.querySelectorAll('[data-filter]').forEach(button => {
@@ -252,6 +270,7 @@ async function start() {
     if (search && search.value !== filters.query) search.value = filters.query;
     if (sort && sort.value !== filters.sort) sort.value = filters.sort;
     setButtonStates();
+    filterMenus?.setFilters(filters);
     syncCompareUI();
     sliderBinding.sync();
     safeWrite(FILTERS_KEY, filters);
@@ -321,6 +340,37 @@ async function start() {
     return true;
   }
 
+  const editorialRoot = element('editorial-hub');
+  const editorial = createEditorialController(editorialRoot, {
+    byId,
+    onView: (id, trigger) => {
+      pendingDetailTrigger = { id, trigger };
+      location.hash = carHash(id);
+    },
+    onExplore: collection => {
+      const requestedMakes = [...new Set(collection.items.map(item => {
+        const car = item.carId ? byId.get(item.carId) : null;
+        return car?.make || item.make;
+      }).filter(Boolean))];
+      const catalogueMakes = new Set(cars.map(car => car.make));
+      const makes = requestedMakes.filter(make => catalogueMakes.has(make));
+      if (!makes.length) {
+        toast('Those new brands are not in the used-car catalogue yet.');
+        return;
+      }
+      filters = createFilters({ makes, age: [0, 5], onSaleOnly: true, sort: 'newest' });
+      sliderBinding.destroy();
+      sliderBinding = bindSliderDeck(sliderDeck, filters, scheduleSliderRender);
+      render();
+      requestAnimationFrame(() => element('results')?.scrollIntoView({ block: 'start', behavior: preferredScrollBehavior() }));
+      toast(`Showing newer used ${makes.join(', ')} cars.${makes.length < requestedMakes.length ? ' The newest brands are source-only for now.' : ''}`);
+    },
+  });
+  void editorial?.load().then(() => {
+    for (const id of savedIds) updateSavedButtons(editorialRoot, id, true);
+    syncCompareUI();
+  });
+
   detail.onClose(() => {
     if (location.hash.startsWith('#c/')) replaceHash(filtersToHash(filters));
   });
@@ -331,7 +381,11 @@ async function start() {
   function applyRoute() {
     const route = parseHash(location.hash);
     if (route.type === 'car') {
-      openCar(route.id, document.querySelector(`[data-car-id="${route.id}"] .car-card__link`));
+      const trigger = pendingDetailTrigger?.id === route.id
+        ? pendingDetailTrigger.trigger
+        : document.querySelector(`[data-car-id="${route.id}"] .car-card__link`);
+      pendingDetailTrigger = null;
+      openCar(route.id, trigger);
       return;
     }
     if (route.type === 'compare') {
@@ -456,6 +510,13 @@ async function start() {
 
     const action = event.target.closest?.('[data-action]')?.dataset.action;
     if (action === 'show-more' || action === 'load-more') appendNextPage();
+    if (action === 'scroll-editorial') {
+      if (editorialRoot?.hidden) toast('The new-car radar is still loading.');
+      else {
+        editorialRoot.scrollIntoView({ block: 'start', behavior: preferredScrollBehavior() });
+        editorialRoot.focus({ preventScroll: true });
+      }
+    }
     if (action === 'open-filters') { syncDrawer(); setDrawerOpen(drawer, true); }
     if (action === 'close-filters') setDrawerOpen(drawer, false);
     if (action === 'clear-search') {

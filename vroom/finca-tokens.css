@@ -6,38 +6,38 @@
    ============================================================ */
 
 :root {
-  /* Paper & neutrals */
-  --paper: #F1E8D4;
-  --paper-deep: #E8DDC3;
-  --bone: #F8F0DB;
-  --linen: #E0D4B8;
-  --rule: #1E1F1A;
-  --rule-soft: #C9B98F;
+  /* Cool white, grey, and charcoal — tuned for quiet, modern surfaces. */
+  --paper: #F4F6F8;
+  --paper-deep: #E6EBF0;
+  --bone: #FBFCFD;
+  --linen: #D8E0E8;
+  --rule: #27313C;
+  --rule-soft: #C5CFD9;
 
   /* Ink */
-  --ink: #14160F;
-  --ink-soft: #545548;
-  /* Reserved for supporting copy; still clears WCAG AA on paper and bone. */
-  --ink-faint: #5F6254;
+  --ink: #171E27;
+  --ink-soft: #53606E;
+  /* Reserved for supporting copy; still clears WCAG AA on the light surfaces. */
+  --ink-faint: #596674;
 
-  /* Forest */
-  --forest: #1E3A2C;
-  --forest-deep: #12271D;
-  --forest-mid: #2A5240;
+  /* Legacy forest aliases now provide the charcoal navigation range. */
+  --forest: #27313C;
+  --forest-deep: #18212B;
+  --forest-mid: #3A4654;
 
-  /* Magenta */
-  --magenta: #E8457D;
-  --magenta-deep: #B52B5A;
+  /* Legacy magenta aliases retained for compatibility; Vroom's accent is blue. */
+  --magenta: #4B8FD8;
+  --magenta-deep: #0053A6;
 
   /* Supporting accents */
-  --butter: #F5D24F;
-  --butter-deep: #E6B72E;
-  --clay: #C36A3A;
-  --clay-deep: #9A4A24;
-  --clay-light: #E39A72;
-  --blue: #6F74F7;
-  --blue-deep: #4248D6;
-  --blue-wash: #D6D8FA;
+  --butter: #D9E5F2;
+  --butter-deep: #AFC5DC;
+  --clay: #657789;
+  --clay-deep: #405161;
+  --clay-light: #A7B8C8;
+  --blue: #2877C8;
+  --blue-deep: #0053A6;
+  --blue-wash: #DCEBFA;
 
   /* Typography */
   --font-display: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
@@ -83,24 +83,27 @@
   --tabbar-h: 64px;
 
   /* Shape */
-  --r-sm: 2px;
-  --r-md: 4px;
-  --r-lg: 8px;
-  --r-xl: 16px;
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 10px;
+  --r-xl: 14px;
   --r-pill: 999px;
-  --r-photo: 2px;
-  --r-card: 4px;
+  --r-photo: 6px;
+  --r-card: 10px;
 
   --bd-hair: 1px solid var(--rule-soft);
-  --bd-ink: 2px solid var(--ink);
-  --bd-ink-thick: 3px solid var(--ink);
+  --bd-ink: 1px solid var(--rule);
+  --bd-ink-thick: 1px solid var(--ink);
 
-  /* Poster-flat elevation */
-  --shadow-poster: 6px 8px 0 rgba(20, 22, 15, 0.13);
-  --shadow-card: 3px 5px 0 rgba(20, 22, 15, 0.09);
-  --shadow-polaroid: 0 14px 30px -16px rgba(20, 22, 15, 0.55),
-    0 4px 8px -4px rgba(20, 22, 15, 0.28);
-  --shadow-float: 0 24px 48px -20px rgba(20, 22, 15, 0.35);
+  /* Soft elevation replaces the former poster-offset shadows. */
+  --shadow-poster: 0 18px 40px -26px rgba(23, 30, 39, 0.30),
+    0 4px 12px -8px rgba(23, 30, 39, 0.14);
+  --shadow-card: 0 12px 28px -22px rgba(23, 30, 39, 0.24),
+    0 2px 6px -4px rgba(23, 30, 39, 0.12);
+  --shadow-polaroid: 0 18px 36px -22px rgba(23, 30, 39, 0.30),
+    0 4px 10px -6px rgba(23, 30, 39, 0.14);
+  --shadow-float: 0 28px 56px -28px rgba(23, 30, 39, 0.34),
+    0 8px 18px -12px rgba(23, 30, 39, 0.16);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 0.9, 0.32, 1);
