@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#332B27">
+    <meta name="description" content="Vroom's new-car radar: official prices, confirmed arrivals and the Chinese-founded brands changing the UK and European car market.">
+    <title>Vroom — New &amp; exciting cars</title>
+    <link rel="canonical" href="https://sam.toys/vroom/new/">
+    <link rel="icon" href="/vroom/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&amp;family=Jost:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/vroom/finca-tokens.css">
+    <link rel="stylesheet" href="/vroom/static/css/radar.css">
+    <link rel="preload" href="/vroom/data/editorial.json" as="fetch" type="application/json" crossorigin>
+    <noscript><style>.radar-js-only { display: none !important; }</style></noscript>
+  </head>
+  <body class="radar-page">
+    <a class="skip-link" href="#radar-results">Skip to new cars</a>
+
+    <header class="radar-header">
+      <div class="radar-header__inner">
+        <a class="radar-wordmark" href="/vroom/" aria-label="Vroom used-car finder">Vroom</a>
+        <nav class="radar-nav" aria-label="Vroom sections">
+          <a href="/vroom/">Used-car finder</a>
+          <a href="/vroom/new/" aria-current="page">New &amp; exciting</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="radar-hero" aria-labelledby="radar-title">
+        <div class="radar-hero__copy">
+          <p class="eyebrow">New-car radar</p>
+          <h1 id="radar-title">Fresh metal.<br><em>Clear prices.</em></h1>
+          <p class="radar-hero__deck">The new cars worth watching in Britain and Europe—on sale now, arriving soon, and changing the market fastest.</p>
+          <p class="radar-hero__trust">Official sources <span aria-hidden="true">·</span> Market shown per car <span aria-hidden="true">·</span> No mystery prices</p>
+        </div>
+        <div class="radar-hero__art" aria-hidden="true">
+          <span class="radar-orbit radar-orbit--one"></span>
+          <span class="radar-orbit radar-orbit--two"></span>
+          <svg viewBox="0 0 420 170" focusable="false">
+            <path d="M28 120h42l22-46 61-28h112l76 45 46 8 18 21H28Z"></path>
+            <path d="M118 74h147l50 33H87"></path>
+            <circle cx="116" cy="121" r="31"></circle>
+            <circle cx="322" cy="121" r="31"></circle>
+          </svg>
+          <span class="radar-scan"></span>
+        </div>
+        <dl class="radar-stats radar-js-only">
+          <div><dt>Tracked</dt><dd id="radar-total">—</dd></div>
+          <div><dt>On sale</dt><dd id="radar-on-sale">—</dd></div>
+          <div><dt>Coming</dt><dd id="radar-coming">—</dd></div>
+          <div><dt>Lowest tracked</dt><dd id="radar-entry-price">—</dd></div>
+        </dl>
+      </section>
+
+      <section class="radar-intro" aria-labelledby="radar-intro-title">
+        <div>
+          <p class="eyebrow">Market watch</p>
+          <h2 id="radar-intro-title">China’s European moment</h2>
+        </div>
+        <p>Sharp prices are only half the story. These brands now bring serious range, charging speed and dealer backing. This edition tracks Chinese-founded marques with official UK or named-European-market evidence.</p>
+      </section>
+
+      <section class="radar-controls radar-js-only" aria-labelledby="radar-controls-title">
+        <div>
+          <p class="eyebrow">Browse the radar</p>
+          <h2 id="radar-controls-title">Choose what matters</h2>
+        </div>
+        <div class="radar-filters" role="group" aria-label="Filter new cars">
+          <button type="button" data-radar-filter="all" aria-pressed="true">All cars</button>
+          <button type="button" data-radar-filter="on-sale" aria-pressed="false">On sale now</button>
+          <button type="button" data-radar-filter="coming" aria-pressed="false">Coming soon</button>
+          <button type="button" data-radar-filter="under-30" aria-pressed="false">Under £30k</button>
+          <button type="button" data-radar-filter="ev" aria-pressed="false">Electric</button>
+          <button type="button" data-radar-filter="hybrid" aria-pressed="false">Hybrid &amp; plug-in</button>
+        </div>
+        <label class="radar-sort">
+          <span>Sort</span>
+          <select id="radar-sort" name="sort">
+            <option value="featured">Vroom order</option>
+            <option value="price">Lowest UK price</option>
+            <option value="brand">Brand A–Z</option>
+          </select>
+        </label>
+      </section>
+
+      <section id="radar-results" class="radar-results" aria-labelledby="radar-results-title" tabindex="-1">
+        <div class="radar-results__heading radar-js-only">
+          <div>
+            <p class="eyebrow">This edition</p>
+            <h2 id="radar-results-title"><span id="radar-result-count">—</span> cars on the radar</h2>
+          </div>
+          <p id="radar-as-of">Prices are loading…</p>
+        </div>
+
+        <p id="radar-announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div id="radar-state" class="radar-state radar-js-only" role="status" aria-live="polite">Checking the latest official prices…</div>
+        <div id="radar-grid" class="radar-grid radar-js-only" aria-busy="true"></div>
+
+        <noscript>
+          <p class="radar-state radar-state--error">JavaScript is needed to load the live new-car radar. The used-car finder still works at <a href="/vroom/">Vroom</a>.</p>
+        </noscript>
+      </section>
+
+      <aside class="radar-method" aria-labelledby="radar-method-title">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 id="radar-method-title">Price, market, proof.</h2>
+        </div>
+        <div class="radar-method__copy">
+          <p>These are new-car starting prices for the market named on each card—not used values and not a currency conversion.</p>
+          <p>Confirmed, incentive-led and price-to-be-confirmed entries are labelled separately. Every card shows its official source and last check.</p>
+        </div>
+        <a class="radar-cta" href="/vroom/">Find a used car <span aria-hidden="true">→</span></a>
+      </aside>
+    </main>
+
+    <footer class="radar-footer">
+      <p><strong>Vroom</strong> tracks the interesting cars, without the waffle.</p>
+      <a href="/vroom/">Used-car finder</a>
+      <a href="https://sam.toys">More Sam toys</a>
+    </footer>
+
+    <script type="module" src="/vroom/static/js/new-cars.mjs"></script>
+  </body>
+</html>

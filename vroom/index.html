@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/vroom/static/css/app.css">
     <link rel="preload" href="/vroom/data/cars.json" as="fetch" type="application/json" crossorigin>
     <link rel="preload" href="/vroom/data/meta.json" as="fetch" type="application/json" crossorigin>
-    <link rel="preload" href="/vroom/data/editorial.json" as="fetch" type="application/json" crossorigin>
   </head>
   <body>
     <a class="skip-link" href="#results">Skip to cars</a>
@@ -127,7 +126,7 @@
             <div class="filter-bar__quick" role="group" aria-label="Quick actions">
               <button class="filter-chip filter-chip--best" type="button" data-filter="best" data-value="88" aria-pressed="false">Best of Vroom</button>
               <button class="filter-chip" type="button" data-action="open-filters" aria-haspopup="dialog" aria-controls="filter-drawer">Filters <span class="filter-count" data-filter-count hidden>0</span></button>
-              <button class="filter-bar__link" type="button" data-action="scroll-editorial">New-car radar</button>
+              <a class="filter-bar__link" href="/vroom/new/">New &amp; exciting <span aria-hidden="true">&#8599;</span></a>
             </div>
           </div>
         </nav>
@@ -254,7 +253,6 @@
         </noscript>
       </section>
 
-      <section id="editorial-hub" class="editorial-hub" aria-label="New-car radar" tabindex="-1" hidden></section>
     </main>
 
     <footer class="site-footer">

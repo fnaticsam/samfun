@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { editorialMarkup, normalizeEditorialPayload } from '../../../vroom/static/js/editorial.mjs';
+import { normalizeEditorialPayload } from '../../../vroom/static/js/editorial.mjs';
 
 const payload = {
   schemaVersion: 1,
@@ -29,20 +29,24 @@ test('normalizes published editorial data plus price-label fallback', () => {
   assert.equal(normalized.collections[0].items[1].price.label, 'from €30,000');
 });
 
-test('renders both collections, preserves standalone source links and only gives known cars app actions', () => {
-  const markup = editorialMarkup(payload, { byId: new Map([['byd-seal-u', { id: 'byd-seal-u', make: 'BYD', model: 'Seal U' }]]) });
-  assert.match(markup, /New &amp; coming to Europe/);
-  assert.match(markup, /Chinese cars changing Europe/);
-  assert.match(markup, /data-editorial-view data-car-id="byd-seal-u"/);
-  assert.match(markup, /data-action="save" data-id="byd-seal-u"/);
-  assert.match(markup, /Manufacturer source/);
-  assert.doesNotMatch(markup, /data-action="save" data-id="standalone"/);
-  assert.match(markup, /data-editorial-explore="new-coming-europe"/);
+test('normalization retains dedicated-page fields and rejects insecure source URLs', () => {
+  const normalized = normalizeEditorialPayload({ collections: [{ title: 'Safe', items: [{
+    title: '<script>', origin: 'China', powertrain: 'EV', body: 'SUV', featured: true,
+    tags: ['China-Europe'], source: { label: 'Unsafe', url: 'javascript:alert(1)' },
+  }, {
+    title: 'Plain HTTP', source: { label: 'Insecure', url: 'http://example.test/car' },
+  }] }] });
+  assert.equal(normalized.collections[0].items[0].title, '<script>');
+  assert.equal(normalized.collections[0].items[0].origin, 'China');
+  assert.equal(normalized.collections[0].items[0].powertrain, 'ev');
+  assert.equal(normalized.collections[0].items[0].body, 'suv');
+  assert.equal(normalized.collections[0].items[0].featured, true);
+  assert.deepEqual(normalized.collections[0].items[0].tags, ['china-europe']);
+  assert.equal(normalized.collections[0].items[0].source.url, '');
+  assert.equal(normalized.collections[0].items[1].source.url, '');
 });
 
-test('empty or unsafe editorial data falls back without executable source URLs', () => {
-  assert.match(editorialMarkup({ collections: [] }), /Editorial updates are being prepared/);
-  const markup = editorialMarkup({ collections: [{ title: 'Safe', items: [{ title: '<script>', source: { url: 'javascript:alert(1)' } }] }] });
-  assert.match(markup, /&lt;script&gt;/);
-  assert.doesNotMatch(markup, /javascript:/);
+test('empty editorial payload normalizes to a safe empty collection list', () => {
+  assert.deepEqual(normalizeEditorialPayload(null).collections, []);
+  assert.deepEqual(normalizeEditorialPayload({ collections: [] }).collections, []);
 });

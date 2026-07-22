@@ -2,7 +2,6 @@ import { loadCatalogue } from './data.mjs';
 import { renderCardBatch, updateSavedButtons } from './cards.mjs';
 import { createCompareController, normalizeCompared, toggleCompared } from './compare.mjs';
 import { createDetailController } from './detail.mjs';
-import { createEditorialController } from './editorial.mjs';
 import { createFilterMenus, FILTER_MENU_GROUPS } from './filter-menus.mjs';
 import { carHash, compareHash, filtersToHash, parseHash, replaceHash } from './router.mjs';
 import {
@@ -341,37 +340,6 @@ async function start() {
     return true;
   }
 
-  const editorialRoot = element('editorial-hub');
-  const editorial = createEditorialController(editorialRoot, {
-    byId,
-    onView: (id, trigger) => {
-      pendingDetailTrigger = { id, trigger };
-      location.hash = carHash(id);
-    },
-    onExplore: collection => {
-      const requestedMakes = [...new Set(collection.items.map(item => {
-        const car = item.carId ? byId.get(item.carId) : null;
-        return car?.make || item.make;
-      }).filter(Boolean))];
-      const catalogueMakes = new Set(cars.map(car => car.make));
-      const makes = requestedMakes.filter(make => catalogueMakes.has(make));
-      if (!makes.length) {
-        toast('Those new brands are not in the used-car catalogue yet.');
-        return;
-      }
-      filters = createFilters({ makes, age: [0, 5], onSaleOnly: true, sort: 'newest' });
-      sliderBinding.destroy();
-      sliderBinding = bindSliderDeck(sliderDeck, filters, scheduleSliderRender);
-      render();
-      requestAnimationFrame(() => element('results')?.scrollIntoView({ block: 'start', behavior: preferredScrollBehavior() }));
-      toast(`Showing newer used ${makes.join(', ')} cars.${makes.length < requestedMakes.length ? ' The newest brands are source-only for now.' : ''}`);
-    },
-  });
-  void editorial?.load().then(() => {
-    for (const id of savedIds) updateSavedButtons(editorialRoot, id, true);
-    syncCompareUI();
-  });
-
   detail.onClose(() => {
     if (location.hash.startsWith('#c/')) replaceHash(filtersToHash(filters));
   });
@@ -511,13 +479,6 @@ async function start() {
 
     const action = event.target.closest?.('[data-action]')?.dataset.action;
     if (action === 'show-more' || action === 'load-more') appendNextPage();
-    if (action === 'scroll-editorial') {
-      if (editorialRoot?.hidden) toast('The new-car radar is still loading.');
-      else {
-        editorialRoot.scrollIntoView({ block: 'start', behavior: preferredScrollBehavior() });
-        editorialRoot.focus({ preventScroll: true });
-      }
-    }
     if (action === 'open-filters') { syncDrawer(); setDrawerOpen(drawer, true); }
     if (action === 'close-filters') setDrawerOpen(drawer, false);
     if (action === 'clear-search') {
