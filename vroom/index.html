@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
   <head>
     <meta charset="utf-8">
@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#F1EBE5">
     <link rel="icon" href="/vroom/favicon.svg" type="image/svg+xml">
     <meta name="description" content="Vroom is the slider-first UK car picker. Set your budget, age and pace, then find the cars worth knowing.">
-    <title>Vroom — Find your kind of car</title>
+    <title>Vroom — Find your Vroom</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&amp;family=Jost:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -28,15 +28,8 @@
       <div class="site-header__inner">
         <a class="wordmark" href="/vroom/" aria-label="Vroom home">
           <span>Vroom</span>
-          <small>Car picker</small>
+          <small>Find your Vroom</small>
         </a>
-
-        <form class="global-search" role="search" action="/vroom/" method="get">
-          <label class="sr-only" for="search-input">Search by make, model or vibe</label>
-          <span class="search-glyph" aria-hidden="true"></span>
-          <input id="search-input" name="search" type="search" inputmode="search" autocomplete="off" placeholder="Search make, model or vibe…">
-          <button class="search-clear" type="button" data-action="clear-search" aria-label="Clear search" hidden>Clear</button>
-        </form>
 
         <div class="header-actions">
           <button class="icon-button compare-header-button" type="button" data-action="open-compare" aria-label="Compare selected cars">
@@ -47,53 +40,105 @@
             <span aria-hidden="true">♥</span>
             <span class="saved-count" data-saved-count>0</span>
           </button>
-          <button class="poster-button poster-button--compact" type="button" data-action="open-filters" aria-haspopup="dialog" aria-controls="filter-drawer">
-            Filters <span class="filter-count" data-filter-count hidden>0</span>
-          </button>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="picker-hero" aria-labelledby="picker-title">
-        <div class="picker-hero__copy">
-          <p class="eyebrow">Britain's opinionated car picker</p>
-          <h1 id="picker-title">Find the car that<br><em>fits your life.</em></h1>
-          <p class="hero-deck">Move the sliders. We’ll surface the brilliant, the left-field and the same-vibes-for-less.</p>
-        </div>
+      <section class="finder-shell" aria-labelledby="picker-title">
+        <header class="finder-shell__intro">
+          <h1 id="picker-title">Find your <em>Vroom.</em></h1>
+        </header>
 
-        <div class="picker-stamp" aria-label="Independent grades across six categories">
-          <span>6 grades</span>
-          <strong>No waffle</strong>
-        </div>
-      </section>
+        <form class="global-search finder-search" role="search" action="/vroom/" method="get">
+          <label class="sr-only" for="search-input">Search by make, model or character</label>
+          <span class="search-glyph" aria-hidden="true"></span>
+          <input id="search-input" name="search" type="search" inputmode="search" autocomplete="off" placeholder="Search cars…">
+          <button class="search-clear" type="button" data-action="clear-search" aria-label="Clear search" hidden>Clear</button>
+          <button class="search-submit" type="submit" aria-label="Search cars"><span aria-hidden="true">→</span></button>
+        </form>
 
-      <nav id="chiprail" class="chiprail filter-bar" aria-label="Browse the catalogue">
-        <div class="filter-bar__inner">
-          <div class="filter-bar__intro">
-            <span class="eyebrow">Browse by</span>
-            <button class="filter-bar__reset" type="button" data-filter="all" data-value="all" aria-pressed="true">All cars</button>
+        <fieldset class="body-shape-picker" aria-describedby="body-shape-help">
+          <legend>Body shape</legend>
+          <button class="body-shape-picker__clear" type="button" data-action="clear-bodies">Any body</button>
+          <p id="body-shape-help" class="sr-only">Choose one or more. Cars may match any selected body shape.</p>
+          <ul class="body-shape-picker__list">
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="hatch" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M12 31h9l5-11 24-9h25l24 11h7l4 9H12Z"/><circle cx="34" cy="31" r="7"/><circle cx="88" cy="31" r="7"/></svg>
+                <span>Hatchback</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="saloon" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M10 31h10l5-8 17-3 10-10h25l13 11 16 3 4 7H10Z"/><circle cx="34" cy="31" r="7"/><circle cx="89" cy="31" r="7"/></svg>
+                <span>Saloon</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="estate" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M10 31h10l7-13 18-8h43l16 12 6 9H10Z"/><circle cx="34" cy="31" r="7"/><circle cx="91" cy="31" r="7"/></svg>
+                <span>Estate</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="suv" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M9 31h11l5-17 49-5 27 9 9 13H9Z"/><circle cx="34" cy="31" r="8"/><circle cx="91" cy="31" r="8"/></svg>
+                <span>SUV</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="coupe" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M10 31h11l7-8 19-3 12-10h18l21 14 8 2 4 5H10Z"/><circle cx="34" cy="31" r="7"/><circle cx="89" cy="31" r="7"/></svg>
+                <span>Coupé</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="convertible" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M10 31h11l7-8 23-3 8-8m12 9 26 3 9 2 4 5H10Z"/><circle cx="34" cy="31" r="7"/><circle cx="89" cy="31" r="7"/></svg>
+                <span>Convertible</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="mpv" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M9 31h11l6-17L43 7l46 3 15 11 6 10H9Z"/><circle cx="34" cy="31" r="7"/><circle cx="91" cy="31" r="7"/></svg>
+                <span>MPV</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="van" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M9 31h11l5-21h57l22 11 6 10H9ZM83 11v13h20"/><circle cx="34" cy="31" r="7"/><circle cx="91" cy="31" r="7"/></svg>
+                <span>Van</span>
+              </button>
+            </li>
+            <li>
+              <button class="body-shape-option" type="button" data-filter="body" data-value="pickup" aria-pressed="false">
+                <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="M9 31h11l6-17h31l12 10h38l3 7H9Zm62-7h34"/><circle cx="34" cy="31" r="7"/><circle cx="91" cy="31" r="7"/></svg>
+                <span>Pick-up</span>
+              </button>
+            </li>
+          </ul>
+        </fieldset>
+
+        <nav id="chiprail" class="chiprail filter-bar" aria-label="Refine the catalogue">
+          <div class="filter-bar__inner">
+            <span class="filter-bar__label">Choose fuel and character</span>
+            <div id="filter-menu-root" class="filter-menu-root"></div>
+            <div class="filter-bar__quick" role="group" aria-label="Quick actions">
+              <button class="filter-chip filter-chip--best" type="button" data-filter="best" data-value="88" aria-pressed="false">Best of Vroom</button>
+              <button class="filter-chip" type="button" data-action="open-filters" aria-haspopup="dialog" aria-controls="filter-drawer">Filters <span class="filter-count" data-filter-count hidden>0</span></button>
+              <button class="filter-bar__link" type="button" data-action="scroll-editorial">New-car radar</button>
+            </div>
           </div>
-          <div id="filter-menu-root" class="filter-menu-root"></div>
-          <div class="filter-bar__quick" aria-label="Quick picks">
-            <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="drivers-car" aria-pressed="false">Driver’s cars</button>
-            <button class="filter-chip filter-chip--vibe" type="button" data-filter="tag" data-value="family-hero" aria-pressed="false">Family cars</button>
-            <button class="filter-chip filter-chip--best" type="button" data-filter="best" data-value="88" aria-pressed="false">Best of Vroom</button>
-            <button class="filter-chip" type="button" data-action="scroll-editorial">New-car radar</button>
-          </div>
-        </div>
-      </nav>
+        </nav>
 
-      <section id="slider-deck" class="slider-deck" aria-labelledby="slider-deck-title">
-        <div class="slider-deck__heading">
-          <div>
-            <p class="eyebrow">Your shortlist starts here</p>
-            <h2 id="slider-deck-title">Dial in the brief</h2>
+        <section id="slider-deck" class="slider-deck" aria-labelledby="slider-deck-title">
+          <div class="slider-deck__heading">
+            <h2 id="slider-deck-title">Refine</h2>
+            <button class="text-button" type="button" data-action="reset-filters">Reset all</button>
           </div>
-          <button class="text-button" type="button" data-action="reset-filters">Reset all</button>
-        </div>
 
-        <div class="slider-deck__grid">
+          <div class="slider-deck__grid">
           <fieldset class="slider-card slider-card--budget" data-range="budget">
             <legend>Budget</legend>
             <div class="slider-card__value">
@@ -152,15 +197,14 @@
           </fieldset>
         </div>
       </section>
+      </section>
 
       <section id="results" class="results-section" aria-labelledby="results-title" tabindex="-1">
         <div class="results-toolbar">
           <div>
-            <p class="eyebrow">The running order</p>
-            <h2 id="results-title" aria-live="polite"><span id="result-count">371</span><span id="result-noun"> cars worth a look</span></h2>
+            <h2 id="results-title" aria-live="polite"><span id="result-count">371</span><span id="result-noun"> matches</span></h2>
           </div>
           <div class="results-toolbar__controls">
-            <button class="poster-button" type="button" data-action="open-filters" aria-haspopup="dialog" aria-controls="filter-drawer">More filters</button>
             <label class="select-wrap" for="sort-select">
               <span>Sort</span>
               <select id="sort-select" name="sort" aria-label="Sort cars">
@@ -251,6 +295,7 @@
               <label><input type="checkbox" name="body" value="coupe"><span>Coupé</span></label>
               <label><input type="checkbox" name="body" value="convertible"><span>Convertible</span></label>
               <label><input type="checkbox" name="body" value="mpv"><span>MPV</span></label>
+              <label><input type="checkbox" name="body" value="van"><span>Van</span></label>
               <label><input type="checkbox" name="body" value="pickup"><span>Pick-up</span></label>
             </div>
           </fieldset>

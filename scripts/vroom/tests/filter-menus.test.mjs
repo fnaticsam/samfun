@@ -12,7 +12,7 @@ test('filter-menu definitions use stable state and URL vocabulary', () => {
   assert.equal(filterMenuGroup('fuels').id, 'fuel');
   assert.equal(filterMenuGroup('unknown'), null);
   assert.deepEqual(FILTER_MENU_GROUPS[0].options.map(option => option.value), [
-    'hatch', 'suv', 'estate', 'saloon', 'coupe', 'convertible', 'mpv', 'pickup',
+    'hatch', 'saloon', 'estate', 'suv', 'coupe', 'convertible', 'mpv', 'van', 'pickup',
   ]);
 });
 

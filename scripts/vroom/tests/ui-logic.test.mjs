@@ -112,6 +112,23 @@ test('multi-select filters are OR within a group and AND between groups', () => 
   assert.notEqual(toggled, passes);
 });
 
+test('body-shape toggles preserve other filters and round-trip through share hashes', () => {
+  const initial = createFilters({ fuels: ['ev'], budget: [15000, 40000], age: [0, 5] });
+  const withSuv = toggleFilterValue(initial, 'bodies', 'suv');
+  const withTwoBodies = toggleFilterValue(withSuv, 'bodies', 'estate');
+
+  assert.deepEqual(withTwoBodies.bodies, ['suv', 'estate']);
+  assert.deepEqual(withTwoBodies.fuels, ['ev']);
+  assert.deepEqual(withTwoBodies.budget, [15000, 40000]);
+  assert.deepEqual(withTwoBodies.age, [0, 5]);
+  assert.deepEqual(hashToFilters(filtersToHash(withTwoBodies)), withTwoBodies);
+
+  const cleared = createFilters({ ...withTwoBodies, bodies: [] });
+  assert.deepEqual(cleared.bodies, []);
+  assert.deepEqual(cleared.fuels, ['ev']);
+  assert.equal(filtersToHash(cleared).includes('b='), false);
+});
+
 test('filter creation tolerates malformed persisted collections', () => {
   const filters = createFilters({ bodies: 1, fuels: null, budget: 7, age: 'old', mileage: {} });
   assert.deepEqual(filters.bodies, []);

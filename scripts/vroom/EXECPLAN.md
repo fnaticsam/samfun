@@ -79,6 +79,7 @@ Vroom becomes a fast, slider-first UK car picker: choose budget, age, pace and e
 - [x] 2026-07-22 Q1/Q2: repaired body/seat/powertrain/identity/halo issues, removed non-generation rows, separated SsangYong/KGM identity, diversified grading, added responsive Commons imagery and legally useful attribution, bounded paging, coalesced filters and hardened persisted state.
 - [x] 2026-07-22 Polish: completed three visual/product rounds; mobile skip/focus/compare flows, desktop first-result visibility, contrast, card/detail hierarchy and empty/error recovery were iterated through browser review.
 - [x] 2026-07-22 Automotive refresh: replaced the beige/pink poster layer with warm stone-grey, charcoal and burnt orange; added rounded components and compact hover/focus/click Body, Fuel and Character menus.
+- [x] 2026-07-22 Unified finder: merged the hero, search, primary filters and slider deck into one responsive configurator; replaced the Body menu with nine accessible side-profile silhouette toggles and verified state/hash/drawer sync across desktop, tablet and mobile.
 - [x] 2026-07-22 New-car radar: added an optional, separately sourced editorial dataset for current and incoming cars in Europe, including OMODA, JAECOO, Leapmotor, XPENG, Zeekr and BYD; new prices remain independent of used-car hashes.
 - [x] 2026-07-22 Integrated verification and release: 30/30 Vroom tests, shipping validator, independent data/accessibility/performance/visual review, preview deployment, production deployment, and public desktop/mobile browser checks passed.
 

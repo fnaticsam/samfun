@@ -3,7 +3,7 @@ import { renderCardBatch, updateSavedButtons } from './cards.mjs';
 import { createCompareController, normalizeCompared, toggleCompared } from './compare.mjs';
 import { createDetailController } from './detail.mjs';
 import { createEditorialController } from './editorial.mjs';
-import { createFilterMenus } from './filter-menus.mjs';
+import { createFilterMenus, FILTER_MENU_GROUPS } from './filter-menus.mjs';
 import { carHash, compareHash, filtersToHash, parseHash, replaceHash } from './router.mjs';
 import {
   createFilters, DEFAULT_FILTERS, determineEfficiencyMode, filterCars, toggleFilterValue,
@@ -136,6 +136,7 @@ async function start() {
 
   filterMenus = createFilterMenus(element('filter-menu-root'), {
     filters,
+    groups: FILTER_MENU_GROUPS.filter(group => group.id !== 'body'),
     onChange: ({ stateKey, patch }) => {
       const oldEfficiencyMode = determineEfficiencyMode(filters);
       Object.assign(filters, patch);
@@ -266,7 +267,7 @@ async function start() {
       }
     }
     if (resultCount) resultCount.textContent = visibleCars.length.toLocaleString('en-GB');
-    if (resultNoun) resultNoun.textContent = visibleCars.length === 1 ? ' car worth a look' : ' cars worth a look';
+    if (resultNoun) resultNoun.textContent = visibleCars.length === 1 ? ' match' : ' matches';
     if (search && search.value !== filters.query) search.value = filters.query;
     if (sort && sort.value !== filters.sort) sort.value = filters.sort;
     setButtonStates();
@@ -522,6 +523,10 @@ async function start() {
     if (action === 'clear-search') {
       filters.query = '';
       if (search) search.value = '';
+      render();
+    }
+    if (action === 'clear-bodies') {
+      filters.bodies = [];
       render();
     }
     if (action === 'show-saved') {
