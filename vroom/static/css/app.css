@@ -483,7 +483,7 @@ main {
   transform: scale(0.96);
 }
 
-/* Blue focus gets lost on the forest rail; butter is deliberately poster-bright. */
+/* The focus ring stays deliberately brighter than the warm-charcoal rail. */
 .filter-chip:focus-visible {
   outline-color: var(--butter);
   outline-offset: 3px;
@@ -2991,7 +2991,7 @@ body:has(.compare-tray:not([hidden])) .toast-region {
 
 /* --------------------------------------------------------------------------
    Vroom editorial refresh
-   Component aliases keep this layer ready for the neutral/deep-blue token
+   Component aliases keep this layer ready for the warm-stone/burnt-orange token
    refresh without changing the shared token source.                               */
 :root {
   --vroom-canvas: var(--paper);

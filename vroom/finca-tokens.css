@@ -6,38 +6,38 @@
    ============================================================ */
 
 :root {
-  /* Cool white, grey, and charcoal — tuned for quiet, modern surfaces. */
-  --paper: #F4F6F8;
-  --paper-deep: #E6EBF0;
-  --bone: #FBFCFD;
-  --linen: #D8E0E8;
-  --rule: #27313C;
-  --rule-soft: #C5CFD9;
+  /* Warm stone-grey surfaces with a restrained orange undertone. */
+  --paper: #F1EBE5;
+  --paper-deep: #E5DAD1;
+  --bone: #FFFCF9;
+  --linen: #D5C7BC;
+  --rule: #332B27;
+  --rule-soft: #CBBDB2;
 
   /* Ink */
-  --ink: #171E27;
-  --ink-soft: #53606E;
+  --ink: #211B18;
+  --ink-soft: #635A54;
   /* Reserved for supporting copy; still clears WCAG AA on the light surfaces. */
-  --ink-faint: #596674;
+  --ink-faint: #6A605A;
 
-  /* Legacy forest aliases now provide the charcoal navigation range. */
-  --forest: #27313C;
-  --forest-deep: #18212B;
-  --forest-mid: #3A4654;
+  /* Legacy forest aliases now provide the warm-charcoal navigation range. */
+  --forest: #332B27;
+  --forest-deep: #211B18;
+  --forest-mid: #514740;
 
-  /* Legacy magenta aliases retained for compatibility; Vroom's accent is blue. */
-  --magenta: #4B8FD8;
-  --magenta-deep: #0053A6;
+  /* Legacy magenta aliases retained for compatibility; Vroom's accent is orange. */
+  --magenta: #C6531C;
+  --magenta-deep: #9E3C0A;
 
   /* Supporting accents */
-  --butter: #D9E5F2;
-  --butter-deep: #AFC5DC;
-  --clay: #657789;
-  --clay-deep: #405161;
-  --clay-light: #A7B8C8;
-  --blue: #2877C8;
-  --blue-deep: #0053A6;
-  --blue-wash: #DCEBFA;
+  --butter: #F3D7C4;
+  --butter-deep: #E4B08D;
+  --clay: #8B7568;
+  --clay-deep: #624D42;
+  --clay-light: #C4AA99;
+  --blue: #C6531C;
+  --blue-deep: #9E3C0A;
+  --blue-wash: #F4DAC8;
 
   /* Typography */
   --font-display: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
@@ -96,14 +96,14 @@
   --bd-ink-thick: 1px solid var(--ink);
 
   /* Soft elevation replaces the former poster-offset shadows. */
-  --shadow-poster: 0 18px 40px -26px rgba(23, 30, 39, 0.30),
-    0 4px 12px -8px rgba(23, 30, 39, 0.14);
-  --shadow-card: 0 12px 28px -22px rgba(23, 30, 39, 0.24),
-    0 2px 6px -4px rgba(23, 30, 39, 0.12);
-  --shadow-polaroid: 0 18px 36px -22px rgba(23, 30, 39, 0.30),
-    0 4px 10px -6px rgba(23, 30, 39, 0.14);
-  --shadow-float: 0 28px 56px -28px rgba(23, 30, 39, 0.34),
-    0 8px 18px -12px rgba(23, 30, 39, 0.16);
+  --shadow-poster: 0 18px 40px -26px rgba(33, 27, 24, 0.30),
+    0 4px 12px -8px rgba(33, 27, 24, 0.14);
+  --shadow-card: 0 12px 28px -22px rgba(33, 27, 24, 0.24),
+    0 2px 6px -4px rgba(33, 27, 24, 0.12);
+  --shadow-polaroid: 0 18px 36px -22px rgba(33, 27, 24, 0.30),
+    0 4px 10px -6px rgba(33, 27, 24, 0.14);
+  --shadow-float: 0 28px 56px -28px rgba(33, 27, 24, 0.34),
+    0 8px 18px -12px rgba(33, 27, 24, 0.16);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 0.9, 0.32, 1);
