@@ -3685,21 +3685,26 @@ dialog.sheet::backdrop { background: rgba(20, 27, 39, 0.54); backdrop-filter: bl
   transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast), transform var(--t-fast) var(--ease-out);
 }
 
-.body-shape-option svg {
+.body-shape-option__art {
+  position: relative;
   display: block;
   width: min(100%, 90px);
-  height: 36px;
-  overflow: visible;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  height: 42px;
+  overflow: hidden;
   pointer-events: none;
 }
 
-.body-shape-option svg * {
-  vector-effect: non-scaling-stroke;
+.body-shape-option__art img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 111.111%;
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
 }
 
 .body-shape-option:hover {
