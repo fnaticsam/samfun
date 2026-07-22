@@ -76,11 +76,25 @@ a { color: inherit; }
 }
 
 .radar-wordmark {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
   font-family: var(--font-display);
   font-size: 2.1rem;
   font-weight: 600;
   line-height: 1;
   text-decoration: none;
+}
+
+.radar-wordmark__logo {
+  display: block;
+  width: auto;
+  height: 30px;
+  overflow: visible;
+}
+
+.radar-wordmark__logo .logo-accent {
+  stroke: var(--magenta-deep);
 }
 
 .radar-nav {
@@ -560,7 +574,7 @@ a { color: inherit; }
 .radar-card__silhouette {
   display: block;
   width: 112px;
-  height: 42px;
+  height: 45px;
   margin: 0 0 var(--sp-3) auto;
   overflow: visible;
   fill: none;

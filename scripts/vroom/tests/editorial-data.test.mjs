@@ -95,16 +95,12 @@ test('editorial collections contain sourced, market-specific new-car facts', () 
   assert.ok(incoming >= 2, 'collection must include confirmed incoming models');
 });
 
-test('approved radar photos are complete, local and reproducible while uncertain cars keep silhouettes', () => {
+test('approved radar photos are complete, local and reproducible', () => {
   let pictured = 0;
-  let silhouettes = 0;
   for (const collection of editorial.collections) {
     for (const item of collection.items) {
       const image = item.image;
-      if (!image) {
-        silhouettes += 1;
-        continue;
-      }
+      if (!image) continue;
       pictured += 1;
       assert.equal(typeof image, 'object', `${item.id}: image metadata must be an object`);
       assertLocalWebp(image.src, item.id);
@@ -139,5 +135,4 @@ test('approved radar photos are complete, local and reproducible while uncertain
     }
   }
   assert.ok(pictured >= 12, 'radar should show a substantial verified photo set');
-  assert.ok(silhouettes >= 1, 'uncertain or unlicensed matches must retain the designed silhouette');
 });

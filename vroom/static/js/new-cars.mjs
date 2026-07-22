@@ -35,13 +35,16 @@ function bodyLabel(value) {
 
 function silhouetteMarkup(body) {
   const paths = {
-    hatchback: 'M10 31h11l5-11 24-9h25l24 11h7l4 9H10Z',
-    estate: 'M10 31h10l7-13 18-8h43l16 12 6 9H10Z',
-    mpv: 'M9 31h11l6-17L43 7l46 3 15 11 6 10H9Z',
-    suv: 'M9 31h11l5-17 49-5 27 9 9 13H9Z',
+    hatchback: 'M21.5 29.5 20.8 25.2Q20.6 23.6 21.6 22.6L23 15.2 20.8 13.2 26.6 10.9Q39.4 8.7 51 9.4 55.4 9.6 57.4 11.8L70.4 17.6 94.6 19.3Q102.5 20.3 102.5 25.2V29.5H102.5a12.8 12.8 0 0 0-23 0H44.5a12.8 12.8 0 0 0-23 0Z',
+    estate: 'M11 29.5V13.6Q11 11 13.6 10.8L55 9.4Q58 9.3 60 11L74 17.2 96.5 19.2Q102.5 20.1 102.5 25.2V29.5H102.5a12.8 12.8 0 0 0-23 0H44.5a12.8 12.8 0 0 0-23 0H11Z',
+    mpv: 'M12 29.5V12.6Q12 10.2 14.4 10L54 8.3Q58.4 8.1 61.6 10.1L79 16.9 96.6 18.7Q102.5 19.6 102.5 24.8V29.5H102.5a12.8 12.8 0 0 0-23 0H44.5a12.8 12.8 0 0 0-23 0H12Z',
+    suv: 'M12 28V11.4Q12 8.8 14.6 8.6L58.5 6.8Q61 6.7 62.9 8.3L77 15.2 97 17.6Q102.5 18.5 102.5 23.4V28H102.5a12.8 12.8 0 0 0-23 0H44.5a12.8 12.8 0 0 0-23 0H12Z',
   };
-  const path = paths[body] || 'M10 31h10l5-8 17-3 10-10h25l13 11 16 3 4 7H10Z';
-  return `<svg class="radar-card__silhouette" viewBox="0 0 120 44" aria-hidden="true" focusable="false"><path d="${path}"/><circle cx="34" cy="31" r="7"/><circle cx="91" cy="31" r="7"/></svg>`;
+  const path = paths[body]
+    || 'M10.6 29.5V22.6Q10.6 21 11.6 19.9L13 18.3 30 16 40 11.2Q42 10.3 44.2 10.3L58 10.3Q60.4 10.3 62.2 11.7L74 17.4 96 19Q102.5 19.9 102.5 25V29.5H102.5a12.8 12.8 0 0 0-23 0H44.5a12.8 12.8 0 0 0-23 0H10.6Z';
+  const wheelY = body === 'suv' ? 33 : 33.5;
+  const wheelR = body === 'suv' ? 10 : 9.5;
+  return `<svg class="radar-card__silhouette" viewBox="0 0 120 48" aria-hidden="true" focusable="false"><path d="${path}"/><circle cx="33" cy="${wheelY}" r="${wheelR}"/><circle cx="33" cy="${wheelY}" r="3.5"/><circle cx="91" cy="${wheelY}" r="${wheelR}"/><circle cx="91" cy="${wheelY}" r="3.5"/></svg>`;
 }
 
 function radarPhotoMarkup(item) {
