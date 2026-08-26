@@ -11,6 +11,9 @@
     },
     "api/tracks-ocr.js": {
       "maxDuration": 60
+    },
+    "api/londonplan.js": {
+      "maxDuration": 10
     }
   },
   "crons": [
@@ -24,5 +27,9 @@
     { "source": "/phone/:path*", "destination": "https://phone-nine-theta.vercel.app/:path*", "permanent": false },
     { "source": "/vroom", "destination": "https://vroom.fan/", "permanent": true },
     { "source": "/vroom/:path(.*)", "destination": "https://vroom.fan/:path", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/londonplan", "destination": "/api/londonplan" },
+    { "source": "/londonplan/", "destination": "/api/londonplan" }
   ]
 }
