@@ -85,3 +85,32 @@ git diff --name-only main..HEAD | grep -E 'dev\.html|\.env|CLAUDE\.md'; echo "(n
 ## Who to report to and how
 
 Push `agent/claude/askdev-ship`, open the DRAFT PR to `main`, append `STATUS` here and commit + push it. Sam merges and deploys from the Mac. If blocked, write the blocker into STATUS and stop.
+
+## ADDENDUM (added by the Mac after handoff)
+
+The Mac-side independent review finished after this file was written. Its confirmed findings are in REVIEW-FINDINGS-askdev.md in this worktree: two MAJOR defects in readBody() in api/dev-ask.js (a hang on pre-parsed scalar bodies, and an unguarded req.body lazy getter that throws on Vercel) plus one minor header-guard issue. Fix all three with tests before opening the PR and mention them in STATUS. Do not commit REVIEW-FINDINGS-askdev.md.
+
+## STATUS (box session, 2026-09-04)
+
+**Done.** Draft PR open: https://github.com/fnaticsam/samfun/pull/4 (`agent/claude/askdev-ship` → `main`). Nothing deployed, nothing merged, `main` untouched.
+
+What I did:
+
+1. Sanity block passed as handed over (46/46, 50/50, secret-scan CLEAN, 27 sections).
+2. Review pass (independent of the Mac's, which landed in this worktree as `REVIEW-FINDINGS-askdev.md` while I was mid-fix; its two MAJORs were the same two I had found). Fixed, each with tests in `tests/dev-page/ask.test.js`:
+   - `api/dev-ask.js` `readBody()`: Vercel's lazy `req.body` getter throwing on invalid JSON is now caught → 400 JSON with private headers (was an escaped throw → 500). Pre-parsed scalars (`42`, `true`, `null`) and a consumed stream with nothing pre-parsed now answer 400 (was a hang to maxDuration). Pre-parsed objects/strings/buffers, `{}` (empty JSON body), arrays, oversize (413) and circular objects all covered.
+   - `api/_lib/dev-session.js` `clientIp()`: guarded `req.headers` (the Mac's MINOR) → header-less request is 401, no throw. `api/dev.js` unchanged; gate.test.js still 46/46.
+   - `parseSections` id regex no longer matches `data-id="…"`.
+   - Test harness: a rejecting or stalling handler now reports FAIL instead of crashing / silently exiting. Verified the new checks fail against the pre-fix handler (54/61) and pass after (63/63).
+   - Confirmed with no change needed: `/dev/ask` auth (cookie or `x-real-ip` only; `x-forwarded-for` ignored; GET/HEAD/OPTIONS → 405), key only in the `x-goog-api-key` header and never in responses/logs, all five headers on every response, cost caps as specified, client escaping order (HTML-escape → backticks → `<br>`) and fragment-only section hrefs.
+3. Client polish, all in the second `<script>` of `api/_lib/dev.html` plus one markup move: (a) stop-word list + whole-word matching (with a light `s/es/ed/ing/er/ers` suffix allowance so "session" finds "sessions" and "reconnect" finds "reconnecting") for scoring and `<mark>`; (b) `#ask-answer` moved above `#ask-results`; (c) `<h3>` excluded from the indexed body text. Escaping untouched.
+4. Browser re-check in headless Chromium via `ASK_STUB=1 node tests/dev-page/local-serve.js`: query "how do I reconnect to a claude session on the box" → "The tmux helpers" is the sole/first hit, marks are whole words only (`box`, `sessions`), snippet no longer starts with the title; Enter → answer renders above the hits with two "In the guide" links; a mocked hostile answer (`<script>`, backtick spans with `<`/`&`, crafted ids/titles) produced no injected elements and fragment-only hrefs; stop-words-only query shows no hits; `/` focuses and selects; Escape clears both panels.
+
+Test counts on the final tree: gate 46/46 · ask 63/63 · secret-scan CLEAN.
+
+**The edited page body must be copied back to the Mac before deploying:**
+`/home/sam/worktrees/samfun/claude/askdev-ship/api/_lib/dev.html` (git-ignored, 75 335 bytes, 27 sections). `REVIEW-FINDINGS-askdev.md` is left untracked in the same worktree, not committed.
+
+Left open (Sam's call, not changed):
+- `tests/dev-page/secret-scan.sh` (already public in `1eba8b5`) embeds scan patterns that are themselves identifiers: a username/home path, an email domain, two IPv4 prefixes, a hostname fragment and env-file names. Consider moving those to a git-ignored local pattern file; a history rewrite would be needed to truly remove them.
+- The `ask` endpoint answers 401 (not 503) when `DEV_PASSWORD` is unset; the page gate answers 503. Deliberate fail-closed either way; noted for consistency only.
