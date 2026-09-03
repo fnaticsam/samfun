@@ -17,6 +17,9 @@
     },
     "api/dev.js": {
       "maxDuration": 10
+    },
+    "api/dev-ask.js": {
+      "maxDuration": 30
     }
   },
   "crons": [
@@ -35,6 +38,7 @@
     { "source": "/londonplan", "destination": "/api/londonplan" },
     { "source": "/londonplan/", "destination": "/api/londonplan" },
     { "source": "/dev", "destination": "/api/dev" },
-    { "source": "/dev/", "destination": "/api/dev" }
+    { "source": "/dev/", "destination": "/api/dev" },
+    { "source": "/dev/ask", "destination": "/api/dev-ask" }
   ]
 }
