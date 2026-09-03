@@ -14,6 +14,9 @@
     },
     "api/londonplan.js": {
       "maxDuration": 10
+    },
+    "api/dev.js": {
+      "maxDuration": 10
     }
   },
   "crons": [
@@ -30,6 +33,8 @@
   ],
   "rewrites": [
     { "source": "/londonplan", "destination": "/api/londonplan" },
-    { "source": "/londonplan/", "destination": "/api/londonplan" }
+    { "source": "/londonplan/", "destination": "/api/londonplan" },
+    { "source": "/dev", "destination": "/api/dev" },
+    { "source": "/dev/", "destination": "/api/dev" }
   ]
 }
