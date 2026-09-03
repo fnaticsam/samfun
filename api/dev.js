@@ -17,7 +17,7 @@ try {
   HTML = null;
 }
 
-const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days, enforced server-side
+const SESSION_TTL_MS = 365 * 24 * 60 * 60 * 1000; // one year: a device logs in once, enforced server-side
 const CLOCK_SKEW_MS = 60 * 1000;
 const COOKIE = "dev_session";
 const COOKIE_ATTRS = "Path=/dev; HttpOnly; Secure; SameSite=Lax";
@@ -79,6 +79,23 @@ function cookieValue(header, name) {
   const prefix = `${name}=`;
   const cookie = header.split(";").map((part) => part.trim()).find((part) => part.startsWith(prefix));
   return cookie ? cookie.slice(prefix.length) : null;
+}
+// Requests from an allow-listed public address (DEV_TRUSTED_IPS, comma- or
+// space-separated) are admitted without a password and given the normal
+// session cookie, so the device keeps working elsewhere. Vercel sets x-real-ip
+// from the connection itself, so a client cannot spoof it; when the header is
+// absent nothing is trusted.
+function trustedIps() {
+  return (process.env.DEV_TRUSTED_IPS || "").split(/[\s,]+/).map((s) => s.trim()).filter(Boolean);
+}
+function clientIp(req) {
+  const real = req.headers["x-real-ip"];
+  return typeof real === "string" && real.trim() ? real.trim() : null;
+}
+function fromTrustedIp(req) {
+  const ip = clientIp(req);
+  if (!ip) return false;
+  return trustedIps().some((allowed) => matches(ip, allowed));
 }
 function privateHeaders(res) {
   res.setHeader("Cache-Control", "no-store");
@@ -160,11 +177,14 @@ module.exports = (req, res) => {
   }
   if (req.method === "POST") return handlePost(req, res, SECRET);
 
-  if (!tokenIsValid(SECRET, cookieValue(req.headers.cookie, COOKIE))) return sendLogin(req, res, false);
+  const hasSession = tokenIsValid(SECRET, cookieValue(req.headers.cookie, COOKIE));
+  const trusted = !hasSession && fromTrustedIp(req);
+  if (!hasSession && !trusted) return sendLogin(req, res, false);
   if (HTML === null) return sendText(req, res, 503, "Page body not deployed.");
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   privateHeaders(res);
   res.setHeader("Cache-Control", "private, no-store, max-age=0");
+  if (trusted) res.setHeader("Set-Cookie", `${COOKIE}=${issueToken(SECRET)}; Max-Age=${SESSION_TTL_MS / 1000}; ${COOKIE_ATTRS}`);
   return res.end(req.method === "HEAD" ? "" : HTML);
 };
