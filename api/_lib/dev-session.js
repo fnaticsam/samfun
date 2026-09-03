@@ -59,7 +59,7 @@ function trustedIps() {
   return (process.env.DEV_TRUSTED_IPS || "").split(/[\s,]+/).map((s) => s.trim()).filter(Boolean);
 }
 function clientIp(req) {
-  const real = req.headers["x-real-ip"];
+  const real = req && req.headers ? req.headers["x-real-ip"] : null;
   return typeof real === "string" && real.trim() ? real.trim() : null;
 }
 function fromTrustedIp(req) {

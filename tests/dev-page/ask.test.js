@@ -26,11 +26,25 @@ const handler = require(path.join(REPO, "api", "dev-ask.js"));
 const { sign } = require(path.join(REPO, "api", "_lib", "dev-session.js"));
 
 // ---- mocks ----------------------------------------------------------------
-function makeReq({ method = "POST", url = "/dev/ask", headers = {}, body = null }) {
+// `pre` models Vercel's Node helper: the stream is already consumed before the
+// handler runs (no "data"/"end" events; req.complete === true) and `req.body`
+// is a lazy getter that holds the parsed value, or throws on invalid JSON.
+const NO_PRE = Symbol("no pre-parsed body");
+function makeReq({ method = "POST", url = "/dev/ask", headers = {}, body = null, pre = NO_PRE, preThrows = false, consumed = false }) {
   const req = new EventEmitter();
   req.method = method;
   req.url = url;
   req.headers = headers;
+  if (preThrows) {
+    req.complete = true;
+    Object.defineProperty(req, "body", { get() { throw new Error("Invalid JSON"); } });
+    return req;
+  }
+  if (pre !== NO_PRE || consumed) {
+    req.complete = true;
+    if (pre !== NO_PRE) req.body = pre;
+    return req;
+  }
   process.nextTick(() => {
     if (body !== null) req.emit("data", Buffer.from(body));
     req.emit("end");
@@ -47,8 +61,15 @@ function makeRes() {
 const RESPONSES = [];
 async function call(opts) {
   const res = makeRes();
-  await handler(makeReq(opts), res);
-  const out = await res.done;
+  const stalled = new Promise((r) => setTimeout(() => r(null), 3000));
+  // A handler that rejects (= a 500 with a stack trace on Vercel) or stalls is
+  // reported as a failed check, never as a crash of the suite.
+  const ran = handler(makeReq(opts), res).then(
+    () => res.done,
+    (e) => ({ statusCode: 500, headers: res.headers, body: "", json: null, threw: String(e && e.message) }),
+  );
+  const out = await Promise.race([ran, stalled]);
+  if (!out) return { statusCode: 0, headers: res.headers, body: "", json: null, stalled: true };
   RESPONSES.push(out);
   try { out.json = JSON.parse(out.body); } catch { out.json = null; }
   return out;
@@ -122,6 +143,13 @@ const check = (name, cond) => { results.push([name, !!cond]); if (!cond) process
   check("spoofed x-forwarded-for with untrusted x-real-ip -> 401", r.statusCode === 401);
   delete process.env.DEV_TRUSTED_IPS;
 
+  r = await call({ headers: undefined, body: ASK });
+  check("request with no headers object -> 401, no throw", r.statusCode === 401 && r.json && r.json.error === "unauthorized");
+  process.env.DEV_TRUSTED_IPS = "203.0.113.5";
+  r = await call({ headers: undefined, body: ASK });
+  check("no headers object with a trusted-IP list -> 401, no throw", r.statusCode === 401 && r.json && r.json.error === "unauthorized");
+  delete process.env.DEV_TRUSTED_IPS;
+
   const savedPass = process.env.DEV_PASSWORD;
   delete process.env.DEV_PASSWORD;
   r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, body: ASK });
@@ -155,6 +183,32 @@ const check = (name, cond) => { results.push([name, !!cond]); if (!cond) process
 
   r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, body: jsonBody({ q: "x".repeat(5000) }) });
   check("body > 4096 bytes -> 413", r.statusCode === 413 && r.json.error === "payload_too_large");
+
+  // 2b. pre-parsed bodies (Vercel consumed the stream before the handler ran)
+  FETCH_IMPL = () => geminiJson({ answer: "ok", sections: [], fromGuide: true });
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: { q: "How do I connect to the dev box?" } });
+  check("pre-parsed object with q -> 200", r.statusCode === 200 && r.json && r.json.answer === "ok");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: "{\"q\":\"How do I connect to the dev box?\"}" });
+  check("pre-parsed raw string -> 200", r.statusCode === 200);
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: 42 });
+  check("pre-parsed JSON number -> 400, does not hang", r.statusCode === 400 && r.json && r.json.error === "bad_request");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: true });
+  check("pre-parsed JSON boolean -> 400, does not hang", r.statusCode === 400 && r.json && r.json.error === "bad_request");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: null });
+  check("pre-parsed JSON null -> 400, does not hang", r.statusCode === 400 && r.json && r.json.error === "bad_request");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: ["q"] });
+  check("pre-parsed array -> 400", r.statusCode === 400 && r.json && r.json.error === "bad_request");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: {} });
+  check("pre-parsed {} (empty JSON body) -> 400", r.statusCode === 400 && r.json && r.json.error === "bad_request");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: { q: "x".repeat(5000) } });
+  check("pre-parsed body > 4096 bytes -> 413", r.statusCode === 413 && r.json && r.json.error === "payload_too_large");
+  const circular = { q: "How do I connect?" }; circular.self = circular;
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, pre: circular });
+  check("pre-parsed unserialisable object -> 400, no throw", r.statusCode === 400 && r.json && r.json.error === "bad_request");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, preThrows: true });
+  check("throwing req.body getter (invalid JSON) -> 400 JSON, no throw", r.statusCode === 400 && r.json && r.json.error === "bad_request");
+  r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, consumed: true });
+  check("consumed stream with nothing pre-parsed -> 400, does not hang", r.statusCode === 400 && r.json && r.json.error === "bad_request");
 
   r = await call({ headers: { ...authed(), "x-real-ip": nextIp() }, body: jsonBody({ q: "  what   is\tthe   box?  " }) });
   check("whitespace-collapsed q is accepted -> 200", r.statusCode === 200);

@@ -77,7 +77,7 @@ function parseSections(html) {
   const re = /<section\b([^>]*)>([\s\S]*?)<\/section>/gi;
   let m;
   while ((m = re.exec(html)) !== null) {
-    const idMatch = /\bid\s*=\s*"([^"]+)"/i.exec(m[1] || "");
+    const idMatch = /(?:^|\s)id\s*=\s*"([^"]+)"/i.exec(m[1] || "");
     if (!idMatch) continue;
     const inner = m[2] || "";
     const h3 = /<h3\b[^>]*>([\s\S]*?)<\/h3>/i.exec(inner);
@@ -167,15 +167,25 @@ const fail = (res, status, error, detail) =>
 
 function readBody(req) {
   return new Promise((resolve) => {
-    // Vercel's Node helper may have parsed and consumed the body already.
-    const pre = req.body;
-    if (pre !== undefined && pre !== null && pre !== "") {
+    // Vercel's Node helper buffers the stream before the handler runs and
+    // exposes it as a lazy `req.body` getter that parses by Content-Type.
+    // Three consequences, all handled here so nothing throws or hangs:
+    //  - the getter itself throws on invalid JSON;
+    //  - a JSON scalar (`42`, `true`, `null`) is pre-parsed too, and the
+    //    stream is already consumed, so "end" would never fire;
+    //  - an empty JSON body arrives pre-parsed as {}.
+    let pre;
+    try { pre = req.body; }
+    catch { return resolve({ ok: false, status: 400, error: "bad_request", detail: "Body must be JSON." }); }
+    if (pre !== undefined && pre !== null) {
       if (typeof pre === "string") return resolve({ ok: true, raw: pre });
       if (Buffer.isBuffer(pre)) return resolve({ ok: true, raw: pre.toString("utf8") });
-      if (typeof pre === "object") {
-        try { return resolve({ ok: true, raw: JSON.stringify(pre) }); }
-        catch { return resolve({ ok: false, status: 400, error: "bad_request", detail: "Body could not be read." }); }
-      }
+      try { return resolve({ ok: true, raw: String(JSON.stringify(pre)) }); }
+      catch { return resolve({ ok: false, status: 400, error: "bad_request", detail: "Body could not be read." }); }
+    }
+    if (req.complete === true || req.readableEnded === true) {
+      // stream already consumed and nothing pre-parsed: treat as an empty body
+      return resolve({ ok: true, raw: pre === null ? "null" : "" });
     }
     const chunks = [];
     let size = 0;
