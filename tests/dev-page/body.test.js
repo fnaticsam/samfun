@@ -1,0 +1,89 @@
+// Structural test for the page body (api/_lib/dev.html): the contract the rest
+// of /dev depends on — 27 sections with stable ids, one <h3> each, the section
+// nav, the diagrams, and no resource the page would have to fetch to render.
+// Usage: node body.test.js      (REPO_DIR overrides the repo location)
+const fs = require("fs");
+const path = require("path");
+
+const REPO = process.env.REPO_DIR || path.resolve(__dirname, "..", "..");
+const FILE = path.join(REPO, "api", "_lib", "dev.html");
+const EXPECTED_SECTIONS = 27;
+
+let html;
+try {
+  html = fs.readFileSync(FILE, "utf8");
+} catch (err) {
+  console.error("cannot read the page body at " + FILE + ": " + ((err && err.code) || "unknown error"));
+  process.exit(1);
+}
+
+const results = [];
+const check = (name, cond) => { results.push([name, !!cond]); };
+
+// ---- sections -------------------------------------------------------------
+const openTags = html.match(/<section\b[^>]*>/gi) || [];
+check(`exactly ${EXPECTED_SECTIONS} sections`, openTags.length === EXPECTED_SECTIONS);
+check("every <section> is closed", (html.match(/<\/section>/gi) || []).length === openTags.length);
+
+const sections = [];
+const secRe = /<section\b([^>]*)>([\s\S]*?)<\/section>/gi;
+let m;
+while ((m = secRe.exec(html)) !== null) {
+  const id = (m[1].match(/\bid="([^"]+)"/) || [])[1] || "";
+  sections.push({ id, body: m[2] });
+}
+check("every section parses with its body", sections.length === openTags.length);
+check("every section has an id", sections.every((s) => s.id.length > 0));
+
+const ids = sections.map((s) => s.id);
+check("section ids are unique", new Set(ids).size === ids.length);
+check("no section is nested inside another", !sections.some((s) => /<section\b/i.test(s.body)));
+
+const noH3 = sections.filter((s) => !/<h3[\s>]/i.test(s.body));
+check("every section has an <h3>", noH3.length === 0);
+if (noH3.length) console.log("   sections without an <h3>: " + noH3.map((s) => s.id).join(", "));
+
+// ---- nothing the page would have to fetch ---------------------------------
+check("no <script src>", !/<script\b[^>]*\bsrc=/i.test(html));
+check("no external stylesheet", !/<link\b[^>]*href="https?:/i.test(html));
+check("no url(http…) in CSS", !/url\(\s*['"]?https?:/i.test(html));
+check("no @import", !/@import/i.test(html));
+check("no <img>, <iframe> or media element", !/<(img|iframe|video|audio|source|embed|object)\b/i.test(html));
+const urls = Array.from(new Set(html.match(/https?:\/\/[^"' )<>]+/g) || []));
+const ALLOWED = ["https://github.com/&lt;org&gt;/&lt;repo&gt;.git"];
+check("the only absolute URL is the placeholder clone command",
+  urls.length === ALLOWED.length && urls.every((u) => ALLOWED.indexOf(u) !== -1));
+if (urls.some((u) => ALLOWED.indexOf(u) === -1)) console.log("   unexpected URLs: " + urls.join(", "));
+
+// ---- section nav ----------------------------------------------------------
+check("the nav container is present", /<nav\b[^>]*id="sidenav"/i.test(html));
+check("the nav has an accessible name", /<nav\b[^>]*id="sidenav"[^>]*aria-label="[^"]+"/i.test(html));
+check("the nav toggle is a real button", /<button\b[^>]*id="sidenav-toggle"/i.test(html));
+check("the toggle declares aria-expanded", /<button\b[^>]*id="sidenav-toggle"[^>]*aria-expanded=/i.test(html));
+check("the toggle declares aria-controls=\"sidenav\"", /<button\b[^>]*id="sidenav-toggle"[^>]*aria-controls="sidenav"/i.test(html));
+check("the nav list is built from the sections themselves",
+  /querySelectorAll\('section\[id\]'\)/.test(html) && /'sidenav-part'/.test(html));
+check("the nav marks the section in view", /aria-current/.test(html));
+check("the nav is outside every section", !sections.some((s) => /id="sidenav"/.test(s.body)));
+
+// ---- diagrams -------------------------------------------------------------
+const figures = html.match(/<figure\b[^>]*class="diagram"[^>]*>[\s\S]*?<\/figure>/gi) || [];
+check("the page has diagrams", figures.length > 0);
+const badRole = figures.filter((f) => !/<figure\b[^>]*\brole="img"/i.test(f));
+check("every diagram figure has role=\"img\"", badRole.length === 0);
+const badLabel = figures.filter((f) => {
+  const label = (f.match(/<figure\b[^>]*\baria-label="([^"]*)"/i) || [])[1];
+  return !label || !label.trim();
+});
+check("every diagram figure has a non-empty aria-label", badLabel.length === 0);
+check("every diagram figure contains an inline <svg", figures.every((f) => /<svg[\s>]/i.test(f)));
+check("every diagram figure has a figcaption", figures.every((f) => /<figcaption[\s>]/i.test(f)));
+check("every diagram svg declares a viewBox", figures.every((f) => /<svg\b[^>]*viewBox="/i.test(f)));
+check("every diagram sits inside a section",
+  figures.every((f) => sections.some((s) => s.body.indexOf(f) !== -1)));
+check("the search index skips diagram text", /tagName === 'FIGURE'/.test(html));
+
+// ---- report ---------------------------------------------------------------
+for (const [name, ok] of results) console.log((ok ? "PASS" : "FAIL") + "  " + name);
+console.log(results.filter((x) => x[1]).length + "/" + results.length + " checks passed");
+if (results.some((x) => !x[1])) process.exit(1);
