@@ -4,10 +4,12 @@
 // Usage: node body.test.js      (REPO_DIR overrides the repo location)
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const REPO = process.env.REPO_DIR || path.resolve(__dirname, "..", "..");
 const FILE = path.join(REPO, "api", "_lib", "dev.html");
 const EXPECTED_SECTIONS = 27;
+const EXPECTED_SECTIONS_SHA256 = "7a59bbc93f058e5395996a5da954f03e68106790ed9b41e4cff2c6c85b857e9a";
 const PREVIOUS_SVG_COUNT = 9;
 
 let html;
@@ -25,6 +27,11 @@ const check = (name, cond) => { results.push([name, !!cond]); };
 const openTags = html.match(/<section\b[^>]*>/gi) || [];
 check(`exactly ${EXPECTED_SECTIONS} sections`, openTags.length === EXPECTED_SECTIONS);
 check("every <section> is closed", (html.match(/<\/section>/gi) || []).length === openTags.length);
+const fullSectionRe = /<section\b[^>]*>[\s\S]*?<\/section>/gi;
+const fullSections = html.match(fullSectionRe) || [];
+const sectionsDigest = crypto.createHash("sha256").update(fullSections.join("")).digest("hex");
+check("all section blocks match the original bytes and order",
+  fullSections.length === EXPECTED_SECTIONS && sectionsDigest === EXPECTED_SECTIONS_SHA256);
 
 const sections = [];
 const secRe = /<section\b([^>]*)>([\s\S]*?)<\/section>/gi;
@@ -86,12 +93,17 @@ check("zero fleet stats are unavailable while zero agent stats remain displayabl
 check("daily averages and large disks have dedicated formatting",
   /key === 'agents\.per_day_avg'/.test(html) && /key === 'fleet\.disk_gb' && value >= 1000/.test(html));
 
+const landingTags = html.match(/<div\b[^>]*class="landing"[^>]*>/gi) || [];
 const landingStart = html.indexOf('<div class="landing"');
 const firstPart = html.indexOf('<div class="part" id="part-1">');
 const landing = landingStart >= 0 && firstPart > landingStart
   ? html.slice(landingStart, firstPart)
   : "<section>missing landing markers</section>";
+check("there is exactly one landing container", landingTags.length === 1);
 check("the landing contains no <section>", !/<section\b/i.test(landing));
+check("the landing contains the stats, Ask dev, and both TL;DR cards",
+  /id="pipeline-stats"/.test(landing) && /id="ask"/.test(landing)
+  && (landing.match(/class="tldr-card"/g) || []).length === 2);
 check("the large table-of-contents nav is gone", !/<nav\b[^>]*class="[^"]*\btoc\b/i.test(html));
 check("no diagram figure sits outside a section", !/<figure\b[^>]*class="diagram"/i.test(landing));
 
@@ -102,17 +114,34 @@ const fleetStart = landing.indexOf(fleetTitle);
 const factoryCard = landing.slice(factoryStart, fleetStart);
 const fleetCard = landing.slice(fleetStart);
 const tldrArt = html.match(/<svg\b[^>]*class="tldr-art"[^>]*>/gi) || [];
-check("the two TL;DR cards each open with their illustration",
-  new RegExp(factoryTitle + "\\s*<svg\\b[^>]*class=\"tldr-art\"").test(factoryCard)
-  && new RegExp(fleetTitle + "\\s*<svg\\b[^>]*class=\"tldr-art\"").test(fleetCard));
+const artButtons = html.match(/<button\b[^>]*class="tldr-art-open"[^>]*>[\s\S]*?<\/button>/gi) || [];
+check("the two TL;DR cards each open with an artwork button",
+  new RegExp(factoryTitle + "\\s*<button\\b[^>]*class=\"tldr-art-open\"").test(factoryCard)
+  && new RegExp(fleetTitle + "\\s*<button\\b[^>]*class=\"tldr-art-open\"").test(fleetCard));
+check("exactly two accessible artwork buttons wrap one illustration each",
+  artButtons.length === 2 && artButtons.every((button) => /\btype="button"/i.test(button)
+    && /\brole="button"/i.test(button) && /\btabindex="0"/i.test(button)
+    && /\baria-label="Enlarge:/i.test(button)
+    && (button.match(/<svg\b[^>]*class="tldr-art"/gi) || []).length === 1));
 check("each TL;DR card contains exactly one illustration",
   (factoryCard.match(/<svg\b[^>]*class="tldr-art"/gi) || []).length === 1
   && (fleetCard.match(/<svg\b[^>]*class="tldr-art"/gi) || []).length === 1);
 check("both TL;DR illustrations have an image role and accessible label",
   tldrArt.length === 2 && tldrArt.every((tag) => /\brole="img"/i.test(tag)
     && /\baria-label="[^\s"][^"]*"/i.test(tag)));
-check("the page adds exactly two inline illustrations",
-  (html.match(/<svg\b/gi) || []).length === PREVIOUS_SVG_COUNT + 2 && tldrArt.length === 2);
+check("the page adds two illustrations and two expand glyphs",
+  (html.match(/<svg\b/gi) || []).length === PREVIOUS_SVG_COUNT + 4 && tldrArt.length === 2
+  && (html.match(/<svg\b[^>]*class="tldr-art-expand"/gi) || []).length === 2);
+
+const artboxes = html.match(/<div\b[^>]*id="artbox"[^>]*>[\s\S]*?<\/div>\s*<\/div>/gi) || [];
+check("one modal artbox has a close button",
+  artboxes.length === 1 && /\brole="dialog"/i.test(artboxes[0])
+  && /\baria-modal="true"/i.test(artboxes[0])
+  && /<button\b[^>]*class="artbox-close"[^>]*aria-label="Close"/i.test(artboxes[0]));
+check("the artbox sits outside every section", !sections.some((s) => /id="artbox"/.test(s.body)));
+check("the lightbox clones the illustration and handles Escape",
+  /cloneNode\(/.test(html) && /'Escape'/.test(html));
+check("the page does not use a dialog element", !/<dialog\b/i.test(html));
 
 // ---- section nav ----------------------------------------------------------
 check("the nav container is present", /<nav\b[^>]*id="sidenav"/i.test(html));
