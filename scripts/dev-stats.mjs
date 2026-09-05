@@ -9,8 +9,39 @@ const defaultSourceFile = process.env.REPO_RADAR_JSON
   || path.join(os.homedir(), ".config", "ai-dev", "repo-radar", "repo-radar.json");
 const defaultOutputFile = process.env.DEV_STATS_OUT
   || path.join(repo, "api", "_lib", "dev-stats.json");
+const defaultAgentStatsFile = process.env.AGENT_STATS_JSON
+  || path.join(os.homedir(), ".config", "ai-dev", "agent-stats.json");
 
-export function generateStats(sourceFile = defaultSourceFile, outputFile = defaultOutputFile) {
+const AGENT_KEYS = ["sessions", "per_day_avg", "claude", "codex", "peak_day", "peak"];
+const FLEET_KEYS = ["machines", "cores", "memory_gb", "disk_gb"];
+
+function selectedValues(source, keys) {
+  return Object.fromEntries(keys.filter((key) => Object.hasOwn(source, key))
+    .map((key) => [key, source[key]]));
+}
+
+function readAgentStats(agentStatsFile) {
+  try {
+    const source = JSON.parse(fs.readFileSync(agentStatsFile, "utf8"));
+    const validAgents = source && typeof source.agents === "object"
+      && !Array.isArray(source.agents);
+    const validFleet = source && typeof source.fleet === "object"
+      && !Array.isArray(source.fleet);
+    if (!validAgents || !validFleet) return null;
+    return {
+      agents: selectedValues(source.agents, AGENT_KEYS),
+      fleet: selectedValues(source.fleet, FLEET_KEYS),
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function generateStats(
+  sourceFile = defaultSourceFile,
+  outputFile = defaultOutputFile,
+  agentStatsFile = defaultAgentStatsFile,
+) {
   const source = JSON.parse(fs.readFileSync(sourceFile, "utf8"));
   const validCodeStats = source && typeof source.code_stats === "object"
     && !Array.isArray(source.code_stats) && Array.isArray(source.code_stats.commits);
@@ -48,11 +79,17 @@ export function generateStats(sourceFile = defaultSourceFile, outputFile = defau
     };
   }
 
+  const agentStats = readAgentStats(agentStatsFile);
+  if (!agentStats) {
+    console.error("dev-stats: no agent stats (fleet/agents left empty)");
+  }
   const stats = {
     generated_at: generatedAt,
     window_days: 30,
     month: period("month", 30),
     week: period("week", 7),
+    agents: agentStats ? agentStats.agents : null,
+    fleet: agentStats ? agentStats.fleet : null,
   };
 
   fs.writeFileSync(outputFile, `${JSON.stringify(stats, null, 2)}\n`, { mode: 0o600 });

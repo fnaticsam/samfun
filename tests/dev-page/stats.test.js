@@ -10,6 +10,7 @@ const REPO = process.env.REPO_DIR || path.resolve(__dirname, "..", "..");
 const SCRIPT = path.join(REPO, "scripts", "dev-stats.mjs");
 const REAL_OUTPUT = path.join(REPO, "api", "_lib", "dev-stats.json");
 const FIXTURE = path.join(__dirname, "fixtures", "repo-radar.code_stats.sample.json");
+const AGENT_FIXTURE = path.join(__dirname, "fixtures", "agent-stats.sample.json");
 const { injectStats, loadStats } = require(path.join(REPO, "api", "_lib", "dev-stats.js"));
 const TOKEN = "__DEV_STATS_JSON__";
 const results = [];
@@ -52,8 +53,23 @@ async function run() {
   }
 
   function generate(file) {
-    generateStats(file, output);
+    generateStats(file, output, AGENT_FIXTURE);
     return JSON.parse(fs.readFileSync(output, "utf8"));
+  }
+
+  function runGenerator(radarFile, agentFile, outputName) {
+    const cliOutput = path.join(temp, outputName);
+    const warnings = [];
+    const originalError = console.error;
+    console.error = (...args) => warnings.push(args.join(" "));
+    try {
+      const stats = generateStats(radarFile, cliOutput, agentFile);
+      return { status: 0, stats, stderr: warnings.join("\n") };
+    } catch (error) {
+      return { status: 1, stats: null, stderr: warnings.join("\n"), error };
+    } finally {
+      console.error = originalError;
+    }
   }
 
   function rejectsShape(name, value) {
@@ -119,11 +135,45 @@ async function run() {
         files: 3713,
         repos: 0,
       },
+      agents: {
+        sessions: 1830,
+        per_day_avg: 61,
+        claude: 640,
+        codex: 1190,
+        peak_day: "2026-09-04",
+        peak: 143,
+      },
+      fleet: { machines: 3, cores: 40, memory_gb: 90, disk_gb: 1536 },
     };
     check("fixture generates the exact deployment object",
       assert.deepStrictEqual(generated, expected) === undefined);
+    check("generator copies the selected agent summary",
+      generated.agents.per_day_avg === 61 && generated.agents.claude === 640);
+    check("generator copies the selected fleet summary",
+      generated.fleet.cores === 40 && generated.fleet.disk_gb === 1536);
+    check("generator omits detailed agent breakdowns",
+      !("by_day" in generated.agents) && !("by_machine" in generated.agents));
     check("loadStats reads the generated file",
       assert.deepStrictEqual(loadStats(temp), expected) === undefined);
+
+    const warning = "dev-stats: no agent stats (fleet/agents left empty)";
+    const missingAgent = runGenerator(
+      wrappedFixture,
+      path.join(temp, "missing-agent.json"),
+      "missing-output.json",
+    );
+    check("missing agent stats do not fail generation", missingAgent.status === 0);
+    check("missing agent stats leave both summaries null",
+      missingAgent.stats.agents === null && missingAgent.stats.fleet === null);
+    check("missing agent stats print one warning line", missingAgent.stderr === warning);
+
+    const malformedAgentFile = path.join(temp, "malformed-agent.json");
+    fs.writeFileSync(malformedAgentFile, "{not json");
+    const malformedAgent = runGenerator(wrappedFixture, malformedAgentFile, "malformed-output.json");
+    check("malformed agent stats do not fail generation", malformedAgent.status === 0);
+    check("malformed agent stats leave both summaries null",
+      malformedAgent.stats.agents === null && malformedAgent.stats.fleet === null);
+    check("malformed agent stats print one warning line", malformedAgent.stderr === warning);
 
     const missingDir = path.join(temp, "missing");
     check("loadStats returns null for a missing file", loadStats(missingDir) === null);

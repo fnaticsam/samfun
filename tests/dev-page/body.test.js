@@ -8,6 +8,7 @@ const path = require("path");
 const REPO = process.env.REPO_DIR || path.resolve(__dirname, "..", "..");
 const FILE = path.join(REPO, "api", "_lib", "dev.html");
 const EXPECTED_SECTIONS = 27;
+const PREVIOUS_SVG_COUNT = 9;
 
 let html;
 try {
@@ -69,11 +70,21 @@ const requiredStatKeys = [
   "month.commits", "month.merges", "month.additions", "month.deletions",
   "month.files", "month.repos", "generated_at",
 ];
+const cardStatKeys = [
+  "agents.per_day_avg", "agents.claude", "agents.codex",
+  "fleet.cores", "fleet.memory_gb", "fleet.disk_gb",
+];
 check("the landing has at least five stat values", statKeys.length >= 5);
 check("the landing has every required stat key",
   requiredStatKeys.every((key) => statKeys.includes(key)));
+check("each TL;DR stat key occurs exactly once",
+  cardStatKeys.every((key) => statKeys.filter((candidate) => candidate === key).length === 1));
 check("a zero repository count is shown as unavailable",
   /key !== 'month\.repos' \|\| value > 0/.test(html));
+check("zero fleet stats are unavailable while zero agent stats remain displayable",
+  /key\.indexOf\('fleet\.'\) !== 0 \|\| value > 0/.test(html));
+check("daily averages and large disks have dedicated formatting",
+  /key === 'agents\.per_day_avg'/.test(html) && /key === 'fleet\.disk_gb' && value >= 1000/.test(html));
 
 const landingStart = html.indexOf('<div class="landing"');
 const firstPart = html.indexOf('<div class="part" id="part-1">');
@@ -82,6 +93,26 @@ const landing = landingStart >= 0 && firstPart > landingStart
   : "<section>missing landing markers</section>";
 check("the landing contains no <section>", !/<section\b/i.test(landing));
 check("the large table-of-contents nav is gone", !/<nav\b[^>]*class="[^"]*\btoc\b/i.test(html));
+check("no diagram figure sits outside a section", !/<figure\b[^>]*class="diagram"/i.test(landing));
+
+const factoryTitle = '<p class="tldr-title">How the factory works</p>';
+const fleetTitle = '<p class="tldr-title">How the fleet works</p>';
+const factoryStart = landing.indexOf(factoryTitle);
+const fleetStart = landing.indexOf(fleetTitle);
+const factoryCard = landing.slice(factoryStart, fleetStart);
+const fleetCard = landing.slice(fleetStart);
+const tldrArt = html.match(/<svg\b[^>]*class="tldr-art"[^>]*>/gi) || [];
+check("the two TL;DR cards each open with their illustration",
+  new RegExp(factoryTitle + "\\s*<svg\\b[^>]*class=\"tldr-art\"").test(factoryCard)
+  && new RegExp(fleetTitle + "\\s*<svg\\b[^>]*class=\"tldr-art\"").test(fleetCard));
+check("each TL;DR card contains exactly one illustration",
+  (factoryCard.match(/<svg\b[^>]*class="tldr-art"/gi) || []).length === 1
+  && (fleetCard.match(/<svg\b[^>]*class="tldr-art"/gi) || []).length === 1);
+check("both TL;DR illustrations have an image role and accessible label",
+  tldrArt.length === 2 && tldrArt.every((tag) => /\brole="img"/i.test(tag)
+    && /\baria-label="[^\s"][^"]*"/i.test(tag)));
+check("the page adds exactly two inline illustrations",
+  (html.match(/<svg\b/gi) || []).length === PREVIOUS_SVG_COUNT + 2 && tldrArt.length === 2);
 
 // ---- section nav ----------------------------------------------------------
 check("the nav container is present", /<nav\b[^>]*id="sidenav"/i.test(html));
