@@ -1,0 +1,32 @@
+{
+ "generated_at": "2026-09-05T16:40:33.533945+00:00",
+ "periods": {
+  "week": {
+   "label": "Last 7 days",
+   "commits": 664,
+   "merges": 301,
+   "additions": 293541,
+   "deletions": 56388,
+   "files": 3713,
+   "duplicates_collapsed": 20
+  },
+  "month": {
+   "label": "Last 30 days",
+   "commits": 1416,
+   "merges": 521,
+   "additions": 903437,
+   "deletions": 97931,
+   "files": 9039,
+   "duplicates_collapsed": 107
+  },
+  "year": {
+   "label": "2026",
+   "commits": 4517,
+   "merges": 709,
+   "additions": 2484665,
+   "deletions": 457187,
+   "files": 29432,
+   "duplicates_collapsed": 186
+  }
+ }
+}
