@@ -38,5 +38,10 @@ browser fetch. A missing or malformed output file does not stop the private page
 from loading: every stat displays an em dash and the caption says the numbers are
 not deployed yet.
 
+The generator also reads fleet and agent-session totals from
+`~/.config/ai-dev/agent-stats.json`; set `AGENT_STATS_JSON` to use a different file.
+That input is optional, so missing or malformed data leaves those card stats empty
+without blocking the pipeline statistics.
+
 The deploy order is: copy `dev.html` into place, run the stats generator, run the
 page tests and secret scan, then use the normal deploy command above.
