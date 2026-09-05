@@ -22,3 +22,21 @@ exclude it).
   when the home address changes; until then the password still works.
 
 This `.md` file is committed but not deployed (`.vercelignore` excludes `*.md`).
+
+## Pipeline stats
+
+Before previewing or deploying the page, generate its git-ignored stats payload:
+
+```sh
+node scripts/dev-stats.mjs
+```
+
+The generator reads the repo-radar JSON from its normal local configuration. Set
+`REPO_RADAR_JSON` to use a different input file. It writes
+`api/_lib/dev-stats.json`; `api/dev.js` embeds that JSON into the page without a
+browser fetch. A missing or malformed output file does not stop the private page
+from loading: every stat displays an em dash and the caption says the numbers are
+not deployed yet.
+
+The deploy order is: copy `dev.html` into place, run the stats generator, run the
+page tests and secret scan, then use the normal deploy command above.

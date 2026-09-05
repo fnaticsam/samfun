@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { injectStats, loadStats } = require("./_lib/dev-stats");
 
 // Single-password gate for /dev, modelled on api/londonplan.js but hardened:
 // time-bound session tokens, fixed-width secret comparison, cookie scoped to
@@ -12,6 +13,7 @@ const path = require("path");
 let HTML = null;
 try {
   HTML = fs.readFileSync(path.join(__dirname, "_lib", "dev.html"), "utf8");
+  HTML = injectStats(HTML, loadStats(path.join(__dirname, "_lib")));
 } catch {
   HTML = null;
 }

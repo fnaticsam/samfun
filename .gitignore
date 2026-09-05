@@ -5,6 +5,7 @@ scripts/vroom/state/
 
 # sam.toys/dev page body: deployed from the working tree, never committed (public repo)
 api/_lib/dev.html
+api/_lib/dev-stats.json
 
 # secrets: never commit any env file (public repo; issue #2)
 .env

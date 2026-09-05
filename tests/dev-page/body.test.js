@@ -55,6 +55,34 @@ check("the only absolute URL is the placeholder clone command",
   urls.length === ALLOWED.length && urls.every((u) => ALLOWED.indexOf(u) !== -1));
 if (urls.some((u) => ALLOWED.indexOf(u) === -1)) console.log("   unexpected URLs: " + urls.join(", "));
 
+// ---- landing --------------------------------------------------------------
+const statsScripts = Array.from(html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi))
+  .filter((match) => /\bid="dev-stats"/.test(match[1])
+    && /\btype="application\/json"/.test(match[1]));
+check("exactly one #dev-stats JSON script contains the placeholder",
+  statsScripts.length === 1 && statsScripts[0][2] === "__DEV_STATS_JSON__");
+check("the stats placeholder token occurs exactly once",
+  (html.match(/__DEV_STATS_JSON__/g) || []).length === 1);
+
+const statKeys = Array.from(html.matchAll(/\bdata-stat="([^"]+)"/g), (match) => match[1]);
+const requiredStatKeys = [
+  "month.commits", "month.merges", "month.additions", "month.deletions",
+  "month.files", "month.repos", "generated_at",
+];
+check("the landing has at least five stat values", statKeys.length >= 5);
+check("the landing has every required stat key",
+  requiredStatKeys.every((key) => statKeys.includes(key)));
+check("a zero repository count is shown as unavailable",
+  /key !== 'month\.repos' \|\| value > 0/.test(html));
+
+const landingStart = html.indexOf('<div class="landing"');
+const firstPart = html.indexOf('<div class="part" id="part-1">');
+const landing = landingStart >= 0 && firstPart > landingStart
+  ? html.slice(landingStart, firstPart)
+  : "<section>missing landing markers</section>";
+check("the landing contains no <section>", !/<section\b/i.test(landing));
+check("the large table-of-contents nav is gone", !/<nav\b[^>]*class="[^"]*\btoc\b/i.test(html));
+
 // ---- section nav ----------------------------------------------------------
 check("the nav container is present", /<nav\b[^>]*id="sidenav"/i.test(html));
 check("the nav has an accessible name", /<nav\b[^>]*id="sidenav"[^>]*aria-label="[^"]+"/i.test(html));
