@@ -11,12 +11,12 @@ import test from 'node:test';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const awakening = join(root, 'awakening');
 const html = readFileSync(join(awakening, 'index.html'), 'utf8');
-const figureIds = `home-01 home-02 s1-01 s1-02 s1-03
-s2-01 s2-02 s2-03 s2-04 s2-05 s3-01 s3-02 s3-03
-s4-01 s4-02 s4-03 s4-04 s4-05 s4-06 s5-01 s5-02 s5-03 s5-04
-s6-01 s6-02 s6-03 s6-04 s7-01 s7-02 s7-03
-s8-01 s8-02 s8-03 s8-04 s8-05 s9-01 s9-02 s9-03 s9-04
-s10-01 s10-02 s10-03 s10-04 blueprint-01 field-01`.split(/\s+/);
+const figureIds = `home-01 home-02 s1-01 s1-02 s1-03 s2-01 s2-02 s2-03 s2-04
+s2-05 s3-01 s3-02 s3-03 s4-01 s4-02 s4-03 s4-04 s4-05
+s4-06 s5-01 s5-02 s5-03 s5-04 s2-06 s6-01 s6-02 s6-03
+s6-04 s6-05 s7-01 s7-02 s7-03 s7-04 s8-01 s8-02 s8-03
+s8-04 s8-05 s9-01 s9-02 s9-03 s9-04 s9-05 s10-01 s10-02
+s10-03 s10-04 s10-05 blueprint-01 field-01`.split(/\s+/);
 const webpFiles = readdirSync(join(awakening, 'img')).filter((file) => file.endsWith('.webp')).sort();
 const rasterFiles = webpFiles.filter((file) => figureIds.includes(file.slice(0, -5)));
 
@@ -41,24 +41,24 @@ function webpDimensions(file) {
 const frozen = {
   'parts/20-home.html': '1523113df217fb3d659fec8b95dea392616f41164dd564ab58ac906fcd34d3cf',
   'parts/31-s1.html': '941812775626d23ccb544490eae1716ff4729dc6edaf98d4d05866594592f7ae',
-  'parts/32-s2.html': '33d80fbb9382285efd8be01894b48547894e894f845ac5e3b72db68345235b7d',
+  'parts/32-s2.html': 'c003e930c04fdd03569d625b2a433c57b3da6df32a28f9953fb63eb7a5208df2',
   'parts/10-shell-open.html': '87c0dcdfc3d7ace92226ac100d2f2cfd7fb08d8ca5242efa277148b9f5c3d141',
   'parts/90-shell-close.html': '27648f7cca9173eefd0e558023f8eeb2493fc87807b048714ea9819994d7c8d4',
   'parts/33-s3.html': '5bd893647871d10634f24de5a9a379414cfd2e55ead142d3535448b1b7138ae5',
   'parts/34-s4.html': 'ee3c8adc89d2437061203e107625f33e9b105f3b1d3db7f8a7a9f3f74a5b7c2c',
   'parts/35-s5.html': '37e23d916c95075e5b0361de31361e4931e71d03ed4d5cde7bafeea75fc5ea4f',
-  'parts/36-s6.html': 'fb2a6d144e65b6b021c6eb45c038f78d503074810168604c6f64244caeefc4c0',
-  'parts/37-s7.html': '8461bbff0b8798fee31bfcc1eac4800dd7c58ae3b1cc9eabd9a53f2bc5b54d3b',
+  'parts/36-s6.html': '0df0fb7c513fb6e871387023f5c15506425bf2375b8495d5f9c26321a6ca7c1f',
+  'parts/37-s7.html': '998ce6c8cf99d89fcf33569ed3edfa08bf5aa489f618fba11436c32128ae2c36',
   'parts/38-s8.html': '88883ced02df7aba1fe926986cedf971010f31d018d36bb6b2fe15ed34d47578',
-  'parts/39-s9.html': '1e83202d193579e72411c703e09d21acd31596ab36a56c3c6232fbfaaa3dd57e',
-  'parts/40-s10.html': '2d8f44b20a28edde0923b284a4f5d019c2c4310f33074a68947e0a89a9cff916',
-  'parts/50-field.html': 'b1a8a93468af9c78c5e9a71c89d11d25dc2f7fc36ae6c2d266489d037724be0e',
-  'parts/60-glossary.html': 'c6e86b97000e4be8fa2725c87acdaaad75ee6bc2149eeae7edabdf5c77c73035',
-  'parts/70-traditions.html': '2b39a50cd0a1c938658965fc314d85cfdc450fca47ad15ec786aba654a6ceef8',
-  'parts/80-analogies.html': '5d52a78a8d06771b700928b99bc160ec48a85c8156bb8231c128bcd35df92fbc',
+  'parts/39-s9.html': 'ed19a784877c90e32f6b155f79bcf8d8ea6c5308e0e220119bfde84a7218ea3b',
+  'parts/40-s10.html': 'f5953a0e3574b72e29a7d25ca7cdcd535a1d1a632cb3f7cfd00cd6c49305309c',
+  'parts/50-field.html': '27d6db07ae761847dd1e14f5d137d1eec285be0e3259b1ea5879cc0bb8dd2c95',
+  'parts/60-glossary.html': '449111d7570702d8efcff0606236a4f2eebcbb14cfda40a9b2a6dd8a21f69fe3',
+  'parts/70-traditions.html': '9ad5358791cd9de421c5ccf49509ae85b42c5d8e508f315da71ab55f86b71901',
+  'parts/80-analogies.html': '12c591337c58116811d7c8b7224608db51f630c458b38db871a6970d653c9b64',
   'parts/85-blueprint.html': 'a566bc9fd7c3b737146de29f67f921ef4361c0c8a7e2f44d74227a170f22f53a',
   'ills_a.py': '6b0b78151d567a4f18bcb54991baf1675736afa3a5db3ded83262e2fdb376e81',
-  'ills_b.py': '1e8b15c100778d6837a0cff88876d6b2165d794035ed1e54777d12d8049f0e8f',
+  'ills_b.py': '571d29c8dfb70dfd2e3b42bd8d81044de4aac28a98657caede9c9036da684883',
   'build.py': 'f17b696f4ca3dac91d41bdaeb4f38a1df2eab46f3cda83e25795a56406a97ec5',
   'styles.html': 'cc806aa9db5584e0e9029c4d981ca96be1b98b2be6e8ef3465d9be65171cf0f7'
 };
@@ -75,7 +75,7 @@ test('document metadata and generated structure are mobile-safe', () => {
   assert.match(html, /<\/body><\/html>\s*$/);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length);
-  assert.equal((html.match(/<figure class="ill/g) || []).length, 45);
+  assert.equal((html.match(/<figure class="ill/g) || []).length, 50);
   const urls = [...html.matchAll(/(?:href|src)="(https?:\/\/[^" ]+)/g)].map((match) => match[1]);
   assert.ok(urls.every((url) => url.startsWith('https://fonts.googleapis.com') || url.startsWith('https://fonts.gstatic.com')));
   const mobile = html.match(/@media \(max-width: 900px\) \{([\s\S]*?)\n  \}/)?.[1] || '';
@@ -124,7 +124,7 @@ test('available raster illustrations preserve figure semantics and dimensions', 
     assert.deepEqual([Number(attrs.width), Number(attrs.height)], webpDimensions(attrs.src.slice(4)), attrs.src);
     assert.equal(attrs.loading, 'lazy');
   }
-  assert.equal((html.match(/<figure class="ill/g) || []).length, 45);
+  assert.equal((html.match(/<figure class="ill/g) || []).length, 50);
 });
 
 test('illustrations without raster files retain their original inline SVG figures', (t) => {
