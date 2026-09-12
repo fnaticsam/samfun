@@ -11,6 +11,4 @@ api/_lib/dev-stats.json
 .env
 .env.*
 
-# awakening build outputs
-awakening/build/
 __pycache__/
