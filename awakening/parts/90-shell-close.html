@@ -30,6 +30,13 @@
       var num = id.replace('s', '');
       btn.textContent = isDone ? 'Stage ' + num + ' complete ✓' : 'Mark stage ' + num + ' complete';
     });
+    var cta = document.getElementById('cta-begin');
+    if (cta && n) {
+      var next = STAGES.find(function (s) { return done.indexOf(s) === -1; }) || 's10';
+      var heading = document.querySelector('#v-' + next + ' h1');
+      cta.setAttribute('href', '#' + next);
+      cta.textContent = 'Continue: Stage ' + next.slice(1) + ' · ' + (heading ? heading.textContent.trim() : '');
+    }
   }
 
   function currentView() {

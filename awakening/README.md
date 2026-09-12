@@ -52,6 +52,10 @@ In `ills_a.py` / `ills_b.py`:
 If an anchor no longer matches, `build.py` prints `MISSING ANCHORS` rather than
 silently dropping the figure.
 
+## Landing page
+
+The opening landing-page copy lives in `parts/20-home.html`: its central teaching, shared-tradition map, river invitation, and CTA sit above the existing path and reference cards.
+
 ## The visual vocabulary (cut paper)
 
 Colour carries meaning, so keep it strict:
