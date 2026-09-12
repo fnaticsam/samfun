@@ -30,37 +30,19 @@
   ],
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.knomi.club"
-        }
-      ],
-      "destination": "https://knomi.club/:path*",
+      "source": "/awakening",
+      "destination": "https://knomi.club/",
       "permanent": true
     },
     {
-      "source": "/dev/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "knomi.club"
-        }
-      ],
-      "destination": "https://knomi.club/",
-      "permanent": false
+      "source": "/awakening/img/:path*",
+      "destination": "https://knomi.club/img/:path*",
+      "permanent": true
     },
     {
-      "source": "/londonplan/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "knomi.club"
-        }
-      ],
-      "destination": "https://knomi.club/",
-      "permanent": false
+      "source": "/awakening/:path*",
+      "destination": "https://knomi.club/:path*",
+      "permanent": true
     },
     {
       "source": "/phone",
@@ -84,16 +66,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "knomi.club"
-        }
-      ],
-      "destination": "/awakening/index.html"
-    },
     {
       "source": "/londonplan",
       "destination": "/api/londonplan"
