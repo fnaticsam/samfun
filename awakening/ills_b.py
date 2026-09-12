@@ -1,6 +1,18 @@
 # Illustrations, part B: stages 6-10, field guide, blueprint
 from ills_a import add, HORSE
 
+# ---------------- STAGE 2 (NEW) ----------------
+add('32-s2.html', 'The whole picture, including the witness, is already appearing to what you are.</p>',
+'''<svg viewBox="0 0 320 200" role="img" aria-label="A vase that is also two faces in profile; the vase stands for the whole sensory field and the faces for the witness, and a small gold circle sits outside both, aware of the whole picture">
+  <path class="t" d="M 132 28 C 122 54, 126 68, 138 78 C 126 88, 122 108, 132 132 L 188 132 C 198 108, 194 88, 182 78 C 194 68, 198 54, 188 28 Z"/>
+  <path class="soft" d="M 54 34 H 126 C 116 52, 116 64, 128 78 C 112 88, 108 112, 122 142 H 54 Z"/>
+  <path class="soft" d="M 266 34 H 194 C 204 52, 204 64, 192 78 C 208 88, 212 112, 198 142 H 266 Z"/>
+  <circle class="i2" cx="116" cy="70" r="3"/><circle class="i2" cx="204" cy="70" r="3"/>
+  <circle class="g" cx="160" cy="176" r="9"/><circle class="g" cx="160" cy="176" r="18" opacity=".2"/>
+  <text class="lbl-s" x="160" y="154" text-anchor="middle">aware of vase, faces and flip</text>
+</svg>''',
+'<b>The last hold-out.</b> Flip the picture and the witness appears. It is still inside the picture. The one aware of both is not.', wide=False)
+
 # ---------------- STAGE 6 ----------------
 add('36-s6.html', 'Here is the general shape of the progression, held loosely.',
 '''<svg viewBox="0 0 360 230" role="img" aria-label="A candle whose bands are labelled hindrances, struggle, preference for pleasure, body and mind, burning down from the top">
@@ -53,6 +65,18 @@ add('36-s6.html', 'Hold all of this lightly.',
 </svg>''',
 '<b>The menu and the meal.</b> A map of the jhanas, and this website, describe the meal. Nobody is nourished by eating the menu.')
 
+add('36-s6.html', "The teacher keeps polishing until the student's project is exposed as impossible.</p>",
+'''<svg viewBox="0 0 320 200" role="img" aria-label="A teacher sits beside a meditating student, polishing a flat stone tile; the student looks puzzled; a round mirror leans against the wall reflecting a gold circle">
+  <rect class="skin" x="12" y="160" width="296" height="8" rx="3"/>
+  <g transform="translate(78 130)"><circle class="i2" cx="0" cy="-38" r="12"/><path class="i2" d="M -22 28 C -22 -40, 22 -40, 22 28 Z"/><text class="lbl" x="0" y="-34" text-anchor="middle" fill="var(--surface)">?</text></g>
+  <g transform="translate(168 134)"><circle class="i2" cx="0" cy="-38" r="12"/><path class="i2" d="M -22 24 C -22 -40, 22 -40, 22 24 Z"/><path class="ln3" stroke-width="3" d="M -14 -4 L 30 12"/></g>
+  <rect class="soft" x="176" y="142" width="70" height="12" rx="3" transform="rotate(-6 211 148)"/>
+  <path class="lt2" stroke-width="2" d="M 190 128 l 34 10 M 192 122 l 34 10"/>
+  <circle class="i3" cx="270" cy="90" r="38"/><circle class="sf" cx="270" cy="90" r="30"/>
+  <circle class="g" cx="270" cy="90" r="9"/><circle class="g" cx="270" cy="90" r="17" opacity=".2"/>
+</svg>''',
+'<b>Polishing a tile.</b> The self-structure can be polished for a lifetime and it will never become the mirror. The mirror was never the tile.')
+
 # ---------------- STAGE 7 ----------------
 add('37-s7.html', 'Look at what the word "I" actually points to',
 '''<svg viewBox="0 0 320 240" role="img" aria-label="A plant whose leaves are labelled with thoughts, all growing from one stem labelled I, traced down to a gold root">
@@ -87,6 +111,17 @@ add('37-s7.html', 'The second is the <strong>gap</strong>.',
   <text class="lbl-s" x="240" y="146" text-anchor="middle">the same awareness, continuous</text>
 </svg>''',
 '<b>The gap that isn\'t.</b> The phenomena differ; the mind compares them and reports a distance. What was aware then is what is aware now, and it never went anywhere.', True)
+
+add('37-s7.html', 'The scarab keeps rolling without needing a theory of the sun.</p>',
+'''<svg viewBox="0 0 360 190" role="img" aria-label="A scarab beetle rolls a round ball along the ground from a pale moon at the left toward a large gold sun at the right">
+  <rect class="skin" x="12" y="148" width="336" height="8" rx="3"/>
+  <circle class="soft" cx="48" cy="46" r="20"/><circle class="sf" cx="56" cy="40" r="18"/>
+  <circle class="g" cx="310" cy="42" r="24"/><circle class="g" cx="310" cy="42" r="36" opacity=".18"/>
+  <circle class="i3" cx="170" cy="126" r="24"/>
+  <g class="t" transform="translate(214 120)"><ellipse cx="0" cy="0" rx="18" ry="13"/><circle cx="-18" cy="0" r="8"/><path d="M -8 -8 l -18 -18 l 4 20 M 8 -8 l 18 -18 l -4 20 M -8 8 l -18 18 l 4 -20 M 8 8 l 18 18 l -4 -20" fill="none" stroke="var(--teal)" stroke-width="5" stroke-linecap="round"/></g>
+  <path class="lt2" stroke-width="2" stroke-dasharray="4 4" d="M 88 92 C 148 60, 230 58, 278 66"/><path class="t" d="M 284 64 l -12 -4 l 3 11 z"/>
+</svg>''',
+'<b>Khepri.</b> The beetle does not complain about the ball. It rolls it from the borrowed light toward the real one.')
 
 # ---------------- STAGE 8 ----------------
 add('38-s8.html', 'Consider what happens on a large roller coaster.',
@@ -190,6 +225,17 @@ add('39-s9.html', 'An advanced practice, once concentration is stable',
 </svg>''',
 '<b>Grinding the filters.</b> Hold both poles of a duality at once, with real concentration, and the line between them thins until it breaks. Once broken, it stays broken.')
 
+add('39-s9.html', 'Two arrows meet above the mountain and river with nowhere between them for a separate world to hide.</p>',
+'''<svg viewBox="0 0 420 210" role="img" aria-label="Two arrows shot from opposite sides meet point to point in mid-air above a mountain and a river; a box and its lid rest on the ground below">
+  <path class="soft" d="M 20 148 L 112 54 L 176 132 L 244 72 L 340 148 Z"/>
+  <path class="lt2" stroke-width="6" d="M 12 158 C 88 136, 130 184, 208 158 C 286 132, 326 174, 408 150"/>
+  <path class="ln" stroke-width="4" d="M 54 44 L 198 92"/><path class="i2" d="M 208 96 l -16 2 l 7 -13 z"/><path class="ln" stroke-width="4" d="M 366 44 L 222 92"/><path class="i2" d="M 212 96 l 9 -11 l 6 14 z"/>
+  <path class="i3" d="M 48 38 l 18 -2 l -9 10 z M 372 38 l -18 -2 l 9 10 z"/>
+  <rect class="s2" x="166" y="154" width="88" height="38" rx="4"/><path class="t" d="M 158 148 h 104 l -8 10 h -88 z"/>
+  <text class="lbl-s" x="210" y="204" text-anchor="middle">box and lid · no gap</text>
+</svg>''',
+'<b>Two arrows meeting.</b> The absolute and the relative are not two things that relate. They meet like this, exactly, with no gap.')
+
 # ---------------- STAGE 10 ----------------
 add('40-s10.html', 'The instruction is simple to state.',
 '''<svg viewBox="0 0 480 170" role="img" aria-label="Three torsos: one contracting in rings around a thorn; one softening with a soft aura; one with energy passing through and out">
@@ -231,6 +277,17 @@ add('40-s10.html', 'The highest samadhi, the traditions say',
   <text class="lbl-s" x="240" y="156" text-anchor="middle">chop wood, carry water</text>
 </svg>''',
 '<b>Returning to the marketplace.</b> Back among ordinary people, indistinguishable, carrying water. The show goes on; the mask is off.', True)
+
+add('40-s10.html', 'The seven serpents rise calmly around the seated figure, attentive to the lotus opening above.</p>',
+'''<svg viewBox="0 0 360 240" role="img" aria-label="A seated figure at ease with a lotus opening above the crown of the head; seven serpents rise calmly around the figure, attentive and still, none attacking">
+  <g fill="none" stroke="var(--teal)" stroke-width="7" stroke-linecap="round" opacity=".8"><path d="M 160 196 C 96 184, 54 150, 42 104"/><path d="M 166 194 C 120 164, 94 120, 86 76"/><path d="M 174 192 C 148 156, 136 116, 136 74"/><path d="M 180 190 C 180 150, 180 120, 180 82"/><path d="M 186 192 C 212 156, 224 116, 224 74"/><path d="M 194 194 C 240 164, 266 120, 274 76"/><path d="M 200 196 C 264 184, 306 150, 318 104"/></g>
+  <g class="t"><circle cx="42" cy="100" r="7"/><circle cx="86" cy="72" r="7"/><circle cx="136" cy="70" r="7"/><circle cx="180" cy="78" r="7"/><circle cx="224" cy="70" r="7"/><circle cx="274" cy="72" r="7"/><circle cx="318" cy="100" r="7"/></g>
+  <path class="i2" d="M 118 214 C 118 176, 242 176, 242 214 Z"/>
+  <g transform="translate(180 172)"><circle class="g" cx="0" cy="-30" r="13"/><path class="i2" d="M -24 36 C -24 -28, 24 -28, 24 36 Z"/></g>
+  <g class="g"><path d="M 180 112 C 166 98, 164 78, 180 64 C 196 78, 194 98, 180 112 Z"/><path d="M 180 112 C 158 108, 146 92, 150 72 C 168 80, 178 94, 180 112 Z"/><path d="M 180 112 C 202 108, 214 92, 210 72 C 192 80, 182 94, 180 112 Z"/></g>
+  <circle class="g" cx="180" cy="100" r="5"/>
+</svg>''',
+'<b>The nagas at attention.</b> Nothing has been slain. What was unconscious now serves what is awake.')
 
 # ---------------- BLUEPRINT ----------------
 add('85-blueprint.html', 'The system runs as a loop, not a line.',
