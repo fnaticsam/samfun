@@ -11,6 +11,8 @@ import test from 'node:test';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const awakening = join(root, 'awakening');
 const html = readFileSync(join(awakening, 'index.html'), 'utf8');
+const headSource = readFileSync(join(awakening, 'parts', '00-head.html'), 'utf8');
+const shellSource = readFileSync(join(awakening, 'parts', '10-shell-open.html'), 'utf8');
 const figureIds = `home-01 home-02 s1-01 s1-02 s1-03 s2-01 s2-02 s2-03 s2-04
 s2-05 s3-01 s3-02 s3-03 s4-01 s4-02 s4-03 s4-04 s4-05
 s4-06 s5-01 s5-02 s5-03 s5-04 s2-06 s6-01 s6-02 s6-03
@@ -39,10 +41,11 @@ function webpDimensions(file) {
   }
 }
 const frozen = {
+  'parts/00-head.html': '36da7a33e341e9eb70efcbcdaba4ea266eaf961bca93ed3b408ed9a3a78c208a',
   'parts/20-home.html': '1523113df217fb3d659fec8b95dea392616f41164dd564ab58ac906fcd34d3cf',
   'parts/31-s1.html': '941812775626d23ccb544490eae1716ff4729dc6edaf98d4d05866594592f7ae',
   'parts/32-s2.html': 'c003e930c04fdd03569d625b2a433c57b3da6df32a28f9953fb63eb7a5208df2',
-  'parts/10-shell-open.html': '87c0dcdfc3d7ace92226ac100d2f2cfd7fb08d8ca5242efa277148b9f5c3d141',
+  'parts/10-shell-open.html': '5dda67f542700d1ab5f25d4ee0c4cf0a56aff0b41d2aaa55b6f53e6b1b467521',
   'parts/90-shell-close.html': '27648f7cca9173eefd0e558023f8eeb2493fc87807b048714ea9819994d7c8d4',
   'parts/33-s3.html': '5bd893647871d10634f24de5a9a379414cfd2e55ead142d3535448b1b7138ae5',
   'parts/34-s4.html': 'ee3c8adc89d2437061203e107625f33e9b105f3b1d3db7f8a7a9f3f74a5b7c2c',
@@ -64,6 +67,13 @@ const frozen = {
 };
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 
+function pngDimensions(file) {
+  const data = readFileSync(join(awakening, 'img', file));
+  assert.equal(data.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', file);
+  assert.equal(data.toString('ascii', 12, 16), 'IHDR', file);
+  return [data.readUInt32BE(16), data.readUInt32BE(20)];
+}
+
 test('document metadata and generated structure are mobile-safe', () => {
   assert.match(html, /^<!DOCTYPE html>\s*<html lang="en">/);
   const head = html.match(/<head>([\s\S]*?)<\/head>/i)?.[1] || '';
@@ -80,6 +90,17 @@ test('document metadata and generated structure are mobile-safe', () => {
   assert.ok(urls.every((url) => url.startsWith('https://fonts.googleapis.com') || url.startsWith('https://fonts.gstatic.com')));
   const mobile = html.match(/@media \(max-width: 900px\) \{([\s\S]*?)\n  \}/)?.[1] || '';
   for (const token of ['100dvh', 'safe-area-inset-top', 'touch-action']) assert.ok(mobile.includes(token));
+});
+
+test('logo metadata, marks, and rendered icon dimensions are present', () => {
+  assert.match(headSource, /<link rel="apple-touch-icon" href="\/awakening\/img\/icon-180\.png">/);
+  assert.match(headSource, /<link rel="icon" type="image\/png" sizes="32x32" href="\/awakening\/img\/favicon-32\.png">/);
+  assert.match(headSource, /<meta property="og:image" content="https:\/\/sam\.toys\/awakening\/img\/social-1200x630\.png">/);
+  assert.match(headSource, /<link rel="icon" href="data:image\/svg\+xml,/);
+  assert.equal((shellSource.match(/<a class="brand"[\s\S]*?<\/a>/)?.[0].match(/<svg class="mark"/g) || []).length, 1);
+  assert.equal((shellSource.match(/<div class="topbar">[\s\S]*?<\/div>/)?.[0].match(/<svg class="mark"/g) || []).length, 1);
+  const expected = { 'icon-180.png': [180, 180], 'icon-192.png': [192, 192], 'icon-512.png': [512, 512], 'favicon-32.png': [32, 32], 'social-1200x630.png': [1200, 630] };
+  for (const [file, dimensions] of Object.entries(expected)) assert.deepEqual(pngDimensions(file), dimensions, file);
 });
 
 test('landing page presents the central teaching, tradition map, and river CTA', () => {
