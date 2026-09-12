@@ -59,7 +59,7 @@ const frozen = {
   'parts/85-blueprint.html': 'a566bc9fd7c3b737146de29f67f921ef4361c0c8a7e2f44d74227a170f22f53a',
   'ills_a.py': '6b0b78151d567a4f18bcb54991baf1675736afa3a5db3ded83262e2fdb376e81',
   'ills_b.py': '571d29c8dfb70dfd2e3b42bd8d81044de4aac28a98657caede9c9036da684883',
-  'build.py': 'f17b696f4ca3dac91d41bdaeb4f38a1df2eab46f3cda83e25795a56406a97ec5',
+  'build.py': '2284f29e2ebc30f25892f7f82e3b71276a64c206b00ad7dccc904a482bfc957a',
   'styles.html': 'cc806aa9db5584e0e9029c4d981ca96be1b98b2be6e8ef3465d9be65171cf0f7'
 };
 const sha256 = (value) => createHash('sha256').update(value).digest('hex');
@@ -113,7 +113,7 @@ test('available raster illustrations preserve figure semantics and dimensions', 
   assert.deepEqual(webpFiles, rasterFiles, 'every WebP matches a canonical figure ID (no orphans)');
   assert.equal(figures.length, rasterFiles.length);
   const sources = figures.map((figure) => figure[1].match(/<img src="([^"]+)"/)?.[1]).sort();
-  assert.deepEqual(sources, rasterFiles.map((file) => `img/${file}`));
+  assert.deepEqual(sources, rasterFiles.map((file) => `/awakening/img/${file}`));
   for (const [, figure] of figures) {
     const images = [...figure.matchAll(/<img\b([^>]+)>/g)];
     assert.equal(images.length, 1);
@@ -121,7 +121,7 @@ test('available raster illustrations preserve figure semantics and dimensions', 
     assert.ok(attrs.alt?.trim(), attrs.src);
     assert.match(attrs.width, /^\d+$/);
     assert.match(attrs.height, /^\d+$/);
-    assert.deepEqual([Number(attrs.width), Number(attrs.height)], webpDimensions(attrs.src.slice(4)), attrs.src);
+    assert.deepEqual([Number(attrs.width), Number(attrs.height)], webpDimensions(attrs.src.replace(/^\/awakening\/img\//, '')), attrs.src);
     assert.equal(attrs.loading, 'lazy');
   }
   assert.equal((html.match(/<figure class="ill/g) || []).length, 50);

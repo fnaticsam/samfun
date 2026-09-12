@@ -47,7 +47,7 @@ def figure(svg, caption, wide, image=None):
     if image:
         image_id, width, height = image
         alt = html.escape(svg_alt(svg, caption), quote=True)
-        return f'\n    <figure class="{cls} photo">\n      <img src="img/{image_id}.webp" alt="{alt}" width="{width}" height="{height}" loading="lazy" decoding="async">\n      <figcaption>{caption}</figcaption>\n    </figure>\n'
+        return f'\n    <figure class="{cls} photo">\n      <img src="/awakening/img/{image_id}.webp" alt="{alt}" width="{width}" height="{height}" loading="lazy" decoding="async">\n      <figcaption>{caption}</figcaption>\n    </figure>\n'
     return f'\n    <figure class="{cls}">\n      {svg.strip()}\n      <figcaption>{caption}</figcaption>\n    </figure>\n'
 
 def ids_in_order():
