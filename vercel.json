@@ -30,6 +30,39 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.knomi.club"
+        }
+      ],
+      "destination": "https://knomi.club/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/dev/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "knomi.club"
+        }
+      ],
+      "destination": "https://knomi.club/",
+      "permanent": false
+    },
+    {
+      "source": "/londonplan/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "knomi.club"
+        }
+      ],
+      "destination": "https://knomi.club/",
+      "permanent": false
+    },
+    {
       "source": "/phone",
       "destination": "https://phone-nine-theta.vercel.app",
       "permanent": false
@@ -51,6 +84,16 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "knomi.club"
+        }
+      ],
+      "destination": "/awakening/index.html"
+    },
     {
       "source": "/londonplan",
       "destination": "/api/londonplan"
