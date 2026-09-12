@@ -281,6 +281,10 @@
   figure.ill { margin: 30px 0 34px; display: flex; flex-direction: column; gap: 10px; }
   figure.ill svg { width: 100%; max-width: 540px; height: auto; display: block; color: var(--ink); }
   figure.ill.wide svg { max-width: 760px; }
+  figure.ill.photo img { width: 100%; max-width: min(100%, 540px); min-width: 0; height: auto; display: block; border-radius: 10px; background: #EDF1F2; box-shadow: var(--shadow); }
+  figure.ill.wide.photo img { max-width: min(100%, 760px); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) figure.ill.photo img { box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7); filter: brightness(.94) contrast(1.02); } }
+  :root[data-theme="dark"] figure.ill.photo img { box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7); filter: brightness(.94) contrast(1.02); }
   figure.ill figcaption { font-size: 13px; color: var(--ink-3); max-width: 60ch; line-height: 1.5; }
   figure.ill figcaption b { color: var(--ink-2); font-weight: 600; }
   .ill .t { fill: var(--teal); } .ill .g { fill: var(--gold); } .ill .soft { fill: var(--teal-soft); } .ill .skin { fill: var(--practice-bg); }
@@ -299,6 +303,7 @@
   /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
     .frame { grid-template-columns: 1fr; }
+    figure.ill.photo img, figure.ill.wide.photo img { max-width: 100%; border-radius: 10px; }
     html.rail-open { overflow: hidden; }
     .rail { position: fixed; inset: 0 auto 0 0; width: min(320px, 86vw); height: 100vh; height: 100dvh; transform: translateX(-100%); transition: transform .25s ease; z-index: 30; box-shadow: none; overflow-y: auto; overscroll-behavior: contain; padding-left: calc(20px + env(safe-area-inset-left)); padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
     .rail.open { transform: none; box-shadow: var(--shadow); }
@@ -430,16 +435,8 @@
     <section class="river-call">
       <h2>Are you ready to step into the river?</h2>
       <p>Awakening is not a summit you climb. It is a current that is already carrying you home. The only work is to stop swimming against it.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 220" role="img" aria-label="A relaxed figure steps from the bank into a teal river looping toward a gold source">
-  <path class="skin" d="M0 185 C30 180 58 158 78 166 C94 172 100 190 100 220 L0 220 Z"/>
-  <path fill="none" stroke="var(--teal-soft)" stroke-width="26" stroke-linecap="round" d="M108 166 C154 190 268 180 272 132 C276 98 206 110 204 84 C202 66 216 60 232 60"/>
-  <path class="t" opacity=".7" transform="translate(195.19 177.38) rotate(-5.95)" d="M-5 -4L7 0L-5 4Z"/>
-  <path class="t" opacity=".7" transform="translate(242.32 105.55) rotate(-165.01)" d="M-5 -4L7 0L-5 4Z"/>
-  <path class="t" opacity=".7" transform="translate(214.66 63.26) rotate(-25.35)" d="M-5 -4L7 0L-5 4Z"/>
-  <circle class="g" cx="232" cy="60" r="20" opacity=".2"/><circle class="g" cx="232" cy="60" r="12"/><text class="lbl-s" x="232" y="86" text-anchor="middle">source</text>
-  <circle class="i2" cx="88" cy="84" r="9"/><path class="ln" stroke-width="5" style="stroke-width:5px" d="M88 94L88 132 M88 104L66 120 M88 104L110 118 M88 132L72 168 M88 132L112 162"/>
-</svg>
+    <figure class="ill photo">
+      <img src="img/home-02.webp" alt="A relaxed figure steps from the bank into a teal river looping toward a gold source" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Stepping in.</b> The current was always moving. All you do is stop standing on the bank.</figcaption>
     </figure>
 
@@ -499,20 +496,8 @@
 
     <h2>A river, not a mountain</h2>
     <p>Most spiritual language makes awakening sound like a summit: rare, distant, reached by a few after heroic effort. It is more accurate, and far more useful, to picture a current. Everything that comes out of the source is moving back toward it. In the old cosmologies this was drawn as a torus, a continuous loop of going out and returning, involution and evolution, with no part of it standing still. Awakening is simply the point in that loop where the return becomes conscious.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 200" role="img" aria-label="Left: a tiny climber labouring up a mountain toward a gold point. Right: the same figure carried by a river to the same gold point">
-  <path class="s2" d="M 20 180 L 120 40 L 220 180 Z"/>
-  <path class="ln3" stroke-dasharray="4 5" d="M 60 176 L 90 150 L 74 130 L 108 104 L 96 84 L 120 44"/>
-  <circle class="g" cx="120" cy="40" r="8"/>
-  <g transform="translate(92 122) rotate(-25)"><circle class="i2" cx="0" cy="-10" r="5"/><path class="i2" d="M -6 8 C -6 -2, 6 -2, 6 8 Z"/></g>
-  <path class="lt2" stroke-width="2" d="M 102 112 l 3 -6 M 108 116 l 4 -5"/>
-  <text class="lbl-s" x="120" y="196" text-anchor="middle">the summit</text>
-  <path fill="none" stroke="var(--teal-soft)" stroke-width="26" stroke-linecap="round" d="M 262 60 C 300 60, 320 120, 360 120 C 400 120, 420 96, 456 96"/>
-  <path class="t" opacity=".6" d="M 330 96 l 10 5 l -10 5 z"/><path class="t" opacity=".6" d="M 396 108 l 10 5 l -10 5 z"/>
-  <circle class="g" cx="456" cy="96" r="8"/>
-  <g transform="translate(300 74)"><path class="i2" d="M -14 0 L 14 0 L 10 7 L -10 7 Z"/><circle class="i2" cx="0" cy="-8" r="5"/></g>
-  <text class="lbl-s" x="360" y="196" text-anchor="middle">the current</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s1-02.webp" alt="Left: a tiny climber labouring up a mountain toward a gold point. Right: the same figure carried by a river to the same gold point" width="1200" height="600" loading="lazy" decoding="async">
       <figcaption><b>Summit or current.</b> Same destination. On the mountain the whole thing depends on your effort; in the river the most useful thing you can do is stop swimming upstream.</figcaption>
     </figure>
 
@@ -520,21 +505,8 @@
     <p>Certain conditions make the shift more likely, and that is what the rest of this path is about. But it is worth knowing from the start that people wake up in every kind of circumstance. Whenever the habitual pattern of "me" is interrupted, whether by a death, a loss, an illness, or an unexpected joy, a gap opens. What the wisdom teachings provide is a map of the mechanism, so that when the gap opens you recognise it, and so that you can remain awake instead of falling back into the dream.</p>
 
     <h2>The character and the one watching</h2>
-    <figure class="ill">
-      <svg viewBox="0 0 320 220" role="img" aria-label="A person on a sofa watching a screen where a character is caught in a drama; the watcher is gold">
-  <rect class="soft" x="176" y="40" width="122" height="88" rx="6"/>
-  <rect class="i2" x="232" y="128" width="8" height="12"/><rect class="i2" x="214" y="140" width="44" height="5" rx="2"/>
-  <circle class="i2" cx="237" cy="70" r="9"/>
-  <path class="ln" stroke-width="5" d="M 237 80 L 237 100 M 237 86 L 220 76 M 237 86 L 254 76 M 237 100 L 227 116 M 237 100 L 247 116"/>
-  <path class="lt2" stroke-width="3" d="M 192 56 L 200 50 M 282 56 L 274 50 M 200 114 L 207 106"/>
-  <rect class="s2" x="22" y="150" width="130" height="48" rx="10"/>
-  <rect class="i2" x="22" y="140" width="18" height="40" rx="8" opacity=".5"/><rect class="i2" x="134" y="140" width="18" height="40" rx="8" opacity=".5"/>
-  <circle class="g" cx="88" cy="120" r="30" opacity=".22"/><circle class="g" cx="88" cy="122" r="13"/>
-  <path class="g" d="M 72 170 C 72 122, 104 122, 104 170 Z"/>
-  <path class="lg" stroke-width="5" d="M 106 152 L 128 146"/>
-  <text class="lbl-s" x="176" y="32">the character</text>
-  <text class="lbl-s" x="30" y="214">the one watching</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s1-01.webp" alt="A person on a sofa watching a screen where a character is caught in a drama; the watcher is gold" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The character and the watcher.</b> The drama is entirely on the screen. The one on the sofa gets absorbed, but was never in it.</figcaption>
     </figure>
 
@@ -555,17 +527,8 @@
     <h2>Choosing without a chooser</h2>
     <p>A question always arises here: if I am not the character, who makes decisions? Do I just drift? The answer that comes from direct experience is that in the awake state there is no chooser and nothing chosen, and yet things very much happen. Life keeps moving, decisions keep occurring, but they arise the way a spider builds its web: with ease and precision and no one standing behind the process approving each strand.</p>
     <p>The dualistic, planning mind was never designed to steer a life. It is an interface, superb for arithmetic, language and navigating the physical world, and it has been promoted into a job it cannot do. When the interface becomes the dictator, the result is the constant low-grade friction most people call normal. When it returns to its proper role, the traditions speak of <span class="term">choiceless awareness</span>: feeling the current of life and moving with it. The character can still choose to fight that current, and that is exactly when suffering returns, because the current always wins.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 180" role="img" aria-label="A boat carried by a strong current; inside it a small instrument panel with a hand on it">
-  <path fill="none" stroke="var(--teal-soft)" stroke-width="40" stroke-linecap="round" d="M 20 120 C 100 120, 200 120, 300 120"/>
-  <path class="t" opacity=".55" d="M 60 116 l 14 6 l -14 6 z M 120 116 l 14 6 l -14 6 z M 220 116 l 14 6 l -14 6 z M 270 116 l 14 6 l -14 6 z"/>
-  <path class="i2" d="M 110 106 L 230 106 L 216 126 L 124 126 Z"/>
-  <rect class="s2" x="150" y="84" width="40" height="22" rx="3"/>
-  <circle class="t" cx="160" cy="95" r="4"/><circle class="t" cx="171" cy="95" r="4"/><rect class="t" x="180" y="91" width="5" height="8" rx="1"/>
-  <circle class="i2" cx="188" cy="76" r="6"/><path class="ln3" d="M 186 82 L 178 90"/>
-  <text class="lbl-s" x="170" y="70" text-anchor="middle">the planning mind</text>
-  <text class="lbl-s" x="160" y="166" text-anchor="middle">what actually moves the boat</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s1-03.webp" alt="A boat carried by a strong current; inside it a small instrument panel with a hand on it" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Servant, not master.</b> The panel is real and useful. It is not what moves the boat, and treating it as the captain is where the friction comes from.</figcaption>
     </figure>
 
@@ -648,22 +611,8 @@
     <p>Now the charge arrives. Past experience with mosquitoes (itching, malaria warnings, ruined nights) fuels a reaction: "bad, must be eliminated". This is the layer of craving and aversion, of "I want" and "I don't want". It is where suffering enters, and where the sense of "me" is thickest, because the preference feels like <em>mine</em>. The Zen poem you will meet in Stage 5 calls this labelling of things as good or bad "the disease of the mind".</p>
     <h3>5. Consciousness (<span class="term">vijnana</span>)</h3>
     <p>The faculty of attention that observed all of the above. It behaves like a camera: it can point here or there, zoom in tight or take in a wide view. It feels like the most "me" of all the layers, the witness inside. But look closely and even this camera is a function, not a person. It has no owner. It, too, is empty of self.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 220" role="img" aria-label="A mosquito on an arm with five numbered rings of response rippling outward, and a gold disc outside all of them">
-  <path class="skin" d="M 0 186 C 80 168, 220 168, 320 190 L 320 220 L 0 220 Z"/>
-  <path class="t" opacity=".12" d="M 56 180 A 104 104 0 0 1 264 180 Z"/><path class="t" opacity=".12" d="M 76 180 A 84 84 0 0 1 244 180 Z"/><path class="t" opacity=".12" d="M 96 180 A 64 64 0 0 1 224 180 Z"/><path class="t" opacity=".12" d="M 116 180 A 44 44 0 0 1 204 180 Z"/><path class="t" opacity=".12" d="M 136 180 A 24 24 0 0 1 184 180 Z"/>
-  <ellipse class="i2" cx="160" cy="152" rx="7" ry="12" transform="rotate(30 160 152)"/>
-  <ellipse class="i3" cx="149" cy="141" rx="13" ry="5" transform="rotate(-30 149 141)" opacity=".8"/><ellipse class="i3" cx="165" cy="137" rx="13" ry="5" transform="rotate(-10 165 137)" opacity=".8"/>
-  <rect class="i2" x="164" y="160" width="2.5" height="20" transform="rotate(-6 164 160)"/>
-  <circle cx="177" cy="161" r="7" class="t"/><text x="177" y="164" text-anchor="middle" class="lbl-w" font-size="8.5">1</text>
-  <circle cx="191.1" cy="146.9" r="7" class="t"/><text x="191.1" y="149.9" text-anchor="middle" class="lbl-w" font-size="8.5">2</text>
-  <circle cx="205.3" cy="132.7" r="7" class="t"/><text x="205.3" y="135.7" text-anchor="middle" class="lbl-w" font-size="8.5">3</text>
-  <circle cx="219.4" cy="118.6" r="7" class="t"/><text x="219.4" y="121.6" text-anchor="middle" class="lbl-w" font-size="8.5">4</text>
-  <circle cx="233.5" cy="104.5" r="7" class="t"/><text x="233.5" y="107.5" text-anchor="middle" class="lbl-w" font-size="8.5">5</text>
-  <text class="lbl" x="250" y="60">1 form</text><text class="lbl" x="250" y="76">2 sensation</text><text class="lbl" x="250" y="92">3 perception</text><text class="lbl" x="250" y="108">4 reaction</text><text class="lbl" x="250" y="124">5 attention</text>
-  <circle class="g" cx="160" cy="40" r="11"/><circle class="g" cx="160" cy="40" r="20" opacity=".25"/>
-  <text class="lbl-s" x="160" y="70" text-anchor="middle">what all five appear in</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s2-01.webp" alt="A mosquito on an arm with five numbered rings of response rippling outward, and a gold disc outside all of them" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The mosquito in five rings.</b> One landing, five operations, each a separate event. The gold disc is not a sixth ring; it is what the rings appear in.</figcaption>
     </figure>
 
@@ -672,42 +621,14 @@
 
     <h2>The cave and the classroom</h2>
     <p>Plato described prisoners chained in a cave, facing a wall, watching shadows cast by a fire behind them. Because the shadows are all they have ever seen, the shadows are reality. Anyone who is released and walks out into the sunlight comes back with news the prisoners cannot use.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 200" role="img" aria-label="Figures inside a dark cave facing shadows on a wall, a fire behind them; one figure has turned toward the bright opening">
-  <path fill="#2B3B47" d="M 0 0 L 320 0 L 320 200 L 0 200 Z"/>
-  <path class="gsoft" d="M 250 0 L 320 0 L 320 200 L 292 200 Z"/>
-  <path class="g" opacity=".55" d="M 268 0 L 320 0 L 320 200 L 300 200 Z"/>
-  <rect fill="#7B8791" x="18" y="24" width="14" height="150" opacity=".6"/>
-  <path fill="#7B8791" opacity=".5" d="M 34 60 l 10 0 l 3 -8 l 4 8 l 10 0 l -8 6 l 3 9 l -9 -5 l -9 5 l 3 -9 z"/>
-  <path fill="#7B8791" opacity=".5" d="M 36 120 c 10 -14, 22 -14, 30 0 c 6 10, 0 20, -14 22 c -14 -2, -22 -12, -16 -22 z"/>
-  <g transform="translate(96 150)"><circle fill="#D6DEE2" cx="0" cy="-20" r="9"/><path fill="#D6DEE2" d="M -12 14 C -12 -20, 12 -20, 12 14 Z"/></g>
-  <g transform="translate(140 150)"><circle fill="#D6DEE2" cx="0" cy="-20" r="9"/><path fill="#D6DEE2" d="M -12 14 C -12 -20, 12 -20, 12 14 Z"/></g>
-  <g transform="translate(184 150)"><circle class="g" cx="0" cy="-20" r="9"/><path class="g" d="M -12 14 C -12 -20, 12 -20, 12 14 Z"/></g>
-  <path class="g" d="M 226 122 c -10 -6, -8 -22, 2 -28 c -2 10, 8 10, 8 2 c 8 8, 6 22, -4 28 z"/>
-  <path class="lt2" d="M 196 132 L 256 150"/><path class="t" d="M 258 151 l -9 1 l 3 -8 z"/>
-  <text class="lbl-s" x="20" y="192" fill="#EDF1F2" opacity=".85">the shadows</text>
-  <text class="lbl-s" x="212" y="192" fill="#EDF1F2" opacity=".85">the fire</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s2-02.webp" alt="Figures inside a dark cave facing shadows on a wall, a fire behind them; one figure has turned toward the bright opening" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The cave.</b> The shadows are the contents of the mind. Everyone faces the wall; one has turned toward the opening, and there is no real way back once you have seen the light.</figcaption>
     </figure>
 
     <p>The shadows are the contents of the mind: thoughts, images, perceptions, the running commentary. We are trained toward them from the crib, where a mobile is hung above us so that we learn to fix on objects. In school, a child at a desk notices a squirrel in the yard; there is aliveness in that squirrel, and attention goes to it naturally. The teacher, focused on the lesson, says pay attention. The child learns quickly that following the natural flow of energy gets you into trouble, and that pleasing the teacher does not. The false self begins here: a cultivated network of "shoulds", inherited notions of right and wrong, a persona built to keep out of trouble. Nobody did anything wrong. It is simply how the game starts.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 190" role="img" aria-label="A classroom: a child at a desk, attention drawn to a squirrel in the window, a dashed arrow pulling attention back to the lesson on the board">
-  <rect class="s2" x="22" y="20" width="120" height="70" rx="3"/>
-  <path class="ln3" stroke-width="2" d="M 36 40 h 60 M 36 54 h 84 M 36 68 h 48"/>
-  <rect class="soft" x="212" y="24" width="88" height="70" rx="3"/>
-  <ellipse class="i2" cx="254" cy="76" rx="13" ry="9"/><circle class="i2" cx="268" cy="66" r="6"/><path class="i2" d="M 266 60 l 2 -6 l 4 5 z"/><circle class="sf" cx="270" cy="65" r="1.4"/>
-  <path fill="none" stroke="var(--ink-2)" stroke-width="7" stroke-linecap="round" d="M 242 78 c -12 -2, -16 -20, -4 -28"/>
-  <rect class="i2" x="244" y="82" width="4" height="6" rx="1"/><rect class="i2" x="256" y="82" width="4" height="6" rx="1"/>
-  <rect class="i2" x="92" y="140" width="110" height="8" rx="2"/><rect class="i2" x="100" y="148" width="6" height="30"/><rect class="i2" x="188" y="148" width="6" height="30"/>
-  <g transform="translate(148 132)"><circle class="i2" cx="0" cy="-20" r="9"/><path class="i2" d="M -12 6 C -12 -18, 12 -18, 12 6 Z"/></g>
-  <path class="t" opacity=".28" d="M 156 108 L 216 40 L 236 78 Z"/>
-  <path class="ln3" stroke-dasharray="4 4" d="M 150 108 L 96 60"/><path class="i3" d="M 96 60 l 9 1 l -4 8 z"/>
-  <text class="lbl-s" x="82" y="14">the lesson</text>
-  <text class="lbl-s" x="212" y="18">aliveness</text>
-  <text class="lbl-s" x="118" y="168">"pay attention"</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s2-03.webp" alt="A classroom: a child at a desk, attention drawn to a squirrel in the window, a dashed arrow pulling attention back to the lesson on the board" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The child and the squirrel.</b> Attention goes naturally to where the aliveness is. The persona begins when the child learns that following it gets you into trouble.</figcaption>
     </figure>
 
@@ -715,14 +636,8 @@
 
     <h2>Energy follows attention</h2>
     <p>Put your attention on your left hand right now. Within a few seconds there is tingling, warmth, a sense of aliveness that was not noticeable a moment ago. Nothing changed in the hand. Attention went there, and energy followed.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="A hand with a beam of attention falling on it; where the beam lands, energy sparkles; elsewhere nothing">
-  <path class="t" opacity=".22" d="M 40 10 L 100 10 L 200 120 L 140 140 Z"/>
-  <g class="skin"><rect x="140" y="80" width="80" height="70" rx="20"/><rect x="146" y="30" width="15" height="62" rx="7"/><rect x="164" y="20" width="15" height="72" rx="7"/><rect x="182" y="24" width="15" height="68" rx="7"/><rect x="200" y="36" width="15" height="56" rx="7"/><rect x="118" y="88" width="34" height="15" rx="7" transform="rotate(-30 135 95)"/></g>
-  <g class="t"><circle cx="152" cy="96" r="3"/><circle cx="166" cy="110" r="2.5"/><circle cx="158" cy="124" r="3"/><circle cx="176" cy="98" r="2"/><circle cx="170" cy="130" r="2.5"/><circle cx="184" cy="116" r="2"/><circle cx="150" cy="70" r="2"/><circle cx="168" cy="60" r="2.5"/></g>
-  <text class="lbl-s" x="40" y="160">attention goes</text>
-  <text class="lbl-s" x="196" y="160">energy follows</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s2-04.webp" alt="A hand with a beam of attention falling on it; where the beam lands, energy sparkles; elsewhere nothing" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Energy follows attention.</b> Nothing changed in the hand. Attention went there, and aliveness followed. The self-structure is powered the same way.</figcaption>
     </figure>
 
@@ -733,15 +648,8 @@
       <summary><span class="label">Go deeper</span>The witness is still inside the dream</summary>
       <div class="body">
         <p>Many practitioners arrive at the fifth skandha and stop. They discover a detached watcher behind thought and take it to be their true nature. It is a real discovery and a genuine stage, but the traditions are unanimous that it is not the end. The witness and the witnessed arise together; they are the two poles of a single duality, the yin and yang of the mind. As long as there is a watcher here and a world there, you are still inside <span class="term">maya</span>, the play of appearances.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 150" role="img" aria-label="A camera and the scene it points at, both sitting inside one gold field labelled awareness">
-  <rect class="g" opacity=".16" x="14" y="14" width="292" height="122" rx="30"/>
-  <rect class="i2" x="60" y="62" width="52" height="34" rx="6"/><rect class="i2" x="72" y="54" width="20" height="10" rx="2"/><circle class="sf" cx="86" cy="79" r="10"/><circle class="t" cx="86" cy="79" r="5"/>
-  <path class="t" opacity=".25" d="M 112 72 L 200 50 L 200 108 Z"/>
-  <path class="soft" d="M 200 108 L 232 60 L 256 84 L 276 52 L 300 108 Z"/><circle class="soft" cx="286" cy="48" r="8"/>
-  <text class="lbl-s" x="60" y="118">the witness</text><text class="lbl-s" x="214" y="128">the witnessed</text>
-  <text class="lbl-s" x="160" y="30" text-anchor="middle">awareness</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s2-05.webp" alt="A camera and the scene it points at, both sitting inside one gold field labelled awareness" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Witness and witnessed.</b> The camera and the scene arise together, as two poles of one duality. Awareness is not the camera; it is the field both appear in.</figcaption>
     </figure>
 
@@ -808,14 +716,8 @@
 
     <h2>Samskaras: grooves in the riverbed</h2>
     <p>Every strongly charged experience that was not fully felt at the time leaves a residue. The Sanskrit word is <span class="term">samskara</span> (Pali: <span class="term">sankhara</span>), often translated as "impression" or "formation". Picture water running over soft ground: it cuts a channel, and the next rain runs down the same channel, deepening it. Samskaras are the channels. They are where energy will flow unless something diverts it, and they are stored in the body as much as in the mind, as knots of contraction around the chest, the belly, the throat.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 170" role="img" aria-label="Three frames of ground: a first trickle of water, a shallow groove forming, and a deep channel that later rain follows">
-  <g transform="translate(0 0)"><path class="skin" d="M 10 90 L 150 90 L 150 150 L 10 150 Z"/><path class="lt2" stroke-width="2" d="M 30 96 C 60 100, 100 104, 130 100"/><text class="lbl-s" x="80" y="164" text-anchor="middle">first rain</text></g>
-  <g transform="translate(165 0)"><path class="skin" d="M 10 90 L 150 90 L 150 150 L 10 150 Z"/><path class="soft" d="M 20 90 C 60 90, 70 120, 90 120 C 110 120, 120 90, 140 90 Z"/><path class="lt" stroke-width="5" d="M 24 92 C 60 94, 70 116, 90 116 C 110 116, 120 96, 136 92"/><text class="lbl-s" x="80" y="164" text-anchor="middle">a groove</text></g>
-  <g transform="translate(330 0)"><path class="skin" d="M 10 90 L 150 90 L 150 150 L 10 150 Z"/><path class="soft" d="M 20 90 C 50 90, 56 142, 80 142 C 104 142, 110 90, 140 90 Z"/><path class="lt" stroke-width="10" d="M 26 96 C 50 100, 56 136, 80 136 C 104 136, 110 100, 134 96"/><text class="lbl-s" x="80" y="164" text-anchor="middle">a channel</text></g>
-  <path class="i3" d="M 152 118 l 10 -5 l 0 10 z M 317 118 l 10 -5 l 0 10 z"/>
-  <g class="t" opacity=".6"><circle cx="60" cy="40" r="2"/><circle cx="90" cy="30" r="2"/><circle cx="240" cy="40" r="2"/><circle cx="260" cy="26" r="2"/><circle cx="405" cy="40" r="2"/><circle cx="420" cy="28" r="2"/><circle cx="395" cy="24" r="2"/></g>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s3-01.webp" alt="Three frames of ground: a first trickle of water, a shallow groove forming, and a deep channel that later rain follows" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The riverbed.</b> Water cuts a channel; the next rain runs down it and deepens it. Samskaras are the channels, and karma is water following them.</figcaption>
     </figure>
 
@@ -823,18 +725,8 @@
 
     <h2>The fan</h2>
     <p>In the moment of awakening, identification with the mind and its reactions ceases. The plug is out. But the mind-body is a physical system with momentum; it does not stop because the power has been cut. Thoughts keep arising, preferences keep firing, the personality keeps performing. The blades are still going round.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 220" role="img" aria-label="A ceiling fan with its plug pulled out of the socket, blades still turning; a gold bracket marks the gap">
-  <rect class="i2" x="70" y="10" width="180" height="8" rx="4"/><rect class="i2" x="157" y="18" width="6" height="52"/>
-  <ellipse class="soft" cx="160" cy="84" rx="62" ry="10" transform="rotate(20 160 84)"/><ellipse class="soft" cx="160" cy="84" rx="62" ry="10" transform="rotate(110 160 84)"/>
-  <circle class="t" cx="160" cy="84" r="14"/>
-  <path class="lt" stroke-width="6" opacity=".35" d="M 97.6 120 A 72 72 0 0 1 97.6 48"/><path class="lt" stroke-width="6" opacity=".35" d="M 222 48 A 72 72 0 0 1 222 120"/>
-  <path class="ln" d="M 160 98 C 160 136, 222 130, 236 168"/>
-  <rect class="i2" x="232" y="162" width="18" height="14" rx="3"/><rect class="i2" x="250" y="165" width="12" height="3"/><rect class="i2" x="250" y="171" width="12" height="3"/>
-  <rect class="s2" x="282" y="154" width="26" height="34" rx="4"/><rect class="i2" x="289" y="165" width="3" height="9"/><rect class="i2" x="298" y="165" width="3" height="9"/>
-  <path class="lg" stroke-width="3" d="M 266 200 C 272 188, 300 188, 306 200"/>
-  <text class="lbl-s" x="286" y="214" text-anchor="middle">the gap</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s3-02.webp" alt="A ceiling fan with its plug pulled out of the socket, blades still turning; a gold bracket marks the gap" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The fan.</b> Plug out, blades still turning on momentum. Every reaction to a preference is a hand reaching for the socket; the practice is keeping the gap open.</figcaption>
     </figure>
 
@@ -843,15 +735,8 @@
 
     <h2>The two knots</h2>
     <p>Of all the strands that tie the sense of "I" to the character, two are primary. <strong>The body is attached to comfort.</strong> It seeks pleasant sensation and avoids discomfort without pause, which is the mechanism of an animal ensuring its survival, now running in a creature that is not in danger. <strong>The mind is attached to knowing.</strong> It wants to understand, conceptualise, predict and control, and it will accept a bad explanation over no explanation every time. Because when the mind knows, it believes it is in control.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="One cord with two knots: one tied around a cushion labelled comfort, one around a book labelled knowing">
-  <path class="ln" stroke-width="5" d="M 10 90 C 40 90, 50 60, 80 60 C 100 60, 104 76, 92 84 C 80 92, 70 78, 86 70 C 110 60, 130 90, 170 90 C 200 90, 210 60, 240 60 C 260 60, 264 76, 252 84 C 240 92, 230 78, 246 70 C 270 60, 290 90, 310 90"/>
-  <rect class="soft" x="56" y="98" width="60" height="30" rx="12"/>
-  <rect class="s2" x="216" y="96" width="52" height="36" rx="3"/><rect class="t" x="216" y="96" width="8" height="36" rx="2"/><path class="ln3" stroke-width="2" d="M 232 108 h 24 M 232 116 h 24 M 232 124 h 16"/>
-  <path class="ln" stroke-width="5" d="M 86 84 L 86 98 M 246 84 L 246 96"/>
-  <text class="lbl-s" x="86" y="150" text-anchor="middle">comfort · the body</text>
-  <text class="lbl-s" x="242" y="150" text-anchor="middle">knowing · the mind</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s3-03.webp" alt="One cord with two knots: one tied around a cushion labelled comfort, one around a book labelled knowing" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The two knots.</b> One cord, two knots: the body tied to comfort, the mind tied to knowing. Every hindrance is one of the two pulling.</figcaption>
     </figure>
 
@@ -933,15 +818,8 @@
     <p>Breath-watching, body scanning, mantra, gazing, chanting: strip any of them down and you find a focusing element and a letting-go element. Concentration and equanimity. Attention and surrender. When these two are present together, the brain's neuroplasticity is at its highest; neurons that fire together wire together, and what is being wired is the capacity to be present without reacting.</p>
     <p>The path is therefore a paradox, and it is better to know that at the start than to discover it as a disappointment. From one side there is no path: the awareness you want to awaken to is already here, and there are no steps to arrive at the present moment. From the other side there clearly is a path: identification is progressively loosened, and things happen in a recognisable order. There is a path until there isn't. Techniques are how the conditioned self interrupts its own pattern, creating conditions in which the flip is more likely. When the flip comes, you see that it was always the character doing something it thought it needed to do.</p>
     <p>An old image: a technique is a thorn used to remove a thorn. Once the first thorn is out, you throw both away. Hold onto the technique, keep repeating it, believe it is special, and it becomes another layer of the self-structure, another control mechanism. Ramana Maharshi's warning is blunt: to let the mind run the practice is to make the thief the chief of police.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 130" role="img" aria-label="One thorn levering another out of skin; both thorns then lie discarded">
-  <path class="skin" d="M 10 80 C 60 70, 140 70, 180 82 L 180 120 L 10 120 Z"/>
-  <path class="i2" d="M 96 56 L 106 56 L 101 104 Z"/>
-  <path class="i2" d="M 44 40 L 100 74 L 96 82 Z"/>
-  <path class="lt2" stroke-width="2" d="M 108 66 q 8 -10 14 -8"/><path class="t" d="M 122 58 l -6 -1 l 1 6 z"/>
-  <path class="i3" opacity=".7" d="M 236 92 L 270 88 L 240 100 Z"/><path class="i3" opacity=".7" d="M 250 108 L 284 98 L 258 112 Z"/>
-  <text class="lbl-s" x="196" y="122">both discarded</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s4-06.webp" alt="One thorn levering another out of skin; both thorns then lie discarded" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>A thorn to remove a thorn.</b> The technique is the second thorn. When the first is out, both are thrown away; keep the second and it becomes a new splinter.</figcaption>
     </figure>
 
@@ -950,42 +828,22 @@
     <p><strong>Concentration</strong> is the camera. It can be turned toward the breath, a sound, a point between the eyebrows. It can be narrow (air at the nostrils) or wide (the whole body expanding and contracting). Turning toward and setting the width: that is concentration.</p>
     <p><strong>Attention</strong> is the continuity of staying with the object through time. Attention span. Patanjali's image is oil poured from a jar: an unbroken stream, not drops. Concentration chooses the object; attention keeps it.</p>
     <p><strong>Awareness</strong> is neither. It is what the camera and its continuity appear in. It has no direction, no width and no quality; it is not something you turn or hold. Krishnamurti called it choiceless for exactly this reason: the mind chooses where to point, and awareness is simply aware of that choosing. When these pages say "rest as awareness", they never mean "point your awareness somewhere". They mean stop pointing.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 190" role="img" aria-label="Three panels: a camera turning and zooming, an unbroken stream of oil from a jar, and a gold field containing both">
-  <g transform="translate(0 0)"><rect class="i2" x="30" y="70" width="48" height="32" rx="6"/><rect class="i2" x="42" y="62" width="18" height="10" rx="2"/><circle class="sf" cx="54" cy="86" r="9"/><circle class="t" cx="54" cy="86" r="4"/><path class="t" opacity=".25" d="M 78 80 L 140 62 L 140 110 Z"/><path class="t" opacity=".12" d="M 78 80 L 140 30 L 140 140 Z"/><text class="lbl-s" x="80" y="166" text-anchor="middle">concentration</text><text class="lbl" x="80" y="180" text-anchor="middle">turns and focuses</text></g>
-  <g transform="translate(160 0)"><path class="i2" d="M 60 40 L 100 40 L 108 62 L 96 66 L 64 66 L 52 62 Z"/><path class="lt" stroke-width="5" d="M 96 66 C 96 90, 96 110, 96 128"/><path class="s2" d="M 60 128 L 132 128 L 124 150 L 68 150 Z"/><text class="lbl-s" x="96" y="166" text-anchor="middle">attention</text><text class="lbl" x="96" y="180" text-anchor="middle">an unbroken stream</text></g>
-  <g transform="translate(320 0)"><rect class="g" opacity=".18" x="14" y="24" width="132" height="126" rx="26"/><rect class="i2" x="40" y="80" width="30" height="20" rx="4"/><circle class="sf" cx="55" cy="90" r="5"/><path class="i2" d="M 92 64 L 114 64 L 118 76 L 88 76 Z"/><path class="lt2" d="M 110 76 L 110 108"/><text class="lbl-s" x="80" y="166" text-anchor="middle">awareness</text><text class="lbl" x="80" y="180" text-anchor="middle">what both appear in</text></g>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s4-01.webp" alt="Three panels: a camera turning and zooming, an unbroken stream of oil from a jar, and a gold field containing both" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Three words that are not the same word.</b> Concentration chooses the object; attention keeps it through time; awareness is what both appear in, and cannot be pointed anywhere.</figcaption>
     </figure>
 
 
     <h2>The eye of the bird</h2>
     <p>In the Mahabharata, the archery master Drona sets a wooden bird in a tree and has his students take aim at its eye. As each draws the bow he asks: what do you see? One sees the bird, the tree, the other students, his own arrow. Dismissed. Another sees, in his mind's eye, the arrow entering the eye. Closer, but no. One cleverly says there is no bird. Nice try. Last comes Arjuna, and when asked what he sees he says: I see only the eye of the bird.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 200" role="img" aria-label="An archer's view of a tree, a bird, and the crowd, all faded; only the bird's eye is crisp and gold; an arrow points at it">
-  <g opacity=".22"><rect class="i2" x="196" y="90" width="12" height="90"/><ellipse class="i2" cx="202" cy="80" rx="52" ry="40"/><g transform="translate(30 150)"><circle class="i2" cx="0" cy="-20" r="8"/><path class="i2" d="M -10 10 C -10 -18, 10 -18, 10 10 Z"/></g><g transform="translate(58 156)"><circle class="i2" cx="0" cy="-20" r="8"/><path class="i2" d="M -10 10 C -10 -18, 10 -18, 10 10 Z"/></g></g>
-  <ellipse class="i2" cx="230" cy="52" rx="16" ry="9" opacity=".35"/><circle class="i2" cx="246" cy="46" r="6" opacity=".35"/>
-  <circle class="g" cx="248" cy="45" r="4"/><circle class="g" cx="248" cy="45" r="10" opacity=".3"/>
-  <path class="ln" stroke-width="3" d="M 70 150 L 236 52"/><path class="i2" d="M 240 50 l -10 0 l 3 8 z"/>
-  <path class="ln3" d="M 60 120 C 76 138, 76 166, 60 184"/><path class="ln3" stroke-width="1.5" d="M 60 120 L 60 184"/>
-  <text class="lbl-s" x="120" y="192">only the eye of the bird</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s4-02.webp" alt="An archer" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The eye of the bird.</b> Not the tree, the crowd, the arrow or the clever answer that there is no bird. Single-pointedness is when there is nothing else.</figcaption>
     </figure>
 
     <p>That is single-pointedness, and it is the key to the whole progressive path. When you take aim at your meditation object, there is nothing else. Not looking around, not reviewing how it is going, not deciding whether this is the right technique. Only the breath. The same instruction appears in St John of the Cross's ascent of Mount Carmel: climb straight up, looking neither left nor right, not stopping to pick the flowers and not frightened off by the creatures on the path. And it appears in Taoism as the reason the method works: chi follows consciousness, so when consciousness is gathered into one point, energy gathers with it, and the burning-off of conditioning begins in earnest.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 200" role="img" aria-label="A straight path up a mountain to a gold summit; flowers on one side, a creature on the other; a walker looking straight ahead">
-  <path class="s2" d="M 20 184 L 160 30 L 300 184 Z"/>
-  <path class="lt" stroke-width="5" d="M 160 178 L 160 44"/>
-  <circle class="g" cx="160" cy="34" r="9"/>
-  <g class="soft"><circle cx="96" cy="150" r="6"/><circle cx="112" cy="128" r="6"/><circle cx="124" cy="104" r="5"/><circle cx="84" cy="170" r="5"/></g>
-  <path class="ln3" stroke-width="1.5" d="M 96 156 v 14 M 112 134 v 14 M 124 109 v 12"/>
-  <path class="i2" d="M 210 132 c 0 -14, 22 -18, 30 -6 c 6 10, -2 20, -14 20 c -10 0, -16 -6, -16 -14 z"/><circle class="sf" cx="228" cy="128" r="2"/><circle class="sf" cx="236" cy="128" r="2"/><path class="i2" d="M 214 120 l -4 -10 l 8 4 z M 240 116 l 6 -9 l 0 10 z"/>
-  <g transform="translate(160 120)"><circle class="i2" cx="0" cy="-20" r="7"/><path class="i2" d="M -9 8 C -9 -18, 9 -18, 9 8 Z"/></g>
-  <text class="lbl-s" x="60" y="196">the flowers</text><text class="lbl-s" x="212" y="196">the creatures</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s4-03.webp" alt="A straight path up a mountain to a gold summit; flowers on one side, a creature on the other; a walker looking straight ahead" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Mount Carmel.</b> Straight up, looking neither left nor right: not stopping for the flowers, not scared off by the creatures.</figcaption>
     </figure>
 
@@ -996,14 +854,8 @@
     <p>There are two ways to meet any hindrance, and both arrive at the same place.</p>
     <h3>Inhabit the pattern</h3>
     <p>Take sleepiness. It has a shape: heaviness around the eyes, a particular feeling in the head, a change in the breath, a slumping or swaying in the posture. Bring the entire pattern into view and inhabit it. How does it change over time? Is it continuous or does it come in waves? What does the breath do when it arrives? A hindrance can only take you over while it runs in the shadows. Fully seen, it becomes intimate, then it loses its power, and then it can drop. This is the phenomenological approach, and the body scan (below) is its most developed form.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 190" role="img" aria-label="A slumped seated figure with callouts to heavy eyes, a curved spine and a shortened breath line; a gold mark above reads seen">
-  <g transform="translate(150 120)"><circle class="i2" cx="-6" cy="-40" r="12"/><path class="i2" d="M -22 30 C -32 -30, 12 -40, 20 30 Z"/><path class="ln3" stroke="var(--surface)" stroke-width="2" d="M -12 -40 h 6 M -2 -40 h 6"/></g>
-  <path class="ln3" stroke-width="1.5" d="M 150 78 L 210 60"/><text class="lbl-s" x="214" y="62">heavy eyes</text>
-  <path class="ln3" stroke-width="1.5" d="M 132 120 L 76 100"/><text class="lbl-s" x="20" y="96">the slump</text>
-  <path class="lt2" d="M 60 150 q 8 -8 16 0 q 8 8 16 0"/><path class="ln3" stroke-width="1.5" d="M 126 140 L 96 148"/><text class="lbl-s" x="30" y="170">shallow breath</text>
-  <circle class="g" cx="144" cy="30" r="7"/><text class="lbl-s" x="156" y="34">seen</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s4-04.webp" alt="A slumped seated figure with callouts to heavy eyes, a curved spine and a shortened breath line; a gold mark above reads seen" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>A hindrance, fully seen.</b> Sleepiness is not a fog; it is a pattern with parts. Bring the whole pattern into view and it can no longer run you from the shadows.</figcaption>
     </figure>
 
@@ -1019,13 +871,8 @@
 
     <h2>Productive and unproductive pain</h2>
     <p>The invitation to sit without reacting has a limit, and it is important to know it. <strong>Productive pain</strong> is karmic: aches that only exist while sitting, the "squirm", restlessness, discomfort that is the pattern of resistance itself, held in the body and rising to be felt. The way out of it is through. <strong>Unproductive pain</strong> is the intelligence of the body reporting a real problem: an old injury, a nerve, a warning sign such as light-headedness, dry throat and vision closing in. That is not to be pushed through. Adjust the posture, use a cushion, switch to walking meditation, stop. Never brutalise the vessel.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 180" role="img" aria-label="Two seated figures: one surrounded by wavy lines of resistance, marked sit through; one with a warning mark at the knee, marked stop and take care">
-  <g transform="translate(90 110)"><circle class="i2" cx="0" cy="-40" r="12"/><path class="i2" d="M -22 30 C -22 -42, 22 -42, 22 30 Z"/><path class="lt2" d="M -40 -10 q 6 -6 12 0 q 6 6 12 0 M -44 10 q 6 -6 12 0 q 6 6 12 0 M 28 -10 q 6 -6 12 0 q 6 6 12 0 M 32 10 q 6 -6 12 0 q 6 6 12 0"/></g>
-  <text class="lbl-s" x="90" y="158" text-anchor="middle">karmic pain</text><text class="lbl" x="90" y="172" text-anchor="middle">sit through it</text>
-  <g transform="translate(230 110)"><circle class="i2" cx="0" cy="-40" r="12"/><path class="i2" d="M -22 30 C -22 -42, 22 -42, 22 30 Z"/><path class="i3" d="M 20 12 l 12 -20 l 12 20 z"/><rect class="sf" x="31" y="0" width="2.5" height="6"/><circle class="sf" cx="32.2" cy="9" r="1.4"/></g>
-  <text class="lbl-s" x="230" y="158" text-anchor="middle">biological pain</text><text class="lbl" x="230" y="172" text-anchor="middle">stop, take care</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s4-05.webp" alt="Two seated figures: one surrounded by wavy lines of resistance, marked sit through; one with a warning mark at the knee, marked stop and take care" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Productive and unproductive pain.</b> The squirm of resistance is sat through; the body's warning is listened to. Knowing which is which is the skill.</figcaption>
     </figure>
 
@@ -1117,20 +964,8 @@
 
     <h2>The disease of the mind</h2>
     <p>The <em>Hsin Hsin Ming</em>, attributed to Sengcan, the third patriarch of Zen, is a short poem on "faith in mind" (or, in some renderings, "trust in the heart"). Its diagnosis is exact. To set what you like against what you dislike is the disease of the mind. Make the smallest distinction, it says, and heaven and earth are set infinitely apart. If you wish to see the truth, hold no opinions for or against anything.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 170" role="img" aria-label="Left: a field of assorted shapes divided by a bold line into for and against. Right: the same shapes with no line">
-  <g transform="translate(0 0)">
-    <g class="soft"><circle cx="40" cy="50" r="9"/><rect x="70" y="80" width="18" height="18" rx="3"/><path d="M 60 130 l 10 -18 l 10 18 z"/><circle cx="120" cy="40" r="7"/></g>
-    <g class="i3" opacity=".8"><circle cx="160" cy="70" r="9"/><rect x="180" y="110" width="18" height="18" rx="3"/><path d="M 140 130 l 10 -18 l 10 18 z"/><circle cx="196" cy="46" r="7"/></g>
-    <path class="lt" stroke-width="5" d="M 118 14 L 138 156"/>
-    <text class="lbl-s" x="40" y="160">for</text><text class="lbl-s" x="160" y="160">against</text>
-  </g>
-  <g transform="translate(250 0)">
-    <g class="soft"><circle cx="40" cy="50" r="9"/><rect x="70" y="80" width="18" height="18" rx="3"/><path d="M 60 130 l 10 -18 l 10 18 z"/><circle cx="120" cy="40" r="7"/><circle cx="160" cy="70" r="9"/><rect x="180" y="110" width="18" height="18" rx="3"/><path d="M 140 130 l 10 -18 l 10 18 z"/><circle cx="196" cy="46" r="7"/></g>
-    <text class="lbl-s" x="40" y="160">the same things, no line</text>
-  </g>
-  <path class="i3" d="M 228 84 l 12 -6 l 0 12 z"/>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s5-01.webp" alt="Left: a field of assorted shapes divided by a bold line into for and against. Right: the same shapes with no line" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The disease of the mind.</b> Not the things, not the sensing of them: the line drawn through them. Take away the line and everything becomes, in the poem's words, clear and undisguised.</figcaption>
     </figure>
 
@@ -1145,40 +980,22 @@
 
     <h2>The way of water</h2>
     <p>Half a world and a thousand years before Sengcan, the <em>Tao Te Ching</em> said the same thing in the language of nature. Heaven and earth have no preference. The highest good is like water: it benefits all things and does not compete, because it is content to settle in the low places that people despise. The most yielding thing in the world overcomes the most rigid. Thirty spokes meet at the hub, but it is the empty hole at the centre that lets the wheel turn; clay is shaped into a cup, but it is the emptiness inside that holds the water. Stillness benefits more than action, silence more than words.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="Thirty spokes meeting at an empty gold hub; a cup whose emptiness holds the water">
-  <g transform="translate(90 85)"><circle fill="none" stroke="var(--ink-2)" stroke-width="7" r="58"/>
-    <g stroke="var(--ink-3)" stroke-width="1.5"><line x1="0" y1="-54" x2="0" y2="54"/><line x1="-54" y1="0" x2="54" y2="0"/><line x1="-38" y1="-38" x2="38" y2="38"/><line x1="-38" y1="38" x2="38" y2="-38"/><line x1="-20" y1="-50" x2="20" y2="50"/><line x1="20" y1="-50" x2="-20" y2="50"/><line x1="-50" y1="-20" x2="50" y2="20"/><line x1="50" y1="-20" x2="-50" y2="20"/></g>
-    <circle class="sf" r="15"/><circle class="g" r="15" opacity=".45"/></g>
-  <path class="i2" d="M 210 60 L 290 60 L 280 130 L 220 130 Z"/><path class="g" opacity=".4" d="M 218 66 L 282 66 L 274 124 L 226 124 Z"/><path class="soft" d="M 224 94 L 276 94 L 274 124 L 226 124 Z"/>
-  <text class="lbl-s" x="90" y="162" text-anchor="middle">the empty hub</text><text class="lbl-s" x="250" y="162" text-anchor="middle">the empty cup</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s5-02.webp" alt="Thirty spokes meeting at an empty gold hub; a cup whose emptiness holds the water" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The wheel and the cup.</b> The spokes and the clay are what you can see; the usefulness lives in what is not there.</figcaption>
     </figure>
 
     <p>The Taoist practice that follows is <span class="term">wu wei</span>, usually translated "non-action" and better understood as non-forcing. It is not passivity. Water is never passive; it is simply never in conflict with the shape of things. A mind without preferences moves the way water moves: around the rock rather than into it, always arriving at the sea. The current from Stage 1 is the Tao, and preference is the only thing that ever fights it.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="Water flowing around a rock and on toward the sea; the rock unmoved, the water untroubled">
-  <path class="soft" d="M 0 60 L 320 60 L 320 140 L 0 140 Z"/>
-  <path class="i2" d="M 118 72 c 20 -18, 50 -12, 56 10 c 6 20, -14 36, -34 34 c -22 -2, -40 -22, -22 -44 z"/>
-  <g class="lt2" stroke-width="2.5"><path d="M 10 76 C 60 76, 90 62, 118 62 M 176 62 C 210 62, 260 76, 310 76"/><path d="M 10 100 C 40 100, 80 100, 106 100 M 186 100 C 220 100, 260 100, 310 100"/><path d="M 10 124 C 60 124, 100 128, 140 128 C 180 128, 240 124, 310 124"/><path d="M 96 86 C 100 74, 108 66, 118 62 M 176 62 C 184 70, 188 82, 186 100"/></g>
-  <path class="t" opacity=".6" d="M 296 72 l 10 4 l -10 4 z M 296 120 l 10 4 l -10 4 z"/>
-  <text class="lbl-s" x="152" y="158" text-anchor="middle">around the rock, on to the sea</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s5-03.webp" alt="Water flowing around a rock and on toward the sea; the rock unmoved, the water untroubled" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The way of water.</b> Never passive, never in conflict with the shape of things. Around the rock rather than into it, always arriving at the sea.</figcaption>
     </figure>
 
 
     <h2>Maybe</h2>
     <p>A farmer in a small village owned a fine horse, and the villagers said how lucky he was. One day the horse broke out and ran off into the hills. The villagers came to console him: what bad luck. The farmer said, "Maybe. I don't know." A few days later the horse returned, leading a band of wild horses. Wonderful, said the villagers, what good fortune. "Maybe. I don't know." The farmer's son tried to tame one of the wild horses, was thrown and shattered his leg. Terrible, said the villagers. "Maybe. I don't know." The next week the king's army came through, conscripting every young man for a war, and left the boy with the broken leg behind.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 150" role="img" aria-label="Four frames of the parable: the horse runs off; it returns with wild horses; the son breaks his leg; the army passes him by. The farmer stands unchanged in each">
-  <defs><g id="fh-horse"><ellipse cx="0" cy="0" rx="20" ry="9"/><ellipse cx="20" cy="-9" rx="9" ry="5" transform="rotate(-35 20 -9)"/><rect x="-15" y="6" width="4" height="15" rx="1"/><rect x="-6" y="6" width="4" height="15" rx="1"/><rect x="4" y="6" width="4" height="15" rx="1"/><rect x="12" y="6" width="4" height="15" rx="1"/><path d="M -20 -2 C -28 2, -28 10, -24 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></g><g id="fh-farmer"><circle cx="0" cy="-22" r="7"/><rect x="-12" y="-31" width="24" height="3" rx="1"/><path d="M -10 10 C -10 -22, 10 -22, 10 10 Z"/><path d="M -8 -2 h 16" stroke="var(--surface)" stroke-width="2"/></g></defs>
-  <g transform="translate(0 0)"><rect class="s2" x="14" y="50" width="40" height="46"/><use href="#fh-horse" class="i2" x="86" y="78"/><path class="i3" d="M 112 84 l 10 -4 l 0 8 z"/><use href="#fh-farmer" class="i2" x="20" y="86"/><text class="lbl-s" x="60" y="128" text-anchor="middle">gone.</text><text class="lbl" x="60" y="142" text-anchor="middle">"maybe."</text></g>
-  <g transform="translate(120 0)"><use href="#fh-horse" class="i2" x="60" y="78"/><use href="#fh-horse" class="i3" transform="translate(96 92) scale(.8)"/><use href="#fh-horse" class="i3" transform="translate(104 66) scale(.8)"/><use href="#fh-farmer" class="i2" x="18" y="86"/><text class="lbl-s" x="60" y="128" text-anchor="middle">back, with more.</text><text class="lbl" x="60" y="142" text-anchor="middle">"maybe."</text></g>
-  <g transform="translate(240 0)"><g transform="translate(70 92)"><circle class="i2" cx="0" cy="-22" r="7"/><path class="i2" d="M -10 6 C -10 -24, 10 -24, 10 6 Z"/><rect class="t" x="-4" y="6" width="9" height="14" rx="2"/></g><use href="#fh-horse" class="i3" transform="translate(104 78) scale(.7)"/><use href="#fh-farmer" class="i2" x="18" y="86"/><text class="lbl-s" x="60" y="128" text-anchor="middle">the leg.</text><text class="lbl" x="60" y="142" text-anchor="middle">"maybe."</text></g>
-  <g transform="translate(360 0)"><g class="i3"><circle cx="70" cy="60" r="6"/><rect x="65" y="66" width="10" height="20" rx="3"/><circle cx="88" cy="60" r="6"/><rect x="83" y="66" width="10" height="20" rx="3"/><circle cx="106" cy="60" r="6"/><rect x="101" y="66" width="10" height="20" rx="3"/></g><path class="i3" d="M 112 76 l 8 -4 l 0 8 z"/><g transform="translate(50 100)"><circle class="i2" cx="0" cy="-16" r="5"/><path class="i2" d="M -7 6 C -7 -18, 7 -18, 7 6 Z"/><rect class="t" x="-3" y="6" width="6" height="8" rx="1"/></g><use href="#fh-farmer" class="i2" x="18" y="86"/><text class="lbl-s" x="60" y="128" text-anchor="middle">passed over.</text><text class="lbl" x="60" y="142" text-anchor="middle">"maybe."</text></g>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s5-04.webp" alt="Four frames of the parable: the horse runs off; it returns with wild horses; the son breaks his leg; the army passes him by. The farmer stands unchanged in each" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The farmer's horse.</b> Four verdicts from the villagers, one answer from the farmer. He is not indifferent; he has stopped believing the mind is qualified to judge.</figcaption>
     </figure>
 
@@ -1254,19 +1071,8 @@
 
     <h2>What burns, and in what order</h2>
     <p>Here is the general shape of the progression, held loosely. It is far better to discover these things in your own sitting than to hunt for them with a checklist.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 360 230" role="img" aria-label="A candle whose bands are labelled hindrances, struggle, preference for pleasure, body and mind, burning down from the top">
-  <path class="g" d="M 160 22 c -10 12, -12 26, 0 34 c 12 -8, 10 -22, 0 -34 z"/><path class="gsoft" d="M 160 36 c -4 6, -5 12, 0 16 c 5 -4, 4 -10, 0 -16 z"/>
-  <rect class="i2" x="158" y="56" width="4" height="10"/>
-  <rect class="i3" x="120" y="66" width="80" height="22" rx="3" opacity=".8"/><path class="i3" opacity=".8" d="M 120 66 c 10 -6, 20 4, 30 -2 c 10 -6, 20 4, 30 -2 c 8 -4, 16 2, 20 2 v 6 h -80 z"/>
-  <rect class="i2" x="120" y="88" width="80" height="26"/>
-  <rect class="soft" x="120" y="114" width="80" height="26"/>
-  <rect class="s2" x="120" y="140" width="80" height="26"/>
-  <rect class="skin" x="120" y="166" width="80" height="30"/>
-  <rect class="i2" x="104" y="196" width="112" height="8" rx="3"/>
-  <g class="lbl-s"><text x="210" y="82">the hindrances</text><text x="210" y="105">the struggle</text><text x="210" y="131">the preference for pleasure</text><text x="210" y="157">the body</text><text x="210" y="185">the mind</text></g>
-  <text class="lbl-s" x="20" y="40">jhana: to burn up</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s6-01.webp" alt="A candle whose bands are labelled hindrances, struggle, preference for pleasure, body and mind, burning down from the top" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>What burns, and in what order.</b> Each stage of absorption consumes a layer of the conditioned mind, from the coarse to the subtle. The flame is the same throughout.</figcaption>
     </figure>
 
@@ -1276,31 +1082,16 @@
     <p><strong>Single-pointedness.</strong> The small waves settle. The mind becomes one-pointed, energy builds, and there is a stage, often the fourth jhana, where the part of the mind that distinguishes pain from pleasure goes quiet. People report tireless energy, as if they could sit forever. This is the end of the "material" jhanas, the ones still connected to body and sensation.</p>
     <p><strong>Mind and body drop away.</strong> Keep sitting and the body-mind falls off. The "immaterial" jhanas are rarely discussed because there is little point: consciousness experienced as infinite; then states the mind cannot even frame, such as "neither perception nor non-perception". Very subtle layers of self drop here. Dogen's definition of meditation, "to drop off body and mind", refers to this.</p>
     <p>Hold all of this lightly. If it becomes a set of boxes to tick ("got the first one, second one covered"), it has become <span class="term">dharma</span> as another possession of the ego. A menu describes the meal; nobody is nourished by eating the menu. The map is useful only so that when the territory appears you are not frightened, and not fooled.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 160" role="img" aria-label="A menu card listing the stages of absorption beside an empty plate with knife and fork">
-  <rect class="s2" x="30" y="20" width="110" height="120" rx="4"/><rect class="i2" x="42" y="30" width="60" height="5" rx="2"/>
-  <g class="ln3" stroke-width="2"><path d="M 42 50 h 70 M 42 64 h 60 M 42 78 h 72 M 42 92 h 56 M 42 106 h 66 M 42 120 h 48"/></g>
-  <circle class="sf" cx="230" cy="80" r="46"/><circle fill="none" stroke="var(--ink-3)" stroke-width="3" cx="230" cy="80" r="46"/><circle fill="none" stroke="var(--ink-3)" stroke-width="1.5" cx="230" cy="80" r="34"/>
-  <path class="ln" stroke-width="3" d="M 170 40 v 80 M 166 40 v 14 M 174 40 v 14"/><path class="ln" stroke-width="3" d="M 290 40 v 80"/><path class="i2" d="M 286 40 h 8 v 20 c 0 6, -8 6, -8 0 z"/>
-  <text class="lbl-s" x="85" y="154" text-anchor="middle">the menu</text><text class="lbl-s" x="230" y="154" text-anchor="middle">the meal</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s6-04.webp" alt="A menu card listing the stages of absorption beside an empty plate with knife and fork" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The menu and the meal.</b> A map of the jhanas, and this website, describe the meal. Nobody is nourished by eating the menu.</figcaption>
     </figure>
 
 
     <h2>Samadhi with a seed</h2>
     <p>The deepest of the technique-produced states is the union experience: being one with everything. In the yoga sutras it is <span class="term">savikalpa</span> or <span class="term">sabija samadhi</span>, samadhi "with a seed", because a seed of the self-structure survives inside it and will sprout again. In Buddhist terms it is the fruit of the material jhanas. It is temporary, as every state is. And it is the peak experience of a human life.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="A wide open gold circle representing union with one small dark seed inside; an arrow to the seed sprouting back into a small figure">
-  <circle class="g" opacity=".2" cx="90" cy="80" r="62"/><circle fill="none" stroke="var(--gold)" stroke-width="3" cx="90" cy="80" r="62"/>
-  <ellipse class="i2" cx="90" cy="84" rx="5" ry="7"/>
-  <text class="lbl-s" x="90" y="160" text-anchor="middle">union, with a seed</text>
-  <path class="i3" d="M 166 80 l 14 -6 l 0 12 z"/>
-  <path class="lt" stroke-width="3" d="M 236 128 C 236 108, 232 96, 238 82"/><path class="t" d="M 236 106 c -12 -2, -18 -10, -16 -20 c 10 2, 16 10, 16 20 z M 238 94 c 12 -2, 18 -10, 16 -20 c -10 2, -16 10, -16 20 z"/>
-  <g transform="translate(238 70)"><circle class="i2" cx="0" cy="-16" r="8"/><path class="i2" d="M -10 10 C -10 -16, 10 -16, 10 10 Z"/></g>
-  <rect class="skin" x="196" y="128" width="84" height="8" rx="3"/>
-  <text class="lbl-s" x="238" y="160" text-anchor="middle">the seed regrows</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s6-02.webp" alt="A wide open gold circle representing union with one small dark seed inside; an arrow to the seed sprouting back into a small figure" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Samadhi with a seed.</b> Even in full union a seed of the self-structure survives, and afterwards it sprouts. Beautiful, valuable, temporary.</figcaption>
     </figure>
 
@@ -1311,17 +1102,8 @@
     <p>There is really only one mistake on this path, and it perpetuates everything else: mistaking a state, any state, for the truth of who you are. The state is phenomena. It is in time; it comes and goes; the mind can remember it, or thinks it can. What it actually remembers is the energy, the feelings, the light, the sense of expansion. It cannot remember the awareness that was present, because awareness is not an experience. It is what the experience appeared in, and it is here now, unchanged, while you read this sentence.</p>
     <p>So when the mind says "I had it and I lost it", ask what "it" was. If it was the beautiful phenomena, then yes: gone, as all phenomena go. But the one who knew the phenomena was not part of the phenomena. The awareness in the peak experience is the awareness here now. Nothing about it has changed; only the show around it changed. Recognise that, and there is nothing to get back.</p>
     <p>Picture the whole of human experience as a line. At one end, total union, love, bliss. At the other, total identification, separation, hell. Every moment of a life is somewhere on that line. Who experiences the entire line? That one is what these stages are trying to reveal, and it is not at either end. When identity flips from the character travelling the line to the awareness the line appears in, there is a peace that is not contingent on where the character currently is. It is not the joy at the happy end of the line. It is something of a different order: the relief of knowing what you are.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 170" role="img" aria-label="A line from union to separation lying inside a large gold field; a marker labelled you points at the field, not the line">
-  <rect class="g" opacity=".16" x="20" y="24" width="440" height="110" rx="30"/>
-  <path class="ln" stroke-width="3" d="M 60 80 L 420 80"/>
-  <g class="t"><circle cx="60" cy="80" r="8"/><circle cx="132" cy="80" r="5" opacity=".8"/><circle cx="204" cy="80" r="5" opacity=".6"/><circle cx="276" cy="80" r="5" opacity=".4"/><circle cx="348" cy="80" r="5" opacity=".25"/></g>
-  <circle class="i2" cx="420" cy="80" r="8"/>
-  <text class="lbl-s" x="60" y="106" text-anchor="middle">union</text><text class="lbl-s" x="420" y="106" text-anchor="middle">separation</text>
-  <text class="lbl" x="240" y="60" text-anchor="middle">every moment of a life is somewhere on this line</text>
-  <path class="ln3" stroke-width="1.5" d="M 240 150 L 240 136"/><path class="i3" d="M 240 132 l -5 8 h 10 z"/>
-  <text class="lbl-s" x="240" y="164" text-anchor="middle">you: the field, not a point on the line</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s6-03.webp" alt="A line from union to separation lying inside a large gold field; a marker labelled you points at the field, not the line" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The continuum.</b> Bliss at one end, hell at the other, and a whole life travelling between them. What you are is what the entire line appears in.</figcaption>
     </figure>
 
@@ -1406,17 +1188,8 @@
 
     <h2>The I-thought</h2>
     <p>Look at what the word "I" actually points to when it arises in you. It is attached to a body, a name, a set of preferences, a history. Ramana Maharshi's whole teaching rested on tracing this "I"-thought back to its source: not the "I" that says "I want" or "I am tired", but what that "I" is standing on. His instruction was to ask <em>who am I?</em>, not as a question expecting words but as a turning of attention toward the asker.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 240" role="img" aria-label="A plant whose leaves are labelled with thoughts, all growing from one stem labelled I, traced down to a gold root">
-  <rect class="skin" x="20" y="150" width="280" height="8" rx="3"/>
-  <path class="lt" stroke-width="5" d="M 160 150 C 160 120, 160 90, 160 50"/>
-  <g class="soft"><ellipse cx="128" cy="70" rx="24" ry="11" transform="rotate(-30 128 70)"/><ellipse cx="194" cy="62" rx="24" ry="11" transform="rotate(30 194 62)"/><ellipse cx="122" cy="108" rx="24" ry="11" transform="rotate(-25 122 108)"/><ellipse cx="200" cy="100" rx="24" ry="11" transform="rotate(25 200 100)"/><ellipse cx="160" cy="36" rx="12" ry="20"/></g>
-  <g class="lbl-s"><text x="34" y="52">"I want"</text><text x="226" y="46">"I'm tired"</text><text x="24" y="130">"I should"</text><text x="228" y="126">"I know"</text></g>
-  <rect class="sf" x="168" y="98" width="14" height="14" rx="3"/><text x="175" y="109" text-anchor="middle" font-family="var(--body)" font-size="10" font-weight="700" fill="var(--teal)">I</text>
-  <path class="lt2" stroke-dasharray="3 4" d="M 160 158 C 160 172, 160 180, 160 188"/>
-  <circle class="g" cx="160" cy="196" r="10"/><circle class="g" cx="160" cy="196" r="18" opacity=".22"/>
-  <text class="lbl-s" x="160" y="232" text-anchor="middle">the source is not a thing</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s7-01.webp" alt="A plant whose leaves are labelled with thoughts, all growing from one stem labelled I, traced down to a gold root" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Tracing the I-thought.</b> Every thought grows from one stem. Follow the stem down instead of tending the leaves, and it ends in something that is not another thought.</figcaption>
     </figure>
 
@@ -1426,15 +1199,8 @@
     <h2>Tell me who you are</h2>
     <p>A structured form of inquiry, developed in the 1960s and since used in intensive retreats around the world, does the inquiry in pairs and can produce awakening (<span class="term">kensho</span>) with surprising speed. It is called the dyad. It works because saying what arises, out loud, to a neutral witness, makes unconscious resistance visible in a way that solitary sitting often does not.</p>
     <p>Two people sit facing each other. One is the <strong>witness</strong>; the other is the <strong>inquirer</strong>. The witness delivers the instruction: <em>Tell me who you are.</em> This is not a question. It is an imperative, a command to communicate yourself, with your whole being, not with a definition. The inquirer then does three things at once:</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="Two seated figures facing each other; a teal beam carries the words tell me who you are from the silent witness to the gold-headed inquirer; a question mark is crossed out">
-  <g transform="translate(70 110)"><circle class="i2" cx="0" cy="-36" r="12"/><path class="i2" d="M -22 30 C -22 -40, 22 -40, 22 30 Z"/></g>
-  <g transform="translate(250 110)"><circle class="g" cx="0" cy="-36" r="12"/><path class="i2" d="M -22 30 C -22 -40, 22 -40, 22 30 Z"/></g>
-  <path class="t" opacity=".22" d="M 96 76 L 224 62 L 224 90 Z"/>
-  <text x="156" y="80" text-anchor="middle" font-family="var(--body)" font-size="10" font-weight="600" fill="var(--teal)">tell me who you are</text>
-  <text x="160" y="36" text-anchor="middle" font-family="var(--display)" font-size="26" fill="var(--ink-3)">?</text><path class="lt2" stroke-width="2.5" d="M 148 22 L 172 44"/>
-  <text class="lbl-s" x="70" y="160" text-anchor="middle">witness · silent</text><text class="lbl-s" x="250" y="160" text-anchor="middle">inquirer</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s7-02.webp" alt="Two seated figures facing each other; a teal beam carries the words tell me who you are from the silent witness to the gold-headed inquirer; a question mark is crossed out" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The imperative.</b> Not a question, so no answer is being requested. A command to convey yourself with your whole being, received by someone who offers nothing back.</figcaption>
     </figure>
 
@@ -1455,14 +1221,8 @@
     <p>Two kinds of trouble arise reliably in inquiry, and they are the same trouble.</p>
     <p>The first is <strong>striving</strong>. The question becomes a torment: I must find out who I am, I cannot be happy until I do, and time is running out. Notice that the striving is the movement of the mind, wanting something other than what is, and the mind does not even know what it wants. That striving is exactly what must relax for stillness to be there. The relief when it finally does is enormous, and it is the relief of discovering that what was being sought was here the whole time. If sitting quietly and being present is easy but the question makes you tense, then be present, and look at who is present. That is the inquiry.</p>
     <p>The second is the <strong>gap</strong>. Someone who had a glimpse years ago says: I recognise awareness now, but it does not feel like it did then; there is a gap and I am trying to cross it. There is no gap. The mind remembers the phenomena that accompanied the glimpse, and is comparing this moment's phenomena unfavourably. The awareness in the glimpse and the awareness reading this are one and the same. Let the memory go, and there is nothing to cross.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 160" role="img" aria-label="Two panels, then and now, with different phenomena above; one continuous gold band runs under both; a dashed gap bracket between them is crossed out">
-  <g transform="translate(30 0)"><rect class="s2" x="0" y="20" width="180" height="76" rx="8"/><g class="soft"><circle cx="40" cy="50" r="10"/><circle cx="90" cy="40" r="6"/><circle cx="130" cy="60" r="8"/><path d="M 20 84 q 20 -14 40 0 q 20 14 40 0 q 20 -14 40 0" fill="none" stroke="var(--teal)" stroke-width="3"/></g><text class="lbl-s" x="90" y="14" text-anchor="middle">then · the glimpse</text></g>
-  <g transform="translate(270 0)"><rect class="s2" x="0" y="20" width="180" height="76" rx="8"/><g class="i3"><circle cx="50" cy="56" r="4"/><rect x="90" y="46" width="12" height="12" rx="2"/><circle cx="140" cy="62" r="3"/></g><text class="lbl-s" x="90" y="14" text-anchor="middle">now · ordinary</text></g>
-  <path class="ln3" stroke-dasharray="3 3" d="M 212 58 h 56"/><path class="lt2" stroke-width="2.5" d="M 226 44 L 254 72"/>
-  <rect class="g" opacity=".55" x="30" y="108" width="420" height="16" rx="8"/>
-  <text class="lbl-s" x="240" y="146" text-anchor="middle">the same awareness, continuous</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s7-03.webp" alt="Two panels, then and now, with different phenomena above; one continuous gold band runs under both; a dashed gap bracket between them is crossed out" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The gap that isn't.</b> The phenomena differ; the mind compares them and reports a distance. What was aware then is what is aware now, and it never went anywhere.</figcaption>
     </figure>
 
@@ -1546,18 +1306,8 @@
 
     <h2>The roller coaster</h2>
     <p>Consider what happens on a large roller coaster. Climbing the first hill, you can feel fear building in the body. There are two ways to ride. In the first, at the top, something flips: you become the witness, the emptiness riding the coaster, watching the drama from a remove. It is peaceful, and it is not really riding. In the second, something gives way entirely: every sense opens, the energy opens, the emptiness is still there but so is all of the fullness, and the ride is life itself riding, connected to the whole park. Emptiness riding is a real stage. Non-dual riding is where it is going: form and emptiness together, fear and aliveness revealed as one energy.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 -20 480 220" role="img" aria-label="A roller coaster track at its drop; in the car, one rider hunched and holding on with jagged lines, the other open with arms up and gold, on the same track">
-  <path class="ln" stroke-width="5" d="M 20 150 C 90 150, 130 40, 200 40 C 250 40, 270 160, 330 160 C 380 160, 420 90, 460 90"/>
-  <path class="ln3" stroke-width="1.5" d="M 60 150 v 34 M 120 100 v 84 M 200 40 v 144 M 270 120 v 64 M 330 160 v 24 M 400 116 v 68"/>
-  <g transform="translate(200 44)">
-    <g transform="translate(-22 -12)"><circle class="i2" cx="0" cy="-20" r="9"/><path class="i2" d="M -11 4 C -11 -22, 11 -22, 11 4 Z"/><path class="ln3" stroke-width="2" d="M -24 -30 l 4 -5 l -4 -5 M 22 -32 l -4 -5 l 4 -5"/></g>
-    <g transform="translate(22 -12)"><circle class="g" cx="0" cy="-22" r="9"/><path class="g" d="M -11 4 C -11 -24, 11 -24, 11 4 Z"/><path class="lg" stroke-width="3.5" d="M -10 -14 L -22 -34 M 10 -14 L 22 -34"/></g>
-    <rect class="i2" x="-46" y="-8" width="92" height="24" rx="7"/><rect class="i3" x="-38" y="-14" width="76" height="6" rx="3"/>
-  </g>
-  <text class="lbl-s" x="150" y="196">holding on · fear</text><text class="lbl-s" x="330" y="196">letting go · aliveness</text>
-  <text class="lbl" x="380" y="14" text-anchor="middle">the same drop, the same energy</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s8-01.webp" alt="A roller coaster track at its drop; in the car, one rider hunched and holding on with jagged lines, the other open with arms up and gold, on the same track" width="1200" height="600" loading="lazy" decoding="async">
       <figcaption><b>The roller coaster.</b> Two riders, one track, one drop. Contracted, the energy is fear; open, the identical energy is aliveness. Nothing was added or removed.</figcaption>
     </figure>
 
@@ -1565,14 +1315,8 @@
 
     <h2>Hope and fear are one thing</h2>
     <p>Fear cannot be dropped on its own, because it is half of a pair. Hope is craving projected into the future (may this happen); fear is aversion projected into the future (may this not happen). They are the fourth skandha, wearing two masks. The "I"-thought is strongest exactly here, in hoping and fearing, and this is not a flaw in the design; it is the pulse of expansion and contraction that runs through everything, the in-breath and out-breath, yin and yang, Shiva and Shakti.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="One figure with two arrows into the future: one reaching toward, labelled hope, and one recoiling, labelled fear; a bracket names them one mechanism">
-  <rect class="soft" x="220" y="30" width="80" height="110" rx="8"/><text class="lbl-s" x="260" y="24" text-anchor="middle">the future</text>
-  <g transform="translate(80 100)"><circle class="i2" cx="0" cy="-30" r="11"/><path class="i2" d="M -18 26 C -18 -32, 18 -32, 18 26 Z"/></g>
-  <path class="lt" stroke-width="4" d="M 100 66 L 210 56"/><path class="t" d="M 214 56 l -12 -6 l 1 12 z"/><text class="lbl-s" x="104" y="50">hope · may it happen</text>
-  <path class="ln" stroke-width="4" d="M 210 112 L 110 120"/><path class="i2" d="M 104 120 l 12 -6 l -1 12 z"/><text class="lbl-s" x="104" y="142">fear · may it not</text>
-  <path class="ln3" stroke-width="1.5" d="M 22 60 v 62 M 22 60 h 6 M 22 122 h 6"/><text class="lbl-s" x="10" y="94" transform="rotate(-90 10 94)" text-anchor="middle">one mechanism</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s8-02.webp" alt="One figure with two arrows into the future: one reaching toward, labelled hope, and one recoiling, labelled fear; a bracket names them one mechanism" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Hope and fear.</b> Craving projected forward, aversion projected forward: one mechanism wearing two masks. Neither can be dropped without the other.</figcaption>
     </figure>
 
@@ -1581,14 +1325,8 @@
     <h2>The cave</h2>
     <p>Joseph Campbell, who spent his life mapping the hero's journey across cultures, summarised its turning point in one sentence: where we had thought to find an abomination, we shall find a god; where we had thought to slay another, we shall slay ourselves; where we had thought to travel outward, we shall come to the centre of our own existence.</p>
     <p>The clearest modern telling is in the first <em>Star Wars</em> trilogy. Luke, training with Yoda, is sent into a dark cave. Yoda tells him he will not need his weapon. He takes it anyway, meets Darth Vader, strikes him down, and the mask falls open to show Luke's own face. Every real journey has this scene. The thing you feared most in the dark turns out to be a disowned part of you.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 200" role="img" aria-label="A figure with a small light entering a dark cave to meet a shadowed opponent whose face is a mirror showing the figure's own face">
-  <path fill="#2B3B47" d="M 40 200 L 40 90 C 40 30, 280 30, 280 90 L 280 200 Z"/>
-  <path class="s2" d="M 0 200 L 0 100 L 60 100 L 60 200 Z" opacity=".6"/>
-  <g transform="translate(92 150)"><circle fill="#D6DEE2" cx="0" cy="-28" r="10"/><path fill="#D6DEE2" d="M -14 20 C -14 -30, 14 -30, 14 20 Z"/><circle class="t" cx="20" cy="-14" r="4"/><circle class="t" cx="20" cy="-14" r="10" opacity=".3"/></g>
-  <g transform="translate(206 146)"><path fill="#7B8791" d="M -26 24 C -26 -30, 26 -30, 26 24 Z"/><circle fill="#F3F6F7" cx="0" cy="-32" r="16"/><circle fill="#2B3B47" cx="0" cy="-37" r="5"/><path fill="#2B3B47" d="M -7 -20 C -7 -34, 7 -34, 7 -20 Z"/></g>
-  <text class="lbl-s" x="160" y="190" text-anchor="middle" fill="#EDF1F2" opacity=".9">the face is your own</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s8-03.webp" alt="A figure with a small light entering a dark cave to meet a shadowed opponent whose face is a mirror showing the figure" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The cave.</b> The thing feared most in the dark turns out to wear your own face. Every real journey has this scene.</figcaption>
     </figure>
 
@@ -1596,16 +1334,8 @@
 
     <h2>Ride the dragon</h2>
     <p>Our stories have regressed. The old myths knew the dragon must be integrated; the new ones mostly have it slain, light conquering dark, good conquering evil. Look at the oldest images of the Buddha, or of Patanjali, in the ancient temples: they sit surrounded by <span class="term">nagas</span>, serpents, sometimes seven of them fanning out behind the awakened one. The serpents are not being fought. They are the dimensions of the unconscious, integrated, at attention, part of the whole. Modern iconography dropped them, and something was lost.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 220" role="img" aria-label="A seated figure with seven calm serpents fanning out behind it, integrated rather than fought">
-  <g class="lt" stroke-width="7" opacity=".75" stroke-linecap="round">
-    <path d="M 160 150 C 100 140, 60 120, 40 70"/><path d="M 160 150 C 110 130, 90 100, 80 44"/><path d="M 160 150 C 140 120, 130 80, 130 30"/><path d="M 160 150 C 160 110, 160 70, 160 22"/><path d="M 160 150 C 180 120, 190 80, 190 30"/><path d="M 160 150 C 210 130, 230 100, 240 44"/><path d="M 160 150 C 220 140, 260 120, 280 70"/>
-  </g>
-  <g class="t"><circle cx="40" cy="66" r="7"/><circle cx="80" cy="40" r="7"/><circle cx="130" cy="26" r="7"/><circle cx="160" cy="18" r="7"/><circle cx="190" cy="26" r="7"/><circle cx="240" cy="40" r="7"/><circle cx="280" cy="66" r="7"/></g>
-  <path class="i2" d="M 112 190 C 112 150, 208 150, 208 190 Z"/>
-  <g transform="translate(160 150)"><circle class="g" cx="0" cy="-22" r="13"/><path class="i2" d="M -20 34 C -20 -22, 20 -22, 20 34 Z"/></g>
-  <text class="lbl-s" x="160" y="212" text-anchor="middle">seven serpents, at attention</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s8-04.webp" alt="A seated figure with seven calm serpents fanning out behind it, integrated rather than fought" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The nagas.</b> In the oldest images the awakened one sits with the serpents fanned out behind, calm, part of the whole. Not slain. Ridden.</figcaption>
     </figure>
 
@@ -1615,18 +1345,8 @@
     <h2>Two horses</h2>
     <p>The Bhagavad Gita pictures the person as a chariot: the horses are the senses and desires, the reins the mind, the charioteer the discerning intelligence, and the passenger the Self. Plato's <em>Phaedrus</em> has a sharper version with two horses. The black horse, <span class="term">eros</span>, pulls down toward the material, toward sensation and pleasure and the world. The white horse, <span class="term">thumos</span>, pulls upward toward the spiritual, toward truth, toward what is higher. The charioteer must drive both.</p>
     <p>The teaching is in what Plato does not say. He does not say kill the black horse. Kill it and you have lost half your power; the chariot cannot move. Let the white horse run unchecked and you neglect the body and the world, and the chariot goes off the road just as surely. The horses are the skandhas, and energy follows consciousness: make them conscious, harness both, and the chariot goes where the current is going. The material and the spiritual are not enemies. They are the team.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 196" role="img" aria-label="A chariot with a gold-headed driver holding two reins to two horses, one dark and one light, on a road ahead">
-  <defs><g id="ch-horse"><ellipse cx="0" cy="0" rx="20" ry="9"/><ellipse cx="20" cy="-9" rx="9" ry="5" transform="rotate(-35 20 -9)"/><rect x="-15" y="6" width="4" height="15" rx="1"/><rect x="-6" y="6" width="4" height="15" rx="1"/><rect x="4" y="6" width="4" height="15" rx="1"/><rect x="12" y="6" width="4" height="15" rx="1"/><path d="M -20 -2 C -28 2, -28 10, -24 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></g></defs>
-  <rect class="s2" x="0" y="146" width="480" height="26"/>
-  <use href="#ch-horse" class="i2" transform="translate(84 118) scale(1.3)"/>
-  <use href="#ch-horse" class="l2" transform="translate(196 118) scale(1.3)"/>
-  <rect class="i2" x="296" y="92" width="92" height="42" rx="8"/><circle class="i3" cx="336" cy="140" r="15"/><circle class="sf" cx="336" cy="140" r="5"/>
-  <g transform="translate(352 90)"><circle class="g" cx="0" cy="-22" r="10"/><path class="i2" d="M -13 6 C -13 -22, 13 -22, 13 6 Z"/></g>
-  <path class="lt2" d="M 340 76 C 300 66, 200 80, 112 104 M 340 80 C 300 84, 260 96, 222 104"/>
-  <text class="lbl-s" x="20" y="40">eros · the dark horse, down toward the world</text>
-  <text class="lbl-s" x="30" y="186">thumos · the light horse, up toward the higher</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s8-05.webp" alt="A chariot with a gold-headed driver holding two reins to two horses, one dark and one light, on a road ahead" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The chariot.</b> Kill the dark horse and you lose half your power; let the light one run alone and you leave the road. The driver holds both reins.</figcaption>
     </figure>
 
@@ -1702,14 +1422,8 @@
     <h2>The Buddha's silence</h2>
     <p>The deepest divide in the spiritual world runs between systems that speak of a soul, an <span class="term">Atman</span>, and systems that speak of emptiness and no-self, <span class="term">anatta</span>. Half the great masters use one vocabulary and half the other, and their followers have argued for two and a half millennia. The argument is a symptom of language: we have no non-dual grammar, so every statement lands on one side of a line the truth does not respect.</p>
     <p>The Buddha understood this perfectly. Many people are surprised to learn that he never said "there is no self", and that he criticised teachers who taught bare no-self as a doctrine, saying that those who teach only non-self do not become free. When a wandering ascetic named Vacchagotta asked him directly whether there is a self, he stayed silent. Asked whether there is no self, he stayed silent. Afterwards he explained: a "yes" would have confirmed the eternalists in a concept; a "no" would have plunged the questioner into the confusion of thinking he had once had a self and now did not. Both answers lead back into the prison of the conceptual mind.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="A questioner with two speech bubbles, self? and no-self?, faces an answer drawn as an empty open ring">
-  <g transform="translate(70 120)"><circle class="i2" cx="0" cy="-36" r="12"/><path class="i2" d="M -22 30 C -22 -40, 22 -40, 22 30 Z"/></g>
-  <path class="s2" d="M 100 40 h 74 a 8 8 0 0 1 8 8 v 20 a 8 8 0 0 1 -8 8 h -56 l -12 10 v -10 h -6 a 8 8 0 0 1 -8 -8 v -20 a 8 8 0 0 1 8 -8 z"/><text class="lbl" x="137" y="62" text-anchor="middle">a self?</text>
-  <path class="s2" d="M 100 96 h 74 a 8 8 0 0 1 8 8 v 20 a 8 8 0 0 1 -8 8 h -56 l -12 10 v -10 h -6 a 8 8 0 0 1 -8 -8 v -20 a 8 8 0 0 1 8 -8 z"/><text class="lbl" x="137" y="118" text-anchor="middle">no self?</text>
-  <circle fill="none" stroke="var(--gold)" stroke-width="3" cx="256" cy="84" r="34"/>
-  <text class="lbl-s" x="256" y="140" text-anchor="middle">the answer</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s9-01.webp" alt="A questioner with two speech bubbles, self? and no-self?, faces an answer drawn as an empty open ring" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The silence.</b> "Yes" would have confirmed a concept; "no" would have plunged the questioner into another. The Buddha left the circle open.</figcaption>
     </figure>
 
@@ -1722,14 +1436,8 @@
 
     <h2>The spiritual persona</h2>
     <p>Here is the trap in its final form. Someone has a real glimpse, a genuine samadhi. The mind comes back online. The ego drafts language around the experience, tells the story, takes ownership, and within weeks it has appropriated the insight. Now the person "knows" they are awareness, "knows" there is no self, and says so, and the saying has become a memory added to the self-structure. The moment you express in words who or what you are and identify with what you said, you are back in the dualistic mind. Meditation goes robotic. Inquiry stops, because the ego thinks it already has the answer.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 170" role="img" aria-label="A figure holding up a mask on a stick; the mask reads no-self; behind it the same face">
-  <g transform="translate(120 120)"><circle class="i2" cx="0" cy="-40" r="14"/><path class="i2" d="M -24 30 C -24 -44, 24 -44, 24 30 Z"/></g>
-  <path class="ln3" stroke-width="3" d="M 196 120 L 184 76"/>
-  <ellipse class="soft" cx="176" cy="60" rx="30" ry="36"/><ellipse class="sf" cx="166" cy="50" rx="6" ry="4"/><ellipse class="sf" cx="188" cy="50" rx="6" ry="4"/>
-  <text x="176" y="80" text-anchor="middle" font-family="var(--body)" font-size="9" font-weight="700" letter-spacing=".08em" fill="var(--teal)">NO-SELF</text>
-  <text class="lbl-s" x="60" y="160">the same ego, wearing its best idea</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s9-02.webp" alt="A figure holding up a mask on a stick; the mask reads no-self; behind it the same face" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The spiritual persona.</b> The ego that has learned to say "there is no self" is not less of an ego for being made of a true idea.</figcaption>
     </figure>
 
@@ -1741,13 +1449,8 @@
     <p>In every moment there are two dimensions: that which changes (thoughts, sensations, the whole field) and that which is aware of change. We are so absorbed in the field that we ignore the awareness. So the investigation begins with becoming aware of awareness, conscious of consciousness. The difficulty is that the limited mind finds this profoundly uncomfortable and will manufacture every hindrance to escape it. The two knots of Stage 3, comfort and knowing, are what pull.</p>
     <p>Then the paradox. The mind hears "drop all doing" and wants to know how. But the mind cannot do it, because the mind <em>is</em> movement, an endless process of doing. It will fail in every attempt to realise stillness. The you that you think you are is a process, a collection of patterns, and that pattern has to end for samadhi to be realised. This is the shift from doing to being, and no technique can make it, only the exhaustion of technique.</p>
     <p>"Be still, and know." What is being asked to be still? Not the body: it sits on a planet spinning at a thousand miles an hour, orbiting at sixty-seven thousand, the heart beating, the cells dividing. Not the mind: the universe itself, the Hermetic axiom says, is mind, and mind is movement. The stillness meant is something our modern languages have no word for. Sanskrit has <span class="term">shunyata</span>, emptiness, voidness, the ground that does not change and is, more precisely, beyond change and changelessness. When it is realised, stillness and movement are seen to be a duality the mind created. Silence and noise, another. The movement of the world is identical to the stillness. Be still and know; be in motion and know. It is all emptiness dancing.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 216" role="img" aria-label="A spinning planet, a beating heart and a moving mind arranged around one gold still point that is none of them">
-  <circle class="soft" cx="64" cy="66" r="30"/><path class="lt2" d="M 28 58 A 36 36 0 0 1 60 30"/><path class="t" d="M 60 26 l -6 8 l 8 2 z"/><text class="lbl-s" x="64" y="114" text-anchor="middle">a planet turning</text>
-  <path class="i2" d="M 256 40 c -10 -16, -34 -8, -30 10 c 3 14, 20 22, 30 34 c 10 -12, 27 -20, 30 -34 c 4 -18, -20 -26, -30 -10 z"/><path class="lt2" d="M 218 98 h 20 l 6 -12 l 8 22 l 6 -10 h 30"/><text class="lbl-s" x="256" y="122" text-anchor="middle">a heart beating</text>
-  <circle class="i3" cx="160" cy="176" r="22" opacity=".5"/><path class="lt2" stroke-width="2" d="M 146 172 c 6 -10, 22 -10, 26 0 c 4 8, -6 14, -12 8 c -4 -4, 0 -8, 4 -6"/><text class="lbl-s" x="160" y="212" text-anchor="middle">a mind moving</text>
-  <circle class="g" cx="160" cy="92" r="9"/><circle class="g" cx="160" cy="92" r="18" opacity=".22"/><text class="lbl-s" x="160" y="66" text-anchor="middle">the still point</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s9-03.webp" alt="A spinning planet, a beating heart and a moving mind arranged around one gold still point that is none of them" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Stillness and movement.</b> Not the body, on a spinning planet; not the heart; not the mind, which is movement. The stillness meant is none of them, and contains all of them.</figcaption>
     </figure>
 
@@ -1768,15 +1471,8 @@
       <summary><span class="label">Go deeper</span>Grinding the filters</summary>
       <div class="body">
         <p>An advanced practice, once concentration is stable: hold two poles of a perceptual duality in mind at the same time and let them grind against each other until they collapse. Inside and outside. Doing and happening ("am I doing this or is it happening on its own?"). Self and other. Stillness and movement. Held together with real concentration, the filters wear thin, and when one breaks it stays broken, not only in meditation but all the time. This is how the last layers of identification go: not by belief, but by watching the mechanism that made the distinction until it can no longer make it. Then the great reality is simply as it is: neither self nor other than self.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 160" role="img" aria-label="Two overlapping lenses labelled inside and outside; where they overlap the boundary has worn through to a gold point">
-  <circle class="soft" cx="120" cy="80" r="56" opacity=".8"/><circle class="soft" cx="200" cy="80" r="56" opacity=".8"/>
-  <path class="sf" d="M 160 36 A 56 56 0 0 1 160 124 A 56 56 0 0 1 160 36 Z" opacity=".9"/>
-  <circle class="g" cx="160" cy="80" r="7"/>
-  <path class="lt2" stroke-width="2" d="M 150 50 l 4 -6 M 170 50 l -4 -6 M 150 110 l 4 6 M 170 110 l -4 6"/>
-  <text class="lbl-s" x="86" y="80" text-anchor="middle">inside</text><text class="lbl-s" x="236" y="80" text-anchor="middle">outside</text>
-  <text class="lbl-s" x="160" y="150" text-anchor="middle">held together until the boundary wears through</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s9-04.webp" alt="Two overlapping lenses labelled inside and outside; where they overlap the boundary has worn through to a gold point" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Grinding the filters.</b> Hold both poles of a duality at once, with real concentration, and the line between them thins until it breaks. Once broken, it stays broken.</figcaption>
     </figure>
 
@@ -1851,13 +1547,8 @@
     <h2>Feeling life</h2>
     <p>Here is what nobody says at the start: the more work you do on the cushion, the more feelings will come up in life. Not fewer. As the reducing valve opens, what it was filtering out arrives, and the practice must be applied there, in the kitchen and the meeting and the argument, or it is only half a practice.</p>
     <p>The instruction is simple to state. Life triggers a stored knot, a samskara, and the body tightens: chest, solar plexus, throat. The habit is to close, to defend, to rationalise, to suppress, to reach for distraction. Instead: relax the body, soften the heart, and let the energy pass through. Do not close. Have a complete experience of the sensation, feeling and emotion as it moves, equanimous and inwardly surrendered. Every thorn you allow to be felt fully is one you no longer have to build your life around avoiding.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 170" role="img" aria-label="Three torsos: one contracting in rings around a thorn; one softening with a soft aura; one with energy passing through and out">
-  <g transform="translate(80 100)"><path class="i2" d="M -30 50 C -30 -20, 30 -20, 30 50 Z"/><path class="i3" d="M 0 4 l -4 12 h 8 z"/><g fill="none" stroke="var(--surface)" stroke-width="2" opacity=".8"><circle cx="0" cy="8" r="10"/><circle cx="0" cy="8" r="17"/></g><text class="lbl-s" x="0" y="66" text-anchor="middle">contract</text></g>
-  <g transform="translate(240 100)"><circle class="soft" cx="0" cy="12" r="44"/><path class="i2" d="M -30 50 C -30 -20, 30 -20, 30 50 Z"/><path class="i3" d="M 0 4 l -4 12 h 8 z"/><text class="lbl-s" x="0" y="66" text-anchor="middle">soften</text></g>
-  <g transform="translate(400 100)"><path class="i2" d="M -30 50 C -30 -20, 30 -20, 30 50 Z"/><path class="lt" stroke-width="5" d="M -50 10 C -20 4, 20 4, 46 8"/><path class="t" d="M 50 8 l -12 -6 l 0 12 z"/><text class="lbl-s" x="0" y="66" text-anchor="middle">let it pass</text></g>
-  <path class="i3" d="M 148 96 l 12 -6 v 12 z M 308 96 l 12 -6 v 12 z"/>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s10-01.webp" alt="Three torsos: one contracting in rings around a thorn; one softening with a soft aura; one with energy passing through and out" width="1200" height="500" loading="lazy" decoding="async">
       <figcaption><b>Relax, release, keep the heart open.</b> Life brushes a thorn and the body closes. Soften instead, and the energy that was held moves through and out.</figcaption>
     </figure>
 
@@ -1874,14 +1565,8 @@
 
     <h2>The mirror mind</h2>
     <p>A mirror reflects whatever is in front of it without holding onto it and without preferring one image to another. The mind that meets each moment this way is called, in Zen, beginner's mind; in the inquiry traditions, the don't-know mind; here, the mirror mind. It is the very essence of meditation and self-inquiry, and it is the destination of this path: not a state, but a way of meeting reality without the mediation of past conditioning.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 180" role="img" aria-label="A mirror reflecting a tree and sun in front of it; a faded cloud from an earlier scene leaves no trace on the glass">
-  <rect class="i2" x="160" y="20" width="110" height="140" rx="6"/><rect class="sf" x="168" y="28" width="94" height="124" rx="4"/>
-  <rect class="i2" x="60" y="100" width="10" height="50"/><circle class="soft" cx="65" cy="88" r="28"/><circle class="t" cx="65" cy="88" r="10" opacity=".5"/><circle class="g" cx="118" cy="40" r="11"/>
-  <rect class="i2" x="228" y="100" width="10" height="50" opacity=".85"/><circle class="soft" cx="233" cy="88" r="28"/><circle class="t" cx="233" cy="88" r="10" opacity=".5"/><circle class="g" cx="180" cy="40" r="11"/>
-  <path class="i3" opacity=".25" d="M 20 34 c 4 -14, 26 -14, 30 -4 c 12 -4, 22 8, 12 14 h -40 c -8 0, -8 -8, -2 -10 z"/>
-  <text class="lbl-s" x="18" y="168">the last scene leaves no residue</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s10-02.webp" alt="A mirror reflecting a tree and sun in front of it; a faded cloud from an earlier scene leaves no trace on the glass" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The mirror mind.</b> It reflects what is in front of it now, without holding onto what was there a moment ago, and without preferring one image to another.</figcaption>
     </figure>
 
@@ -1890,28 +1575,14 @@
 
     <h2>Freedom from, freedom to</h2>
     <p>Everything up to now has been freedom <em>from</em>: from the character, from suffering, from the fan. There is also freedom <em>to</em>. The awakened person is still here, in the dream, and the dream has other possibilities in it: to evolve, to grow this particular vessel in its unique way, to explore what the traditions call the higher worlds and the other dimensions of ourselves. The energy in the spine, the <span class="term">kundalini</span>, is our evolutionary potential; the centres it moves through, the <span class="term">chakras</span>, are the developing parts of the instrument. At the start the human journey is about survival. Then it expands: relationships, family, creating things in the world, an ever-larger sphere of compassion, until the sense of "I" includes everyone and everything. It is all you.</p>
-    <figure class="ill">
-      <svg viewBox="0 0 320 190" role="img" aria-label="Left: a figure stepping away from a mask left on the ground. Right: the same figure with a lotus growing above, gold at its centre">
-  <rect class="skin" x="10" y="150" width="300" height="8" rx="3"/>
-  <ellipse class="i3" cx="60" cy="146" rx="22" ry="8" opacity=".6"/><ellipse class="s2" cx="52" cy="144" rx="4" ry="2"/><ellipse class="s2" cx="68" cy="144" rx="4" ry="2"/>
-  <g transform="translate(120 120)"><circle class="g" cx="0" cy="-26" r="11"/><path class="i2" d="M -14 30 C -14 -30, 14 -30, 14 30 Z"/></g>
-  <path class="i3" d="M 150 110 l 14 -6 v 12 z"/>
-  <g transform="translate(240 120)"><path class="i2" d="M -14 30 C -14 -30, 14 -30, 14 30 Z"/><circle class="g" cx="0" cy="-26" r="11"/></g>
-  <g class="soft"><path d="M 240 62 c -14 -14, -20 -36, 0 -52 c 20 16, 14 38, 0 52 z"/><path d="M 240 62 c -24 -4, -40 -20, -36 -44 c 22 8, 34 26, 36 44 z"/><path d="M 240 62 c 24 -4, 40 -20, 36 -44 c -22 8, -34 26, -36 44 z"/></g>
-  <circle class="g" cx="240" cy="54" r="6"/>
-  <text class="lbl-s" x="60" y="176">freedom from</text><text class="lbl-s" x="212" y="176">freedom to</text>
-</svg>
+    <figure class="ill photo">
+      <img src="img/s10-03.webp" alt="Left: a figure stepping away from a mask left on the ground. Right: the same figure with a lotus growing above, gold at its centre" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Freedom from, freedom to.</b> Stepping out of the mask is the first half. What grows in the same vessel afterwards is the second.</figcaption>
     </figure>
 
     <p>The highest samadhi, the traditions say, is when this awakened consciousness and the time-bound part of us become one: the vessel matured until awareness shines through it without interruption, a transparent expression of the whole. Always being Buddha; always becoming Buddha. The show goes on. The witness is at peace. The mask is off, and the play is better for it.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 160" role="img" aria-label="A row of ordinary people at a market, indistinguishable, one of them gold-headed carrying two buckets of water">
-  <rect class="s2" x="0" y="120" width="480" height="24"/>
-  <g class="i2"><g transform="translate(60 100)"><circle cx="0" cy="-26" r="10"/><path d="M -14 22 C -14 -30, 14 -30, 14 22 Z"/><rect class="soft" x="16" y="0" width="18" height="14" rx="3"/></g><g transform="translate(150 100)"><circle cx="0" cy="-26" r="10"/><path d="M -14 22 C -14 -30, 14 -30, 14 22 Z"/></g><g transform="translate(330 100)"><circle cx="0" cy="-26" r="10"/><path d="M -14 22 C -14 -30, 14 -30, 14 22 Z"/><rect class="soft" x="-36" y="-4" width="18" height="18" rx="3"/></g><g transform="translate(420 100)"><circle cx="0" cy="-26" r="10"/><path d="M -14 22 C -14 -30, 14 -30, 14 22 Z"/></g></g>
-  <g transform="translate(240 100)"><circle class="g" cx="0" cy="-26" r="10"/><path class="i2" d="M -14 22 C -14 -30, 14 -30, 14 22 Z"/><path class="ln3" stroke-width="2.5" d="M -40 -12 H 40"/><path class="ln3" stroke-width="1.5" d="M -40 -12 v 14 M 40 -12 v 14"/><rect class="t" x="-48" y="2" width="16" height="16" rx="2"/><rect class="t" x="32" y="2" width="16" height="16" rx="2"/></g>
-  <text class="lbl-s" x="240" y="156" text-anchor="middle">chop wood, carry water</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/s10-04.webp" alt="A row of ordinary people at a market, indistinguishable, one of them gold-headed carrying two buckets of water" width="1200" height="500" loading="lazy" decoding="async">
       <figcaption><b>Returning to the marketplace.</b> Back among ordinary people, indistinguishable, carrying water. The show goes on; the mask is off.</figcaption>
     </figure>
 
@@ -1985,16 +1656,8 @@
 
     <h2>First, triage</h2>
     <p>When turbulence arises in practice, it helps to know which of four things it is, because they call for different responses.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 170" role="img" aria-label="A branching diagram: turbulence splits into biological pain, karmic pain, resistance and overwhelm, each with its response">
-  <rect class="s2" x="180" y="14" width="120" height="34" rx="8"/><text class="lbl-s" x="240" y="35" text-anchor="middle">turbulence</text>
-  <path class="lt2" d="M 240 48 V 66 M 60 66 H 420 M 60 66 V 84 M 180 66 V 84 M 300 66 V 84 M 420 66 V 84"/>
-  <g><rect class="soft" x="12" y="84" width="96" height="30" rx="6"/><text class="lbl-s" x="60" y="103" text-anchor="middle">biological</text><text class="lbl" x="60" y="134" text-anchor="middle">take care of it</text></g>
-  <g><rect class="soft" x="132" y="84" width="96" height="30" rx="6"/><text class="lbl-s" x="180" y="103" text-anchor="middle">karmic</text><text class="lbl" x="180" y="134" text-anchor="middle">sit through it</text></g>
-  <g><rect class="soft" x="252" y="84" width="96" height="30" rx="6"/><text class="lbl-s" x="300" y="103" text-anchor="middle">resistance</text><text class="lbl" x="300" y="134" text-anchor="middle">inhabit it</text></g>
-  <g><rect class="gsoft" x="372" y="84" width="96" height="30" rx="6"/><rect fill="none" stroke="var(--gold)" stroke-width="1.5" x="372" y="84" width="96" height="30" rx="6"/><text class="lbl-s" x="420" y="103" text-anchor="middle">overwhelm</text><text class="lbl" x="420" y="134" text-anchor="middle">pause and ground</text></g>
-  <text class="lbl-s" x="240" y="160" text-anchor="middle">four things that feel the same at first</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/field-01.webp" alt="A branching diagram: turbulence splits into biological pain, karmic pain, resistance and overwhelm, each with its response" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>Triage.</b> Four kinds of turbulence that feel alike in the first minute and call for different responses. The table below has the detail.</figcaption>
     </figure>
 
@@ -2324,18 +1987,8 @@
 
     <h2>The loop</h2>
     <p>The system runs as a loop, not a line. A practice (zone 2) interrupts the baseline (zone 1). The interruption pushes material into the crucible (zone 3): a samskara surfaces, karmic pain is met, fear is triggered, and, if equanimity holds and the story is not fed, the energy is rerouted from resistance into aliveness. Each pass through the loop produces a little more of zone 4: a state, a glimpse, a stabilisation. Each pass also offers an error: the state is grasped, the glimpse is appropriated into a persona, the fear tips into overwhelm. The error routes back to zone 1 as a new samskara. The correction is always the same: no preference, feel it fully, ask who it belongs to.</p>
-    <figure class="ill wide">
-      <svg viewBox="0 0 480 240" role="img" aria-label="Four boxes in a loop: baseline, inputs, crucible, outcomes; solid arrows run around the loop and a dashed error arrow returns from the crucible to the baseline">
-  <rect class="s2" x="20" y="30" width="150" height="60" rx="10"/><text class="lbl-s" x="95" y="55" text-anchor="middle">1 · baseline</text><text class="lbl" x="95" y="74" text-anchor="middle">the false self</text>
-  <rect class="soft" x="310" y="30" width="150" height="60" rx="10"/><text class="lbl-s" x="385" y="55" text-anchor="middle">2 · inputs</text><text class="lbl" x="385" y="74" text-anchor="middle">the practices</text>
-  <rect class="i2" x="310" y="140" width="150" height="60" rx="10"/><text x="385" y="165" text-anchor="middle" font-family="var(--body)" font-size="9" font-weight="600" letter-spacing=".06em" fill="var(--surface)">3 · CRUCIBLE</text><text x="385" y="184" text-anchor="middle" font-family="var(--body)" font-size="10.5" fill="var(--surface)">material surfaces, is felt</text>
-  <rect class="gsoft" x="20" y="140" width="150" height="60" rx="10"/><rect fill="none" stroke="var(--gold)" stroke-width="2" x="20" y="140" width="150" height="60" rx="10"/><text class="lbl-s" x="95" y="165" text-anchor="middle">4 · outcomes</text><text class="lbl" x="95" y="184" text-anchor="middle">absorption · flip · abiding</text>
-  <path class="lt" stroke-width="3" d="M 176 60 H 300"/><path class="t" d="M 304 60 l -10 -5 v 10 z"/><text class="lbl-s" x="240" y="52" text-anchor="middle">interrupts</text>
-  <path class="lt" stroke-width="3" d="M 385 96 V 130"/><path class="t" d="M 385 134 l -5 -10 h 10 z"/><text class="lbl-s" x="374" y="110" text-anchor="end">pushes material into</text>
-  <path class="lt" stroke-width="3" d="M 304 170 H 180"/><path class="t" d="M 176 170 l 10 -5 v 10 z"/><text class="lbl-s" x="240" y="162" text-anchor="middle">each pass yields</text>
-  <path class="lt" stroke-width="3" d="M 95 134 V 100"/><path class="t" d="M 95 96 l -5 10 h 10 z"/><text class="lbl-s" x="104" y="126">changes the baseline</text>
-  <path class="ln3" stroke-dasharray="4 4" d="M 385 206 V 228 H 8 V 60 H 14"/><path class="i3" d="M 18 60 l -8 -5 v 10 z"/><text class="lbl-s" x="240" y="220" text-anchor="middle">error path: grasped, appropriated, overwhelmed → a new groove</text>
-</svg>
+    <figure class="ill wide photo">
+      <img src="img/blueprint-01.webp" alt="Four boxes in a loop: baseline, inputs, crucible, outcomes; solid arrows run around the loop and a dashed error arrow returns from the crucible to the baseline" width="1200" height="800" loading="lazy" decoding="async">
       <figcaption><b>The loop.</b> Practice interrupts the baseline; the crucible processes what surfaces; each pass yields an outcome and changes the baseline. The error path returns material as a new groove.</figcaption>
     </figure>
 

@@ -52,6 +52,14 @@ In `ills_a.py` / `ills_b.py`:
 If an anchor no longer matches, `build.py` prints `MISSING ANCHORS` rather than
 silently dropping the figure.
 
+## Raster illustrations
+
+Generated WebP illustrations live in `img/`. Their filenames use the illustration's part
+name without its numeric prefix plus its two-digit, one-based position in that part (for
+example, `31-s1.html`'s first illustration is `s1-01.webp`). Export them at 1200px wide.
+When a matching file exists, the build uses it with dimensions read from its WebP header;
+otherwise it keeps the inline SVG. Raster figures use a cream print plate in dark mode.
+
 ## Landing page
 
 The opening landing-page copy lives in `parts/20-home.html`: its central teaching, shared-tradition map, river invitation, and CTA sit above the existing path and reference cards.
