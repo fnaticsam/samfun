@@ -11,19 +11,27 @@ def add(file, anchor, svg, caption, wide=False):
     ILLS.append((file, anchor, svg, caption, wide))
 
 # ---------------- HOME ----------------
-add('20-home.html', '<div class="current-line"></div>',
-'''<svg viewBox="0 0 480 200" role="img" aria-label="A river drawn as a closed loop returning to its source; one boat drifts with the current, one strains across it">
-  <ellipse cx="240" cy="100" rx="200" ry="62" fill="none" stroke="var(--teal-soft)" stroke-width="28"/>
-  <path class="t" opacity=".7" d="M 300 40 l 12 6 l -12 6 z"/><path class="t" opacity=".7" d="M 430 118 l -4 13 l 10 -8 z"/><path class="t" opacity=".7" d="M 180 160 l -12 -6 l 12 -6 z"/><path class="t" opacity=".7" d="M 50 82 l 4 -13 l -10 8 z"/>
-  <circle class="g" cx="240" cy="100" r="14"/><circle class="g" cx="240" cy="100" r="26" opacity=".2"/>
-  <text class="lbl-s" x="240" y="140" text-anchor="middle">source</text>
-  <g transform="translate(372 52) rotate(18)"><path class="i2" d="M -16 0 L 16 0 L 11 8 L -11 8 Z"/><path class="t" d="M -2 -2 L -2 -22 L 12 -2 Z"/></g>
-  <g transform="translate(96 150) rotate(-75)"><path class="i2" d="M -16 0 L 16 0 L 11 8 L -11 8 Z"/><path class="i3" d="M -2 -2 L -2 -22 L 12 -2 Z"/></g>
-  <path class="lt2" d="M 78 132 q 6 -4 12 0 M 74 124 q 6 -4 12 0 M 116 172 q 6 -4 12 0 M 120 180 q 6 -4 12 0"/>
-  <text class="lbl" x="372" y="82" text-anchor="middle">with the current</text>
-  <text class="lbl" x="140" y="118" text-anchor="middle">against it</text>
-</svg>''',
-'<b>The current.</b> Everything that comes out of the source is moving back toward it. One boat has stopped rowing; the other is working very hard to stay where it is.', True)
+add('20-home.html', 'Different traditions. A recurring invitation to awaken.',
+'''<svg viewBox="0 0 480 320" role="img" aria-label="Seven named traditions surround teal dots whose fading spokes meet a gold circle labelled awareness">
+  <defs><radialGradient id="home-map-fade" gradientUnits="userSpaceOnUse" cx="240" cy="160" r="150"><stop offset="0" stop-color="var(--teal)" stop-opacity=".7"/><stop offset="1" stop-color="var(--teal)" stop-opacity=".12"/></radialGradient></defs>
+  <path class="soft" opacity=".32" d="M446.81 123.53 A210 210 0 0 1 446.81 196.47 L442.87 195.77 A206 206 0 0 0 442.87 124.23 Z"/>
+  <path class="soft" opacity=".22" d="M33.19 196.47 A210 210 0 0 1 33.19 123.53 L37.13 124.23 A206 206 0 0 0 37.13 195.77 Z"/>
+  <g class="lt2" style="stroke:url(#home-map-fade)"><path d="M240 120L240 50"/><path d="M271.26 135.04L325.97 91.37"/><path d="M278.99 168.93L347.22 184.56"/><path d="M257.35 196.04L287.7 259.12"/><path d="M222.65 196.04L192.3 259.12"/><path d="M201.01 168.93L132.78 184.56"/><path d="M208.74 135.04L154.03 91.37"/></g>
+  <circle class="g" cx="240" cy="160" r="34"/><text class="lbl-w" style="font-size:9px" x="240" y="163" text-anchor="middle">awareness</text>
+  <circle class="t" cx="240" cy="42" r="7"/><circle class="t" cx="332.22" cy="86.38" r="7"/><circle class="t" cx="355.02" cy="186.34" r="7"/><circle class="t" cx="291.17" cy="266.33" r="7"/><circle class="t" cx="188.83" cy="266.33" r="7"/><circle class="t" cx="124.98" cy="186.34" r="7"/><circle class="t" cx="147.78" cy="86.38" r="7"/>
+  <text class="lbl-s" x="240" y="28" text-anchor="middle">FANA</text><text class="lbl-s" x="344.22" y="89.38" text-anchor="start">KENSHO</text><text class="lbl-s" x="367.02" y="189.34" text-anchor="start">MOKSHA</text><text class="lbl-s" x="303.17" y="269.33" text-anchor="start">RIGPA</text><text class="lbl-s" x="176.83" y="269.33" text-anchor="end">THEOSIS</text><text class="lbl-s" x="112.98" y="189.34" text-anchor="end">BITTUL</text><text class="lbl-s" x="135.78" y="89.38" text-anchor="end">HENOSIS</text>
+</svg>''', '<b>One realization, many names.</b> Every tradition draws a different map. They all point at the same centre.', True)
+
+add('20-home.html', 'Awakening is not a summit you climb.',
+'''<svg viewBox="0 0 320 220" role="img" aria-label="A relaxed figure steps from the bank into a teal river looping toward a gold source">
+  <path class="skin" d="M0 185 C30 180 58 158 78 166 C94 172 100 190 100 220 L0 220 Z"/>
+  <path fill="none" stroke="var(--teal-soft)" stroke-width="26" stroke-linecap="round" d="M108 166 C154 190 268 180 272 132 C276 98 206 110 204 84 C202 66 216 60 232 60"/>
+  <path class="t" opacity=".7" transform="translate(195.19 177.38) rotate(-5.95)" d="M-5 -4L7 0L-5 4Z"/>
+  <path class="t" opacity=".7" transform="translate(242.32 105.55) rotate(-165.01)" d="M-5 -4L7 0L-5 4Z"/>
+  <path class="t" opacity=".7" transform="translate(214.66 63.26) rotate(-25.35)" d="M-5 -4L7 0L-5 4Z"/>
+  <circle class="g" cx="232" cy="60" r="20" opacity=".2"/><circle class="g" cx="232" cy="60" r="12"/><text class="lbl-s" x="232" y="86" text-anchor="middle">source</text>
+  <circle class="i2" cx="88" cy="84" r="9"/><path class="ln" stroke-width="5" style="stroke-width:5px" d="M88 94L88 132 M88 104L66 120 M88 104L110 118 M88 132L72 168 M88 132L112 162"/>
+</svg>''', '<b>Stepping in.</b> The current was always moving. All you do is stop standing on the bank.')
 
 # ---------------- STAGE 1 ----------------
 add('31-s1.html', '<h2>The character and the one watching</h2>',

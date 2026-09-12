@@ -12,7 +12,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const awakening = join(root, 'awakening');
 const html = readFileSync(join(awakening, 'index.html'), 'utf8');
 const frozen = {
-  'parts/20-home.html': '0b96415005d9c973c86f7387b75669d74904a816a306c771b3209399902d35e7',
+  'parts/20-home.html': '1523113df217fb3d659fec8b95dea392616f41164dd564ab58ac906fcd34d3cf',
   'parts/31-s1.html': '941812775626d23ccb544490eae1716ff4729dc6edaf98d4d05866594592f7ae',
   'parts/32-s2.html': '33d80fbb9382285efd8be01894b48547894e894f845ac5e3b72db68345235b7d',
   'parts/33-s3.html': '5bd893647871d10634f24de5a9a379414cfd2e55ead142d3535448b1b7138ae5',
@@ -28,7 +28,7 @@ const frozen = {
   'parts/70-traditions.html': '2b39a50cd0a1c938658965fc314d85cfdc450fca47ad15ec786aba654a6ceef8',
   'parts/80-analogies.html': '5d52a78a8d06771b700928b99bc160ec48a85c8156bb8231c128bcd35df92fbc',
   'parts/85-blueprint.html': 'a566bc9fd7c3b737146de29f67f921ef4361c0c8a7e2f44d74227a170f22f53a',
-  'ills_a.py': '56f1860966a82b7e73e5673db51554ced8ec26861d622214372b13a083e8eaa9',
+  'ills_a.py': '6b0b78151d567a4f18bcb54991baf1675736afa3a5db3ded83262e2fdb376e81',
   'ills_b.py': '1e8b15c100778d6837a0cff88876d6b2165d794035ed1e54777d12d8049f0e8f',
   'build.py': '7bf299d77ea54d4637e4a02f36ed15e4baf2d33c1345ed6a3c8c54e184f0f9cb',
   'styles.html': 'cc806aa9db5584e0e9029c4d981ca96be1b98b2be6e8ef3465d9be65171cf0f7'
@@ -46,11 +46,23 @@ test('document metadata and generated structure are mobile-safe', () => {
   assert.match(html, /<\/body><\/html>\s*$/);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length);
-  assert.equal((html.match(/<figure class="ill/g) || []).length, 44);
+  assert.equal((html.match(/<figure class="ill/g) || []).length, 45);
   const urls = [...html.matchAll(/(?:href|src)="(https?:\/\/[^" ]+)/g)].map((match) => match[1]);
   assert.ok(urls.every((url) => url.startsWith('https://fonts.googleapis.com') || url.startsWith('https://fonts.gstatic.com')));
   const mobile = html.match(/@media \(max-width: 900px\) \{([\s\S]*?)\n  \}/)?.[1] || '';
   for (const token of ['100dvh', 'safe-area-inset-top', 'touch-action']) assert.ok(mobile.includes(token));
+});
+
+test('landing page presents the central teaching, tradition map, and river CTA', () => {
+  assert.match(html, /<h1>Die before you die\.<\/h1>/);
+  for (const term of ['FANA', 'KENSHO', 'MOKSHA', 'RIGPA', 'THEOSIS', 'BITTUL', 'HENOSIS']) assert.match(html, new RegExp(term));
+  const labels = ['Islam · Sufism', 'Hinduism · Advaita Vedanta', 'Hinduism · Kashmir Shaivism', 'Buddhism', 'Buddhism · Zen / Chan', 'Dzogchen · Tibetan Buddhism &amp; Bön', 'Taoism', 'Christian mysticism', 'Jewish mysticism', 'Sikhism', 'Jainism', 'Neoplatonism · Plotinus'];
+  const cards = [...html.matchAll(/<article class="trad-card">([\s\S]*?)<\/article>/g)].map((m) => m[1]);
+  assert.equal(cards.length, 12);
+  assert.deepEqual(cards.map((card) => card.match(/<span>(.*?)<\/span>/)?.[1]), labels);
+  assert.match(html, /Shared patterns of realization, expressed through different understandings of self, reality, and the divine\./);
+  assert.match(html, /<a class="cta" id="cta-begin" href="#s1">Step into the river<\/a>/);
+  assert.match(html, /<h2>Are you ready to step into the river\?<\/h2>/);
 });
 
 test('frozen source inputs retain their recorded sha256 bytes', () => {
