@@ -281,6 +281,10 @@
   figure.ill { margin: 30px 0 34px; display: flex; flex-direction: column; gap: 10px; }
   figure.ill svg { width: 100%; max-width: 540px; height: auto; display: block; color: var(--ink); }
   figure.ill.wide svg { max-width: 760px; }
+  figure.ill.photo img { width: 100%; max-width: min(100%, 540px); min-width: 0; height: auto; display: block; border-radius: 10px; background: #EDF1F2; box-shadow: var(--shadow); }
+  figure.ill.wide.photo img { max-width: min(100%, 760px); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) figure.ill.photo img { box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7); filter: brightness(.94) contrast(1.02); } }
+  :root[data-theme="dark"] figure.ill.photo img { box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7); filter: brightness(.94) contrast(1.02); }
   figure.ill figcaption { font-size: 13px; color: var(--ink-3); max-width: 60ch; line-height: 1.5; }
   figure.ill figcaption b { color: var(--ink-2); font-weight: 600; }
   .ill .t { fill: var(--teal); } .ill .g { fill: var(--gold); } .ill .soft { fill: var(--teal-soft); } .ill .skin { fill: var(--practice-bg); }
@@ -299,6 +303,7 @@
   /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
     .frame { grid-template-columns: 1fr; }
+    figure.ill.photo img, figure.ill.wide.photo img { max-width: 100%; border-radius: 10px; }
     html.rail-open { overflow: hidden; }
     .rail { position: fixed; inset: 0 auto 0 0; width: min(320px, 86vw); height: 100vh; height: 100dvh; transform: translateX(-100%); transition: transform .25s ease; z-index: 30; box-shadow: none; overflow-y: auto; overscroll-behavior: contain; padding-left: calc(20px + env(safe-area-inset-left)); padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
     .rail.open { transform: none; box-shadow: var(--shadow); }
