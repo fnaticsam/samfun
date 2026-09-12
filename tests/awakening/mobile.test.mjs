@@ -13,6 +13,7 @@ const awakening = join(root, 'awakening');
 const html = readFileSync(join(awakening, 'index.html'), 'utf8');
 const headSource = readFileSync(join(awakening, 'parts', '00-head.html'), 'utf8');
 const shellSource = readFileSync(join(awakening, 'parts', '10-shell-open.html'), 'utf8');
+const closeSource = readFileSync(join(awakening, 'parts', '90-shell-close.html'), 'utf8');
 const figureIds = `home-01 home-02 s1-01 s1-02 s1-03 s2-01 s2-02 s2-03 s2-04
 s2-05 s3-01 s3-02 s3-03 s4-01 s4-02 s4-03 s4-04 s4-05
 s4-06 s5-01 s5-02 s5-03 s5-04 s2-06 s6-01 s6-02 s6-03
@@ -41,12 +42,12 @@ function webpDimensions(file) {
   }
 }
 const frozen = {
-  'parts/00-head.html': '36da7a33e341e9eb70efcbcdaba4ea266eaf961bca93ed3b408ed9a3a78c208a',
-  'parts/20-home.html': '1523113df217fb3d659fec8b95dea392616f41164dd564ab58ac906fcd34d3cf',
+  'parts/00-head.html': 'bc395579687f3f9a0a77984fd9cb6cffd905c5a3bacadcd167888b6019b43796',
+  'parts/20-home.html': '95ebc43d297efad6ebb519f06b51e39df43c058f4a2d9759601bb7ae0ceb18f2',
   'parts/31-s1.html': '941812775626d23ccb544490eae1716ff4729dc6edaf98d4d05866594592f7ae',
   'parts/32-s2.html': 'c003e930c04fdd03569d625b2a433c57b3da6df32a28f9953fb63eb7a5208df2',
-  'parts/10-shell-open.html': '5dda67f542700d1ab5f25d4ee0c4cf0a56aff0b41d2aaa55b6f53e6b1b467521',
-  'parts/90-shell-close.html': '27648f7cca9173eefd0e558023f8eeb2493fc87807b048714ea9819994d7c8d4',
+  'parts/10-shell-open.html': '1219ce7bf8af953aad35e58b322fb2b4e2d6ed7bfed1daeeffe4eac7addfedf2',
+  'parts/90-shell-close.html': '6eb54da198cacee29dbed9d5355bece9ced026058bd45bee1f65507b071897e1',
   'parts/33-s3.html': '5bd893647871d10634f24de5a9a379414cfd2e55ead142d3535448b1b7138ae5',
   'parts/34-s4.html': 'ee3c8adc89d2437061203e107625f33e9b105f3b1d3db7f8a7a9f3f74a5b7c2c',
   'parts/35-s5.html': '37e23d916c95075e5b0361de31361e4931e71d03ed4d5cde7bafeea75fc5ea4f',
@@ -81,21 +82,42 @@ test('document metadata and generated structure are mobile-safe', () => {
   assert.match(head, /<meta name="viewport" content="[^"]*width=device-width[^"]*viewport-fit=cover[^"]*">/);
   assert.match(head, /<meta name="robots" content="noindex, nofollow">/);
   assert.equal((head.match(/<meta name="theme-color"/g) || []).length, 2);
+  assert.match(head, /<meta name="theme-color" media="\(prefers-color-scheme: light\)" content="#F8F1F2">/);
+  assert.match(head, /<meta name="theme-color" media="\(prefers-color-scheme: dark\)" content="#211C1F">/);
   assert.match(head, /<meta name="description" content="[^"]+">/);
   assert.match(html, /<\/body><\/html>\s*$/);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length);
   assert.equal((html.match(/<figure class="ill/g) || []).length, 50);
-  const urls = [...html.matchAll(/(?:href|src)="(https?:\/\/[^" ]+)/g)].map((match) => match[1]);
-  assert.ok(urls.every((url) => url.startsWith('https://fonts.googleapis.com') || url.startsWith('https://fonts.gstatic.com')));
+  const canonical = '<link rel="canonical" href="https://knomi.club/">';
+  assert.equal(html.split(canonical).length - 1, 1);
+  const urls = [...html.replace(canonical, '').matchAll(/(?:href|src)="(https?:\/\/[^" ]+)/g)].map((match) => match[1]);
+  const companions = ['https://sam.toys/tantra', 'https://taotime.me'];
+  assert.ok(urls.every((url) => ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'].includes(new URL(url).origin) || companions.includes(url)));
+  for (const url of companions) {
+    const links = [...html.matchAll(/<a\b[^>]*>/g)].map(([tag]) => tag).filter((tag) => tag.includes(`href="${url}"`));
+    assert.equal(links.length, 2, `${url}: home and rail`);
+    for (const link of links) {
+      assert.match(link, /target="_blank"/);
+      assert.match(link, /rel="noopener"/);
+    }
+  }
   const mobile = html.match(/@media \(max-width: 900px\) \{([\s\S]*?)\n  \}/)?.[1] || '';
   for (const token of ['100dvh', 'safe-area-inset-top', 'touch-action']) assert.ok(mobile.includes(token));
+});
+
+test('KNOMI identity and accent contrast are preserved', () => {
+  assert.match(headSource, /<title>KNOMI<\/title>/);
+  assert.match(closeSource, /id === 'home' \? 'KNOMI' : \(titleFor\(id\) \+ ' · KNOMI'\)/);
+  assert.match(shellSource, /<span class="wordmark-text">KNOMI<\/span>/);
+  assert.match(shellSource, /<span class="wordmark">KNOMI<\/span><span class="tag">Know who you are<\/span>/);
+  assert.doesNotMatch(headSource, /background:\s*var\(--teal\)[^}]*color:\s*var\(--surface\)/);
 });
 
 test('logo metadata, marks, and rendered icon dimensions are present', () => {
   assert.match(headSource, /<link rel="apple-touch-icon" href="\/awakening\/img\/icon-180\.png">/);
   assert.match(headSource, /<link rel="icon" type="image\/png" sizes="32x32" href="\/awakening\/img\/favicon-32\.png">/);
-  assert.match(headSource, /<meta property="og:image" content="https:\/\/sam\.toys\/awakening\/img\/social-1200x630\.png">/);
+  assert.match(headSource, /<meta property="og:image" content="https:\/\/knomi\.club\/awakening\/img\/social-1200x630\.png">/);
   assert.match(headSource, /<link rel="icon" href="data:image\/svg\+xml,/);
   assert.equal((shellSource.match(/<a class="brand"[\s\S]*?<\/a>/)?.[0].match(/<svg class="mark"/g) || []).length, 1);
   assert.equal((shellSource.match(/<div class="topbar">[\s\S]*?<\/div>/)?.[0].match(/<svg class="mark"/g) || []).length, 1);
@@ -222,6 +244,12 @@ test('drawer navigation transfers focus and dismissals restore Menu focus', () =
   }
   const s = setup();
   assert.equal(s.document.activeElement, null, 'initial route leaves focus alone');
+  for (const url of ['https://sam.toys/tantra', 'https://taotime.me']) {
+    s.link.setAttribute('href', url);
+    s.rail.events.click({ target: s.link, preventDefault() { assert.fail('companion navigation must not be prevented'); } });
+    assert.equal(s.document.activeElement, null, 'companion links do not route or transfer focus');
+    assert.equal(s.location.hash, '#home');
+  }
   s.menu.events.click();
   assert.equal(s.document.activeElement, s.link);
   s.link.setAttribute('href', '#s1');

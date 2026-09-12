@@ -1,4 +1,4 @@
-# The Architecture of Awakening — source
+# KNOMI — source
 
 The published site is a single self-contained HTML file, `index.html`. It is **built** from the
 pieces in this folder, so edit the pieces, not `index.html`.
@@ -32,6 +32,10 @@ pieces in this folder, so edit the pieces, not `index.html`.
 
 Prints how many figures were inserted and flags unbalanced tags or duplicate SVG ids.
 Writes `index.html` (and a copy of the injected parts into `build/`).
+
+## Palette (Powder)
+
+`--ground`, `--surface`, `--surface-2`, `--ink`, `--ink-2`, `--ink-3`, `--line`, `--line-2`, `--teal`, `--teal-soft`, `--teal-ink`, `--rose`, `--rose-soft`, `--gold`, `--gold-soft`, `--practice-bg`, `--practice-line`, `--cta-bg`, `--cta-text`, `--chip-text`.
 
 ## Mobile rules
 
