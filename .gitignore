@@ -10,3 +10,7 @@ api/_lib/dev-stats.json
 # secrets: never commit any env file (public repo; issue #2)
 .env
 .env.*
+
+# awakening build outputs
+awakening/build/
+__pycache__/

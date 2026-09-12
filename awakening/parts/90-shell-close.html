@@ -1,0 +1,108 @@
+  </main>
+</div>
+<script>
+(function () {
+  var STAGES = ['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10'];
+  var VIEWS = ['home'].concat(STAGES, ['field','glossary','traditions','analogies','blueprint']);
+  var KEY = 'architecture-of-awakening.done';
+
+  function loadDone() {
+    try { var v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+  }
+  function saveDone(list) {
+    try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  var done = loadDone();
+
+  function renderProgress() {
+    var n = STAGES.filter(function (s) { return done.indexOf(s) !== -1; }).length;
+    var t = document.getElementById('progress-text');
+    var b = document.getElementById('progress-bar');
+    if (t) t.textContent = n + ' of ' + STAGES.length + ' stages complete';
+    if (b) b.style.width = Math.round(100 * n / STAGES.length) + '%';
+    document.querySelectorAll('#path-nav a').forEach(function (a) {
+      a.classList.toggle('done', done.indexOf(a.getAttribute('data-stage')) !== -1);
+    });
+    document.querySelectorAll('.done-btn').forEach(function (btn) {
+      var id = btn.getAttribute('data-done');
+      var isDone = done.indexOf(id) !== -1;
+      btn.classList.toggle('is-done', isDone);
+      var num = id.replace('s', '');
+      btn.textContent = isDone ? 'Stage ' + num + ' complete ✓' : 'Mark stage ' + num + ' complete';
+    });
+  }
+
+  function currentView() {
+    var h = (location.hash || '#home').replace(/^#\/?/, '');
+    return VIEWS.indexOf(h) !== -1 ? h : 'home';
+  }
+
+  function route() {
+    var id = currentView();
+    var focusFromRail = rail && (rail.classList.contains('open') || rail.contains(document.activeElement));
+    document.querySelectorAll('.view').forEach(function (v) {
+      v.classList.toggle('active', v.id === 'v-' + id);
+    });
+    document.querySelectorAll('#path-nav a, #ref-nav a').forEach(function (a) {
+      a.classList.toggle('current', a.getAttribute('href') === '#' + id);
+    });
+    var main = document.getElementById('main');
+    if (main) main.scrollTop = 0;
+    closeRail(false);
+    try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
+    if (focusFromRail) {
+      var heading = document.querySelector('#v-' + id + ' h1');
+      if (heading) {
+        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }
+    document.title = id === 'home' ? 'The Architecture of Awakening' : (titleFor(id) + ' · The Architecture of Awakening');
+  }
+
+  function titleFor(id) {
+    var el = document.querySelector('#v-' + id + ' h1');
+    return el ? el.textContent.trim() : '';
+  }
+
+  var rail = document.getElementById('rail');
+  var scrim = document.getElementById('scrim');
+  var menuBtn = document.getElementById('menu-btn');
+  function openRail() {
+    if (!rail || !scrim || !menuBtn) return;
+    rail.classList.add('open'); scrim.classList.add('show'); document.documentElement.classList.add('rail-open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    var firstLink = rail.querySelector('a[href]'); if (firstLink) firstLink.focus();
+  }
+  function closeRail(restoreFocus) {
+    if (!rail || !scrim) return;
+    var wasOpen = rail.classList.contains('open');
+    rail.classList.remove('open'); scrim.classList.remove('show'); document.documentElement.classList.remove('rail-open');
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+    if (wasOpen && restoreFocus !== false && menuBtn) menuBtn.focus();
+  }
+  if (menuBtn && rail) menuBtn.addEventListener('click', function () { rail.classList.contains('open') ? closeRail() : openRail(); });
+  if (scrim) scrim.addEventListener('click', closeRail);
+  if (rail) rail.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href]');
+    // Changed hashes close through route(); the current hash emits no hashchange.
+    if (link && link.getAttribute('href') === location.hash) route();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeRail(); });
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.done-btn');
+    if (!btn) return;
+    var id = btn.getAttribute('data-done');
+    var i = done.indexOf(id);
+    if (i === -1) done.push(id); else done.splice(i, 1);
+    saveDone(done);
+    renderProgress();
+  });
+
+  window.addEventListener('hashchange', route);
+  renderProgress();
+  route();
+})();
+</script>
+</body></html>

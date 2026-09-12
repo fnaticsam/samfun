@@ -5,3 +5,10 @@ README.md
 .env
 .env.*
 tests/
+
+# awakening: build inputs are not part of the served site
+awakening/parts/
+awakening/build/
+awakening/*.py
+awakening/styles.html
+awakening/__pycache__/
