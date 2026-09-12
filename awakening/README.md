@@ -33,6 +33,12 @@ pieces in this folder, so edit the pieces, not `index.html`.
 Prints how many figures were inserted and flags unbalanced tags or duplicate SVG ids.
 Writes `index.html` (and a copy of the injected parts into `build/`).
 
+## Mobile rules
+
+At 900px the navigation becomes a safe-area-aware drawer; at 600px the pager stacks; at 480px display type steps down. Interactive targets are at least 44px tall, including the drawer and stage controls.
+
+Respect safe-area insets. Regenerate `index.html` with `python3 build.py`, never edit it by hand; run `node --test tests/awakening/*.test.mjs`.
+
 ## Adding or changing an illustration
 
 In `ills_a.py` / `ills_b.py`:

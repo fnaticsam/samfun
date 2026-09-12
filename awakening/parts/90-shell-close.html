@@ -39,6 +39,7 @@
 
   function route() {
     var id = currentView();
+    var focusFromRail = rail && (rail.classList.contains('open') || rail.contains(document.activeElement));
     document.querySelectorAll('.view').forEach(function (v) {
       v.classList.toggle('active', v.id === 'v-' + id);
     });
@@ -47,9 +48,16 @@
     });
     var main = document.getElementById('main');
     if (main) main.scrollTop = 0;
-    window.scrollTo(0, 0);
+    closeRail(false);
+    try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
+    if (focusFromRail) {
+      var heading = document.querySelector('#v-' + id + ' h1');
+      if (heading) {
+        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }
     document.title = id === 'home' ? 'The Architecture of Awakening' : (titleFor(id) + ' · The Architecture of Awakening');
-    closeRail();
   }
 
   function titleFor(id) {
@@ -60,10 +68,27 @@
   var rail = document.getElementById('rail');
   var scrim = document.getElementById('scrim');
   var menuBtn = document.getElementById('menu-btn');
-  function openRail() { rail.classList.add('open'); scrim.classList.add('show'); menuBtn.setAttribute('aria-expanded', 'true'); }
-  function closeRail() { rail.classList.remove('open'); scrim.classList.remove('show'); if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); }
-  if (menuBtn) menuBtn.addEventListener('click', function () { rail.classList.contains('open') ? closeRail() : openRail(); });
+  function openRail() {
+    if (!rail || !scrim || !menuBtn) return;
+    rail.classList.add('open'); scrim.classList.add('show'); document.documentElement.classList.add('rail-open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    var firstLink = rail.querySelector('a[href]'); if (firstLink) firstLink.focus();
+  }
+  function closeRail(restoreFocus) {
+    if (!rail || !scrim) return;
+    var wasOpen = rail.classList.contains('open');
+    rail.classList.remove('open'); scrim.classList.remove('show'); document.documentElement.classList.remove('rail-open');
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+    if (wasOpen && restoreFocus !== false && menuBtn) menuBtn.focus();
+  }
+  if (menuBtn && rail) menuBtn.addEventListener('click', function () { rail.classList.contains('open') ? closeRail() : openRail(); });
   if (scrim) scrim.addEventListener('click', closeRail);
+  if (rail) rail.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href]');
+    // Changed hashes close through route(); the current hash emits no hashchange.
+    if (link && link.getAttribute('href') === location.hash) route();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeRail(); });
 
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('.done-btn');
@@ -80,3 +105,4 @@
   route();
 })();
 </script>
+</body></html>

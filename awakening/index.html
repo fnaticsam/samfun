@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A path in ten stages and the reference behind it: how the mistaken identity of the separate self is built, how it is undone, and how Buddhism, the Vedas, the Tao, the Sufis and the Christian mystics point at the same thing.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDF1F2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0D151B">
+<meta name="apple-mobile-web-app-title" content="Awakening">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='24' fill='%23A8841F'/%3E%3C/svg%3E">
 <title>The Architecture of Awakening</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
@@ -66,7 +77,7 @@
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
   body {
     margin: 0;
@@ -80,6 +91,7 @@
   a { color: var(--teal); text-decoration-thickness: 1px; text-underline-offset: 2px; }
   a:hover { color: var(--teal-ink); }
   :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+  h1:focus { outline: none; }
   em { font-style: italic; }
   strong { font-weight: 600; }
 
@@ -269,13 +281,17 @@
   /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
     .frame { grid-template-columns: 1fr; }
-    .rail { position: fixed; inset: 0 auto 0 0; width: min(320px, 86vw); transform: translateX(-100%); transition: transform .25s ease; z-index: 30; box-shadow: none; }
+    html.rail-open { overflow: hidden; }
+    .rail { position: fixed; inset: 0 auto 0 0; width: min(320px, 86vw); height: 100vh; height: 100dvh; transform: translateX(-100%); transition: transform .25s ease; z-index: 30; box-shadow: none; overflow-y: auto; overscroll-behavior: contain; padding-left: calc(20px + env(safe-area-inset-left)); padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
     .rail.open { transform: none; box-shadow: var(--shadow); }
-    .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 20; display: none; }
+    .scrim { position: fixed; inset: 0; background: var(--ink); opacity: .28; z-index: 20; display: none; }
     .scrim.show { display: block; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: 0; z-index: 10; background: var(--surface); border-bottom: 1px solid var(--line); padding: 12px 16px; }
-    .topbar .wordmark { font-family: var(--display); font-size: 18px; font-weight: 500; text-decoration: none; color: var(--ink); }
-    .topbar button { font-family: var(--body); font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); cursor: pointer; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: 0; z-index: 10; min-height: calc(56px + env(safe-area-inset-top)); background: var(--surface); border-bottom: 1px solid var(--line); padding: env(safe-area-inset-top) 16px 0; }
+    .topbar .wordmark { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--display); font-size: 18px; font-weight: 500; text-decoration: none; color: var(--ink); }
+    .topbar button { min-width: 44px; min-height: 44px; font-family: var(--body); font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); cursor: pointer; }
+    .path a, .rail .ref a, .done-btn, .pager a, details.deeper summary, details.check summary, .stage-card, .topbar button { min-height: 44px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    .path a, .rail .ref a, details.deeper summary, details.check summary { align-items: center; }
+    .path a:active, .rail .ref a:active, .pager a:active, .done-btn:active, .stage-card:active, .topbar button:active { background: var(--teal-soft); color: var(--ink); }
     .page, .hero { padding-left: 18px; padding-right: 18px; padding-top: 32px; }
     .hero h1 { font-size: clamp(36px, 10vw, 52px); }
     .glossary dl { grid-template-columns: 1fr; gap: 4px; }
@@ -283,11 +299,28 @@
     .glossary dd { margin-bottom: 8px; }
     .analogy { grid-template-columns: 1fr; gap: 8px; }
     .practice { padding: 20px 18px; }
+    .tablewrap { -webkit-overflow-scrolling: touch; position: relative; padding-top: 28px; }
+    .tablewrap::before { content: "Swipe sideways to see the whole table"; position: absolute; top: 6px; left: 14px; color: var(--ink-3); font-size: 12px; }
+  }
+  @media (max-width: 600px) {
+    .pager { flex-direction: column; }
+    .pager .next { order: -3; width: 100%; min-height: 48px; align-items: flex-end; border-color: var(--teal); }
+    .pager .done-btn { order: -2; width: 100%; min-height: 48px; justify-content: center; margin: 0; }
+    .pager a:not(.next) { order: -1; width: 100%; min-height: 48px; }
+    .pager > span { display: none; }
+  }
+  @media (max-width: 480px) {
+    .lede, .hero .lede, blockquote.q { font-size: 19px; }
+    h2 { font-size: 24px; }
+    .practice h3 { font-size: 22px; }
+    .stage-card .t { font-size: 20px; }
   }
 </style>
+ </head>
+<body>
 <div class="topbar">
   <a class="wordmark" href="#home">The Architecture of Awakening</a>
-  <button type="button" id="menu-btn" aria-controls="rail" aria-expanded="false">Path &amp; reference</button>
+  <button type="button" id="menu-btn" aria-controls="rail" aria-expanded="false">Menu</button>
 </div>
 <div class="scrim" id="scrim"></div>
 <div class="frame">
@@ -2322,6 +2355,7 @@
 
   function route() {
     var id = currentView();
+    var focusFromRail = rail && (rail.classList.contains('open') || rail.contains(document.activeElement));
     document.querySelectorAll('.view').forEach(function (v) {
       v.classList.toggle('active', v.id === 'v-' + id);
     });
@@ -2330,9 +2364,16 @@
     });
     var main = document.getElementById('main');
     if (main) main.scrollTop = 0;
-    window.scrollTo(0, 0);
+    closeRail(false);
+    try { window.scrollTo({ top: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
+    if (focusFromRail) {
+      var heading = document.querySelector('#v-' + id + ' h1');
+      if (heading) {
+        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }
     document.title = id === 'home' ? 'The Architecture of Awakening' : (titleFor(id) + ' · The Architecture of Awakening');
-    closeRail();
   }
 
   function titleFor(id) {
@@ -2343,10 +2384,27 @@
   var rail = document.getElementById('rail');
   var scrim = document.getElementById('scrim');
   var menuBtn = document.getElementById('menu-btn');
-  function openRail() { rail.classList.add('open'); scrim.classList.add('show'); menuBtn.setAttribute('aria-expanded', 'true'); }
-  function closeRail() { rail.classList.remove('open'); scrim.classList.remove('show'); if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); }
-  if (menuBtn) menuBtn.addEventListener('click', function () { rail.classList.contains('open') ? closeRail() : openRail(); });
+  function openRail() {
+    if (!rail || !scrim || !menuBtn) return;
+    rail.classList.add('open'); scrim.classList.add('show'); document.documentElement.classList.add('rail-open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    var firstLink = rail.querySelector('a[href]'); if (firstLink) firstLink.focus();
+  }
+  function closeRail(restoreFocus) {
+    if (!rail || !scrim) return;
+    var wasOpen = rail.classList.contains('open');
+    rail.classList.remove('open'); scrim.classList.remove('show'); document.documentElement.classList.remove('rail-open');
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+    if (wasOpen && restoreFocus !== false && menuBtn) menuBtn.focus();
+  }
+  if (menuBtn && rail) menuBtn.addEventListener('click', function () { rail.classList.contains('open') ? closeRail() : openRail(); });
   if (scrim) scrim.addEventListener('click', closeRail);
+  if (rail) rail.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href]');
+    // Changed hashes close through route(); the current hash emits no hashchange.
+    if (link && link.getAttribute('href') === location.hash) route();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeRail(); });
 
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('.done-btn');
@@ -2363,3 +2421,4 @@
   route();
 })();
 </script>
+</body></html>
