@@ -35,6 +35,11 @@
       "permanent": true
     },
     {
+      "source": "/awakening/",
+      "destination": "https://knomi.club/",
+      "permanent": true
+    },
+    {
       "source": "/awakening/img/:path*",
       "destination": "https://knomi.club/img/:path*",
       "permanent": true
