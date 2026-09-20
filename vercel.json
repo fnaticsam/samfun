@@ -1,5 +1,9 @@
 {
   "functions": {
+    "api/playa.js": {
+      "maxDuration": 30,
+      "includeFiles": "api/_lib/playa.html"
+    },
     "api/transcribe.js": {
       "maxDuration": 60
     },
@@ -71,6 +75,18 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/playa",
+      "destination": "/api/playa"
+    },
+    {
+      "source": "/playa/",
+      "destination": "/api/playa"
+    },
+    {
+      "source": "/playa/:path*",
+      "destination": "/api/playa"
+    },
     {
       "source": "/londonplan",
       "destination": "/api/londonplan"
