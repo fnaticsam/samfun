@@ -30,3 +30,4 @@ The canonical backlog is **GitHub issue [#2 — Security remediation backlog](ht
 
 ## Branches
 Keep it to `main`. Stale/abandoned branches are deleted, not merged — and a samfun branch can never touch taotime.me regardless.
+@docs/PROJECT.md
