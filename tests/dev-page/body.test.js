@@ -1,5 +1,5 @@
 // Structural test for the page body (api/_lib/dev.html): the contract the rest
-// of /dev depends on — 27 sections with stable ids, one <h3> each, the section
+// of /dev depends on — 34 sections with stable ids, one <h3> each, the section
 // nav, the diagrams, and no resource the page would have to fetch to render.
 // Usage: node body.test.js      (REPO_DIR overrides the repo location)
 const fs = require("fs");
@@ -8,8 +8,12 @@ const crypto = require("crypto");
 
 const REPO = process.env.REPO_DIR || path.resolve(__dirname, "..", "..");
 const FILE = path.join(REPO, "api", "_lib", "dev.html");
-const EXPECTED_SECTIONS = 27;
+const EXPECTED_SECTIONS = 34;
+// Parts 1 and 2 (the first 27 sections) are pinned byte for byte; Part 3 (added
+// 2026-10-03) is pinned by its ids and order instead.
+const ORIGINAL_SECTIONS = 27;
 const EXPECTED_SECTIONS_SHA256 = "7a59bbc93f058e5395996a5da954f03e68106790ed9b41e4cff2c6c85b857e9a";
+const PART3_IDS = ["kit-overview", "kit-lanes", "kit-skills", "kit-fleet", "kit-habits", "kit-path", "kit-prompt"];
 const PREVIOUS_SVG_COUNT = 9;
 
 let html;
@@ -29,9 +33,16 @@ check(`exactly ${EXPECTED_SECTIONS} sections`, openTags.length === EXPECTED_SECT
 check("every <section> is closed", (html.match(/<\/section>/gi) || []).length === openTags.length);
 const fullSectionRe = /<section\b[^>]*>[\s\S]*?<\/section>/gi;
 const fullSections = html.match(fullSectionRe) || [];
-const sectionsDigest = crypto.createHash("sha256").update(fullSections.join("")).digest("hex");
-check("all section blocks match the original bytes and order",
+const sectionsDigest = crypto.createHash("sha256")
+  .update(fullSections.slice(0, ORIGINAL_SECTIONS).join("")).digest("hex");
+check("the first 27 section blocks match the original bytes and order",
   fullSections.length === EXPECTED_SECTIONS && sectionsDigest === EXPECTED_SECTIONS_SHA256);
+const part3 = (html.match(/<div class="part" id="part-3">([\s\S]*?)\n<\/div>\n\n<footer class="page">/) || [])[1] || "";
+const part3Ids = (part3.match(/<section\b[^>]*>/gi) || []).map((t) => (t.match(/\bid="([^"]+)"/) || [])[1]);
+check("Part 3 holds the last 7 sections in order, just before the footer",
+  part3Ids.join(" ") === PART3_IDS.join(" ") &&
+  fullSections.slice(ORIGINAL_SECTIONS).map((b) => (b.match(/\bid="([^"]+)"/) || [])[1]).join(" ") === PART3_IDS.join(" "));
+check("the hero links to Part 3", /<p class="hero-copy">[^<]*<a href="#part-3">/.test(html));
 
 const sections = [];
 const secRe = /<section\b([^>]*)>([\s\S]*?)<\/section>/gi;

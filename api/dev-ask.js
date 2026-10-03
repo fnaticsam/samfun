@@ -20,7 +20,7 @@ const MAX_BODY_BYTES = 4096;
 const Q_MIN = 3;
 const Q_MAX = 500;
 const MAX_GUIDE_CHARS = 70_000;
-const EXPECTED_SECTIONS = 27;
+const EXPECTED_SECTIONS = 34;
 const MIN_SECTIONS = 10;
 const MAX_CITED = 6;
 
